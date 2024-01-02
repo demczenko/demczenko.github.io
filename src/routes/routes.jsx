@@ -1,6 +1,6 @@
 import App from "@/App";
 import ErrorPage from "@/ErrorPage";
-import { Projects, Templates } from "@/pages";
+import { Projects, Template, Templates } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = createBrowserRouter([
@@ -12,6 +12,10 @@ export const routes = createBrowserRouter([
       {
         path: "templates",
         element: <Templates />,
+      },
+      {
+        path: "templates/:id",
+        element: <Template />
       },
       {
         path: "projects",

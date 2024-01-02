@@ -7,4 +7,5 @@ export class TemplateController {
   getTemplates() {
     return this.#model.getTemplates();
   }
+
 }

@@ -1,15 +1,15 @@
 import React from "react";
+import { PageContainer } from ".";
+import { Heading } from "@/components";
 
 const PageLayout = ({ title, content }) => {
   return (
-    <div className="grid lg:grid-cols-[repeat(auto-fill,300px);] justify-center gap-6 mt-10">
-      <div className="flex col-span-full flex-col">
-        <h2 className="text-2xl font-semibold text-white">
-          {title}
-        </h2>
+    <PageContainer>
+      <div className="grid lg:grid-cols-[repeat(auto-fill,300px);] gap-6">
+        <Heading title={title} />
+        {content}
       </div>
-      {content}
-    </div>
+    </PageContainer>
   );
 };
 

@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PageLayout } from "..";
 import { TemplateList } from "./TemplateList";
-import { TemplateController } from "@/api/templates/Controller";
-import { TemplateModel } from "@/api/templates/Model";
-import { ApiFetch } from "@/api/apiProvider/ApiFetch";
-
-const TemplatesService = new TemplateController(
-  new TemplateModel(new ApiFetch())
-);
+import { TemplatesService } from "@/api/templates/init";
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
@@ -27,7 +21,6 @@ const Templates = () => {
 
     getTemplateList()
   }, []);
-  console.log(templates);
 
   return (
     <div className="w-full">
