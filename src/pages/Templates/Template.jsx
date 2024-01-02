@@ -17,8 +17,8 @@ const Template = ({ id, template_name, template_json }) => {
         />
       </Link>
       <div className="flex mt-4">
-        <div className="w-full font-medium text-white">{template_name}</div>
-        <div className="w-full flex justify-end">
+        <div className="w-full font-medium text-white overflow-hidden truncate">{template_name}</div>
+        <div className="w-1/2 flex justify-end">
           <Options options={[
             {
               id: 1,

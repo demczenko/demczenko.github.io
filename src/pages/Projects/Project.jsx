@@ -11,8 +11,8 @@ const Project = ({ id, project_name, template_json }) => {
         <img src="https://placehold.co/300x400" className='block w-full h-full' alt="" />
       </Link>
       <div className='flex mt-4'>
-        <div className='w-full font-medium text-white'>{project_name}</div>
-        <div className='w-full flex justify-end'>
+        <div className='w-full font-medium text-white overflow-hidden truncate'>{project_name}</div>
+        <div className='w-1/2 flex justify-end'>
           <Options options={[
           {
               id: 1,
