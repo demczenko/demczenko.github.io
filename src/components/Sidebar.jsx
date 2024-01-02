@@ -1,6 +1,7 @@
 import { Columns3, FolderOpen, Home } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Logo } from ".";
 
 const navigation = [
   {
@@ -29,6 +30,8 @@ const Sidebar = () => {
 
   return (
     <div className="w-1/6 min-w-[320px] px-2 bg-[#111111]">
+      <Logo />
+      <p className="text-white font-semibold text-xl mb-2">Navigation</p>
       <ol className="flex flex-col gap-1">
         {navigation.map((item) => (
           <NavItem isActive={pathname === item.path} key={item.id} {...item} />
