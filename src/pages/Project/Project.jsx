@@ -1,28 +1,28 @@
-import { TemplatesService } from "@/api/templates/init";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
+import { ProjectService } from "@/api/projects/init";
 
-const Template = () => {
+const Project = () => {
   const { id } = useParams();
-  const [template, setTemplate] = useState(null);
+  const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function getTemplate() {
+    async function getProject() {
       try {
         setError("");
-        const response = await TemplatesService.getTemplates();
+        const response = await ProjectService.getProjects();
         if (response.ok) {
           const data = await response.json();
-          const template = data.find((template) => template.id === id);
-          if (template) {
-            setTemplate(template);
+          const project = data.find((project) => project.id === id);
+          if (project) {
+            setProject(project);
             setLoading(false);
           } else {
-            throw new Error("Template not found.");
+            throw new Error("Project not found.");
           }
         }
       } catch (error) {
@@ -31,14 +31,14 @@ const Template = () => {
       }
     }
 
-    getTemplate();
+    getProject();
   }, []);
 
   return (
     <PageContainer>
-      <Heading title={loading ? "Loading" : error ? error : template.template_name} />
+      <Heading title={loading ? "Loading" : error ? error : project.project_name} />
     </PageContainer>
   );
 };
 
-export default Template;
+export default Project;

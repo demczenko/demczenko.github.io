@@ -1,6 +1,6 @@
 import App from "@/App";
 import ErrorPage from "@/ErrorPage";
-import { Projects, Template, Templates } from "@/pages";
+import { Project, Projects, Template, Templates } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = createBrowserRouter([
@@ -20,6 +20,10 @@ export const routes = createBrowserRouter([
       {
         path: "projects",
         element: <Projects />,
+      },
+      {
+        path: "projects/:id",
+        element: <Project />,
       },
     ],
   },
