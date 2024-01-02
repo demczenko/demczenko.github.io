@@ -1,9 +1,50 @@
-import React from 'react'
+import { Columns3, FolderOpen, Home } from "lucide-react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+const navigation = [
+  {
+    id: 1,
+    path: "/",
+    name: "Home",
+    icon: <Home className="h-4 w-4 mr-2"/>,
+  },
+  {
+    id: 2,
+    path: "/templates",
+    name: "Templates",
+    icon: <Columns3 className="h-4 w-4 mr-2" />,
+  },
+  {
+    id: 3,
+    path: "/projects",
+    name: "Projects",
+    icon: <FolderOpen className="h-4 w-4 mr-2"/>,
+  },
+];
 
 const Sidebar = () => {
-  return (
-    <div>Sidebar</div>
-  )
-}
+  const [open, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
 
-export default Sidebar
+  return (
+    <div className="w-1/6 px-2 bg-[#111111]">
+      <ol className="flex flex-col gap-1">
+        {navigation.map((item) => (
+          <NavItem isActive={pathname === item.path} key={item.id} {...item} />
+        ))}
+      </ol>
+    </div>
+  );
+};
+
+const NavItem = ({ path, name, isActive, icon }) => {
+  return (
+    <li className={`px-2 py-1 rounded-md flex items-center ${isActive ? "text-white font-semibold bg-[#252525]" : "text-neutral-400"}`}>
+      {icon}
+      <Link className="grow" to={path}>{name}</Link>
+    </li>
+  );
+};
+
+export default Sidebar;

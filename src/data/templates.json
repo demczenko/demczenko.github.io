@@ -1,0 +1,26 @@
+[
+  {
+    "template_name": "Monday",
+    "id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
+    "template_html": "<p>Monday</p>", 
+    "template_html_path": "./templates/monday.html"
+  },
+  {
+    "template_name": "Wednesday",
+    "id": "aa2a9bb1-73e7-4478-8302-3c3612ad61eb",
+    "template_html": "<p>Wednesday</p>", 
+    "template_html_path": "./templates/wednesday.html"
+  },
+  {
+    "template_name": "Thursday",
+    "id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ec",
+    "template_html": "<p>Thursday</p>", 
+    "template_html_path": "./templates/thursday.html"
+  },
+  {
+    "template_name": "Friday",
+    "id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ed",
+    "template_html": "<p>Friday</p>", 
+    "template_html_path": "./templates/friday.html"
+  }
+]

@@ -1,0 +1,247 @@
+[
+  {
+    "id": 1,
+    "table_name": "Translations",
+    "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
+    "columns": [
+      {
+        "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+        "accessorKey": "Slug",
+        "header": "Slug",
+        "type": "text"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "text",
+        "header": "Offer part 1",
+        "accessorKey": "Offer part 1"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af273",
+        "type": "text",
+        "header": "Offer part 2",
+        "accessorKey": "Offer part 2"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc1",
+        "type": "text",
+        "header": "Offer part 3",
+        "accessorKey": "Offer part 3"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc2",
+        "type": "text",
+        "header": "Get code",
+        "accessorKey": "Get code"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc3",
+        "type": "text",
+        "header": "Choose from",
+        "accessorKey": "Choose from"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc4",
+        "type": "text",
+        "header": "Intro title",
+        "accessorKey": "Intro title"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc5",
+        "type": "text",
+        "header": "Intro",
+        "accessorKey": "Intro"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc6",
+        "type": "text",
+        "header": "Title 1",
+        "accessorKey": "Title 1"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc7",
+        "type": "text",
+        "header": "Title 2",
+        "accessorKey": "Title 2"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc8",
+        "type": "text",
+        "header": "Title 3",
+        "accessorKey": "Title 3"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc9",
+        "type": "text",
+        "header": "Title 4",
+        "accessorKey": "Title 4"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc10",
+        "type": "text",
+        "header": "CTA",
+        "accessorKey": "CTA"
+      },
+      {
+        "id": "2489a38d-15e7-461f-b6bb-6de30064dfc11",
+        "type": "text",
+        "header": "Soon ending",
+        "accessorKey": "Soon ending"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "table_name": "Images",
+    "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
+    "columns": [
+      {
+        "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+        "accessorKey": "Slug",
+        "header": "Slug",
+        "type": "src"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "src",
+        "header": "Top image title",
+        "accessorKey": "Top image title"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af273",
+        "type": "src",
+        "header": "Top image",
+        "accessorKey": "Top image"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "table_name": "Images",
+    "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61eb",
+    "columns": [
+      {
+        "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+        "accessorKey": "Slug",
+        "header": "Slug",
+        "type": "src"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "src",
+        "header": "Top image title",
+        "accessorKey": "Top image title"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af273",
+        "type": "src",
+        "header": "Top image",
+        "accessorKey": "Top image"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "table_name": "Categories",
+    "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
+    "columns": [
+      {
+        "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+        "accessorKey": "Slug",
+        "header": "Slug",
+        "type": "url"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Category 1",
+        "accessorKey": "Category 1"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Category 1 src",
+        "accessorKey": "Category 1 src"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af273",
+        "type": "url",
+        "header": "Category 2",
+        "accessorKey": "Category 2"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Category 2 src",
+        "accessorKey": "Category 2 src"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af274",
+        "type": "url",
+        "header": "Category 3",
+        "accessorKey": "Category 3"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Category 3 src",
+        "accessorKey": "Category 3 src"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af275",
+        "type": "url",
+        "header": "Category 4",
+        "accessorKey": "Category 4"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Category 4 src",
+        "accessorKey": "Category 4 src"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "table_name": "Product 1",
+    "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
+    "columns": [
+      {
+        "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+        "accessorKey": "Slug",
+        "header": "Slug",
+        "type": "url"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Name",
+        "accessorKey": "Name"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Href",
+        "accessorKey": "Href"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af273",
+        "type": "url",
+        "header": "Price low",
+        "accessorKey": "Price low"
+      },
+      {
+        "id": "a886df7e-16c6-48e2-be6a-bd4171cb915a",
+        "type": "url",
+        "header": "Price high",
+        "accessorKey": "Price high"
+      },
+      {
+        "id": "20d087cd-729b-489b-9d7c-8df7804af274",
+        "type": "url",
+        "header": "Src",
+        "accessorKey": "Src"
+      }
+    ]
+  }
+]

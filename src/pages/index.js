@@ -1,7 +1,4 @@
+import PageLayout from "./PageLayout";
 import Projects from "./Projects/Projects";
 import Templates from "./Templates/Templates";
-
-export {
-  Projects,
-  Templates
-}
+export { Projects, Templates, PageLayout };

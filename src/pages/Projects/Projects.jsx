@@ -1,8 +1,11 @@
 import React from 'react'
+import { PageLayout } from '..'
 
 const Projects = () => {
   return (
-    <div>Projects</div>
+    <div className='w-full'>
+      <PageLayout title="Projects" />
+    </div>
   )
 }
 
