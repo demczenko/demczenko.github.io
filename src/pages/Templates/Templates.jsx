@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PageLayout } from "..";
 import { TemplateList } from "./TemplateList";
 import { TemplatesService } from "@/api/templates/init";
+import { DrawerModal } from "@/components/Drawer";
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
@@ -36,6 +37,7 @@ const Templates = () => {
         ]}
         content={<TemplateList templates={templates} />}
       />
+      <DrawerModal title={"Create template"} description={"Enter template name, html template and create tables."} open={isModalOpen} onOpenChange={setIsModalOpen}  />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PageLayout } from "..";
 import { ProjectService } from "@/api/projects/init";
 import { ProjectList } from "./ProjectList";
+import { DrawerModal } from "@/components/Drawer";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -36,6 +37,7 @@ const Projects = () => {
         ]}
         content={<ProjectList projects={projects} />}
       />
+      <DrawerModal title={"Create project"} description={"Enter project name and select html template."} open={isModalOpen} onOpenChange={setIsModalOpen}  />
     </div>
   );
 };
