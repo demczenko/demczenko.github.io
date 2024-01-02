@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import TemplateOptions from "./TemplateOptions";
+import { Options } from "@/components";
 
 const Template = ({ id, template_name, template_json }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div>
       <Link
@@ -17,7 +19,18 @@ const Template = ({ id, template_name, template_json }) => {
       <div className="flex mt-4">
         <div className="w-full font-medium text-white">{template_name}</div>
         <div className="w-full flex justify-end">
-          <TemplateOptions />
+          <Options options={[
+            {
+              id: 1,
+              name: "Rename",
+              onClick: () => setIsModalOpen(true)
+            },
+            {
+              id: 2,
+              name: "Archive",
+              onClick: () => alert('Under development')
+            },
+          ]} title={"Manage template"} />
         </div>
       </div>
     </div>

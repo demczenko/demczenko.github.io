@@ -5,6 +5,7 @@ import { ProjectList } from "./ProjectList";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function getProjectList() {
@@ -26,6 +27,13 @@ const Projects = () => {
     <div className="w-full">
       <PageLayout
         title="Projects"
+        actions={[
+          {
+            id: 1,
+            name: "Create Project",
+            onClick: () => setIsModalOpen(true),
+          },
+        ]}
         content={<ProjectList projects={projects} />}
       />
     </div>

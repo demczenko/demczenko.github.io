@@ -10,7 +10,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import React from "react";
 
-const TemplateOptions = () => {
+const Options = ({ title, options }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,14 +19,14 @@ const TemplateOptions = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="shadow-lg bg-[#363636] text-white border-2 border-[#363636]">
-        <DropdownMenuLabel>Manage template</DropdownMenuLabel>
+        <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator className={"bg-[#363636]"} />
-        <DropdownMenuItem>Rename</DropdownMenuItem>
-        <DropdownMenuSeparator className={"bg-[#363636]"} />
-        <DropdownMenuItem>Archive</DropdownMenuItem>
+        {
+          options.map(option => <DropdownMenuItem key={option.id} onClick={option.onClick}>{option.name}</DropdownMenuItem>)
+        }
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-export default TemplateOptions;
+export default Options;
