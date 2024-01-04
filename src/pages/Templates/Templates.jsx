@@ -3,6 +3,7 @@ import { PageLayout } from "..";
 import { TemplateList } from "./TemplateList";
 import { TemplatesService } from "@/api/templates/init";
 import { DrawerModal } from "@/components/Drawer";
+import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
@@ -37,7 +38,13 @@ const Templates = () => {
         ]}
         content={<TemplateList templates={templates} />}
       />
-      <DrawerModal title={"Create template"} description={"Enter template name, html template and create tables."} open={isModalOpen} onOpenChange={setIsModalOpen}  />
+      <DrawerModal
+        title={"Create template"}
+        description={"Enter template name, html template and create tables."}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        content={<AddTemplateDrawer onSubmitForm={() => setIsModalOpen(false)} />}
+      />
     </div>
   );
 };
