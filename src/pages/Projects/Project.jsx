@@ -15,11 +15,11 @@ const Project = ({ id, project_name, template_id, template_json }) => {
         const response = await TemplatesService.getTemplates();
         if (response.ok) {
           const data = await response.json();
-          const template = data.find(template => template.id === template_id)
+          const template = data.find((template) => template.id === template_id);
           if (template) {
             setTemplate(template);
           } else {
-            throw new Error("Template not found.")
+            throw new Error("Template not found.");
           }
         }
       } catch (error) {
@@ -43,9 +43,9 @@ const Project = ({ id, project_name, template_id, template_json }) => {
       <div className="flex mt-4">
         <div className="w-full font-medium text-white overflow-hidden truncate">
           <span className="mr-4">{project_name}</span>
-          <Badge>{template.template_name}</Badge>
         </div>
-        <div className="w-1/2 flex justify-end">
+        <div className="w-1/2 flex gap-2 justify-end items-center">
+          <Badge>{template.template_name}</Badge>
           <Options
             options={[
               {

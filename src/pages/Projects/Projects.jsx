@@ -3,6 +3,9 @@ import { PageLayout } from "..";
 import { ProjectService } from "@/api/projects/init";
 import { ProjectList } from "./ProjectList";
 import { DrawerModal } from "@/components/Drawer";
+import ProjectFormSelectTemplate from "./ProjectsModal/ProjectFormSelectTemplate";
+import { AddProjectDrawer } from "./ProjectsModal/AddProjectDrawer";
+ProjectFormSelectTemplate;
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,14 +17,14 @@ const Projects = () => {
         const response = await ProjectService.getProjects();
         if (response.ok) {
           const data = await response.json();
-          setProjects(data)
+          setProjects(data);
         }
       } catch (error) {
         console.warn(error.message);
       }
     }
 
-    getProjectList()
+    getProjectList();
   }, []);
 
   return (
@@ -37,7 +40,21 @@ const Projects = () => {
         ]}
         content={<ProjectList projects={projects} />}
       />
-      <DrawerModal title={"Create project"} description={"Enter project name and select html template."} open={isModalOpen} onOpenChange={setIsModalOpen}  />
+      <DrawerModal
+        title={"Create project"}
+        description={"Enter project name and select html template."}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        content={
+          <AddProjectDrawer
+            form={
+              <ProjectFormSelectTemplate
+                onSubmitForm={() => setIsModalOpen(false)}
+              />
+            }
+          />
+        }
+      />
     </div>
   );
 };

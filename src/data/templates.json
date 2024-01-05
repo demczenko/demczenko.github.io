@@ -3,7 +3,13 @@
     "template_name": "Monday",
     "id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
     "template_html": "<p>Monday</p>", 
-    "template_html_path": "./templates/monday.html"
+    "template_html_path": "./templates/monday.html",
+    "tags": [
+      {
+        "id": 1,
+        "name": "outdoor"
+      }
+    ]
   },
   {
     "template_name": "Wednesday",

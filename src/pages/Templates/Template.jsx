@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Options } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
+import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
+import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
 
 const Template = ({ id, template_name, template_json }) => {
-  const [isSelectModalOpen, setIsSelectModalOpen] = useState(false);
+  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
+    useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   return (
@@ -28,7 +31,7 @@ const Template = ({ id, template_name, template_json }) => {
               {
                 id: 3,
                 name: "Select",
-                onClick: () => setIsSelectModalOpen(true),
+                onClick: () => setIsCreateProjectModalOpen(true),
               },
               {
                 id: 1,
@@ -45,8 +48,28 @@ const Template = ({ id, template_name, template_json }) => {
           />
         </div>
       </div>
-      <DrawerModal title={"Create project"} description={"Enter project name, select html template and fulfill tables."} open={isSelectModalOpen} onOpenChange={setIsSelectModalOpen}  />
-      <DrawerModal title={"Rename template"} description={"Enter new template name."} open={isRenameModalOpen} onOpenChange={setRenameModalOpen}  />
+      <DrawerModal
+        title={"Create project"}
+        description={"Enter project name and fulfill tables."}
+        open={isCreateProjectModalOpen}
+        onOpenChange={setIsCreateProjectModalOpen}
+        content={
+          <AddProjectDrawer
+            form={
+              <ProjectForm
+                onSubmitForm={() => setIsCreateProjectModalOpen(false)}
+                template_id={id}
+              />
+            }
+          />
+        }
+      />
+      <DrawerModal
+        title={"Rename template"}
+        description={"Enter new template name."}
+        open={isRenameModalOpen}
+        onOpenChange={setRenameModalOpen}
+      />
     </div>
   );
 };
