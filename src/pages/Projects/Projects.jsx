@@ -42,7 +42,7 @@ const Projects = () => {
       />
       <DrawerModal
         title={"Create project"}
-        description={"Enter project name and select html template."}
+        description={"Enter project name, select html template and fulfill tables data."}
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={

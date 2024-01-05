@@ -55,6 +55,7 @@ const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
 
     onSubmitForm();
     console.log(project);
+    navigate(`/projects/bcbae663-0a0c-41fe-b57b-80e3592f3c41`);
   };
 
   useEffect(() => {
