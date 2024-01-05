@@ -39,7 +39,16 @@ const TemplateForm = ({ onSubmitForm }) => {
     },
   });
 
-  const onSubmit = (data) => {
+  const validateForm = (formData, cb) => {
+
+    if (formData.template_name.length < 4) {
+      form.setError("template_name", {
+        message: "Template name must be at least 4 characters",
+        type: "required"
+      })
+      return;
+    }
+
     if (!html) {
       form.setError("template_html", {
         message: "Html template is required.",
@@ -47,6 +56,12 @@ const TemplateForm = ({ onSubmitForm }) => {
       })
       return;
     }
+
+    cb(formData)
+  }
+
+  const onSubmit = (data) => {
+
     const template = {
       template_name: data.template_name,
       template_html: html,
@@ -59,7 +74,7 @@ const TemplateForm = ({ onSubmitForm }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit((data) => validateForm(data, onSubmit))} className="space-y-8">
         <FormField
           control={form.control}
           name="template_name"

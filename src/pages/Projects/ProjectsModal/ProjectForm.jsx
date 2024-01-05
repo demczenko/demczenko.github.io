@@ -16,25 +16,47 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
   const form = useForm({
     defaultValues: {
       project_name: "",
-      template_html: "",
+      tables_data: "",
     },
   });
+
+  const validateForm = (formData, cb) => {
+    if (formData.project_name.length < 4) {
+      form.setError("project_name", {
+        message: "Project name must be at least 4 characters",
+        type: "required",
+      });
+      return;
+    }
+
+    if (!formData.tables_data) {
+      form.setError("tables_data", {
+        message: "Tables data is required.",
+        type: "required",
+      });
+      return;
+    }
+
+    cb(formData);
+  };
 
   const onSubmit = (data) => {
     const project = {
       project_name: data.project_name,
       id: uuidv4(),
       template_id: template_id,
-      tables_data: []
+      tables_data: [],
     };
 
-    onSubmitForm()
+    onSubmitForm();
     console.log(project);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit((data) => validateForm(data, onSubmit))}
+        className="space-y-8">
         <FormField
           control={form.control}
           name="project_name"
@@ -53,16 +75,12 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
         />
         <FormField
           control={form.control}
-          name="template_html"
+          name="tables_data"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>todo</FormLabel>
-              <FormControl>
-
-              </FormControl>
-              <FormDescription>
-                description todo
-              </FormDescription>
+              <FormLabel>todo tables_data</FormLabel>
+              <FormControl></FormControl>
+              <FormDescription>description todo tables_data</FormDescription>
               <FormMessage />
             </FormItem>
           )}
