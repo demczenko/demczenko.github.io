@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const HandleEmptyColumns = () => {
@@ -47,97 +47,11 @@ const HandleColumnInput = ({ isOpenNewColumn, setIsOpenNewColumn }) => {
   );
 };
 
-const TableColumns = () => {
+const TableColumns = ({ table_id, columns, setColumns }) => {
   const [renamedColumnId, setRenamedColumnId] = useState();
   const [columnName, setColumnName] = useState("");
   const [error, setError] = useState(false);
   const [isOpenNewColumn, setIsOpenNewColumn] = useState(false);
-  const [columns, setColumns] = useState([
-    {
-      id: "67f3b825-7a4a-461b-aef9-111b807d612c",
-      accessorKey: "Slug",
-      header: "Slug",
-      type: "text",
-    },
-    {
-      id: "a886df7e-16c6-48e2-be6a-bd4171cb915a",
-      type: "text",
-      header: "Offer part 1",
-      accessorKey: "Offer part 1",
-    },
-    {
-      id: "20d087cd-729b-489b-9d7c-8df7804af273",
-      type: "text",
-      header: "Offer part 2",
-      accessorKey: "Offer part 2",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc1",
-      type: "text",
-      header: "Offer part 3",
-      accessorKey: "Offer part 3",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc2",
-      type: "text",
-      header: "Get code",
-      accessorKey: "Get code",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc3",
-      type: "text",
-      header: "Choose from",
-      accessorKey: "Choose from",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc4",
-      type: "text",
-      header: "Intro title",
-      accessorKey: "Intro title",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc5",
-      type: "text",
-      header: "Intro",
-      accessorKey: "Intro",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc6",
-      type: "text",
-      header: "Title 1",
-      accessorKey: "Title 1",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc7",
-      type: "text",
-      header: "Title 2",
-      accessorKey: "Title 2",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc8",
-      type: "text",
-      header: "Title 3",
-      accessorKey: "Title 3",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc9",
-      type: "text",
-      header: "Title 4",
-      accessorKey: "Title 4",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc10",
-      type: "text",
-      header: "CTA",
-      accessorKey: "CTA",
-    },
-    {
-      id: "2489a38d-15e7-461f-b6bb-6de30064dfc11",
-      type: "text",
-      header: "Soon ending",
-      accessorKey: "Soon ending",
-    },
-  ]);
 
   const createColumn = () => {
     const new_column = {
@@ -145,6 +59,7 @@ const TableColumns = () => {
       type: "text",
       header: columnName,
       accessorKey: columnName,
+      table_id,
     };
     setColumns((prev) => [...prev, new_column]);
   };

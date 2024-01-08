@@ -46,12 +46,12 @@ const TemplateTables = ({ templateId }) => {
   const [error, setError] = useState(false);
   const [isOpenNewTable, setIsOpenNewTable] = useState(false);
   const [tableName, setTableName] = useState("");
+  const [columns, setColumns] = useState([]);
   const [tables, setTables] = useState([
     {
       id: 1,
       table_name: "Translations",
       template_id: "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
-      columns: [],
     },
   ]);
 
@@ -82,12 +82,19 @@ const TemplateTables = ({ templateId }) => {
 
   const duplicate = (id) => {
     const duplicateTable = tables.find((table) => table.id == id);
+    const new_template_id = uuid();
     const new_table = {
       ...duplicateTable,
-      id: uuid(),
+      id: new_template_id,
       table_name: duplicateTable.table_name + " Copy",
     };
+
+    const new_columns = columns
+      .filter((column) => column.table_id === id)
+      .map((col) => ({ ...col, table_id: new_template_id }));
+
     setTables((prev) => [...prev, new_table]);
+    setColumns((prev) => [...prev, ...new_columns]);
   };
 
   const handleCreateTable = () => {
@@ -195,7 +202,19 @@ const TemplateTables = ({ templateId }) => {
                 },
               ]}
             />
-            <TableColumns />
+            <TableColumns
+              table_id={table.id}
+              columns={[
+                {
+                  id: uuid(),
+                  accessorKey: "Slug",
+                  header: "Slug",
+                  type: "text",
+                },
+                ...columns.filter((col) => col.table_id === table.id),
+              ]}
+              setColumns={setColumns}
+            />
           </TabsContent>
         ))}
       </Tabs>
