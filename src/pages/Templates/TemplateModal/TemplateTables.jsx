@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { v4 as uuid } from "uuid";
 import { Input } from "@/components/ui/input";
 import { CardDescription } from "@/components";
+import TableColumns from "./Table";
 
 const HandleEmptyTables = () => {
   return (
@@ -40,6 +41,7 @@ const HandleTableInput = ({ isOpenNewTable, setIsOpenNewTable }) => {
 };
 
 const TemplateTables = ({ templateId }) => {
+  const [tabValue, setTabValue] = useState();
   const [renamedTableId, setRenamedTableId] = useState();
   const [error, setError] = useState(false);
   const [isOpenNewTable, setIsOpenNewTable] = useState(false);
@@ -49,92 +51,7 @@ const TemplateTables = ({ templateId }) => {
       id: 1,
       table_name: "Translations",
       template_id: "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
-      columns: [
-        {
-          id: "67f3b825-7a4a-461b-aef9-111b807d612c",
-          accessorKey: "Slug",
-          header: "Slug",
-          type: "text",
-        },
-        {
-          id: "a886df7e-16c6-48e2-be6a-bd4171cb915a",
-          type: "text",
-          header: "Offer part 1",
-          accessorKey: "Offer part 1",
-        },
-        {
-          id: "20d087cd-729b-489b-9d7c-8df7804af273",
-          type: "text",
-          header: "Offer part 2",
-          accessorKey: "Offer part 2",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc1",
-          type: "text",
-          header: "Offer part 3",
-          accessorKey: "Offer part 3",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc2",
-          type: "text",
-          header: "Get code",
-          accessorKey: "Get code",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc3",
-          type: "text",
-          header: "Choose from",
-          accessorKey: "Choose from",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc4",
-          type: "text",
-          header: "Intro title",
-          accessorKey: "Intro title",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc5",
-          type: "text",
-          header: "Intro",
-          accessorKey: "Intro",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc6",
-          type: "text",
-          header: "Title 1",
-          accessorKey: "Title 1",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc7",
-          type: "text",
-          header: "Title 2",
-          accessorKey: "Title 2",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc8",
-          type: "text",
-          header: "Title 3",
-          accessorKey: "Title 3",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc9",
-          type: "text",
-          header: "Title 4",
-          accessorKey: "Title 4",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc10",
-          type: "text",
-          header: "CTA",
-          accessorKey: "CTA",
-        },
-        {
-          id: "2489a38d-15e7-461f-b6bb-6de30064dfc11",
-          type: "text",
-          header: "Soon ending",
-          accessorKey: "Soon ending",
-        },
-      ],
+      columns: [],
     },
   ]);
 
@@ -151,19 +68,27 @@ const TemplateTables = ({ templateId }) => {
   const renameTable = () => {
     setTables((prev) => {
       return prev.map((table) => {
-        if (table.id == renamedTableId) {
+        if (table.id === renamedTableId) {
           return {
             ...table,
             table_name: tableName,
           };
         }
-        return prev;
+        return table;
       });
     });
     setRenamedTableId();
   };
 
-  const duplicate = () => {}
+  const duplicate = (id) => {
+    const duplicateTable = tables.find((table) => table.id == id);
+    const new_table = {
+      ...duplicateTable,
+      id: uuid(),
+      table_name: duplicateTable.table_name + " Copy",
+    };
+    setTables((prev) => [...prev, new_table]);
+  };
 
   const handleCreateTable = () => {
     if (tableName.length < 4) {
@@ -184,7 +109,11 @@ const TemplateTables = ({ templateId }) => {
   };
 
   const handleDelete = (id) => {
-    setTables((prev) => prev.filter((table) => table.id !== id));
+    setTables((prev) => {
+      const filteredTables = prev.filter((table) => table.id !== id);
+      setTabValue(filteredTables[filteredTables.length - 1].id);
+      return filteredTables;
+    });
   };
 
   const handleRename = (table) => {
@@ -193,17 +122,31 @@ const TemplateTables = ({ templateId }) => {
     setRenamedTableId(table.id);
   };
 
+  const handleClick = (e, table) => {
+    switch (e.detail) {
+      case 1:
+        setTabValue(table.id);
+        break;
+      case 2:
+        handleRename(table);
+        break;
+    }
+  };
+
   if (!tables) {
     return <HandleEmptyTables />;
   }
 
   return (
     <div className="mt-4 space-y-4">
-      <Tabs defaultValue={tables[0]?.id}>
+      <Tabs value={tabValue} defaultValue={tables[0]?.id}>
         <div className="flex justify-between gap-2">
           <TabsList className="gap-1 max-w-[500px] h-fit overflow-hidden overflow-x-auto justify-start">
             {tables.map((table) => (
-              <TabsTrigger key={table.id} value={table.id}>
+              <TabsTrigger
+                onClick={(ev) => handleClick(ev, table)}
+                key={table.id}
+                value={table.id}>
                 {table.table_name}
               </TabsTrigger>
             ))}
@@ -248,14 +191,15 @@ const TemplateTables = ({ templateId }) => {
                 {
                   id: 2,
                   name: "Duplicate",
-                  onClick: () => alert("Under development"),
+                  onClick: () => duplicate(table.id),
                 },
               ]}
             />
+            <TableColumns />
           </TabsContent>
         ))}
       </Tabs>
-      <Button onClick={onTablesSave}>Save</Button>
+      <Button onClick={onTablesSave}>Save table</Button>
     </div>
   );
 };
