@@ -14,6 +14,7 @@ const HeadingActions = ({ actions }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          size="sm"
           variant="ghost"
           className="hover:bg-[#888888] text-white transition-colors">
           <PlusCircle className="h-4 w-4" />

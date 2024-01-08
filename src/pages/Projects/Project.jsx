@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
-import { Options } from "@/components";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { CardDescription } from "@/components";
 import { Badge } from "@/components/ui/badge";
 import { TemplatesService } from "@/api/templates/init";
 
@@ -29,6 +29,26 @@ const Project = ({ id, project_name, template_id, template_json }) => {
     getTemplateList();
   }, []);
 
+  const options = useMemo(() => {
+    return [
+      {
+        id: 3,
+        name: "Open",
+        onClick: () => navigate("/projects/" + id),
+      },
+      {
+        id: 1,
+        name: "Rename",
+        onClick: () => setIsModalOpen(true),
+      },
+      {
+        id: 2,
+        name: "Archive",
+        onClick: () => alert("Under development"),
+      },
+    ];
+  }, []);
+
   return (
     <div>
       <Link
@@ -40,34 +60,12 @@ const Project = ({ id, project_name, template_id, template_json }) => {
           alt=""
         />
       </Link>
-      <div className="flex mt-4">
-        <div className="w-full font-medium text-white overflow-hidden truncate">
-          <span className="mr-4">{project_name}</span>
-        </div>
-        <div className="w-1/2 flex gap-2 justify-end items-center">
-          <Badge>{template.template_name}</Badge>
-          <Options
-            options={[
-              {
-                id: 3,
-                name: "Open",
-                onClick: () => navigate("/projects/" + id),
-              },
-              {
-                id: 1,
-                name: "Rename",
-                onClick: () => setIsModalOpen(true),
-              },
-              {
-                id: 2,
-                name: "Archive",
-                onClick: () => alert("Under development"),
-              },
-            ]}
-            title={"Manage project"}
-          />
-        </div>
-      </div>
+      <CardDescription
+        name={project_name}
+        options={options}
+        title={"Manage project"}
+      />
+      <Badge>{template.template_name}</Badge>
     </div>
   );
 };

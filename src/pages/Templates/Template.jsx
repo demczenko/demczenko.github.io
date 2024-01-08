@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Options } from "@/components";
+import { CardDescription } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
@@ -9,6 +9,26 @@ const Template = ({ id, template_name, template_json }) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
+
+  const options = useMemo(() => {
+    return [
+      {
+        id: 3,
+        name: "Select",
+        onClick: () => setIsCreateProjectModalOpen(true),
+      },
+      {
+        id: 1,
+        name: "Rename",
+        onClick: () => setRenameModalOpen(true),
+      },
+      {
+        id: 2,
+        name: "Archive",
+        onClick: () => alert("Under development"),
+      },
+    ];
+  }, []);
 
   return (
     <div>
@@ -21,33 +41,11 @@ const Template = ({ id, template_name, template_json }) => {
           alt=""
         />
       </Link>
-      <div className="flex mt-4">
-        <div className="w-full font-medium text-white overflow-hidden truncate">
-          {template_name}
-        </div>
-        <div className="w-1/2 flex justify-end">
-          <Options
-            options={[
-              {
-                id: 3,
-                name: "Select",
-                onClick: () => setIsCreateProjectModalOpen(true),
-              },
-              {
-                id: 1,
-                name: "Rename",
-                onClick: () => setRenameModalOpen(true),
-              },
-              {
-                id: 2,
-                name: "Archive",
-                onClick: () => alert("Under development"),
-              },
-            ]}
-            title={"Manage template"}
-          />
-        </div>
-      </div>
+      <CardDescription
+        name={template_name}
+        options={options}
+        title={"Manage template"}
+      />
       <DrawerModal
         title={"Create project"}
         description={"Enter project name and fulfill tables."}

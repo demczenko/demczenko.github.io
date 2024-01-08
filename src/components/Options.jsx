@@ -7,14 +7,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { MoreHorizontal } from "lucide-react";
 import React from "react";
 
-const Options = ({ title, options }) => {
+const Options = ({ title, options, style }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="hover:bg-[#888888] text-white h-8 w-8 transition-colors" size="icon">
+        <Button variant="ghost" className={cn("hover:bg-[#888888] text-white h-8 w-8 transition-colors", style)} size="icon">
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>

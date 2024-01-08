@@ -14,9 +14,8 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
-const TemplateForm = ({ onSubmitForm }) => {
+const TemplateForm = ({ onSubmitForm, templateId }) => {
   const navigate = useNavigate();
   const [fileName, setFileName] = useState("");
   const [html, setHtml] = useState("");
@@ -71,7 +70,7 @@ const TemplateForm = ({ onSubmitForm }) => {
     const template = {
       template_name: data.template_name,
       template_html: html,
-      id: uuidv4(),
+      id: templateId,
     };
 
     onSubmitForm();
