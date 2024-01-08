@@ -15,9 +15,7 @@ const HandleEmptyTables = () => {
 };
 
 const HandleInputError = () => {
-
-
-  return alert("Table name must be at least 4 characters")
+  return alert("Table name must be at least 4 characters");
   // return (
   //   <p className="text-red-400 font-semibold text-sm absolute top-8 left-0">
   //     Min 4 characters
@@ -42,6 +40,7 @@ const HandleTableInput = ({ isOpenNewTable, setIsOpenNewTable }) => {
 };
 
 const TemplateTables = ({ templateId }) => {
+  const [renamedTableId, setRenamedTableId] = useState();
   const [error, setError] = useState(false);
   const [isOpenNewTable, setIsOpenNewTable] = useState(false);
   const [tableName, setTableName] = useState("");
@@ -146,18 +145,38 @@ const TemplateTables = ({ templateId }) => {
       template_id: templateId,
       columns: [],
     };
-
     setTables((prev) => [...prev, new_table]);
   };
+
+  const renameTable = () => {
+    setTables((prev) => {
+      return prev.map((table) => {
+        if (table.id == renamedTableId) {
+          return {
+            ...table,
+            table_name: tableName,
+          };
+        }
+        return prev;
+      });
+    });
+    setRenamedTableId();
+  };
+
+  const duplicate = () => {}
 
   const handleCreateTable = () => {
     if (tableName.length < 4) {
       setError(true);
       return;
     }
-    setIsOpenNewTable(false);
+    if (renamedTableId) {
+      renameTable();
+    } else {
+      createTable();
+    }
     setTableName("");
-    createTable();
+    setIsOpenNewTable(false);
   };
 
   const onTablesSave = () => {
@@ -168,9 +187,10 @@ const TemplateTables = ({ templateId }) => {
     setTables((prev) => prev.filter((table) => table.id !== id));
   };
 
-  const handleRename = (name) => {
+  const handleRename = (table) => {
     setIsOpenNewTable(true);
-    setTableName(name);
+    setTableName(table.table_name);
+    setRenamedTableId(table.id);
   };
 
   if (!tables) {
@@ -195,8 +215,8 @@ const TemplateTables = ({ templateId }) => {
                   className="h-8 w-[120px] rounded-sm"
                   value={tableName}
                   onChange={(e) => {
-                    setError(false)
-                    setTableName(e.target.value)
+                    setError(false);
+                    setTableName(e.target.value);
                   }}
                 />
                 {error && <HandleInputError />}
@@ -218,7 +238,7 @@ const TemplateTables = ({ templateId }) => {
                 {
                   id: 3,
                   name: "Rename",
-                  onClick: () => handleRename(table.table_name),
+                  onClick: () => handleRename(table),
                 },
                 {
                   id: 1,
