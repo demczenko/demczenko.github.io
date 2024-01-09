@@ -2,7 +2,7 @@ import React from "react";
 import { Options } from ".";
 import { cn } from "@/lib/utils";
 
-const CardDescription = ({ name, title, options, style }) => {
+const CardDescription = ({ icon, name, title, options, style }) => {
   return (
     <div className="flex mt-2 gap-2 items-center">
       <div

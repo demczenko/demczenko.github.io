@@ -51,3 +51,4 @@ export const AddTemplateDrawer = ({ onSubmitForm }) => {
     </div>
   );
 };
+
