@@ -31,14 +31,14 @@ export function SelectTemplate({ value, onSelect, templates }) {
             {value
               ? templates.find((template) => template.id === value)
                   ?.template_name
-              : "Select language"}
+              : "Select template"}
             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <Command>
-            <CommandInput placeholder="Search framework..." className="h-9" />
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandInput placeholder="Search template..." className="h-9" />
+            <CommandEmpty>No template found.</CommandEmpty>
             <CommandGroup>
               {templates.map((template) => (
                 <CommandItem
