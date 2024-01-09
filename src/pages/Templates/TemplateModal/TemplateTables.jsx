@@ -40,29 +40,28 @@ const HandleTableInput = ({ isOpenNewTable, setIsOpenNewTable }) => {
   );
 };
 
-const TemplateTables = ({ templateId }) => {
+const TemplateTables = ({
+  templateId,
+  columns,
+  tables,
+  setColumns,
+  setTables,
+}) => {
   const [tabValue, setTabValue] = useState();
   const [renamedTableId, setRenamedTableId] = useState();
   const [error, setError] = useState(false);
   const [isOpenNewTable, setIsOpenNewTable] = useState(false);
   const [tableName, setTableName] = useState("");
-  const [columns, setColumns] = useState([]);
-  const [tables, setTables] = useState([
-    {
-      id: 1,
-      table_name: "Translations",
-      template_id: "aa2a9bb1-73e7-4478-8302-3c3612ad61ea",
-    },
-  ]);
 
   const createTable = () => {
+    const new_table_id = uuid();
     const new_table = {
-      id: uuid(),
+      id: new_table_id,
       table_name: tableName,
       template_id: templateId,
-      columns: [],
     };
     setTables((prev) => [...prev, new_table]);
+    setTabValue(new_table_id);
   };
 
   const renameTable = () => {
@@ -111,14 +110,14 @@ const TemplateTables = ({ templateId }) => {
     setIsOpenNewTable(false);
   };
 
-  const onTablesSave = () => {
-    console.log(tables);
-  };
-
   const handleDelete = (id) => {
     setTables((prev) => {
       const filteredTables = prev.filter((table) => table.id !== id);
-      setTabValue(filteredTables[filteredTables.length - 1].id);
+      if (filteredTables) {
+        setTabValue(filteredTables[filteredTables.length - 1].id);
+      } else {
+        setTabValue("");
+      }
       return filteredTables;
     });
   };
@@ -146,7 +145,9 @@ const TemplateTables = ({ templateId }) => {
 
   return (
     <div className="mt-4 space-y-4">
-      <Tabs value={tabValue} defaultValue={tables[0]?.id}>
+      <Tabs
+        value={tabValue}
+        defaultValue={tables.length === 0 ? "" : tables[0]?.id}>
         <div className="flex justify-between gap-2">
           <TabsList className="gap-1 max-w-[500px] h-fit overflow-hidden overflow-x-auto justify-start">
             {tables.map((table) => (
@@ -207,6 +208,7 @@ const TemplateTables = ({ templateId }) => {
               columns={[
                 {
                   id: uuid(),
+                  table_id: table.id,
                   accessorKey: "Slug",
                   header: "Slug",
                   type: "text",
@@ -218,7 +220,6 @@ const TemplateTables = ({ templateId }) => {
           </TabsContent>
         ))}
       </Tabs>
-      <Button onClick={onTablesSave}>Save table</Button>
     </div>
   );
 };

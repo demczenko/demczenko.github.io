@@ -12,20 +12,12 @@ import { Input } from "@/components/ui/input";
 import { TrashIcon, X } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const TemplateForm = ({ onSubmitForm, templateId }) => {
+const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, setHtml, fileName, setFileName }) => {
   const navigate = useNavigate();
-  const [fileName, setFileName] = useState("");
-  const [html, setHtml] = useState("");
   const [error, setError] = useState("");
-  const form = useForm({
-    defaultValues: {
-      template_name: "",
-      template_html: "",
-    },
-  });
+
 
   const onDrop = useCallback((htmlFile) => {
     const html = htmlFile[0];
@@ -67,6 +59,10 @@ const TemplateForm = ({ onSubmitForm, templateId }) => {
   };
 
   const onSubmit = (data) => {
+    if (tables.length === 0) {
+      console.log("Please create at least one table.")
+      return;
+    }
     const template = {
       template_name: data.template_name,
       template_html: html,
@@ -76,6 +72,8 @@ const TemplateForm = ({ onSubmitForm, templateId }) => {
     onSubmitForm();
     setError("");
     console.log(template);
+    console.log(tables);
+    console.log(columns);
     // navigate(`/templates/${template.id}`)
     navigate(`/templates/aa2a9bb1-73e7-4478-8302-3c3612ad61ea`);
   };
