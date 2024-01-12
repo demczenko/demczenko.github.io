@@ -23,7 +23,7 @@ const Options = ({ title, options, style }) => {
         <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator className={"bg-[#363636]"} />
         {
-          options.map(option => <DropdownMenuItem key={option.id} onClick={option.onClick}>{option.name}</DropdownMenuItem>)
+          options.map(option => <DropdownMenuItem key={option.id} onClick={option?.onClick}>{option.name}</DropdownMenuItem>)
         }
       </DropdownMenuContent>
     </DropdownMenu>

@@ -12,8 +12,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import TablesToFulFill from "./TablesToFulFill";
-import { useEffect, useState } from "react";
-import { TabledataService } from "@/api/tables data/init";
+import { useState } from "react";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
   const [columnsData, setColumnsData] = useState([]);
@@ -55,23 +54,6 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
     console.log(columnsData);
   };
 
-  // Fetch all table data
-  // TODO
-  useEffect(() => {
-    async function getTabledataList() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          setColumnsData(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTabledataList();
-  }, []);
 
   return (
     <>

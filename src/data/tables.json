@@ -1,11 +1,11 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "table_name": "Translations",
     "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea"
   },
   {
-    "id": 2,
+    "id": "2",
     "table_name": "Images",
     "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea"
   }
