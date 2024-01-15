@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CardDescription } from "@/components";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TableService } from "@/api/tables/init";
 import { ColumnService } from "@/api/columns/init";
-import { Button } from "@/components/ui/button";
 import Papa from "papaparse";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import TemplateTable from "./TemplateTable";
 
 const TablesToFulFill = ({ columnsData, setColumnsData }) => {
   const [tables, setTables] = useState([]);
@@ -27,7 +15,6 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
     setTab(tables[0].id);
   }
 
-
   const selectedColumns = columns.filter(
     (column) => column.table_id === selectedTab
   );
@@ -35,12 +22,8 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
     (col) => col.table_id === selectedTab
   );
 
-  console.log(selectedColumnsData);
-
-  const handleNewItem = () => {
-    alert("New item selected");
-  };
   const handleImportCSV = (ev) => {
+    // TODO: refactor
     if (!ev.target.files[0]) return;
     Papa.parse(ev.target.files[0], {
       header: true,
@@ -56,9 +39,11 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
         for (const key in firstObject) {
           if (header.includes(key)) {
             count += 1;
-            console.log(count, header.length);
             if (count == header.length) {
-              setColumnsData(data.map(item => ({ ...item, table_id: selectedTab})));
+              // TODO: handle slug with the same name pl and pl
+              setColumnsData(
+                data.map((item) => ({ ...item, table_id: selectedTab }))
+              );
             }
           } else {
             setError(
@@ -67,28 +52,8 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
             );
           }
         }
-        // setColumnsData(data)
       },
     });
-  };
-
-  const createRows = () => {
-    return selectedColumnsData?.map((colData, i) => {
-      return <TableRow key={i}>{...createColumns(colData, i)}</TableRow>;
-    });
-  };
-
-  const createColumns = (colData, i) => {
-    const columns = [];
-    for (const objKey in colData) {
-      const value = colData[objKey];
-      columns.push(
-        <TableCell key={value + i} className={"h-10 text-nowrap"}>
-          {value}
-        </TableCell>
-      );
-    }
-    return columns;
   };
 
   // Fetch all tables
@@ -117,7 +82,6 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
         const response = await ColumnService.getColumns();
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setColumns(data);
         }
       } catch (error) {
@@ -127,7 +91,7 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
 
     getColumnList();
   }, []);
-
+  
   return (
     <Tabs
       value={selectedTab}
@@ -143,43 +107,18 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
         ))}
       </TabsList>
       {tables.map((table) => (
-        <TabsContent key={table.id} value={table.id}>
-          <CardDescription
-            style="text-black"
-            options={[
-              {
-                id: 1,
-                name: "New Item",
-                onClick: () => handleNewItem(),
-              },
-              {
-                id: 2,
-                name: <Label htmlFor="csv_file">Import CSV</Label>,
-              },
-            ]}
-            name={table.table_name}
-            title={"Manage table data"}
-          />
-          <Table>
-            <TableCaption></TableCaption>
-            <TableHeader>
-              <TableRow>
-                {selectedColumns?.map((column) => (
-                  <TableHead key={column.id}>{column.header}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>{createRows()}</TableBody>
-          </Table>
-        </TabsContent>
+        <TemplateTable
+          removeRowItem={(slug) =>
+            setColumnsData((prev) => prev.filter((item) => item.Slug !== slug))
+          }
+          error={error}
+          handleImportCSV={handleImportCSV}
+          key={table.id}
+          selectedColumns={selectedColumns}
+          selectedColumnsData={selectedColumnsData}
+          table={table}
+        />
       ))}
-      <Input
-        id="csv_file"
-        className="hidden"
-        type="file"
-        onChange={handleImportCSV}
-      />
-      {error && <p className="text-sm text-red-300">{error}</p>}
     </Tabs>
   );
 };
