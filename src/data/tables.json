@@ -8,5 +8,10 @@
     "id": "2",
     "table_name": "Images",
     "template_id": "aa2a9bb1-73e7-4478-8302-3c3612ad61ea"
+  },
+  {
+    "id": "de5004f5-c706-4736-ab5e-7a7e685d51b1",
+    "table_name": "Translations",
+    "template_id": "b473e042-3dff-4b0b-9138-3e039a188a3d"
   }
 ]

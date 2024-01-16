@@ -62,6 +62,15 @@ const TemplateTables = ({
     };
     setTables((prev) => [...prev, new_table]);
     setTabValue(new_table_id);
+    setColumns([
+      {
+        id: uuid(),
+        table_id: new_table_id,
+        accessorKey: "Slug",
+        header: "Slug",
+        type: "text",
+      },
+    ]);
   };
 
   const renameTable = () => {
@@ -205,16 +214,7 @@ const TemplateTables = ({
             />
             <TableColumns
               table_id={table.id}
-              columns={[
-                {
-                  id: uuid(),
-                  table_id: table.id,
-                  accessorKey: "Slug",
-                  header: "Slug",
-                  type: "text",
-                },
-                ...columns.filter((col) => col.table_id === table.id),
-              ]}
+              columns={columns}
               setColumns={setColumns}
             />
           </TabsContent>

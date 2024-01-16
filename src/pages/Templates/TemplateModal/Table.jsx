@@ -3,15 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Table,
-  TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const HandleEmptyColumns = () => {
@@ -52,7 +50,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
   const [columnName, setColumnName] = useState("");
   const [error, setError] = useState(false);
   const [isOpenNewColumn, setIsOpenNewColumn] = useState(false);
-
+  
   const createColumn = () => {
     const new_column = {
       id: uuid(),

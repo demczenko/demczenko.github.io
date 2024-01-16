@@ -5,7 +5,7 @@ import { ColumnService } from "@/api/columns/init";
 import Papa from "papaparse";
 import TemplateTable from "./TemplateTable";
 
-const TablesToFulFill = ({ columnsData, setColumnsData }) => {
+const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
   const [tables, setTables] = useState([]);
   const [selectedTab, setTab] = useState();
   const [columns, setColumns] = useState([]);
@@ -22,7 +22,7 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
     (col) => col.table_id === selectedTab
   );
 
-  const handleImportCSV = (ev) => {
+  const handleImportCSV = (ev, table_id) => {
     // TODO: refactor
     if (!ev.target.files[0]) return;
     Papa.parse(ev.target.files[0], {
@@ -42,13 +42,12 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
             if (count == header.length) {
               // TODO: handle slug with the same name pl and pl
               setColumnsData(
-                data.map((item) => ({ ...item, table_id: selectedTab }))
+                data.map((item) => ({ ...item, table_id: table_id }))
               );
             }
           } else {
             setError(
-              "CSV File include key that is not allowed for this table. Key: " +
-                key
+              "File include key that is not allowed for this table. Key: " + key
             );
           }
         }
@@ -64,7 +63,8 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
         const response = await TableService.getTables();
         if (response.ok) {
           const data = await response.json();
-          setTables(data);
+          const filterdTables = data.filter(table => table.template_id === template_id)
+          setTables(filterdTables);
         }
       } catch (error) {
         console.warn(error.message);
@@ -91,7 +91,7 @@ const TablesToFulFill = ({ columnsData, setColumnsData }) => {
 
     getColumnList();
   }, []);
-  
+  console.log(columns);
   return (
     <Tabs
       value={selectedTab}

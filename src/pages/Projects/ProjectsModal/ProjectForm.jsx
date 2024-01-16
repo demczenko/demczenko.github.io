@@ -13,8 +13,10 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import TablesToFulFill from "./TablesToFulFill";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
+  const navigate = useNavigate()
   const [columnsData, setColumnsData] = useState([]);
   const form = useForm({
     defaultValues: {
@@ -43,15 +45,18 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
   };
 
   const onSubmit = (data) => {
+    let project_id = uuidv4()
     const project = {
       project_name: data.project_name,
-      id: uuidv4(),
+      id: project_id,
       template_id: template_id,
     };
 
     onSubmitForm();
     console.log(project);
-    console.log(columnsData);
+    console.log(columnsData.map(column => ({...column, project_id: project_id})));
+
+    navigate("/projects/" + project_id)
   };
 
 
@@ -78,6 +83,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
             )}
           />
           <TablesToFulFill
+          template_id={template_id}
             columnsData={columnsData}
             setColumnsData={setColumnsData}
           />

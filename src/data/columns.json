@@ -25,7 +25,7 @@
     "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
     "accessorKey": "Slug",
     "header": "Slug",
-    "type": "src"
+    "type": "text"
   },
   {
     "table_id": "2",
@@ -40,5 +40,26 @@
     "type": "src",
     "header": "Top image",
     "accessorKey": "Top image"
+  },
+  {
+    "table_id": "de5004f5-c706-4736-ab5e-7a7e685d51b1",
+    "id": "67f3b825-7a4a-461b-aef9-111b807d612c",
+    "accessorKey": "Slug",
+    "header": "Slug",
+    "type": "text"
+  },
+  {
+    "id": "71e4931f-8236-48e7-978c-c8a89c03e574",
+    "type": "text",
+    "header": "Offer part 1",
+    "accessorKey": "Offer part 1",
+    "table_id": "de5004f5-c706-4736-ab5e-7a7e685d51b1"
+  },
+  {
+    "id": "ae5a45d6-9a96-4747-a0c5-49b27ca0d8c9",
+    "type": "text",
+    "header": "Offer part 2",
+    "accessorKey": "Offer part 2",
+    "table_id": "de5004f5-c706-4736-ab5e-7a7e685d51b1"
   }
 ]

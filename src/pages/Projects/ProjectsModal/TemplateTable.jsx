@@ -131,7 +131,7 @@ const TemplateTable = ({
         id="csv_file"
         className="hidden"
         type="file"
-        onChange={handleImportCSV}
+        onChange={(ev) => handleImportCSV(ev, table.id)}
       />
       {error && <p className="text-sm text-red-300">{error}</p>}
     </>

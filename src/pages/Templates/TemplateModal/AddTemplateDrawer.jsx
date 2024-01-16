@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export const AddTemplateDrawer = ({ onSubmitForm }) => {
-  const templateId = uuidv4();
+  const [templateId, setTemplateId] = useState(() => uuidv4());
   const [fileName, setFileName] = useState("");
   const [html, setHtml] = useState("");
   const form = useForm({
@@ -18,6 +18,8 @@ export const AddTemplateDrawer = ({ onSubmitForm }) => {
   const [columns, setColumns] = useState([]);
   const [tables, setTables] = useState([]);
 
+
+  console.log(columns)
   return (
     <div className="mt-4">
       <Tabs defaultValue="Campaign">
@@ -51,4 +53,3 @@ export const AddTemplateDrawer = ({ onSubmitForm }) => {
     </div>
   );
 };
-
