@@ -14,6 +14,8 @@ import { v4 as uuidv4 } from "uuid";
 import TablesToFulFill from "./TablesToFulFill";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ProjectService } from "@/api/projects/init";
+import { TabledataService } from "@/api/tables data/init";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
   const navigate = useNavigate()
@@ -52,10 +54,10 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       template_id: template_id,
     };
 
+    ProjectService.setProject(project)
+    columnsData.forEach(column => TabledataService.setTabledata({...column, project_id: project_id}))
+    
     onSubmitForm();
-    console.log(project);
-    console.log(columnsData.map(column => ({...column, project_id: project_id})));
-
     navigate("/projects/" + project_id)
   };
 

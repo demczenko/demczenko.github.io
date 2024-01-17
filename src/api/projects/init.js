@@ -3,5 +3,5 @@ import { ProjectController } from "./Controller";
 import { ProjectModel } from "./Model";
 
 export const ProjectService = new ProjectController(
-  new ProjectModel(API)
+  new ProjectModel(API, "projects")
 );

@@ -91,7 +91,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
 
     getColumnList();
   }, []);
-  console.log(columns);
+  
   return (
     <Tabs
       value={selectedTab}

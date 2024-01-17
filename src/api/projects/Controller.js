@@ -8,4 +8,8 @@ export class ProjectController {
     return this.#model.getProjects();
   }
 
+  setProject(data) {
+    return this.#model.setProject(data);
+  }
+
 }
