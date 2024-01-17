@@ -8,4 +8,8 @@ export class TableController {
     return this.#model.getTables();
   }
 
+  setTables(data) {
+    return this.#model.setTables(data);
+  }
+
 }

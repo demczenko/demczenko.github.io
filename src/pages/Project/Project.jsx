@@ -92,6 +92,8 @@ const Project = () => {
     }
   }, [project]);
 
+  // Fetch all templates
+  // TODO
   useEffect(() => {
     async function getTemplateList() {
       try {

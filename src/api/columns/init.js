@@ -1,7 +1,7 @@
-import { ApiFetch } from "../apiProvider/ApiFetch";
+import { API } from "../apiProvider/init";
 import { ColumnController } from "./Controller";
 import { ColumnModel } from "./Model";
 
 export const ColumnService = new ColumnController(
-  new ColumnModel(new ApiFetch())
+  new ColumnModel(API)
 );

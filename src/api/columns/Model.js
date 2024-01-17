@@ -5,7 +5,10 @@ export class ColumnModel {
   }
 
   getColumns() {
-    return this.#api.get("http://localhost:5173/src/data/columns.json")
+    return this.#api.get("columns")
   }
 
+  setColumns(data) {
+    return this.#api.set("columns", data);
+  }
 }

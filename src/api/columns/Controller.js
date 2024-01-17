@@ -8,4 +8,7 @@ export class ColumnController {
     return this.#model.getColumns();
   }
 
+  setColumns(data) {
+    return this.#model.setColumns(data);
+  }
 }

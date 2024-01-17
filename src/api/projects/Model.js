@@ -5,7 +5,7 @@ export class ProjectModel {
   }
 
   getProjects() {
-    return this.#api.get("http://localhost:5173/src/data/projects.json")
+    return this.#api.get("projects")
   }
 
 }

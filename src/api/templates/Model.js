@@ -5,7 +5,10 @@ export class TemplateModel {
   }
 
   getTemplates() {
-    return this.#api.get("http://localhost:5173/src/data/templates.json")
+    return this.#api.get("templates")
   }
 
+  setTemplates(data) {
+    return this.#api.set("templates", data);
+  }
 }

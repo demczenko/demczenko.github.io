@@ -5,7 +5,7 @@ export class TabledataModel {
   }
 
   getTabledata() {
-    return this.#api.get("http://localhost:5173/src/data/tables_data.json")
+    return this.#api.get("data_tables")
   }
 
 }

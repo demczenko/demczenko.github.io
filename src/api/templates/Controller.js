@@ -8,4 +8,7 @@ export class TemplateController {
     return this.#model.getTemplates();
   }
 
+  setTemplates(data) {
+    return this.#model.setTemplates(data);
+  }
 }

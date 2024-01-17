@@ -1,7 +1,7 @@
-import { ApiFetch } from "../apiProvider/ApiFetch";
+import { API } from "../apiProvider/init";
 import { TableController } from "./Controller";
 import { TablesModel } from "./Model";
 
 export const TableService = new TableController(
-  new TablesModel(new ApiFetch())
+  new TablesModel(API)
 );

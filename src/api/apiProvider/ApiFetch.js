@@ -1,5 +1,9 @@
 export class ApiFetch {
-  get(url) {
-    return fetch(url);
+  #baseUrl
+  constructor(baseUrl) {
+    this.#baseUrl = baseUrl
+  }
+  get(path) {
+    return fetch(this.#baseUrl + path + ".json");
   }
 }

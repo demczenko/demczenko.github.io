@@ -5,7 +5,10 @@ export class TablesModel {
   }
 
   getTables() {
-    return this.#api.get("http://localhost:5173/src/data/tables.json")
+    return this.#api.get("tables")
   }
 
+  setTables(data) {
+    return this.#api.set("tables", data);
+  }
 }

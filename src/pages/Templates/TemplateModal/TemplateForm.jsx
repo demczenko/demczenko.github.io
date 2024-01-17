@@ -1,3 +1,6 @@
+import { ColumnService } from "@/api/columns/init";
+import { TableService } from "@/api/tables/init";
+import { TemplatesService } from "@/api/templates/init";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -71,11 +74,10 @@ const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, s
 
     onSubmitForm();
     setError("");
-    console.log(template);
-    console.log(tables);
-    console.log(columns);
-    // navigate(`/templates/${template.id}`)
-    navigate(`/templates/aa2a9bb1-73e7-4478-8302-3c3612ad61ea`);
+    TemplatesService.setTemplates(template);
+    tables.forEach(table => TableService.setTables(table))
+    columns.forEach(column => ColumnService.setColumns(column))
+    navigate(`/templates/${template.id}`)
   };
 
   return (
