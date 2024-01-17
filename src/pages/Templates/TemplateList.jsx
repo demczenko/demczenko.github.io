@@ -4,11 +4,7 @@ import { PageContainer } from "..";
 
 export const TemplateList = ({ templates }) => {
   if (!templates.length) {
-    return (
-      <PageContainer>
-        <Heading title={"Templates not found."} />
-      </PageContainer>
-    );
+    return <Heading title={"Templates not found."} />;
   }
 
   return (

@@ -79,7 +79,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
   };
 
   const handleCreateColumn = () => {
-    if (columnName.length < 4) {
+    if (columnName.length < 3) {
       setError(true);
       return;
     }
@@ -102,6 +102,12 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
     setRenamedColumnId(column.id);
   };
 
+  const selectedColumns = columns.filter(
+    (column) => column.table_id === table_id
+  );
+
+  console.log(columns);
+
   if (!columns) {
     return <HandleEmptyColumns />;
   }
@@ -112,7 +118,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
         <TableCaption></TableCaption>
         <TableHeader>
           <TableRow className="flex items-center">
-            {columns.map((column) => (
+            {selectedColumns.map((column) => (
               <TableHead
                 key={column.id}
                 className="w-[140px] flex justify-start items-center">

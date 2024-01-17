@@ -62,7 +62,8 @@ const TemplateTables = ({
     };
     setTables((prev) => [...prev, new_table]);
     setTabValue(new_table_id);
-    setColumns([
+    setColumns((prev) => [
+      ...prev,
       {
         id: uuid(),
         table_id: new_table_id,
@@ -97,12 +98,13 @@ const TemplateTables = ({
       table_name: duplicateTable.table_name + " Copy",
     };
 
-    const new_columns = columns
-      .filter((column) => column.table_id === id)
-      .map((col) => ({ ...col, table_id: new_template_id }));
+    // Get columns for selected id
+    const new_columns = columns.filter((column) => column.table_id === id)
+    // Change columns id
+    const change_columns_id = new_columns.map((col) => ({ ...col, id: uuid(), table_id: new_template_id }));
 
     setTables((prev) => [...prev, new_table]);
-    setColumns((prev) => [...prev, ...new_columns]);
+    setColumns((prev) => [...prev, ...change_columns_id]);
   };
 
   const handleCreateTable = () => {
@@ -158,7 +160,7 @@ const TemplateTables = ({
         value={tabValue}
         defaultValue={tables.length === 0 ? "" : tables[0]?.id}>
         <div className="flex justify-between gap-2">
-          <TabsList className="gap-1 max-w-[500px] h-fit overflow-hidden overflow-x-auto justify-start">
+          <TabsList className="gap-1 max-w-[800px] h-fit overflow-hidden overflow-x-auto justify-start">
             {tables.map((table) => (
               <TabsTrigger
                 onClick={(ev) => handleClick(ev, table)}
