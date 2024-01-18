@@ -63,7 +63,9 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
         const response = await TableService.getTables();
         if (response.ok) {
           const data = await response.json();
-          const filterdTables = data.filter(table => table.template_id === template_id)
+          const filterdTables = data.filter(
+            (table) => table.template_id === template_id
+          );
           setTables(filterdTables);
         }
       } catch (error) {
@@ -91,14 +93,15 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
 
     getColumnList();
   }, []);
-  
+
   return (
     <Tabs
       value={selectedTab}
       defaultValue={tables.length === 0 ? "" : tables[0]?.id}>
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="w-full">
         {tables?.map((table) => (
           <TabsTrigger
+            className="w-full"
             onClick={() => setTab(table.id)}
             key={table.id}
             value={table.id}>
