@@ -1,6 +1,5 @@
 import { Heading } from "@/components";
 import Template from "./Template";
-import { PageContainer } from "..";
 
 export const TemplateList = ({ templates }) => {
   if (!templates.length) {
@@ -10,7 +9,7 @@ export const TemplateList = ({ templates }) => {
   return (
     <>
       {templates.map((template) => (
-        <Template key={template.id} {...template} />
+        <Template key={template.id} template={template} />
       ))}
     </>
   );

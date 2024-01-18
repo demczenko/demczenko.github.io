@@ -15,7 +15,10 @@ const Templates = () => {
         const response = await TemplatesService.getTemplates();
         if (response.ok) {
           const data = await response.json();
-          setTemplates(data);
+          const filtered = data.filter(
+            (table) => table.isArchived !== true
+          );
+          setTemplates(filtered);
         }
       } catch (error) {
         console.warn(error.message);
