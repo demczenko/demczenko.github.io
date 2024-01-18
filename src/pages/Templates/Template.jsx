@@ -4,6 +4,7 @@ import { CardDescription } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
+import RenameTemplate from "./TemplateModal/RenameTemplate";
 
 const Template = ({ id, template_name, template_json }) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
@@ -67,6 +68,7 @@ const Template = ({ id, template_name, template_json }) => {
         description={"Enter new template name."}
         open={isRenameModalOpen}
         onOpenChange={setRenameModalOpen}
+        content={<RenameTemplate template_id={id} />}
       />
     </div>
   );

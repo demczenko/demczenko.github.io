@@ -106,8 +106,6 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
     (column) => column.table_id === table_id
   );
 
-  console.log(columns);
-
   if (!columns) {
     return <HandleEmptyColumns />;
   }

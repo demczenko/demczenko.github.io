@@ -18,8 +18,6 @@ export const AddTemplateDrawer = ({ onSubmitForm }) => {
   const [columns, setColumns] = useState([]);
   const [tables, setTables] = useState([]);
 
-
-  console.log(columns)
   return (
     <div className="mt-4">
       <Tabs defaultValue="Campaign">

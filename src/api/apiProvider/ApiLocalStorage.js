@@ -6,8 +6,37 @@ export class ApiLocalStorage {
   }
 
   set(key, data) {
-    const prev = this.#parse(() => localStorage.getItem(key) || "[]");
+    let prev = this.#parse(() => localStorage.getItem(key) || "[]");
+
+    prev = prev.map(item => {
+      if (item.id === data.id) {
+        return {
+          ...item,
+          ...data
+        }
+      }
+
+      return item
+    })
+
     localStorage.setItem(key, this.#stringify(() => [...prev, data]));
+  }
+
+  update(key, data) {
+    let prev = this.#parse(() => localStorage.getItem(key) || "[]");
+
+    prev = prev.map(item => {
+      if (item.id === data.id) {
+        return {
+          ...item,
+          ...data
+        }
+      }
+
+      return item
+    })
+
+    localStorage.setItem(key, this.#stringify(() => prev));
   }
 
   #parse(data) {
