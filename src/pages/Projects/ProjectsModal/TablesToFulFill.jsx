@@ -22,7 +22,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
     (col) => col.table_id === selectedTab
   );
 
-  const handleImportCSV = (ev, table_id) => {
+  const handleImportCSV = (ev) => {
     // TODO: refactor
     if (!ev.target.files[0]) return;
     Papa.parse(ev.target.files[0], {
@@ -41,9 +41,10 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
             count += 1;
             if (count == header.length) {
               // TODO: handle slug with the same name pl and pl
-              setColumnsData(
-                data.map((item) => ({ ...item, table_id: table_id }))
-              );
+              setColumnsData((prev) => [
+                ...prev,
+                ...data.map((item) => ({ ...item, table_id: selectedTab })),
+              ]);
             }
           } else {
             setError(
@@ -102,7 +103,10 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
         {tables?.map((table) => (
           <TabsTrigger
             className="w-full"
-            onClick={() => setTab(table.id)}
+            onClick={() => {
+              console.log(table);
+              setTab(table.id)
+            }}
             key={table.id}
             value={table.id}>
             {table.table_name}

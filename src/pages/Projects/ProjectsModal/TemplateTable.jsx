@@ -55,16 +55,16 @@ const TemplateTable = ({
     // call sheet modal for selected item
     // do we really need edit item when importing?
     console.log("Under construction.");
-  }
+  };
 
   const handleRemoveRow = ({ Slug }) => {
     // remove selected item from columns data table
     removeRowItem(Slug);
-  }
+  };
 
   const handleDuplicateRow = ({ Slug }) => {
     console.log("Under construction.");
-  }
+  };
 
   const createColumns = (colData, i) => {
     const columns = [];
@@ -72,26 +72,27 @@ const TemplateTable = ({
       const value = colData[objKey];
       if (objKey === "table_id") continue;
       columns.push(
-        <TableCell key={value + i} className={"h-10 text-nowrap"}>
+        <TableCell key={value + i} className={"p-2 text-nowrap truncate max-w-64"}>
           <ContextMenuRow
             actions={[
               {
                 id: 1,
                 name: "Edit",
-                onClick: () => handleEditRow(colData)
+                onClick: () => handleEditRow(colData),
               },
               {
                 id: 2,
                 name: "Remove",
-                onClick: () => handleRemoveRow(colData)
+                onClick: () => handleRemoveRow(colData),
               },
               {
                 id: 3,
                 name: "Duplicate",
-                onClick: () => handleDuplicateRow(colData)
+                onClick: () => handleDuplicateRow(colData),
               },
-            ]}
-          >{value}</ContextMenuRow>
+            ]}>
+            {value}
+          </ContextMenuRow>
         </TableCell>
       );
     }
@@ -131,9 +132,8 @@ const TemplateTable = ({
         id="csv_file"
         className="hidden"
         type="file"
-        onChange={(ev) => handleImportCSV(ev, table.id)}
+        onChange={(ev) => handleImportCSV(ev)}
       />
-      {error && <p className="text-sm text-red-300">{error}</p>}
     </>
   );
 };

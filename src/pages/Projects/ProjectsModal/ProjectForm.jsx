@@ -46,6 +46,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
     cb(formData);
   };
 
+  console.log(columnsData);
   const onSubmit = (data) => {
     let project_id = uuidv4()
     const project = {

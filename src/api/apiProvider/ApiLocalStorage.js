@@ -7,18 +7,6 @@ export class ApiLocalStorage {
 
   set(key, data) {
     let prev = this.#parse(() => localStorage.getItem(key) || "[]");
-
-    prev = prev.map(item => {
-      if (item.id === data.id) {
-        return {
-          ...item,
-          ...data
-        }
-      }
-
-      return item
-    })
-
     localStorage.setItem(key, this.#stringify(() => [...prev, data]));
   }
 
