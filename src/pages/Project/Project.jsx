@@ -57,7 +57,6 @@ const Project = () => {
           const project_tables = data.filter(
             (table) => table.project_id === project.id
           );
-          console.log(project_tables);
           setSlugs(project_tables.map((item) => item.Slug));
           setTablesData(project_tables);
         }

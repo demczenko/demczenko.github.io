@@ -38,6 +38,12 @@ const navigation = [
       },
     ],
   },
+  {
+    id: 4,
+    path: "/components",
+    name: "Components",
+    icon: <Columns3 className="h-4 w-4 mr-2" />,
+  },
 ];
 
 const Sidebar = () => {

@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const HandleEmptyColumns = () => {
@@ -46,6 +46,7 @@ const HandleColumnInput = ({ isOpenNewColumn, setIsOpenNewColumn }) => {
 };
 
 const TableColumns = ({ table_id, columns, setColumns }) => {
+  const ref = useRef()
   const [renamedColumnId, setRenamedColumnId] = useState();
   const [columnName, setColumnName] = useState("");
   const [error, setError] = useState(false);
@@ -105,15 +106,23 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
     setIsOpenNewColumn(true);
     setColumnName(column.header);
     setRenamedColumnId(column.id);
+    ref.current.focus()
   };
 
   const selectedColumns = columns.filter(
     (column) => column.table_id === table_id
   );
 
+  useEffect(() => {
+    if (!ref.current) return
+
+    ref.current.focus()
+  }, [isOpenNewColumn])
+
   if (!columns) {
     return <HandleEmptyColumns />;
   }
+  
 
   return (
     <div className="flex justify-between gap-2">
@@ -124,7 +133,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
             {selectedColumns.map((column) => (
               <TableHead
                 key={column.id}
-                className="max-w-[200px] w-full flex justify-start items-center">
+                className="w-[200px] flex justify-start items-center">
                 {column.type === "slug" ? (
                   <CardDescription
                     style="text-black"
@@ -160,6 +169,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
             {isOpenNewColumn && (
               <TableHead className="w-[200px] flex items-center">
                 <Input
+                  ref={ref}
                   onBlur={handleCreateColumn}
                   onKeyDown={(ev) => ev.keyCode === 13 && handleCreateColumn()}
                   className="h-8 w-full rounded-sm"

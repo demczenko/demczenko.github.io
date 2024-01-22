@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,7 @@ const TemplateTables = ({
   setColumns,
   setTables,
 }) => {
+  const ref = useRef();
   const [tabValue, setTabValue] = useState();
   const [renamedTableId, setRenamedTableId] = useState();
   const [error, setError] = useState(false);
@@ -59,7 +60,7 @@ const TemplateTables = ({
       id: new_table_id,
       table_name: tableName,
       template_id: templateId,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
     setTables((prev) => [...prev, new_table]);
     setTabValue(new_table_id);
@@ -71,7 +72,7 @@ const TemplateTables = ({
         accessorKey: "Slug",
         header: "Slug",
         type: "slug",
-        createdAt: Date.now()
+        createdAt: Date.now(),
       },
     ]);
   };
@@ -147,6 +148,7 @@ const TemplateTables = ({
     setIsOpenNewTable(true);
     setTableName(table.table_name);
     setRenamedTableId(table.id);
+    ref.current.focus();
   };
 
   const handleClick = (e, table) => {
@@ -159,6 +161,11 @@ const TemplateTables = ({
         break;
     }
   };
+  useEffect(() => {
+    if (!ref.current) return;
+
+    ref.current.focus();
+  }, [isOpenNewTable]);
 
   if (!tables) {
     return <HandleEmptyTables />;
@@ -182,6 +189,7 @@ const TemplateTables = ({
             {isOpenNewTable && (
               <>
                 <Input
+                  ref={ref}
                   onBlur={handleCreateTable}
                   onKeyDown={(ev) => ev.keyCode === 13 && handleCreateTable()}
                   className="h-8 w-[120px] rounded-sm"

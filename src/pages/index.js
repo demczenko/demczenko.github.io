@@ -7,8 +7,11 @@ import Project from "./Project/Project";
 import ProjectsArchive from "./ProjectsArchive/ProjectsArchive";
 import TemplatesArchive from "./TemplatesArchive/TemplatesArchive";
 import Table from "./Table/Table";
-
+import Components from "./Components/Components";
+import Component from "./Component/Component";
 export {
+  Component,
+  Components,
   Table,
   Projects,
   Templates,

@@ -18,7 +18,7 @@ const Template = ({ template }) => {
       ...template,
       isArchived: template.isArchived ? false : true,
     });
-    navigator("/templates/archive/");
+    navigator(template.isArchived ? "/templates/" : "/templates/archived");
   };
 
   const handleDelete = (id) => {

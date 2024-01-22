@@ -1,4 +1,4 @@
-export class TablesModel {
+export class ComponentsModel {
   #api
   #path
   constructor(api, path) {
@@ -6,11 +6,12 @@ export class TablesModel {
     this.#path = path
   }
 
-  getTables() {
+
+  getComponents() {
     return this.#api.get(this.#path)
   }
 
-  setTables(data) {
+  setComponents(data) {
     return this.#api.set(this.#path, data);
   }
 }

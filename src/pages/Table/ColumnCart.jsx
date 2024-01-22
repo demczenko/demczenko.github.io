@@ -33,11 +33,11 @@ const ColumnCart = ({ column }) => {
         </h3>
         {/* table body */}
         {/* table footer */}
-        <div className="mt-2 opacity-0 group-hover:opacity-100 transition-all">
-          <p className="text-xs font-semibold text-neutral-300">
+        <div className="mt-2 opacity-50 group-hover:opacity-100 group-hover:font-semibold transition-all">
+          <p className="text-xs text-neutral-300">
             created at: {day}/{month}/{year}
           </p>
-          <p className="text-xs font-semibold text-neutral-300">updated at: </p>
+          <p className="text-xs text-neutral-300">updated at: </p>
         </div>
       </section>
       <DrawerModal
