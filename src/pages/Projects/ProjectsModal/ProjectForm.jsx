@@ -18,7 +18,7 @@ import { ProjectService } from "@/api/projects/init";
 import { TabledataService } from "@/api/tables data/init";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [columnsData, setColumnsData] = useState([]);
   const form = useForm({
     defaultValues: {
@@ -47,7 +47,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
   };
 
   const onSubmit = (data) => {
-    let project_id = uuidv4()
+    let project_id = uuidv4();
     const project = {
       project_name: data.project_name,
       id: project_id,
@@ -56,13 +56,14 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       createdAt: Date.now(),
     };
 
-    ProjectService.setProject(project)
-    columnsData.forEach(column => TabledataService.setTabledata({...column, project_id: project_id}))
-    
-    onSubmitForm();
-    navigate("/projects/" + project_id)
-  };
+    ProjectService.setProject(project);
+    columnsData.forEach((column) =>
+      TabledataService.setTabledata({ ...column, project_id: project_id })
+    );
 
+    onSubmitForm();
+    navigate("/projects/" + project_id);
+  };
 
   return (
     <>
@@ -87,7 +88,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
             )}
           />
           <TablesToFulFill
-          template_id={template_id}
+            template_id={template_id}
             columnsData={columnsData}
             setColumnsData={setColumnsData}
           />

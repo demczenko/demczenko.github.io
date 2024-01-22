@@ -22,37 +22,56 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
     (col) => col.table_id === selectedTab
   );
 
+  const handle_complete = ({ data }) => {
+    // 1. Filter imported data by accepted keys in order to get only accepted columns from user CSV
+    const acceptedColumns = selectedColumns.map((column) => column.header);
+    const sorted_data_items = [];
+
+    // data_item = object from CSV table with keys that are responsible for columns (Slug: "de")
+    for (const data_item of data) {
+      // check if accepted keys includes column name that user specified
+      // and add to accepted_data_items.
+      const accepted_data_items = {};
+      for (const key in data_item) {
+        if (acceptedColumns.includes(key)) {
+          if (data_item[key].length > 0) {
+            accepted_data_items[key] = data_item[key];
+          }
+        }
+      }
+
+      // Filter out if accepted_data_items doesn't have the same length as acceptedColumns length
+      if (Object.keys(accepted_data_items).length !== acceptedColumns.length) {
+        console.error("Some key is empty for: " + accepted_data_items.Slug);
+      } else {
+        let sorted = {};
+        // 2. Sort data items according to acceptedColumns
+        for (const accepted_column_name of acceptedColumns) {
+          sorted = {
+            ...sorted,
+            [accepted_column_name]: accepted_data_items[accepted_column_name],
+            table_id: selectedTab,
+            createdAt: Date.now(),
+          };
+        }
+
+        sorted_data_items.push(sorted);
+      }
+    }
+
+    setColumnsData((prev) => [...prev, ...sorted_data_items]);
+  };
+
   const handleImportCSV = (ev) => {
     // TODO: refactor
     if (!ev.target.files[0]) return;
     Papa.parse(ev.target.files[0], {
       header: true,
       error: function (err, file, inputElem, reason) {
+        setError(err.toString());
         // executed if an error occurs while loading the file,
       },
-      complete: function ({ data }) {
-        setError("");
-        // executed after all files are complete
-        let count = 0;
-        const header = selectedColumns.map((column) => column.header);
-        const firstObject = data[0];
-        for (const key in firstObject) {
-          if (header.includes(key)) {
-            count += 1;
-            if (count == header.length) {
-              // TODO: handle slug with the same name pl and pl
-              setColumnsData((prev) => [
-                ...prev,
-                ...data.map((item) => ({ ...item, table_id: selectedTab, createdAt: Date.now() })),
-              ]);
-            }
-          } else {
-            setError(
-              "File include key that is not allowed for this table. Key: " + key
-            );
-          }
-        }
-      },
+      complete: handle_complete,
     });
   };
 
@@ -104,8 +123,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
           <TabsTrigger
             className="w-full"
             onClick={() => {
-              console.log(table);
-              setTab(table.id)
+              setTab(table.id);
             }}
             key={table.id}
             value={table.id}>

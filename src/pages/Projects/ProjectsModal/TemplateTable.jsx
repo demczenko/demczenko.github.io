@@ -70,9 +70,9 @@ const TemplateTable = ({
     const columns = [];
     for (const objKey in colData) {
       const value = colData[objKey];
-      if (objKey === "table_id") continue;
+      if (objKey === "table_id" || objKey === "createdAt" || objKey === "updatedAt" || objKey === "project_id") continue;
       columns.push(
-        <TableCell key={value + i} className={"p-2 text-nowrap truncate max-w-64"}>
+        <TableCell key={value + i} className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
           <ContextMenuRow
             actions={[
               {
@@ -119,9 +119,9 @@ const TemplateTable = ({
         />
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="flex items-center">
               {selectedColumns?.map((column) => (
-                <TableHead key={column.id}>{column.header}</TableHead>
+                <TableHead className="w-[200px] flex justify-start items-center" key={column.id}>{column.header}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
