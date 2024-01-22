@@ -9,7 +9,7 @@ import TemplateFilter from "./TemplateFilter";
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState("isArchived");
+  const [filter, setFilter] = useState("isNotArchived");
 
   useEffect(() => {
     async function getTemplateList() {
@@ -32,16 +32,20 @@ const Templates = () => {
       return templates.filter((table) => table.isArchived === true);
     }
 
+    if (filter === "isNotArchived") {
+      return templates.filter((table) => table.isArchived !== true);
+    }
+
     if (filter === "all") {
       return templates;
     }
-  }, [filter]);
+  }, [filter, templates]);
 
   return (
     <div className="w-full">
       <PageLayout
         title="Templates"
-        filters={<TemplateFilter onSelect={(filter) => setFilter(filter)} />}
+        filters={<TemplateFilter filter={filter} onSelect={(filter) => setFilter(filter)} />}
         actions={[
           {
             id: 1,

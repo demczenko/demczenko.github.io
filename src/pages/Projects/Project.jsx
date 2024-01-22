@@ -7,13 +7,18 @@ import { ProjectService } from "@/api/projects/init";
 
 const Project = ({ id, project_name, template_id, template_json }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigator = useNavigate()
+  const navigator = useNavigate();
   const [template, setTemplate] = useState([]);
 
   const handleArchived = (id) => {
-    ProjectService.updateProject({ id, project_name, template_id, isArchived: template.isArchived ? false : true})
-    navigator("/projects/archive/")
-  }
+    ProjectService.updateProject({
+      id,
+      project_name,
+      template_id,
+      isArchived: template.isArchived ? false : true,
+    });
+    navigator("/projects/archive/");
+  };
 
   useEffect(() => {
     async function getTemplateList() {
@@ -58,13 +63,11 @@ const Project = ({ id, project_name, template_id, template_json }) => {
   return (
     <div>
       <Link
-        to={id}
+        to={`/projects/${id}`}
         className="group flex rounded-xl overflow-hidden  max-w-[320px] hover:-translate-y-2 hover:shadow-2xl shadow-xl transition-transform cursor-pointer">
-        <img
-          src="https://placehold.co/300x400"
-          className="block w-full h-full"
-          alt=""
-        />
+        <iframe
+          className="max-w-[300px] h-[400px] pointer-events-none"
+          srcDoc={template.template_html}></iframe>
       </Link>
       <CardDescription
         name={project_name}

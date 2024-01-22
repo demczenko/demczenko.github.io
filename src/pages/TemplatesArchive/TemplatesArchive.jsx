@@ -12,7 +12,7 @@ const TemplatesArchive = () => {
         const response = await TemplatesService.getTemplates();
         if (response.ok) {
           const data = await response.json();
-          const filtered = data.filter((table) => table.isArchived !== false);
+          const filtered = data.filter((table) => table.isArchived === true);
           setTemplates(filtered);
         }
       } catch (error) {

@@ -12,7 +12,7 @@ const ProjectsArchive = () => {
         const response = await ProjectService.getProjects();
         if (response.ok) {
           const data = await response.json();
-          const filtered = data.filter((project) => project.isArchived !== true);
+          const filtered = data.filter((project) => project.isArchived === true);
           setProjects(filtered);
         }
       } catch (error) {
