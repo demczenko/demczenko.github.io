@@ -6,6 +6,7 @@ import {
   Project,
   Projects,
   ProjectsArchive,
+  RenderSlug,
   Table,
   Template,
   Templates,
@@ -38,6 +39,10 @@ export const routes = createBrowserRouter([
       {
         path: "projects/:id",
         element: <Project />,
+      },
+      {
+        path: "projects/:id/:slug",
+        element: <RenderSlug />,
       },
       {
         path: "projects/archive",

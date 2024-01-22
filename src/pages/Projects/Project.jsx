@@ -4,8 +4,15 @@ import { CardDescription } from "@/components";
 import { Badge } from "@/components/ui/badge";
 import { TemplatesService } from "@/api/templates/init";
 import { ProjectService } from "@/api/projects/init";
+import { LinkIcon } from "lucide-react";
 
-const Project = ({ id, project_name, template_id, template_json }) => {
+const Project = ({
+  id,
+  project_name,
+  createdAt,
+  template_id,
+  template_json,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigator = useNavigate();
   const [template, setTemplate] = useState([]);
@@ -74,7 +81,19 @@ const Project = ({ id, project_name, template_id, template_json }) => {
         options={options}
         title={"Manage project"}
       />
-      <Badge>{template.template_name}</Badge>
+      <div className="flex justify-between">
+        <Link to={`/templates/${template.id}`}>
+          <Badge variant={"secondary"}>
+            <LinkIcon className="h-4 w-4 pr-2" />
+            {template.template_name}
+          </Badge>
+        </Link>
+        <div>
+          <p className="text-xs font-semibold text-neutral-300">
+            created at: {new Date(createdAt).toDateString()}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

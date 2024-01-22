@@ -9,7 +9,9 @@ import TemplatesArchive from "./TemplatesArchive/TemplatesArchive";
 import Table from "./Table/Table";
 import Components from "./Components/Components";
 import Component from "./Component/Component";
+import RenderSlug from "./RenderSlug/RenderSlug";
 export {
+  RenderSlug,
   Component,
   Components,
   Table,

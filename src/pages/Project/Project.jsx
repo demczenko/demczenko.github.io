@@ -15,11 +15,8 @@ const Project = () => {
   const [error, setError] = useState("");
   const [slugs, setSlugs] = useState([]);
   const [tablesData, setTablesData] = useState([]);
-  const [selectedSlug, setSelectedSlug] = useState("de");
+  const [selectedSlug, setSelectedSlug] = useState("");
   const [tables, setTables] = useState([]);
-  const [template, setTemplate] = useState({});
-  const [hydratedTemplate, setHydratedTemplate] = useState("");
-
 
   // Fetch all projects
   useEffect(() => {
@@ -93,33 +90,6 @@ const Project = () => {
     }
   }, [project]);
 
-  // Fetch all templates
-  // TODO
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        const response = await TemplatesService.getTemplates();
-        if (response.ok) {
-          const data = await response.json();
-          const template = data.find(
-            (template) => template.id === project.template_id
-          );
-          if (template) {
-            setTemplate(template);
-          } else {
-            throw new Error("Template not found.");
-          }
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      getTemplateList();
-    }
-  }, [project]);
-
   const availableSlugs = useMemo(() => {
     const slugsData = {};
     for (const Slug of slugs) {
@@ -141,101 +111,18 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  function hydrateTemplate(dataSlug, htmlTemplate, slug) {
-    const document = new DOMParser().parseFromString(htmlTemplate, "text/html");
-    const dataText = Array.from(document.querySelectorAll("[data-text]"));
-    const dataSrc = Array.from(document.querySelectorAll("[data-src]"));
-    const dataUrl = Array.from(document.querySelectorAll("[data-url]"));
-    const dataPlaceholder = Array.from(
-      document.querySelectorAll("[data-placeholder]")
-    );
-
-    dataSlug = dataSlug.filter(data => data.Slug.toLowerCase() === slug)
-
-    // Iterate over DataText
-    for (const node of dataText) {
-      const textKey = node.getAttribute("data-text");
-
-      for (const data of dataSlug) {
-        if (textKey in data) {
-          node.textContent = data[textKey];
-        }
-      }
-    }
-
-    // Iterate over DataSrc
-    for (const node of dataSrc) {
-      const srcKey = node.getAttribute("data-src");
-
-      for (const data of dataSlug) {
-        if (srcKey in data) {
-          node.src = data[srcKey];
-        }
-      }
-    }
-
-    // Iterate over DataUrl
-    for (const node of dataUrl) {
-      const urlKey = node.getAttribute("data-href");
-
-      for (const data of dataSlug) {
-        if (urlKey in data) {
-          node.href = data[urlKey];
-        }
-      }
-    }
-
-    // Iterate over dataPlaceholder
-    for (const node of dataPlaceholder) {
-      const placeholderKey = node.getAttribute("data-placeholder");
-
-      for (const data of dataSlug) {
-        if (placeholderKey in data) {
-          node.placeholder = data[placeholderKey];
-        }
-      }
-    }
-
-    setHydratedTemplate(document.documentElement.innerHTML);
-  }
-
-  useEffect(() => {
-    if (selectedSlug && template) {
-      hydrateTemplate(tablesData, template.template_html, selectedSlug);
-    }
-  }, [selectedSlug, template]);
-
   return (
     <PageContainer>
       <Heading
-        actions={[
-          {
-            id: 1,
-            name: "Copy",
-            onClick: () => alert("Under development"),
-          },
-          {
-            id: 2,
-            name: "Export",
-            onClick: () => alert("Under development"),
-          },
-        ]}
         title={loading ? "Loading" : error ? error : project.project_name}
       />
       <div className="mt-6 space-y-4 md:w-1/2 w-full">
         <SlugList
+          project_id={project?.id}
           slugs={availableSlugs}
           selectedSlug={selectedSlug}
           onSlugSelect={(slug) => setSelectedSlug(slug)}
         />
-        {selectedSlug && hydratedTemplate && (
-          <div className="h-[1000px]">
-            <iframe
-              className="h-full w-full rounded-md"
-              srcDoc={hydratedTemplate}
-              frameBorder="0"></iframe>
-          </div>
-        )}
       </div>
     </PageContainer>
   );

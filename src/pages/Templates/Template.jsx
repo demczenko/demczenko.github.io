@@ -93,6 +93,11 @@ const Template = ({ template }) => {
         options={options}
         title={"Manage template"}
       />
+      <div>
+        <p className="text-xs font-semibold text-neutral-300">
+          created at: {new Date(template.createdAt).toDateString()}
+        </p>
+      </div>
       <DrawerModal
         title={"Create project"}
         description={"Enter project name and fulfill tables."}
