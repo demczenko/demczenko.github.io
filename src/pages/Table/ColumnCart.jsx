@@ -19,7 +19,7 @@ const ColumnCart = ({ column }) => {
     <>
       <section
         className="cursor-pointer group"
-        onClick={() => setIsModalOpen(true)}>
+        onClick={() => (column.type === "slug" ? null : setIsModalOpen(true))}>
         {/* table header */}
         <h3 className="p-2 rounded bg-slate-200 hover:bg-slate-50 transition-colors text-sm font-medium flex justify-between items-center">
           {column.header}
@@ -30,7 +30,7 @@ const ColumnCart = ({ column }) => {
         {/* table body */}
         {/* table footer */}
         <div className="mt-2 opacity-50 group-hover:opacity-100 group-hover:font-semibold transition-all">
-        <p className="text-xs font-semibold text-neutral-300">
+          <p className="text-xs font-semibold text-neutral-300">
             created at: {new Date(column.createdAt).toDateString()}
           </p>
         </div>

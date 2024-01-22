@@ -12,4 +12,7 @@ export class TableController {
     return this.#model.setTables(data);
   }
 
+  deleteTable(data) {
+    return this.#model.deleteTable(data);
+  }
 }

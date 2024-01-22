@@ -52,7 +52,7 @@ const Project = ({
       {
         id: 3,
         name: "Open",
-        onClick: () => navigate("/projects/" + id),
+        onClick: () => navigator("/projects/" + id),
       },
       {
         id: 1,

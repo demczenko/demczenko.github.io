@@ -148,7 +148,6 @@ const TemplateTables = ({
     setIsOpenNewTable(true);
     setTableName(table.table_name);
     setRenamedTableId(table.id);
-    ref.current.focus();
   };
 
   const handleClick = (e, table) => {

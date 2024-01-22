@@ -7,6 +7,7 @@ import SlugList from "./SlugList";
 import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
 import { TemplatesService } from "@/api/templates/init";
+import TablesList from "../Template/TablesList";
 
 const Project = () => {
   const { id } = useParams();
@@ -123,6 +124,9 @@ const Project = () => {
           selectedSlug={selectedSlug}
           onSlugSelect={(slug) => setSelectedSlug(slug)}
         />
+      </div>
+      <div className="mt-6 space-y-4 md:w-1/2 w-full">
+        <TablesList tables={tables} />
       </div>
     </PageContainer>
   );

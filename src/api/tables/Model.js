@@ -13,4 +13,7 @@ export class TablesModel {
   setTables(data) {
     return this.#api.set(this.#path, data);
   }
+  deleteTable(data) {
+    return this.#api.delete(this.#path, data);
+  }
 }
