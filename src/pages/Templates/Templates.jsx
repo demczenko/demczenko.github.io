@@ -45,7 +45,16 @@ const Templates = () => {
     <div className="w-full">
       <PageLayout
         title="Templates"
-        filters={<TemplateFilter filter={filter} onSelect={(filter) => setFilter(filter)} />}
+        filters={
+          <>
+            {templates.length > 0 && (
+              <TemplateFilter
+                filter={filter}
+                onSelect={(filter) => setFilter(filter)}
+              />
+            )}
+          </>
+        }
         actions={[
           {
             id: 1,
@@ -53,7 +62,12 @@ const Templates = () => {
             onClick: () => setIsModalOpen(true),
           },
         ]}
-        content={<TemplateList templates={filteredTemplate} />}
+        content={
+          <TemplateList
+            onCreate={() => setIsModalOpen(true)}
+            templates={filteredTemplate}
+          />
+        }
       />
       <DrawerModal
         title={"Create template"}

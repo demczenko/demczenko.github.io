@@ -40,7 +40,12 @@ const Projects = () => {
             onClick: () => setIsModalOpen(true),
           },
         ]}
-        content={<ProjectList projects={projects} />}
+        content={
+          <ProjectList
+            onCreate={() => setIsModalOpen(true)}
+            projects={projects}
+          />
+        }
       />
       <DrawerModal
         title={"Create project"}
