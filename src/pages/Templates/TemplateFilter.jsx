@@ -13,7 +13,9 @@ const TemplateFilter = ({ filter, onSelect }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button size="sm" variant="outline" className="rounded-sm text-sm mt-2">
-          {filter}
+          {filter === "all" && "All"}
+          {filter === "isArchived" && "Archived"}
+          {filter === "isNotArchived" && "Not Archived"}
           <ChevronDown className="ml-2 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>

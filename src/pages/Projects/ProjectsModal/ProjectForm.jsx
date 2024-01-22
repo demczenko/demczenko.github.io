@@ -53,6 +53,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       id: project_id,
       template_id: template_id,
       isArchived: false,
+      createdAt: Date.now(),
     };
 
     ProjectService.setProject(project)

@@ -21,7 +21,7 @@ const HandleEmptyColumns = () => {
 };
 
 const HandleInputError = () => {
-  return alert("Column name must be at least 4 characters");
+  return alert("Column name must be at least 3 characters");
   // return (
   //   <p className="text-red-400 font-semibold text-sm absolute top-8 left-0">
   //     Min 4 characters
@@ -57,6 +57,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
       type: "text",
       header: columnName,
       accessorKey: columnName,
+      createdAt: Date.now(),
       table_id,
     };
     setColumns((prev) => [...prev, new_column]);
@@ -79,6 +80,10 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
   };
 
   const handleCreateColumn = () => {
+    if (columnName.length === 0) {
+      setIsOpenNewColumn(false);
+      return;
+    }
     if (columnName.length < 3) {
       setError(true);
       return;
@@ -119,8 +124,8 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
             {selectedColumns.map((column) => (
               <TableHead
                 key={column.id}
-                className="w-[140px] flex justify-start items-center">
-                {column.accessorKey === "Slug" ? (
+                className="max-w-[200px] w-full flex justify-start items-center">
+                {column.type === "slug" ? (
                   <CardDescription
                     style="text-black"
                     name={column.header}
@@ -153,7 +158,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
               </TableHead>
             ))}
             {isOpenNewColumn && (
-              <TableHead className="w-[120px] flex items-center">
+              <TableHead className="w-[200px] flex items-center">
                 <Input
                   onBlur={handleCreateColumn}
                   onKeyDown={(ev) => ev.keyCode === 13 && handleCreateColumn()}

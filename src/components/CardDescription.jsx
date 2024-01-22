@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const CardDescription = ({ name, title, options, style }) => {
   return (
-    <div className="flex mt-2 gap-2 items-center">
+    <div className="flex flex-1 mt-2 gap-2 items-center justify-between">
       <div
         className={cn(
           "w-full font-medium text-white overflow-hidden truncate",

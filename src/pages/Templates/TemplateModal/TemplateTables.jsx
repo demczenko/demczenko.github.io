@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { v4 as uuid } from "uuid";
 import { Input } from "@/components/ui/input";
 import { CardDescription } from "@/components";
-import TableColumns from "./Table";
+import TableColumns from "./TableColumns";
 
 const HandleEmptyTables = () => {
   return (
@@ -59,6 +59,7 @@ const TemplateTables = ({
       id: new_table_id,
       table_name: tableName,
       template_id: templateId,
+      createdAt: Date.now()
     };
     setTables((prev) => [...prev, new_table]);
     setTabValue(new_table_id);
@@ -69,7 +70,8 @@ const TemplateTables = ({
         table_id: new_table_id,
         accessorKey: "Slug",
         header: "Slug",
-        type: "text",
+        type: "slug",
+        createdAt: Date.now()
       },
     ]);
   };
@@ -99,15 +101,23 @@ const TemplateTables = ({
     };
 
     // Get columns for selected id
-    const new_columns = columns.filter((column) => column.table_id === id)
+    const new_columns = columns.filter((column) => column.table_id === id);
     // Change columns id
-    const change_columns_id = new_columns.map((col) => ({ ...col, id: uuid(), table_id: new_template_id }));
+    const change_columns_id = new_columns.map((col) => ({
+      ...col,
+      id: uuid(),
+      table_id: new_template_id,
+    }));
 
     setTables((prev) => [...prev, new_table]);
     setColumns((prev) => [...prev, ...change_columns_id]);
   };
 
   const handleCreateTable = () => {
+    if (tableName.length === 0) {
+      setIsOpenNewTable(false);
+      return;
+    }
     if (tableName.length < 4) {
       setError(true);
       return;

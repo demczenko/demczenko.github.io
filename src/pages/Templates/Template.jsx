@@ -23,8 +23,9 @@ const Template = ({ template }) => {
 
   const handleDelete = (id) => {
     alert("under development");
+
+    // add delete action for every api
     // TemplatesService.updateTemplate({...template, isArchived: template.isArchived ? false : true})
-    navigator("/templates/archive/");
   };
 
   const options = useMemo(() => {

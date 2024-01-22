@@ -177,7 +177,7 @@ const Project = () => {
 
     // Iterate over DataUrl
     for (const node of dataUrl) {
-      const urlKey = node.getAttribute("data-url");
+      const urlKey = node.getAttribute("data-href");
 
       for (const data of dataSlug) {
         if (urlKey in data) {

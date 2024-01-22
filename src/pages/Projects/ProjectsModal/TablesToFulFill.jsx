@@ -43,7 +43,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
               // TODO: handle slug with the same name pl and pl
               setColumnsData((prev) => [
                 ...prev,
-                ...data.map((item) => ({ ...item, table_id: selectedTab })),
+                ...data.map((item) => ({ ...item, table_id: selectedTab, createdAt: Date.now() })),
               ]);
             }
           } else {
