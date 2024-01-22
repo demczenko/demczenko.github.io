@@ -46,13 +46,13 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
     cb(formData);
   };
 
-  console.log(columnsData);
   const onSubmit = (data) => {
     let project_id = uuidv4()
     const project = {
       project_name: data.project_name,
       id: project_id,
       template_id: template_id,
+      isArchived: false,
     };
 
     ProjectService.setProject(project)

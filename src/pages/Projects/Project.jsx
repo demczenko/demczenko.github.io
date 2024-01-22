@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { CardDescription } from "@/components";
 import { Badge } from "@/components/ui/badge";
 import { TemplatesService } from "@/api/templates/init";
+import { ProjectService } from "@/api/projects/init";
 
 const Project = ({ id, project_name, template_id, template_json }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigator = useNavigate()
   const [template, setTemplate] = useState([]);
+
+  const handleArchived = (id) => {
+    ProjectService.updateProject({ id, project_name, template_id, isArchived: template.isArchived ? false : true})
+    navigator("/projects/archive/")
+  }
 
   useEffect(() => {
     async function getTemplateList() {
@@ -44,7 +50,7 @@ const Project = ({ id, project_name, template_id, template_json }) => {
       {
         id: 2,
         name: "Archive",
-        onClick: () => alert("Under development"),
+        onClick: () => handleArchived(id),
       },
     ];
   }, []);

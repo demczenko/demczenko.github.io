@@ -14,4 +14,7 @@ export class ProjectModel {
     return this.#api.set(this.#path, data);
   }
 
+  updateProject(data) {
+    return this.#api.update(this.#path, data);
+  }
 }

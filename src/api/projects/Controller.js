@@ -12,4 +12,7 @@ export class ProjectController {
     return this.#model.setProject(data);
   }
 
+  updateProject(data) {
+    return this.#model.updateProject(data);
+  }
 }

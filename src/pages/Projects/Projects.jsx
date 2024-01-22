@@ -5,7 +5,6 @@ import { ProjectList } from "./ProjectList";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectFormSelectTemplate from "./ProjectsModal/ProjectFormSelectTemplate";
 import { AddProjectDrawer } from "./ProjectsModal/AddProjectDrawer";
-ProjectFormSelectTemplate;
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -17,7 +16,10 @@ const Projects = () => {
         const response = await ProjectService.getProjects();
         if (response.ok) {
           const data = await response.json();
-          setProjects(data);
+          const filtered = data.filter(
+            (project) => project.isArchived !== true
+          );
+          setProjects(filtered);
         }
       } catch (error) {
         console.warn(error.message);
@@ -42,7 +44,9 @@ const Projects = () => {
       />
       <DrawerModal
         title={"Create project"}
-        description={"Enter project name, select html template and fulfill tables data."}
+        description={
+          "Enter project name, select html template and fulfill tables data."
+        }
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={

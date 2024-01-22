@@ -69,6 +69,7 @@ const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, s
     const template = {
       template_name: data.template_name,
       template_html: html,
+      isArchived: false,
       id: templateId,
     };
 

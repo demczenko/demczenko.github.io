@@ -3,7 +3,7 @@ import { HeadingActions } from ".";
 
 const Heading = ({ title, paragraph, actions }) => {
   return (
-    <div className="flex items-center justify-between col-span-full">
+    <div className="flex items-center justify-between">
       <div className="flex flex-col">
         <h2 className="text-2xl font-semibold text-white">{title}</h2>
         {paragraph && (

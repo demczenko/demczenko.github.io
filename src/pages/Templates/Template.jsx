@@ -15,7 +15,7 @@ const Template = ({ template }) => {
 
   const handleArchived = (id) => {
     TemplatesService.updateTemplate({...template, isArchived: template.isArchived ? false : true})
-    navigator("/templates/" + id)
+    navigator("/templates/archive/")
   }
 
   const options = useMemo(() => {
