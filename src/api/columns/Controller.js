@@ -11,4 +11,8 @@ export class ColumnController {
   setColumns(data) {
     return this.#model.setColumns(data);
   }
+
+  updateColumn(data) {
+    return this.#model.updateColumn(data);
+  }
 }

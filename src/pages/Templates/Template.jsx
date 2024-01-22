@@ -38,6 +38,12 @@ const Template = ({ template }) => {
     ];
   }, []);
 
+  const onSubmit = (name) => {
+    if (name.length < 4) return;
+    TemplatesService.updateTemplate({ ...template, template_name: name });
+    navigator("/templates/" + template.id)
+  };
+
   return (
     <div>
       <Link
@@ -75,7 +81,7 @@ const Template = ({ template }) => {
         description={"Enter new template name."}
         open={isRenameModalOpen}
         onOpenChange={setRenameModalOpen}
-        content={<RenameTemplate template_id={template.id} />}
+        content={<RenameTemplate placeholder={template?.name} onSubmit={onSubmit}/>}
       />
     </div>
   );

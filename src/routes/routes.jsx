@@ -1,6 +1,6 @@
 import App from "@/App";
 import ErrorPage from "@/ErrorPage";
-import { Project, Projects, ProjectsArchive, Template, Templates, TemplatesArchive } from "@/pages";
+import { Project, Projects, ProjectsArchive, Table, Template, Templates, TemplatesArchive } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = createBrowserRouter([
@@ -33,6 +33,10 @@ export const routes = createBrowserRouter([
         path: "projects/archive",
         element: <ProjectsArchive />,
       },
+      {
+        path: 'table/:id',
+        element: <Table />,
+      }
     ],
   },
 ]);

@@ -6,7 +6,10 @@ import Templates from "./Templates/Templates";
 import Project from "./Project/Project";
 import ProjectsArchive from "./ProjectsArchive/ProjectsArchive";
 import TemplatesArchive from "./TemplatesArchive/TemplatesArchive";
+import Table from "./Table/Table";
+
 export {
+  Table,
   Projects,
   Templates,
   PageLayout,

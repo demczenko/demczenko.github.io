@@ -1,20 +1,15 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TableContent from "./TableContent";
+import TableCart from "./TableCart";
 
 const TemplateTables = ({ tables }) => {
   return (
-    <Tabs defaultValue={tables[0]?.id} className="max-w-[800px]">
-      <TabsList className={"w-full"}>
+    <div>
+      <h2 className="text-2xl text-neutral-200 row-span-full mb-2">Tables</h2>
+      <div className="grid grid-cols-4 gap-2">
         {tables.map((item) => (
-          <TabsTrigger className={"w-full"} key={item.id} value={item.id}>{item.table_name}</TabsTrigger>
+          <TableCart key={item.id} table={item} />
         ))}
-      </TabsList>
-      {tables.map((item) => (
-        <TabsContent key={item.id} value={item.id}>
-          <TableContent table={item} />
-        </TabsContent>
-      ))}
-    </Tabs>
+      </div>
+    </div>
   );
 };
 
