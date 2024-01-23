@@ -10,7 +10,7 @@ import TablesToFulFill from "../Projects/ProjectsModal/TablesToFulFill";
 import { ImportIcon } from "lucide-react";
 import ImportConflict from "./ImportConflict";
 
-const TablesList = ({ tables }) => {
+const TablesList = ({ tables, project_id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [columnsData, setColumnsData] = useState([]);
   const [isConflict, setConflict] = useState("");
@@ -104,7 +104,7 @@ const TablesList = ({ tables }) => {
       setSlugsAlreadyExist(alreadyExistsSlugs);
     } else {
       for (const data_item of columnsData) {
-        TabledataService.setTabledata(data_item);
+        TabledataService.setTabledata({ ...data_item, project_id: project_id });
       }
       setIsModalOpen(false);
       setColumnsData([]);

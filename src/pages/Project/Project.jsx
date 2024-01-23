@@ -126,7 +126,7 @@ const Project = () => {
         />
       </div>
       <div className="mt-6 space-y-4 w-full">
-        <TablesList tables={tables} />
+        <TablesList tables={tables} project_id={project?.id} />
       </div>
     </PageContainer>
   );
