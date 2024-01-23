@@ -12,4 +12,8 @@ export class TabledataController {
     return this.#model.setTabledata(data);
   }
 
+  deleteTabledata(data) {
+    return this.#model.deleteTabledata(data);
+  }
+
 }

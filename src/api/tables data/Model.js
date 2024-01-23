@@ -13,6 +13,10 @@ export class TabledataModel {
   setTabledata(data) {
     return this.#api.set(this.#path, data);
   }
+
+  deleteTabledata(data) {
+    return this.#api.delete(this.#path, data);
+  }
 }
   
 
