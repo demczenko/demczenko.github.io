@@ -17,4 +17,8 @@ export class TemplateModel {
   updateTemplate(data) {
     return this.#api.update(this.#path, data);
   }
+
+  deleteTemplate(data) {
+    return this.#api.delete(this.#path, data);
+  }
 }

@@ -44,10 +44,7 @@ Think about JSON
 
 И таким образом
 
-
 duplicate by n times
-
-  // TODO: REMOVE ALL COLUMNS WITH ID OF DELETED TABLE
 link, image, plain text add options to columns select
 handle the same slug name
 

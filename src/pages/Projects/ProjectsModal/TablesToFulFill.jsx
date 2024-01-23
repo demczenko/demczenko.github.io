@@ -4,6 +4,8 @@ import { TableService } from "@/api/tables/init";
 import { ColumnService } from "@/api/columns/init";
 import Papa from "papaparse";
 import TemplateTable from "./TemplateTable";
+import { v4 as uuidv4 } from "uuid";
+
 
 const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
   const [tables, setTables] = useState([]);
@@ -52,6 +54,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
             [accepted_column_name]: accepted_data_items[accepted_column_name],
             table_id: selectedTab,
             createdAt: Date.now(),
+            id: uuidv4()
           };
         }
 

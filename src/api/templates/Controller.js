@@ -15,4 +15,8 @@ export class TemplateController {
   updateTemplate(data) {
     return this.#model.updateTemplate(data);
   }
+
+  updateTemplate(data) {
+    return this.#model.updateTemplate(data);
+  }
 }
