@@ -20,8 +20,6 @@ const TablesList = ({ tables, project_id }) => {
   const [columns, setColumns] = useState(null);
   const [tableData, setTablesData] = useState(null);
 
-  console.log(tableData);
-
   // Fetch all columns
   // TODO
   useEffect(() => {
