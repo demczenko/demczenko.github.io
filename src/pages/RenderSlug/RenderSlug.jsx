@@ -32,6 +32,10 @@ const RenderSlug = () => {
 
   const { toast } = useToast();
 
+  // Get all tables
+  // Get table by name
+  // Get table id
+  // Sort data table by table id
   function hydrateTemplate(dataSlug, htmlTemplate) {
     const document = new DOMParser().parseFromString(htmlTemplate, "text/html");
     const dataText = Array.from(document.querySelectorAll("[data-text]"));
@@ -47,7 +51,16 @@ const RenderSlug = () => {
 
       for (const data of dataSlug) {
         if (textKey in data) {
-          node.textContent = data[textKey];
+          const dataTable = node.getAttribute("data-table");
+          const table = tables.find(
+            (table) =>
+              table.table_name.toLowerCase() === dataTable.toLowerCase()
+          );
+          if (table) {
+            if (table.id === data.table_id) {
+              node.textContent = data[textKey];
+            }
+          }
         }
       }
     }
@@ -58,7 +71,16 @@ const RenderSlug = () => {
 
       for (const data of dataSlug) {
         if (srcKey in data) {
-          node.src = data[srcKey];
+          const dataTable = node.getAttribute("data-table");
+          const table = tables.find(
+            (table) =>
+              table.table_name.toLowerCase() === dataTable.toLowerCase()
+          );
+          if (table) {
+            if (table.id === data.table_id) {
+              node.src = data[srcKey];
+            }
+          }
         }
       }
     }
@@ -69,7 +91,16 @@ const RenderSlug = () => {
 
       for (const data of dataSlug) {
         if (urlKey in data) {
-          node.href = data[urlKey];
+          const dataTable = node.getAttribute("data-table");
+          const table = tables.find(
+            (table) =>
+              table.table_name.toLowerCase() === dataTable.toLowerCase()
+          );
+          if (table) {
+            if (table.id === data.table_id) {
+              node.href = data[urlKey];
+            }
+          }
         }
       }
     }
@@ -80,7 +111,16 @@ const RenderSlug = () => {
 
       for (const data of dataSlug) {
         if (placeholderKey in data) {
-          node.placeholder = data[placeholderKey];
+          const dataTable = node.getAttribute("data-table");
+          const table = tables.find(
+            (table) =>
+              table.table_name.toLowerCase() === dataTable.toLowerCase()
+          );
+          if (table) {
+            if (table.id === data.table_id) {
+              node.placeholder = data[placeholderKey];
+            }
+          }
         }
       }
     }
@@ -227,7 +267,7 @@ const RenderSlug = () => {
     window.navigator.clipboard.writeText(hydratedTemplate);
 
     toast({
-      variant: 'success',
+      variant: "success",
       title: "Copy to clipboard",
       description: "Successfully copied to clipboard.",
     });
