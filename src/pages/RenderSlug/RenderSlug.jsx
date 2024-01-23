@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { TableService } from "@/api/tables/init";
+import { useToast } from "@/components/ui/use-toast";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
@@ -28,6 +29,8 @@ const RenderSlug = () => {
   const [template, setTemplate] = useState({});
   const [tablesData, setTablesData] = useState([]);
   const [tables, setTables] = useState([]);
+
+  const { toast } = useToast();
 
   function hydrateTemplate(dataSlug, htmlTemplate) {
     const document = new DOMParser().parseFromString(htmlTemplate, "text/html");
@@ -63,7 +66,7 @@ const RenderSlug = () => {
     // Iterate over DataUrl
     for (const node of dataUrl) {
       const urlKey = node.getAttribute("data-href");
-      
+
       for (const data of dataSlug) {
         if (urlKey in data) {
           node.href = data[urlKey];
@@ -82,7 +85,7 @@ const RenderSlug = () => {
       }
     }
 
-    setHydratedTemplate(document.documentElement.innerHTML);
+    setHydratedTemplate(document.documentElement.outerHTML);
   }
 
   // Fetch all projects
@@ -220,6 +223,16 @@ const RenderSlug = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
+  const handleCopy = () => {
+    window.navigator.clipboard.writeText(hydratedTemplate);
+
+    toast({
+      variant: 'success',
+      title: "Copy to clipboard",
+      description: "Successfully copied to clipboard.",
+    });
+  };
+
   return (
     <PageContainer>
       <Heading
@@ -227,7 +240,7 @@ const RenderSlug = () => {
           {
             id: 1,
             name: "Copy",
-            onClick: () => alert("Under development"),
+            onClick: () => handleCopy(),
           },
           {
             id: 2,
