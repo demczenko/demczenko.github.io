@@ -10,10 +10,10 @@ export class ApiLocalStorage {
     localStorage.setItem(key, this.#stringify(() => [...prev, data]));
   }
 
-  delete(key, data) {
+  delete(key, id) {
     let prev = this.#parse(() => localStorage.getItem(key) || "[]");
 
-    const filtered = prev.filter((item) => item.id !== data.id)
+    const filtered = prev.filter((item) => item.id !== id)
 
     localStorage.setItem(key, this.#stringify(() => filtered));
   }

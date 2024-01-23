@@ -17,4 +17,8 @@ export class ColumnModel {
   updateColumn(data) {
     return this.#api.update(this.#path , data);
   }
+
+  deleteColumn(data) {
+    return this.#api.delete(this.#path, data);
+  }
 }

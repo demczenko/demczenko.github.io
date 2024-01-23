@@ -15,18 +15,16 @@ const TableCart = ({ table, onDelete }) => {
         </h3>
         {/* table body */}
         {/* table footer */}
-        <div className="flex justify-between mt-2">
-          <div className="opacity-50 group-hover:opacity-100 transition-all">
-            <p className="text-xs font-semibold text-neutral-300">
-              created at: {new Date(table.createdAt).toDateString()}
-            </p>
-            <p className="text-xs font-semibold text-neutral-300">
-              updated at:{" "}
-            </p>
-          </div>
-          <TrashIcon onClick={onDelete} className="h-4 w-4" />
-        </div>
       </Link>
+      <div className="flex justify-between mt-2">
+        <div className="opacity-50 group-hover:opacity-100 transition-all">
+          <p className="text-xs font-semibold text-neutral-300">
+            created at: {new Date(table.createdAt).toDateString()}
+          </p>
+          <p className="text-xs font-semibold text-neutral-300">updated at: </p>
+        </div>
+        <TrashIcon onClick={() => onDelete(table.id)} className="h-4 w-4" />
+      </div>
     </section>
   );
 };

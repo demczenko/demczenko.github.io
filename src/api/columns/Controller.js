@@ -15,4 +15,8 @@ export class ColumnController {
   updateColumn(data) {
     return this.#model.updateColumn(data);
   }
+
+  deleteColumn(data) {
+    return this.#model.deleteColumn(data);
+  }
 }

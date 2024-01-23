@@ -259,7 +259,7 @@ const RenderSlug = () => {
           </div>
         }
       />
-      <div className="mt-6 space-y-4 md:w-1/2 w-full">
+      <div className="mt-6 space-y-4 w-full">
         {hydratedTemplate && (
           <div className="h-[1000px]">
             <iframe

@@ -117,7 +117,7 @@ const Project = () => {
       <Heading
         title={loading ? "Loading" : error ? error : project.project_name}
       />
-      <div className="mt-6 space-y-4 md:w-1/2 w-full">
+      <div className="mt-6 space-y-4 w-full">
         <SlugList
           project_id={project?.id}
           slugs={availableSlugs}
@@ -125,7 +125,7 @@ const Project = () => {
           onSlugSelect={(slug) => setSelectedSlug(slug)}
         />
       </div>
-      <div className="mt-6 space-y-4 md:w-1/2 w-full">
+      <div className="mt-6 space-y-4 w-full">
         <TablesList tables={tables} />
       </div>
     </PageContainer>
