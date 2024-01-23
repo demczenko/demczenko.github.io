@@ -29,16 +29,14 @@ const RenderSlug = () => {
   const [tablesData, setTablesData] = useState([]);
   const [tables, setTables] = useState([]);
 
-  function hydrateTemplate(dataSlug, htmlTemplate, slug) {
+  function hydrateTemplate(dataSlug, htmlTemplate) {
     const document = new DOMParser().parseFromString(htmlTemplate, "text/html");
     const dataText = Array.from(document.querySelectorAll("[data-text]"));
     const dataSrc = Array.from(document.querySelectorAll("[data-src]"));
-    const dataUrl = Array.from(document.querySelectorAll("[data-url]"));
+    const dataUrl = Array.from(document.querySelectorAll("[data-href]"));
     const dataPlaceholder = Array.from(
       document.querySelectorAll("[data-placeholder]")
     );
-
-    dataSlug = dataSlug.filter((data) => data.Slug.toLowerCase() === slug);
 
     // Iterate over DataText
     for (const node of dataText) {
@@ -65,7 +63,7 @@ const RenderSlug = () => {
     // Iterate over DataUrl
     for (const node of dataUrl) {
       const urlKey = node.getAttribute("data-href");
-
+      
       for (const data of dataSlug) {
         if (urlKey in data) {
           node.href = data[urlKey];
@@ -150,7 +148,11 @@ const RenderSlug = () => {
             (table) => table.project_id === project.id
           );
           setSlugs(project_tables.map((item) => item.Slug));
-          setTablesData(project_tables);
+          setTablesData(
+            project_tables.filter(
+              (data) => data.Slug.toLowerCase() === slug.toLowerCase()
+            )
+          );
         }
       } catch (error) {
         console.warn(error.message);
@@ -160,7 +162,7 @@ const RenderSlug = () => {
     if (project) {
       getTableData();
     }
-  }, [project, selectedSlug]);
+  }, [project, selectedSlug, slug]);
 
   // Fetch all tables
   // TODO
@@ -187,7 +189,7 @@ const RenderSlug = () => {
 
   useEffect(() => {
     if (template && tablesData) {
-      hydrateTemplate(tablesData, template.template_html, slug);
+      hydrateTemplate(tablesData, template.template_html);
     }
   }, [tablesData, template]);
 

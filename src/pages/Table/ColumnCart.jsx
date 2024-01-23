@@ -9,9 +9,13 @@ const ColumnCart = ({ column }) => {
   const navigator = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onSubmit = (name) => {
-    if (name.length < 3) return;
-    ColumnService.updateColumn({ ...column, accessorKey: name, header: name });
+  const onSubmit = ({ header }) => {
+    if (header.length < 3) return;
+    ColumnService.updateColumn({
+      ...column,
+      accessorKey: header,
+      header: header,
+    });
     navigator("/templates/");
   };
 
@@ -41,7 +45,11 @@ const ColumnCart = ({ column }) => {
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={
-          <RenameTemplate placeholder={column?.header} onSubmit={onSubmit} />
+          <RenameTemplate
+            placeholder={column?.header}
+            label={"header"}
+            onSubmit={onSubmit}
+          />
         }
       />
     </>

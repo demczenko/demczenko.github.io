@@ -6,7 +6,6 @@ import { ProjectService } from "@/api/projects/init";
 import SlugList from "./SlugList";
 import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
-import { TemplatesService } from "@/api/templates/init";
 import TablesList from "../Template/TablesList";
 
 const Project = () => {
@@ -23,7 +22,6 @@ const Project = () => {
   useEffect(() => {
     async function getProject() {
       try {
-        setError("");
         const response = await ProjectService.getProjects();
         if (response.ok) {
           const data = await response.json();
@@ -31,12 +29,9 @@ const Project = () => {
           if (project) {
             setProject(project);
             setLoading(false);
-          } else {
-            throw new Error("Project not found.");
           }
         }
       } catch (error) {
-        setError(error.message);
         setLoading(false);
       }
     }
@@ -126,7 +121,11 @@ const Project = () => {
         />
       </div>
       <div className="mt-6 space-y-4 w-full">
-        <TablesList tables={tables} project_id={project?.id} />
+        <TablesList
+          tablesData={tablesData}
+          tables={tables}
+          project_id={project?.id}
+        />
       </div>
     </PageContainer>
   );

@@ -20,6 +20,8 @@ const TablesList = ({ tables, project_id }) => {
   const [columns, setColumns] = useState(null);
   const [tableData, setTablesData] = useState(null);
 
+  console.log(tableData);
+
   // Fetch all columns
   // TODO
   useEffect(() => {
@@ -57,24 +59,8 @@ const TablesList = ({ tables, project_id }) => {
       }
     }
 
-    async function getTableData() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          setTablesData(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (tableId) {
+    if (tableId || columnsData) {
       getTableDataFiltered();
-    }
-
-    if (columnsData) {
-      getTableData();
     }
   }, [tableId, columnsData]);
 
