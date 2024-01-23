@@ -9,6 +9,7 @@ import { DrawerModal } from "@/components/Drawer";
 import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";
 import { ColumnService } from "@/api/columns/init";
+import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
 
 const Template = () => {
   const { id } = useParams();
@@ -20,6 +21,16 @@ const Template = () => {
   const [columns, setColumns] = useState([]);
   const [new_tables, setNewTables] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTempalteModalOpen, setTempalteModalOpen] = useState(false);
+
+  const onChangeTemplateSubmit = (data) => {
+    if (data["modify template"].length < 10) return;
+    TemplatesService.updateTemplate({
+      ...template,
+      template_html: data["modify template"],
+    });
+    navigator("/projects/");
+  };
 
   // Fetch all tables
   // TODO
@@ -87,8 +98,13 @@ const Template = () => {
         actions={[
           {
             id: 1,
-            name: "Create Tables",
+            name: "Create tables",
             onClick: () => setIsModalOpen(true),
+          },
+          {
+            id: 2,
+            name: "Manage template",
+            onClick: () => setTempalteModalOpen(true),
           },
         ]}
       />
@@ -115,6 +131,19 @@ const Template = () => {
               </Button>
             )}
           </>
+        }
+      />
+      <DrawerModal
+        title={"Create table"}
+        description={"Enter table name and table columns create tables."}
+        open={isTempalteModalOpen}
+        onOpenChange={setTempalteModalOpen}
+        content={
+          <ChangeTemplate
+            label={"Modify template"}
+            onSubmit={onChangeTemplateSubmit}
+            placeholder={template?.template_html}
+          />
         }
       />
     </PageContainer>
