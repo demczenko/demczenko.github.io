@@ -6,7 +6,7 @@ import { ProjectService } from "@/api/projects/init";
 import SlugList from "./SlugList";
 import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
-import TablesList from "../Tables/TablesList";
+import TablesList from "../Tables/TableList";
 
 const Project = () => {
   const { id } = useParams();
@@ -121,11 +121,7 @@ const Project = () => {
         />
       </div>
       <div className="mt-6 space-y-4 w-full">
-        <TablesList
-          tablesData={tablesData}
-          tables={tables}
-          project_id={project?.id}
-        />
+        {tables && <TablesList tables={tables} />}
       </div>
     </PageContainer>
   );

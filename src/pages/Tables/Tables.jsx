@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PageContainer from "../PageContainer";
-import TablesList from "./TablesList";
+import TablesList from "./TableList";
 import { TableService } from "@/api/tables/init";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
 
+  // Fetch all tables
+  // TODO
   useEffect(() => {
     async function getTableList() {
       try {
@@ -21,10 +23,26 @@ const Tables = () => {
     getTableList();
   }, []);
 
+  // Fetch all columns
+  // TODO
+  useEffect(() => {
+    async function getColumnList() {
+      try {
+        const response = await ColumnService.getColumns();
+        if (response.ok) {
+          const data = await response.json();
+          setColumns(data);
+        }
+      } catch (error) {
+        console.warn(error.message);
+      }
+    }
+
+    getColumnList();
+  }, []);
+
   return (
-    <PageContainer>
-      <TablesList tables={tables} />
-    </PageContainer>
+    <PageContainer>{tables && <TablesList tables={tables} />}</PageContainer>
   );
 };
 

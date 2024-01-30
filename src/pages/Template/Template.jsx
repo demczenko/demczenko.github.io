@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { TableService } from "@/api/tables/init";
-import TablesList from "../Tables/TablesList";
+import TablesList from "../Tables/TableList";
 import { DrawerModal } from "@/components/Drawer";
 import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";

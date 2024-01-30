@@ -121,7 +121,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
     <Tabs
       value={selectedTab}
       defaultValue={tables.length === 0 ? "" : tables[0]?.id}>
-      <TabsList className="w-full">
+      <TabsList className="gap-1 max-w-[1200px] h-fit overflow-hidden overflow-x-auto justify-start">
         {tables?.map((table) => (
           <TabsTrigger
             className="w-full"

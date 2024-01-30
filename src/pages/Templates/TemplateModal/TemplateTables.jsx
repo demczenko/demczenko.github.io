@@ -176,7 +176,7 @@ const TemplateTables = ({
         value={tabValue}
         defaultValue={tables.length === 0 ? "" : tables[0]?.id}>
         <div className="flex justify-between gap-2">
-          <TabsList className="gap-1 max-w-[800px] h-fit overflow-hidden overflow-x-auto justify-start">
+          <TabsList className="gap-1 max-w-[1200px] h-fit overflow-hidden overflow-x-auto justify-start">
             {tables.map((table) => (
               <TabsTrigger
                 onClick={(ev) => handleClick(ev, table)}
