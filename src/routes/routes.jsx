@@ -8,6 +8,7 @@ import {
   ProjectsArchive,
   RenderSlug,
   Table,
+  Tables,
   Template,
   Templates,
   TemplatesArchive,
@@ -59,6 +60,10 @@ export const routes = createBrowserRouter([
       {
         path: "components/:id",
         element: <Component />,
+      },
+      {
+        path: "tables/",
+        element: <Tables />,
       },
     ],
   },

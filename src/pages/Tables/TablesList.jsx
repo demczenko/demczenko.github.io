@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import TablesToFulFill from "../Projects/ProjectsModal/TablesToFulFill";
-import { ImportIcon } from "lucide-react";
-import ImportConflict from "./ImportConflict";
+import { Copy, ImportIcon } from "lucide-react";
+import ImportConflict from "../Template/ImportConflict";
+import { Heading, List } from "@/components";
+import { v4 as uuidv4 } from "uuid";
 
 const TablesList = ({ tables, project_id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,18 +30,15 @@ const TablesList = ({ tables, project_id }) => {
         const response = await ColumnService.getColumns();
         if (response.ok) {
           const data = await response.json();
-          const filtered = data.filter((column) => column.table_id === tableId);
-          setColumns(filtered);
+          setColumns(data);
         }
       } catch (error) {
         console.warn(error.message);
       }
     }
 
-    if (tableId) {
-      getColumnList();
-    }
-  }, [tableId]);
+    getColumnList();
+  }, []);
 
   // Fetch all tables data
   // TODO
@@ -64,7 +63,9 @@ const TablesList = ({ tables, project_id }) => {
 
   if (columns && tableData && tableId) {
     TableService.deleteTable(tableId);
-    columns.forEach((element) => ColumnService.deleteColumn(element.id));
+    columns
+      .filter((column) => column.table_id === tableId)
+      .forEach((element) => ColumnService.deleteColumn(element.id));
     tableData.forEach((element) =>
       TabledataService.deleteTabledata(element.id)
     );
@@ -103,6 +104,28 @@ const TablesList = ({ tables, project_id }) => {
     setSlugsAlreadyExist((prev) => prev.filter((slug) => slug.name !== name));
   };
 
+  const handleDuplicate = (id) => {
+    const duplicateTable = tables.find((table) => table.id == id);
+    const new_template_id = uuidv4();
+    const new_table = {
+      ...duplicateTable,
+      id: new_template_id,
+      table_name: duplicateTable.table_name + " Copy",
+    };
+
+    // Get columns for selected id
+    const new_columns = columns.filter((column) => column.table_id === id);
+    // Change columns id
+    const change_columns_id = new_columns.map((col) => ({
+      ...col,
+      id: uuidv4(),
+      table_id: new_template_id,
+    }));
+
+    TableService.setTables(new_table)
+    change_columns_id.forEach((column) => ColumnService.setColumns(column));
+  };
+
   useEffect(() => {
     for (const { name, isSkip, isUpdate } of slugsAlreadyExist) {
       for (const data_item of columnsData) {
@@ -126,25 +149,36 @@ const TablesList = ({ tables, project_id }) => {
   return (
     <>
       <div>
-        <h2 className="text-2xl text-neutral-200 row-span-full mb-2">Tables</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <Heading title={"Tables"} />
+        <List>
           {tables.map((table) => (
             <TableCart
               key={table.id}
               onDelete={setTableId}
               table={table}
               content={
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
-                  onClick={() => setIsModalOpen(true)}>
-                  <ImportIcon className="pr-2" /> Populate table
-                </Button>
+                <div className="flex">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+                    onClick={() => setIsModalOpen(true)}>
+                    <ImportIcon className="pr-2" /> Populate
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+                    onClick={() => {
+                      handleDuplicate(table.id);
+                    }}>
+                    <Copy className="pr-2" /> Duplicate
+                  </Button>
+                </div>
               }
             />
           ))}
-        </div>
+        </List>
       </div>
       <DrawerModal
         title={"Populate table"}

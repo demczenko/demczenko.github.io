@@ -6,7 +6,7 @@ import { ProjectService } from "@/api/projects/init";
 import SlugList from "./SlugList";
 import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
-import TablesList from "../Template/TablesList";
+import TablesList from "../Tables/TablesList";
 
 const Project = () => {
   const { id } = useParams();

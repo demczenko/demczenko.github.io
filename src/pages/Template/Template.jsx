@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { TableService } from "@/api/tables/init";
-import TablesList from "./TablesList";
+import TablesList from "../Tables/TablesList";
 import { DrawerModal } from "@/components/Drawer";
 import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";
@@ -108,12 +108,12 @@ const Template = () => {
           },
         ]}
       />
-      <div className="grid gap-12 lg:grid-cols-2 grid-cols-1 h-3/4 mt-6">
+      <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
         <iframe
-          className="w-full h-full pointer-events-none rounded-md"
+          className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
           srcDoc={template?.template_html}></iframe>
-        <div className="mt-4 lg:mt-0 w-full">
-          <TablesList tables={tables} />
+        <div className="pt-4 lg:pt-0 w-full">
+          <TablesList tables={tables}  />
         </div>
       </div>
       <DrawerModal

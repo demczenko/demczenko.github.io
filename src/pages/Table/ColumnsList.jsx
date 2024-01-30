@@ -1,15 +1,16 @@
 import React from "react";
 import ColumnCart from "./ColumnCart";
+import { Heading, List } from "@/components";
 
 const ColumnsList = ({ columns }) => {
   return (
     <div>
-      <h2 className="text-2xl text-neutral-200 row-span-full mb-2">Columns</h2>
-      <div className="grid grid-cols-6 gap-2">
+      <Heading title={"Columns"} />
+      <List>
         {columns.map((column) => (
           <ColumnCart key={column.id} column={column} />
         ))}
-      </div>
+      </List>
     </div>
   );
 };

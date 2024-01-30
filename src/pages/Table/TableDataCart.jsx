@@ -11,8 +11,12 @@ const TableDataCart = ({ table, onDelete, content }) => {
 
   const onSubmit = (name) => {
     if (name.length < 3) return;
-    TabledataService.updateTabledata({ ...table, ...name });
-    navigator("/projects/");
+    TabledataService.updateTabledata({
+      ...table,
+      ...name,
+      updatedAt: Date.now(),
+    });
+    navigator(`/tables/`);
   };
 
   return (
@@ -38,9 +42,13 @@ const TableDataCart = ({ table, onDelete, content }) => {
                 {new Date(table.createdAt).toDateString()}
               </span>
             </p>
-            <p className="text-xs">
-              <span className="text-neutral-300">updated at: </span>
-            </p>
+            {table.updatedAt && (
+              <p className="text-xs">
+                <span className="text-neutral-300">
+                  updated at: {new Date(table.updatedAt).toDateString()}
+                </span>
+              </p>
+            )}
           </div>
           <TrashIcon
             onClick={() => onDelete(table.id)}
