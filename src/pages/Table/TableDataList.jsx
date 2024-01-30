@@ -5,7 +5,7 @@ import { Heading, List } from "@/components";
 const TableDataList = ({ tablesData, onDeleteTableData }) => {
   return (
     <div>
-      <Heading title={"Table data"} />
+      <Heading title={`Table data`} paragraph={`${tablesData.length} slugs`} />
       <List>
         {tablesData.map((table, i) => (
           <TableDataCart onDelete={onDeleteTableData} key={i} table={table} />

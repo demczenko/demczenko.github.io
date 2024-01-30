@@ -47,7 +47,7 @@ const RenderSlug = () => {
 
     // Iterate over DataText
     for (const node of dataText) {
-      const textKey = node.getAttribute("data-text");
+      const textKey = node.getAttribute("data-text").toLowerCase();
 
       for (const data of dataSlug) {
         if (textKey in data) {
@@ -67,7 +67,7 @@ const RenderSlug = () => {
 
     // Iterate over DataSrc
     for (const node of dataSrc) {
-      const srcKey = node.getAttribute("data-src");
+      const srcKey = node.getAttribute("data-src").toLowerCase();
 
       for (const data of dataSlug) {
         if (srcKey in data) {
@@ -87,7 +87,7 @@ const RenderSlug = () => {
 
     // Iterate over DataUrl
     for (const node of dataUrl) {
-      const urlKey = node.getAttribute("data-href");
+      const urlKey = node.getAttribute("data-href").toLowerCase();
 
       for (const data of dataSlug) {
         if (urlKey in data) {
@@ -107,7 +107,7 @@ const RenderSlug = () => {
 
     // Iterate over dataPlaceholder
     for (const node of dataPlaceholder) {
-      const placeholderKey = node.getAttribute("data-placeholder");
+      const placeholderKey = node.getAttribute("data-placeholder").toLowerCase();
 
       for (const data of dataSlug) {
         if (placeholderKey in data) {
@@ -190,10 +190,10 @@ const RenderSlug = () => {
           const project_tables = data.filter(
             (table) => table.project_id === project.id
           );
-          setSlugs(project_tables.map((item) => item.Slug));
+          setSlugs(project_tables.map((item) => item.slug));
           setTablesData(
             project_tables.filter(
-              (data) => data.Slug.toLowerCase() === slug.toLowerCase()
+              (data) => data.slug.toLowerCase() === slug.toLowerCase()
             )
           );
         }
@@ -317,7 +317,9 @@ const RenderSlug = () => {
       <div className="mt-6 space-y-4 w-full">
         {hydratedTemplate && (
           <div className="h-[1000px]">
-            <PreviewTemplate template_html={hydratedTemplate} />
+            <iframe
+              className="w-full h-full pointer-events-none"
+              srcDoc={hydratedTemplate}></iframe>
           </div>
         )}
       </div>

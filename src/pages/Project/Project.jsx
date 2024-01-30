@@ -50,7 +50,7 @@ const Project = () => {
           const project_tables = data.filter(
             (table) => table.project_id === project.id
           );
-          setSlugs(project_tables.map((item) => item.Slug));
+          setSlugs(project_tables.map((item) => item.slug));
           setTablesData(project_tables);
         }
       } catch (error) {
