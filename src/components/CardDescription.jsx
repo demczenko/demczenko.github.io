@@ -31,11 +31,12 @@ const CardDescription = ({
         )}
       </div>
       <div className="flex justify-between mt-2">
-        <div>
-          <p className="text-xs font-semibold text-neutral-300">
-            created at: {new Date(createdAt).toDateString()}
-          </p>
-        </div>
+        <p className="text-xs">
+          <span className="text-neutral-300">created at: </span>
+          <span className="text-white font-semibold">
+            {new Date(createdAt).toDateString()}
+          </span>
+        </p>
         {template_name && (
           <div className="flex justify-between">
             <Link to={`/templates/${id}`}>

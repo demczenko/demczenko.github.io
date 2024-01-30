@@ -108,8 +108,13 @@ const Template = () => {
           },
         ]}
       />
-      <div className="mt-4">
-        <TablesList tables={tables} />
+      <div className="grid gap-12 lg:grid-cols-2 grid-cols-1 h-3/4 mt-6">
+        <iframe
+          className="w-full h-full pointer-events-none rounded-md"
+          srcDoc={template?.template_html}></iframe>
+        <div className="mt-4 lg:mt-0 w-full">
+          <TablesList tables={tables} />
+        </div>
       </div>
       <DrawerModal
         title={"Create table"}

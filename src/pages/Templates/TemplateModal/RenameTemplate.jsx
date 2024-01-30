@@ -11,7 +11,7 @@ const RenameTemplate = ({ label, placeholder, onSubmit }) => {
   }, []);
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-2 mt-6">
+    <div className="grid items-center gap-2 mt-4 w-full">
       <Label htmlFor="name" className="capitalize">{label ?? "Name"}</Label>
       <Input
         type="text"
@@ -20,6 +20,7 @@ const RenameTemplate = ({ label, placeholder, onSubmit }) => {
         placeholder="template name"
         value={name}
         disabled={label === "Slug"}
+        className="w-full"
       />
       <Button disabled={label === "Slug"} onClick={() => onSubmit({[label]: name})}>Save</Button>
     </div>

@@ -53,25 +53,29 @@ const TableDataCart = ({ table, onDelete, content }) => {
         description={"Change data column"}
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
-        content={Object.entries(table).map(([objKey, value], i) => {
-          if (
-            objKey === "table_id" ||
-            objKey === "createdAt" ||
-            objKey === "updatedAt" ||
-            objKey === "project_id" ||
-            objKey === "id"
-          ) {
-            return;
-          }
-          return (
-            <RenameTemplate
-              key={i}
-              placeholder={value}
-              label={objKey}
-              onSubmit={onSubmit}
-            />
-          );
-        })}
+        content={
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-1">
+            {Object.entries(table).map(([objKey, value], i) => {
+              if (
+                objKey === "table_id" ||
+                objKey === "createdAt" ||
+                objKey === "updatedAt" ||
+                objKey === "project_id" ||
+                objKey === "id"
+              ) {
+                return;
+              }
+              return (
+                <RenameTemplate
+                  key={i}
+                  placeholder={value}
+                  label={objKey}
+                  onSubmit={onSubmit}
+                />
+              );
+            })}
+          </div>
+        }
       />
     </>
   );
