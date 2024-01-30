@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import { TabledataService } from "@/api/tables data/init";
+import CartHeader from "@/components/CartHeader";
+import { Button } from "@/components/ui/button";
 
 const TableDataCart = ({ table, onDelete, content }) => {
   const navigator = useNavigate();
@@ -22,17 +24,7 @@ const TableDataCart = ({ table, onDelete, content }) => {
   return (
     <>
       <section className="group" onClick={() => setIsModalOpen(true)}>
-        <Link to={`/table/${table.id}`}>
-          {/* table header */}
-          <h3 className="p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors cursor-pointer text-sm font-medium flex justify-between items-center">
-            {table.Slug}
-            <div className="overflow-hidden flex">
-              <ArrowRightIcon className="h-4 w-4 -translate-x-1 group-hover:translate-x-0 transition-transform" />
-            </div>
-          </h3>
-          {/* table body */}
-          {/* table footer */}
-        </Link>
+        <CartHeader table_id={table.id} table_name={table.slug} />
         {content}
         <div className="flex justify-between mt-2">
           <div className="opacity-50 group-hover:opacity-100 transition-all">
@@ -50,10 +42,14 @@ const TableDataCart = ({ table, onDelete, content }) => {
               </p>
             )}
           </div>
-          <TrashIcon
-            onClick={() => onDelete(table.id)}
-            className="h-4 w-4 cursor-pointer"
-          />
+          <Button
+            size="sm"
+            variant="ghost"
+            className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+            onClick={() => onDelete(table.id)}>
+            <TrashIcon className="pr-2" />
+            Delete
+          </Button>
         </div>
       </section>
       <DrawerModal

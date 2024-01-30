@@ -19,10 +19,10 @@ const RenameTemplate = ({ label, placeholder, onSubmit }) => {
         onChange={(ev) => setName(ev.target.value)}
         placeholder="template name"
         value={name}
-        disabled={label === "Slug"}
+        disabled={label === "slug"}
         className="w-full"
       />
-      <Button disabled={label === "Slug"} onClick={() => onSubmit({[label]: name})}>Save</Button>
+      <Button disabled={label === "slug"} onClick={() => onSubmit({[label]: name})}>Save</Button>
     </div>
   );
 };

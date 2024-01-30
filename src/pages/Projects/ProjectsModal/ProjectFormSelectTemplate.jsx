@@ -14,8 +14,12 @@ import { v4 as uuidv4 } from "uuid";
 import { SelectTemplate } from "./SelectTemplate";
 import { useEffect, useState } from "react";
 import { TemplatesService } from "@/api/templates/init";
+import { ProjectService } from "@/api/projects/init";
+import { useNavigate } from "react-router-dom";
 
 const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
+  const navigate = useNavigate();
+
   const [templates, setTemplates] = useState([]);
   const form = useForm({
     defaultValues: {
@@ -29,32 +33,35 @@ const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
     if (project_name.length < 4) {
       form.setError("project_name", {
         type: "required",
-        message: "Project name must be at least 4 characters"
-      })
-      return
+        message: "Project name must be at least 4 characters",
+      });
+      return;
     }
 
     if (template_id.length < 4) {
       form.setError("template_id", {
         type: "required",
-        message: "Select template id"
-      })
-      return
+        message: "Select template id",
+      });
+      return;
     }
 
-    cb(formData)
-  }
+    cb(formData);
+  };
 
   const onSubmit = (data) => {
+    let project_id = uuidv4();
     const project = {
       project_name: data.project_name,
-      id: uuidv4(),
+      id: project_id,
       template_id: data.template_id,
-      tables_data: [],
+      isArchived: false,
+      createdAt: Date.now(),
     };
 
+    ProjectService.setProject(project);
     onSubmitForm();
-    navigate(`/projects/bcbae663-0a0c-41fe-b57b-80e3592f3c41`);
+    navigate("/projects/" + project_id);
   };
 
   useEffect(() => {
@@ -75,7 +82,11 @@ const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((formData) =>validateFormInput(formData, onSubmit))} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit((formData) =>
+          validateFormInput(formData, onSubmit)
+        )}
+        className="space-y-8">
         <FormField
           control={form.control}
           name="project_name"

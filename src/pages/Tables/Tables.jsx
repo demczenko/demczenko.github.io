@@ -42,7 +42,9 @@ const Tables = () => {
   }, []);
 
   return (
-    <PageContainer>{tables && <TablesList tables={tables} />}</PageContainer>
+    <PageContainer>
+      {tables && <TablesList isProject={false} tables={tables} />}
+    </PageContainer>
   );
 };
 

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
-import ImportConflict from "../Template/ImportConflict";
 import { DrawerModal } from "@/components/Drawer";
-import CartHeader from "./TableCartHeader";
 import CartActions from "./CartActions";
+import CartHeader from "@/components/CartHeader";
 
 const TableCart = ({
   table,
@@ -12,6 +11,7 @@ const TableCart = ({
   onDeleteTable,
   onDuplicate,
   project_id,
+  isProject,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -20,6 +20,7 @@ const TableCart = ({
       <section className="group mt-4">
         <CartHeader table_id={table.id} table_name={table.table_name} />
         <CartActions
+          isProject={isProject}
           onDuplicate={() => onDuplicate(table.id)}
           onModalOpen={() => setIsModalOpen(true)}
           onDelete={() => onDeleteTable(table.id)}
@@ -34,7 +35,14 @@ const TableCart = ({
         }}
         content={
           <AddProjectDrawer
-            form={<TableFulfill table_id={table.id} columns={columns} />}
+            form={
+              <TableFulfill
+                setIsModalOpen={setIsModalOpen}
+                project_id={project_id}
+                table_id={table.id}
+                columns={columns}
+              />
+            }
           />
         }
       />

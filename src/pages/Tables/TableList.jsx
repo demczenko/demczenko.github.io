@@ -7,7 +7,7 @@ import { TabledataService } from "@/api/tables data/init";
 
 // Handle columns, onDuplicate, onDeleteTable fetch inside component in order to reuse component through application.
 
-const TablesList = ({ tables }) => {
+const TablesList = ({ tables, project_id, isProject }) => {
   const [columns, setColumns] = useState(null);
   const [tablesData, setTablesData] = useState([]);
 
@@ -79,20 +79,30 @@ const TablesList = ({ tables }) => {
     TableService.setTables(new_table);
     change_columns_id.forEach((column) => ColumnService.setColumns(column));
   };
+
   return (
     <>
       <div>
         <Heading title={"Tables"} />
         <List>
-          {tables.map((table) => (
-            <TableCart
-              onDeleteTable={onDeleteTable}
-              onDuplicate={onDuplicate}
-              columns={columns.filter((column) => column.table_id === table.id)}
-              key={table.id}
-              table={table}
-            />
-          ))}
+          {tables.map((table) => {
+            // console.log(
+            //   tablesData?.filter((table) => table.table_id === table.id)
+            // );
+            return (
+              <TableCart
+                isProject={isProject}
+                project_id={project_id}
+                onDeleteTable={onDeleteTable}
+                onDuplicate={onDuplicate}
+                columns={columns.filter(
+                  (column) => column.table_id === table.id
+                )}
+                key={table.id}
+                table={table}
+              />
+            );
+          })}
         </List>
       </div>
     </>

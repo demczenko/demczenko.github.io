@@ -121,7 +121,13 @@ const Project = () => {
         />
       </div>
       <div className="mt-6 space-y-4 w-full">
-        {tables && <TablesList tables={tables} />}
+        {tables && (
+          <TablesList
+            isProject={true}
+            project_id={project?.id}
+            tables={tables}
+          />
+        )}
       </div>
     </PageContainer>
   );

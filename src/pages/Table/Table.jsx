@@ -104,12 +104,24 @@ const Table = () => {
     }
   }, [project]);
 
+  const onDeleteTableData = (table_id) => {
+    tablesData
+      .filter((table) => table.table_id === table_id)
+      .forEach((element) => TabledataService.deleteTabledata(element.id));
+  };
+
+  // TODO: add edit column (after column edit need to be done:
+  //  change column name for every imported slug
+  //  remind user to change variable in template or try to change it by yourself)
   return (
     <PageContainer>
       <Heading title={table?.table_name} />
       <div className="space-y-2 mt-6">
         <ColumnsList columns={columns} />
-        <TableDataList tablesData={tablesData} />
+        <TableDataList
+          onDeleteTableData={onDeleteTableData}
+          tablesData={tablesData}
+        />
       </div>
     </PageContainer>
   );
