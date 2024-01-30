@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CardDescription } from "@/components";
+import { CardDescription, PreviewTemplate } from "@/components";
 import { Badge } from "@/components/ui/badge";
 import { TemplatesService } from "@/api/templates/init";
 import { ProjectService } from "@/api/projects/init";
@@ -69,31 +69,18 @@ const Project = ({
 
   return (
     <div>
-      <Link
-        to={`/projects/${id}`}
-        className="group flex rounded-xl overflow-hidden  max-w-[320px] hover:-translate-y-2 hover:shadow-2xl shadow-xl transition-transform cursor-pointer">
-        <iframe
-          className="max-w-[300px] h-[400px] pointer-events-none"
-          srcDoc={template.template_html}></iframe>
-      </Link>
+      <PreviewTemplate
+        href={`/projects/${id}`}
+        template_html={template.template_html}
+      />
       <CardDescription
+        id={template.id}
+        template_name={template.template_name}
         name={project_name}
         options={options}
         title={"Manage project"}
+        createdAt={createdAt}
       />
-      <div className="flex justify-between">
-        <Link to={`/templates/${template.id}`}>
-          <Badge variant={"secondary"}>
-            <LinkIcon className="h-4 w-4 pr-2" />
-            {template.template_name}
-          </Badge>
-        </Link>
-        <div>
-          <p className="text-xs font-semibold text-neutral-300">
-            created at: {new Date(createdAt).toDateString()}
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

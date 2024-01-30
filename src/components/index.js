@@ -5,4 +5,6 @@ import Logo from "./Logo";
 import HeadingActions from "./HeadingActions";
 import Options from "./Options";
 import CardDescription from "./CardDescription";
-export { Sidebar, Layout, Heading, Logo, HeadingActions, Options, CardDescription };
+import PreviewTemplate from "./PreviewTemplate";
+
+export { Sidebar, Layout, Heading, Logo, HeadingActions, Options, CardDescription, PreviewTemplate };

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CardDescription } from "@/components";
+import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
@@ -81,23 +81,16 @@ const Template = ({ template }) => {
 
   return (
     <div>
-      <Link
-        to={`/templates/${template.id}`}
-        className="flex rounded-xl overflow-hidden max-w-[320px] hover:-translate-y-2 hover:shadow-2xl shadow-xl transition-transform cursor-pointer">
-        <iframe
-          className="max-w-[300px] h-[400px] pointer-events-none"
-          srcDoc={template.template_html}></iframe>
-      </Link>
+      <PreviewTemplate
+        href={`/templates/${template.id}`}
+        template_html={template.template_html}
+      />
       <CardDescription
         name={template.template_name}
         options={options}
         title={"Manage template"}
+        createdAt={template.createdAt}
       />
-      <div>
-        <p className="text-xs font-semibold text-neutral-300">
-          created at: {new Date(template.createdAt).toDateString()}
-        </p>
-      </div>
       <DrawerModal
         title={"Create project"}
         description={"Enter project name and fulfill tables."}

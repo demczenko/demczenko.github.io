@@ -1,4 +1,4 @@
-import { Heading } from "@/components";
+import { Heading, PreviewTemplate } from "@/components";
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PageContainer from "../PageContainer";
@@ -317,10 +317,7 @@ const RenderSlug = () => {
       <div className="mt-6 space-y-4 w-full">
         {hydratedTemplate && (
           <div className="h-[1000px]">
-            <iframe
-              className="h-full w-full rounded-md"
-              srcDoc={hydratedTemplate}
-              frameBorder="0"></iframe>
+            <PreviewTemplate template_html={hydratedTemplate} />
           </div>
         )}
       </div>

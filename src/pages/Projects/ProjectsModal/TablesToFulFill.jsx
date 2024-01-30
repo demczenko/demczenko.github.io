@@ -26,7 +26,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
 
   const handle_complete = ({ data }) => {
     // 1. Filter imported data by accepted keys in order to get only accepted columns from user CSV
-    const acceptedColumns = selectedColumns.map((column) => column.header);
+    const acceptedColumns = selectedColumns.map((column) => column.header.toLowerCase());
     const sorted_data_items = [];
 
     // data_item = object from CSV table with keys that are responsible for columns (Slug: "de")
@@ -35,7 +35,7 @@ const TablesToFulFill = ({ template_id, columnsData, setColumnsData }) => {
       // and add to accepted_data_items.
       const accepted_data_items = {};
       for (const key in data_item) {
-        if (acceptedColumns.includes(key)) {
+        if (acceptedColumns.includes(key.toLowerCase())) {
           if (data_item[key].length > 0) {
             accepted_data_items[key] = data_item[key];
           }
