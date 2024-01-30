@@ -17,4 +17,8 @@ export class ProjectModel {
   updateProject(data) {
     return this.#api.update(this.#path, data);
   }
+
+  deleteProject(data) {
+    return this.#api.delete(this.#path, data);
+  }
 }

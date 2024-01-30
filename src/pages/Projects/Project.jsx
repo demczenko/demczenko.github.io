@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CardDescription, PreviewTemplate } from "@/components";
-import { Badge } from "@/components/ui/badge";
 import { TemplatesService } from "@/api/templates/init";
 import { ProjectService } from "@/api/projects/init";
-import { LinkIcon } from "lucide-react";
 
 const Project = ({
   id,
@@ -25,6 +23,13 @@ const Project = ({
       isArchived: template.isArchived ? false : true,
     });
     navigator("/projects/archive/");
+  };
+
+  const handleDelete = (id) => {
+    alert("under development");
+
+    // add delete action for every api
+    // TemplatesService.updateTemplate({...template, isArchived: template.isArchived ? false : true})
   };
 
   useEffect(() => {
@@ -48,23 +53,48 @@ const Project = ({
   }, []);
 
   const options = useMemo(() => {
-    return [
-      {
-        id: 3,
-        name: "Open",
-        onClick: () => navigator("/projects/" + id),
-      },
-      {
-        id: 1,
-        name: "Rename",
-        onClick: () => setIsModalOpen(true),
-      },
-      {
-        id: 2,
-        name: "Archive",
-        onClick: () => handleArchived(id),
-      },
-    ];
+    if (template.isArchived) {
+      return [
+        {
+          id: 3,
+          name: "Open",
+          onClick: () => navigator("/projects/" + id),
+        },
+        {
+          id: 1,
+          name: "Rename",
+          onClick: () => setIsModalOpen(true),
+        },
+        {
+          id: 2,
+          name: template.isArchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(template.id),
+        },
+        {
+          id: 4,
+          name: "Delete",
+          onClick: () => handleDelete(template.id),
+        },
+      ];
+    } else {
+      return [
+        {
+          id: 3,
+          name: "Open",
+          onClick: () => navigator("/projects/" + id),
+        },
+        {
+          id: 1,
+          name: "Rename",
+          onClick: () => setIsModalOpen(true),
+        },
+        {
+          id: 2,
+          name: template.isArchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(template.id),
+        },
+      ];
+    }
   }, []);
 
   return (

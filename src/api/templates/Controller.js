@@ -16,7 +16,7 @@ export class TemplateController {
     return this.#model.updateTemplate(data);
   }
 
-  updateTemplate(data) {
-    return this.#model.updateTemplate(data);
+  deleteTemplate(data) {
+    return this.#model.deleteTemplate(data);
   }
 }

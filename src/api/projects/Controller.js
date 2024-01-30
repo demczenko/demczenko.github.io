@@ -15,4 +15,8 @@ export class ProjectController {
   updateProject(data) {
     return this.#model.updateProject(data);
   }
+
+  deleteProject(data) {
+    return this.#model.deleteProject(data);
+  }
 }
