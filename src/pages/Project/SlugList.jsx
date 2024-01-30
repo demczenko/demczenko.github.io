@@ -1,8 +1,8 @@
 import React from "react";
 import SlugCart from "./SlugCart";
+import { Heading } from "@/components";
 
 const SlugList = ({ slugs, project_id }) => {
-
   if (!slugs.length) {
     return (
       <div className="text-center">
@@ -21,8 +21,8 @@ const SlugList = ({ slugs, project_id }) => {
 
   return (
     <div>
-      <h2 className="text-2xl text-neutral-200 row-span-full my-2">Slugs</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <Heading title={"Slugs"} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
         {slugs.map((slug) => (
           <SlugCart key={slug} project_id={project_id} slug={slug} />
         ))}

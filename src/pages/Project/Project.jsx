@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { ProjectService } from "@/api/projects/init";
@@ -7,6 +7,7 @@ import SlugList from "./SlugList";
 import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
 import TablesList from "../Tables/TableList";
+import { TemplatesService } from "@/api/templates/init";
 
 const Project = () => {
   const { id } = useParams();
@@ -17,6 +18,34 @@ const Project = () => {
   const [tablesData, setTablesData] = useState([]);
   const [selectedSlug, setSelectedSlug] = useState("");
   const [tables, setTables] = useState([]);
+  const [template, setTemplate] = useState({});
+
+  // Fetch all templates
+  // TODO
+  useEffect(() => {
+    async function getTemplateList() {
+      try {
+        const response = await TemplatesService.getTemplates();
+        if (response.ok) {
+          const data = await response.json();
+          const template = data.find(
+            (template) => template.id === project.template_id
+          );
+          if (template) {
+            setTemplate(template);
+          } else {
+            throw new Error("Template not found.");
+          }
+        }
+      } catch (error) {
+        console.warn(error.message);
+      }
+    }
+
+    if (project) {
+      getTemplateList();
+    }
+  }, [project]);
 
   // Fetch all projects
   useEffect(() => {
@@ -107,27 +136,35 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
+  console.log(template);
+
   return (
     <PageContainer>
       <Heading
         title={loading ? "Loading" : error ? error : project.project_name}
+        paragraph={
+          <Link to={`/templates/${template?.id}`}>{template?.template_name}</Link>
+        }
       />
-      <div className="mt-6 space-y-4 w-full">
-        <SlugList
-          project_id={project?.id}
-          slugs={availableSlugs}
-          selectedSlug={selectedSlug}
-          onSlugSelect={(slug) => setSelectedSlug(slug)}
-        />
-      </div>
-      <div className="mt-6 space-y-4 w-full">
-        {tables && (
-          <TablesList
-            isProject={true}
+      <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
+        <iframe
+          className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
+          srcDoc={template?.template_html}></iframe>
+        <div className="grid gap-2 pt-4 lg:pt-0 w-full">
+          <SlugList
             project_id={project?.id}
-            tables={tables}
+            slugs={availableSlugs}
+            selectedSlug={selectedSlug}
+            onSlugSelect={(slug) => setSelectedSlug(slug)}
           />
-        )}
+          {tables && (
+            <TablesList
+              isProject={true}
+              project_id={project?.id}
+              tables={tables}
+            />
+          )}
+        </div>
       </div>
     </PageContainer>
   );
