@@ -12,59 +12,79 @@ import {
   Template,
   Templates,
   TemplatesArchive,
+  TemplatesLayouts,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
-export const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "templates",
-        element: <Templates />,
-      },
-      {
-        path: "templates/:id",
-        element: <Template />,
-      },
-      {
-        path: "templates/archive",
-        element: <TemplatesArchive />,
-      },
-      {
-        path: "projects",
-        element: <Projects />,
-      },
-      {
-        path: "projects/:id",
-        element: <Project />,
-      },
-      {
-        path: "projects/:id/:slug",
-        element: <RenderSlug />,
-      },
-      {
-        path: "projects/archive",
-        element: <ProjectsArchive />,
-      },
-      {
-        path: "table/:id",
-        element: <Table />,
-      },
-      {
-        path: "components",
-        element: <Components />,
-      },
-      {
-        path: "components/:id",
-        element: <Component />,
-      },
-      {
-        path: "tables/",
-        element: <Tables />,
-      },
-    ],
-  },
-]);
+export const routes = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "templates",
+          element: <Templates />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "templates/:id",
+          element: <Template />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "templates/archive",
+          element: <TemplatesArchive />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "templates/layouts",
+          element: <TemplatesLayouts />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "projects",
+          element: <Projects />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "projects/:id",
+          element: <Project />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "projects/:id/:slug",
+          element: <RenderSlug />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "projects/archive",
+          element: <ProjectsArchive />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "table/:id",
+          element: <Table />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "components",
+          element: <Components />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "components/:id",
+          element: <Component />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "tables/",
+          element: <Tables />,
+          errorElement: <ErrorPage />,
+        },
+      ],
+    },
+  ],
+  { basename: "/cms-v3" }
+);

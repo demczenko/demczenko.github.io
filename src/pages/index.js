@@ -11,7 +11,9 @@ import Components from "./Components/Components";
 import Component from "./Component/Component";
 import RenderSlug from "./RenderSlug/RenderSlug";
 import Tables from "./Tables/Tables";
+import TemplatesLayouts from "./Layouts/TemplatesLayouts";
 export {
+  TemplatesLayouts,
   Tables,
   RenderSlug,
   Component,

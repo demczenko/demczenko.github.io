@@ -282,11 +282,6 @@ const RenderSlug = () => {
             name: "Copy",
             onClick: () => handleCopy(),
           },
-          {
-            id: 2,
-            name: "Export",
-            onClick: () => alert("Under development"),
-          },
         ]}
         title={
           <div className="flex gap-2 items-center">
