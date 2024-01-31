@@ -1,24 +1,23 @@
 import { DrawerModal } from "@/components/Drawer";
-import { ArrowRightIcon, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import { TabledataService } from "@/api/tables data/init";
 import CartHeader from "@/components/CartHeader";
 import { Button } from "@/components/ui/button";
 
-const TableDataCart = ({ table, onDelete, content }) => {
-  const navigator = useNavigate();
+const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = (name) => {
     if (name.length < 3) return;
-    TabledataService.updateTabledata({
+    const new_tabledata = {
       ...table,
       ...name,
       updatedAt: Date.now(),
-    });
-    navigator(`/tables/`);
+    }
+    TabledataService.updateTabledata(new_tabledata);
+    setTablesData(prev => ([...prev, new_tabledata]))
   };
 
   return (

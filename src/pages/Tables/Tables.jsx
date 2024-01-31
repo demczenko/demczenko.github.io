@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageContainer from "../PageContainer";
 import TablesList from "./TableList";
 import { TableService } from "@/api/tables/init";
+import { ColumnService } from "@/api/columns/init";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -23,23 +24,23 @@ const Tables = () => {
     getTableList();
   }, []);
 
-  // Fetch all columns
-  // TODO
-  useEffect(() => {
-    async function getColumnList() {
-      try {
-        const response = await ColumnService.getColumns();
-        if (response.ok) {
-          const data = await response.json();
-          setColumns(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
+  // // Fetch all columns
+  // // TODO
+  // useEffect(() => {
+  //   async function getColumnList() {
+  //     try {
+  //       const response = await ColumnService.getColumns();
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setColumns(data);
+  //       }
+  //     } catch (error) {
+  //       console.warn(error.message);
+  //     }
+  //   }
 
-    getColumnList();
-  }, []);
+  //   getColumnList();
+  // }, []);
 
   return (
     <PageContainer>

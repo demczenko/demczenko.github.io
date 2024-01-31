@@ -41,6 +41,21 @@ const TableFulfill = ({
   });
 
   const handle_complete = ({ data }) => {
+    setError("");
+    if (data.length < 0) {
+      setError("Data is too short");
+      return;
+    }
+
+    const isSlug = Object.keys(data[0])
+      .map((k) => k.toLocaleLowerCase())
+      .includes("slug");
+
+    if (!isSlug) {
+      setError("Slug is required");
+      return;
+    }
+
     // 1. Filter imported data by accepted keys in order to get only accepted columns from user CSV
     const acceptedColumns = columns.map((column) =>
       column.header.toLowerCase()
@@ -79,6 +94,8 @@ const TableFulfill = ({
         sorted_data_items.push(sorted);
       }
     }
+
+    console.log(sorted_data_items);
     setColumnsData(sorted_data_items);
     setTablesData((prev) => [...prev, ...sorted_data_items]);
   };
@@ -234,12 +251,19 @@ const TableFulfill = ({
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
-            <p className="group h-[400px] flex items-center justify-center font-semibold w-full bg-blue-100 border-2 border-blue-600 rounded-md border-dashed">
-              <span className="text-xl text-center text-slate-50 flex gap-2 group-hover:text-blue-400 transition-colors group-hover:bg-slate-50 rounded-lg p-4 items-center cursor-pointer">
-                Drag and drop only CSV file here, or click to select CSV file
-                <ImportIcon />
-              </span>
-            </p>
+            <div className="mt-4">
+              <p className="group h-[400px] flex items-center justify-center font-semibold w-full bg-blue-100 border-2 border-blue-600 rounded-md border-dashed">
+                <span className="text-xl text-center text-slate-50 flex gap-2 group-hover:text-blue-400 transition-colors group-hover:bg-slate-50 rounded-lg p-4 items-center cursor-pointer">
+                  Drag and drop only CSV file here, or click to select CSV file
+                  <ImportIcon />
+                </span>
+              </p>
+              {error && (
+                <p className="text-sm font-semibold text-red-300 mt-4">
+                  {error}
+                </p>
+              )}
+            </div>
           )}
         </div>
       )}

@@ -145,6 +145,7 @@ const Table = () => {
         <TableDataList
           onDeleteTableData={onDeleteTableData}
           tablesData={tablesData}
+          setTablesData={setTablesData}
         />
       </div>
       <DrawerModal

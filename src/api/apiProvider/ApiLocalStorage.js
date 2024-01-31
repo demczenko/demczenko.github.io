@@ -32,8 +32,6 @@ export class ApiLocalStorage {
       return item
     })
 
-    console.log(prev);
-
     localStorage.setItem(key, this.#stringify(() => prev));
   }
 
