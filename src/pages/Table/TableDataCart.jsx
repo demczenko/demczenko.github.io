@@ -23,7 +23,7 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
   return (
     <>
       <section className="group" onClick={() => setIsModalOpen(true)}>
-        <CartHeader table_id={table.id} table_name={table.slug} />
+        <CartHeader table_name={table.slug} />
         {content}
         <div className="flex justify-between mt-2">
           <div className="opacity-50 group-hover:opacity-100 transition-all">

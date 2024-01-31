@@ -28,7 +28,7 @@ const Table = () => {
 
     TableService.update(new_table);
     setTable(new_table);
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
 
   // Fetch all projects
@@ -128,6 +128,20 @@ const Table = () => {
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
   //  remind user to change variable in template or try to change it by yourself)
+
+  if (!table) {
+    return (
+      <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
+        <p className="text-6xl text-neutral-100 font-medium tracking-tight">
+          Whooops!
+        </p>
+        <p className="text-sm text-neutral-400 font-medium mt-4">
+          Looks like table you are looking for not exists.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <PageContainer>
       <Heading
