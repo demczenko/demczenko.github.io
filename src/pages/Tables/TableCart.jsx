@@ -12,6 +12,7 @@ const TableCart = ({
   onDuplicate,
   project_id,
   isProject,
+  setTablesData,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,6 +38,7 @@ const TableCart = ({
           <AddProjectDrawer
             form={
               <TableFulfill
+                setTablesData={setTablesData}
                 setIsModalOpen={setIsModalOpen}
                 project_id={project_id}
                 table_id={table.id}

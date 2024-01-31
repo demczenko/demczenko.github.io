@@ -16,10 +16,16 @@ import { v4 as uuidv4 } from "uuid";
 import { ContextMenuRow } from "./ContextMenuTableRow";
 import { Button } from "@/components/ui/button";
 
-const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
+const TableFulfill = ({
+  setTablesData,
+  setIsModalOpen,
+  table_id,
+  columns,
+  project_id,
+}) => {
   const [error, setError] = useState("");
   const [columnsData, setColumnsData] = useState([]);
-  const [tableData, setTablesData] = useState(null);
+  const [tableData, setColData] = useState(null);
   const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
 
   const onDrop = useCallback((htmlFile) => {
@@ -74,6 +80,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       }
     }
     setColumnsData(sorted_data_items);
+    setTablesData((prev) => [...prev, ...sorted_data_items]);
   };
 
   const handleImportCSV = (file) => {
@@ -96,7 +103,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
         if (response.ok) {
           const data = await response.json();
           const filtered = data.filter((table) => table.table_id === table_id);
-          setTablesData(filtered);
+          setColData(filtered);
         }
       } catch (error) {
         console.warn(error.message);

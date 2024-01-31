@@ -101,6 +101,7 @@ const TablesList = ({ setTables, tables, project_id, isProject }) => {
                 columns={columns.filter(
                   (column) => column.table_id === table.id
                 )}
+                setTablesData={setTablesData}
                 key={table.id}
                 table={table}
               />

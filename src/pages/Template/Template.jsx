@@ -1,6 +1,6 @@
 import { TemplatesService } from "@/api/templates/init";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { TableService } from "@/api/tables/init";
@@ -10,10 +10,10 @@ import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";
 import { ColumnService } from "@/api/columns/init";
 import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
+import { useToast } from "@/components/ui/use-toast";
 
 const Template = () => {
   const { id } = useParams();
-  const navigator = useNavigate();
   const [template, setTemplate] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,14 +22,23 @@ const Template = () => {
   const [new_tables, setNewTables] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTempalteModalOpen, setTempalteModalOpen] = useState(false);
+  const {toast} = useToast()
 
   const onChangeTemplateSubmit = (data) => {
     if (data["modify template"].length < 10) return;
-    TemplatesService.updateTemplate({
+    const new_template = {
       ...template,
       template_html: data["modify template"],
+    };
+    TemplatesService.updateTemplate(new_template);
+    setTemplate(new_template);
+    setTempalteModalOpen(false)
+
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Template updated successfully",
     });
-    navigator("/projects/");
   };
 
   // Fetch all tables
@@ -113,7 +122,7 @@ const Template = () => {
           className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
           srcDoc={template?.template_html}></iframe>
         <div className="pt-4 lg:pt-0 w-full">
-          <TablesList setTables={setTables} isProject={false} tables={tables}  />
+          <TablesList setTables={setTables} isProject={false} tables={tables} />
         </div>
       </div>
       <DrawerModal
