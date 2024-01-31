@@ -15,4 +15,8 @@ export class TableController {
   deleteTable(data) {
     return this.#model.deleteTable(data);
   }
+
+  update(data) {
+    return this.#model.update(data);
+  }
 }

@@ -43,7 +43,7 @@ const Tables = () => {
 
   return (
     <PageContainer>
-      {tables && <TablesList isProject={false} tables={tables} />}
+      {tables && <TablesList setTables={setTables} isProject={false} tables={tables} />}
     </PageContainer>
   );
 };

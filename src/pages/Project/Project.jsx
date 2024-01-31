@@ -136,8 +136,6 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  console.log(template);
-
   return (
     <PageContainer>
       <Heading
@@ -162,6 +160,7 @@ const Project = () => {
               isProject={true}
               project_id={project?.id}
               tables={tables}
+              setTables={setTables}
             />
           )}
         </div>

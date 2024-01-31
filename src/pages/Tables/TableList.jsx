@@ -4,10 +4,12 @@ import { Heading, List } from "@/components";
 import { ColumnService } from "@/api/columns/init";
 import { useEffect, useState } from "react";
 import { TabledataService } from "@/api/tables data/init";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 // Handle columns, onDuplicate, onDeleteTable fetch inside component in order to reuse component through application.
 
-const TablesList = ({ tables, project_id, isProject }) => {
+const TablesList = ({ setTables, tables, project_id, isProject }) => {
   const [columns, setColumns] = useState(null);
   const [tablesData, setTablesData] = useState([]);
 
@@ -78,6 +80,7 @@ const TablesList = ({ tables, project_id, isProject }) => {
 
     TableService.setTables(new_table);
     change_columns_id.forEach((column) => ColumnService.setColumns(column));
+    setTables(prev => ([...prev, new_table]))
   };
 
   return (

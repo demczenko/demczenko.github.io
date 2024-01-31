@@ -113,7 +113,7 @@ const Template = () => {
           className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
           srcDoc={template?.template_html}></iframe>
         <div className="pt-4 lg:pt-0 w-full">
-          <TablesList tables={tables}  />
+          <TablesList setTables={setTables} isProject={false} tables={tables}  />
         </div>
       </div>
       <DrawerModal

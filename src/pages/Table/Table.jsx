@@ -8,13 +8,28 @@ import { ColumnService } from "@/api/columns/init";
 import TableDataList from "./TableDataList";
 import { TabledataService } from "@/api/tables data/init";
 import { ProjectService } from "@/api/projects/init";
+import { DrawerModal } from "@/components/Drawer";
+import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 
 const Table = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams();
   const [table, setTable] = useState({});
   const [columns, setColumns] = useState([]);
   const [tablesData, setTablesData] = useState([]);
   const [project, setProject] = useState(null);
+
+  const onSubmit = ({ table_name }) => {
+    if (table_name.length < 3) return;
+    const new_table = {
+      ...table,
+      table_name: table_name,
+    };
+
+    TableService.update(new_table);
+    setTable(new_table);
+    setIsModalOpen(false)
+  };
 
   // Fetch all projects
   useEffect(() => {
@@ -115,14 +130,36 @@ const Table = () => {
   //  remind user to change variable in template or try to change it by yourself)
   return (
     <PageContainer>
-      <Heading title={table?.table_name} />
+      <Heading
+        title={table?.table_name}
+        actions={[
+          {
+            id: 1,
+            name: "Manage column",
+            onClick: () => setIsModalOpen(true),
+          },
+        ]}
+      />
       <div className="space-y-2 mt-6">
-        <ColumnsList columns={columns} />
+        <ColumnsList setColumns={setColumns} columns={columns} />
         <TableDataList
           onDeleteTableData={onDeleteTableData}
           tablesData={tablesData}
         />
       </div>
+      <DrawerModal
+        title={"Manage column"}
+        description={"Change column name"}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        content={
+          <RenameTemplate
+            placeholder={table?.table_name}
+            label={"table_name"}
+            onSubmit={onSubmit}
+          />
+        }
+      />
     </PageContainer>
   );
 };

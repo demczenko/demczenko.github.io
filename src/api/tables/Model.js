@@ -16,4 +16,8 @@ export class TablesModel {
   deleteTable(data) {
     return this.#api.delete(this.#path, data);
   }
+
+  update(data) {
+    return this.#api.update(this.#path, data);
+  }
 }

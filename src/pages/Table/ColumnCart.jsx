@@ -3,20 +3,19 @@ import { DrawerModal } from "@/components/Drawer";
 import { ArrowRightIcon } from "lucide-react";
 import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
-import { useNavigate } from "react-router-dom";
 
-const ColumnCart = ({ column }) => {
-  const navigator = useNavigate();
+const ColumnCart = ({ column, setColumns }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = ({ header }) => {
     if (header.length < 3) return;
-    ColumnService.updateColumn({
+    const new_columns = {
       ...column,
       accessorKey: header,
       header: header,
-    });
-    navigator("/templates/");
+    };
+    ColumnService.updateColumn(new_columns);
+    setColumns((prev) => [...prev, new_columns]);
   };
 
   return (
