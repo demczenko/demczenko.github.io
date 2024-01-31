@@ -23,7 +23,7 @@ const navigation = [
         icon: <Trash className="h-4 w-4 mr-2" />,
       },
       {
-        id: 1,
+        id: 2,
         path: "/templates/layouts",
         name: "Layouts",
         icon: <Columns2 className="h-4 w-4 mr-2" />,
