@@ -318,7 +318,7 @@ const RenderSlug = () => {
         {hydratedTemplate && (
           <div className="h-[1000px]">
             <iframe
-              className="w-full h-full"
+              className="w-full h-full rounded-md"
               srcDoc={hydratedTemplate}></iframe>
           </div>
         )}

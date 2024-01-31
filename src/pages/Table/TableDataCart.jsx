@@ -5,9 +5,11 @@ import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import { TabledataService } from "@/api/tables data/init";
 import CartHeader from "@/components/CartHeader";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {toast} = useToast()
 
   const onSubmit = (name) => {
     if (name.length < 3) return;
@@ -18,6 +20,11 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
     }
     TabledataService.updateTabledata(new_tabledata);
     setTablesData(prev => ([...prev, new_tabledata]))
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Column successfully updated"
+    })
   };
 
   return (
