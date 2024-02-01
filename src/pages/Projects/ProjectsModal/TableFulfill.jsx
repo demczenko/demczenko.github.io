@@ -10,11 +10,14 @@ import {
 import Papa from "papaparse";
 import ImportConflict from "@/pages/Template/ImportConflict";
 import { TabledataService } from "@/api/tables data/init";
-import { useDropzone } from "react-dropzone";
 import { ImportIcon } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { ContextMenuRow } from "./ContextMenuTableRow";
 import { Button } from "@/components/ui/button";
+import HandleImportCSV from "../../../components/HandleImportCSV";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import HandleNewItem from "./HandleNewItem";
+import { useToast } from "@/components/ui/use-toast";
 
 const TableFulfill = ({
   setTablesData,
@@ -27,18 +30,12 @@ const TableFulfill = ({
   const [columnsData, setColumnsData] = useState([]);
   const [tableData, setColData] = useState(null);
   const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
+  const { toast } = useToast();
 
   const onDrop = useCallback((htmlFile) => {
     const html = htmlFile[0];
     handleImportCSV(html);
   }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "text/csv": [".csv"],
-    },
-  });
 
   const handle_complete = ({ data }) => {
     setError("");
@@ -188,6 +185,41 @@ const TableFulfill = ({
     setColumnsData((prev) => prev.filter((column) => column.slug !== slug));
   };
 
+  const handleNewItemAdd = (data) => {
+    let isExist = false;
+    const new_item = {
+      ...data,
+      id: uuidv4(),
+      createdAt: Date.now(),
+      project_id: project_id,
+      table_id: table_id,
+    };
+
+    for (const data_item of tableData) {
+      if (new_item.slug === data_item.slug) {
+        isExist = true;
+      }
+    }
+
+    if (!isExist) {
+      TabledataService.setTabledata(new_item);
+      toast({
+        variant: "success",
+        title: "Created",
+        description: "Table data has been successfully created",
+      });
+    } else {
+      TabledataService.updateTabledata(new_item);
+      toast({
+        variant: "success",
+        title: "Updated",
+        description: "Table data has been successfully updated",
+      });
+    }
+
+    setIsModalOpen(false);
+  };
+
   const createRows = () => {
     return columnsData.map((colData, i) => {
       return (
@@ -231,42 +263,53 @@ const TableFulfill = ({
 
   return (
     <>
-      <Table>
-        <TableHeader>
-          <TableRow className="flex items-center">
-            {columns.map((column) => (
-              <TableHead
-                className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
-                key={column.id}>
-                {column.header}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>{createRows()}</TableBody>
-      </Table>
-      {columnsData.length === 0 && (
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <div className="mt-4">
-              <p className="group h-[400px] flex items-center justify-center font-semibold w-full bg-blue-100 border-2 border-blue-600 rounded-md border-dashed">
-                <span className="text-xl text-center text-slate-50 flex gap-2 group-hover:text-blue-400 transition-colors group-hover:bg-slate-50 rounded-lg p-4 items-center cursor-pointer">
-                  Drag and drop only CSV file here, or click to select CSV file
-                  <ImportIcon />
-                </span>
-              </p>
+      {columnsData.length !== 0 && (
+        <Table>
+          <TableHeader>
+            <TableRow className="flex items-center">
+              {columns.map((column) => (
+                <TableHead
+                  className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
+                  key={column.id}>
+                  {column.header}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>{createRows()}</TableBody>
+        </Table>
+      )}
+      <Tabs className="mt-6" defaultValue="import">
+        <TabsList>
+          <TabsTrigger value={"manually"}>New item</TabsTrigger>
+          <TabsTrigger value={"import"}>Import CSV</TabsTrigger>
+        </TabsList>
+        <TabsContent value={"manually"}>
+          {columnsData.length === 0 && (
+            <>
+              <HandleNewItem fields={columns} onSubmit={handleNewItemAdd} />
               {error && (
                 <p className="text-sm font-semibold text-red-300 mt-4">
                   {error}
                 </p>
               )}
-            </div>
+            </>
           )}
-        </div>
-      )}
+        </TabsContent>
+        <TabsContent value={"import"}>
+          {columnsData.length === 0 && (
+            <>
+              <HandleImportCSV onDrop={onDrop} />
+              {error && (
+                <p className="text-sm font-semibold text-red-300 mt-4">
+                  {error}
+                </p>
+              )}
+            </>
+          )}
+        </TabsContent>
+      </Tabs>
+
       {columnsData.length > 0 && (
         <Button onClick={handlePopulateTable} className="w-full mt-2">
           Save

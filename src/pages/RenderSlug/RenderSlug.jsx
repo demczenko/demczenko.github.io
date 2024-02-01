@@ -107,7 +107,9 @@ const RenderSlug = () => {
 
     // Iterate over dataPlaceholder
     for (const node of dataPlaceholder) {
-      const placeholderKey = node.getAttribute("data-placeholder").toLowerCase();
+      const placeholderKey = node
+        .getAttribute("data-placeholder")
+        .toLowerCase();
 
       for (const data of dataSlug) {
         if (placeholderKey in data) {
@@ -285,20 +287,25 @@ const RenderSlug = () => {
         ]}
         title={
           <div className="flex gap-2 items-center">
-            <Link to={`/projects/`}>Projects</Link>
-            {" / "}
-            <Link to={`/projects/${project?.id}`}>{project?.project_name}</Link>
-            {" / "}
+            <Link className="text-xl font-normal text-neutral-400" to={`/projects/`}>Projects</Link>
+            <span className="text-xl font-normal text-neutral-400">{" / "}</span>
+            <Link className="text-xl font-normal text-neutral-400" to={`/projects/${project?.id}`}>{project?.project_name}</Link>
+            <span className="text-xl font-normal text-neutral-400">{" / "}</span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size="sm" variant="secondary">
+                <Button size="sm" variant="ghost" className="capitalize text-xl">
                   {slug}
-                  <ChevronDown />
+                  <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {availableSlugs.map((item, i) => (
                   <DropdownMenuItem
+                    className={`${
+                      selectedSlug === item
+                        ? "capitalize font-semibold text-slate-800 cursor-pointer hover:bg-slate-300 hover:text-slate-50 hover:font-semibold"
+                        : "text-neutral-400 capitalize cursor-pointer hover:bg-slate-300 hover:text-slate-50 hover:font-semibold"
+                    }`}
                     onClick={() => setSelectedSlug(item)}
                     key={i}>
                     {item}

@@ -8,7 +8,7 @@ const TableDataList = ({ setTablesData, tablesData, onDeleteTableData }) => {
       <Heading title={`Table data`} paragraph={`${tablesData.length} slugs`} />
       <List>
         {tablesData.map((table, i) => (
-          <TableDataCart setTablesData={setTablesData} onDelete={onDeleteTableData} key={i} table={table} />
+          <TableDataCart setTablesData={setTablesData} onDelete={() => onDeleteTableData(table.id)} key={i} table={table} />
         ))}
       </List>
     </div>

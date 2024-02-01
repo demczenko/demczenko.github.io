@@ -119,10 +119,14 @@ const Table = () => {
     }
   }, [project]);
 
-  const onDeleteTableData = (table_id) => {
-    tablesData
-      .filter((table) => table.table_id === table_id)
-      .forEach((element) => TabledataService.deleteTabledata(element.id));
+  const onDeleteTableData = (id) => {
+    tablesData.forEach((table_data) => {
+      if (table_data.id === id) {
+        TabledataService.deleteTabledata(table_data.id);
+      }
+    });
+
+    setTablesData(tablesData.filter((table_data) => table_data.id !== id));
   };
 
   // TODO: add edit column (after column edit need to be done:

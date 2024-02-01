@@ -1,5 +1,5 @@
 import { DrawerModal } from "@/components/Drawer";
-import { TrashIcon } from "lucide-react";
+import { Edit2, TrashIcon } from "lucide-react";
 import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import { TabledataService } from "@/api/tables data/init";
@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {toast} = useToast()
+  const { toast } = useToast();
 
   const onSubmit = (name) => {
     if (name.length < 3) return;
@@ -17,20 +17,20 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
       ...table,
       ...name,
       updatedAt: Date.now(),
-    }
+    };
     TabledataService.updateTabledata(new_tabledata);
-    setTablesData(prev => ([...prev, new_tabledata]))
+    setTablesData((prev) => [...prev, new_tabledata]);
     toast({
       variant: "success",
       title: "Success",
-      description: "Column successfully updated"
-    })
+      description: "Column successfully updated",
+    });
   };
 
   return (
     <>
-      <section className="group" onClick={() => setIsModalOpen(true)}>
-        <CartHeader table_name={table.slug} />
+      <section className="group">
+        <CartHeader onClick={() => setIsModalOpen(true)} table_name={table.slug} />
         {content}
         <div className="flex justify-between mt-2">
           <div className="opacity-50 group-hover:opacity-100 transition-all">
@@ -48,14 +48,24 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
               </p>
             )}
           </div>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
-            onClick={() => onDelete(table.id)}>
-            <TrashIcon className="pr-2" />
-            Delete
-          </Button>
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+              onClick={() => setIsModalOpen(true)}>
+              <Edit2 className="pr-2" />
+              Edit
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+              onClick={onDelete}>
+              <TrashIcon className="pr-2" />
+              Delete
+            </Button>
+          </div>
         </div>
       </section>
       <DrawerModal
