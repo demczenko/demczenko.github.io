@@ -11,15 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import TablesToFulFill from "./TablesToFulFill";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProjectService } from "@/api/projects/init";
-import { TabledataService } from "@/api/tables data/init";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
   const navigate = useNavigate();
-  const [columnsData, setColumnsData] = useState([]);
   const form = useForm({
     defaultValues: {
       project_name: "",
@@ -35,14 +31,6 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       return;
     }
 
-    // if (!formData.tables_data) {
-    //   form.setError("tables_data", {
-    //     message: "Tables data is required.",
-    //     type: "required",
-    //   });
-    //   return;
-    // }
-
     cb(formData);
   };
 
@@ -57,9 +45,6 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
     };
 
     ProjectService.setProject(project);
-    columnsData.forEach((column) =>
-      TabledataService.setTabledata({ ...column, project_id: project_id })
-    );
 
     onSubmitForm();
     navigate("/projects/" + project_id);
@@ -86,11 +71,6 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
-          <TablesToFulFill
-            template_id={template_id}
-            columnsData={columnsData}
-            setColumnsData={setColumnsData}
           />
           <Button type="submit" size="sm">
             Create

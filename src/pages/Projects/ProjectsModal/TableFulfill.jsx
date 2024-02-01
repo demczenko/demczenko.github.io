@@ -91,7 +91,6 @@ const TableFulfill = ({
       }
     }
 
-    console.log(sorted_data_items);
     setColumnsData(sorted_data_items);
     setTablesData((prev) => [...prev, ...sorted_data_items]);
   };
@@ -129,16 +128,22 @@ const TableFulfill = ({
   }, [columnsData]);
 
   useEffect(() => {
-    for (const { name, isSkip, isUpdate } of slugsAlreadyExist) {
+    for (const { id, name, isSkip, isUpdate } of slugsAlreadyExist) {
       for (const data_item of columnsData) {
-        if (data_item.Slug.toLowerCase() === name.toLowerCase()) {
+        for (const key in data_item) {
+          data_item[key.toLowerCase()] = data_item[key];
+        }
+        if (data_item.slug.toLowerCase() === name.toLowerCase()) {
           if (isSkip) {
             handleDeleteRow(data_item.id);
             handleDeleteConflict(name);
           }
 
           if (isUpdate) {
-            TabledataService.updateTabledata(data_item);
+            TabledataService.updateTabledata({
+              ...data_item,
+              id: id
+            });
             handleDeleteConflict(name);
             handleDeleteRow(data_item.id);
           }
@@ -160,11 +165,12 @@ const TableFulfill = ({
     const alreadyExistsSlugs = [];
     for (const table_data_item of tableData) {
       for (const new_table_data_item of columnsData) {
-        if (table_data_item.Slug === new_table_data_item.Slug) {
+        if (table_data_item.slug === new_table_data_item.slug) {
           alreadyExistsSlugs.push({
-            name: table_data_item.Slug,
+            name: table_data_item.slug,
             isSkip: false,
             isUpdate: false,
+            id: table_data_item.id
           });
         }
       }
