@@ -14,6 +14,7 @@ import { useState } from "react";
 const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
   const [bgcolor, setBgColor] = useState("");
   const [color, setColor] = useState("");
+  const [err, setError] = useState(true);
 
   return (
     <Dialog onOpenChange={onOpenChange} open={open}>
@@ -26,32 +27,60 @@ const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label
+              htmlFor="name"
+              className="text-left">
               Text color
             </Label>
+            <p
+              style={{ backgroundColor: color }}
+              className="rounded-full h-6 w-6 col-span-1"
+            />
             <Input
-              onChange={(ev) => setColor(ev.target.value)}
+              onChange={(ev) => {
+                if (ev.target.value.trim().includes("#")) {
+                  setColor(ev.target.value);
+                  setError(false);
+                } else {
+                  setError(true);
+                }
+              }}
               id="name"
-              type="color"
               value={color}
-              className="col-span-3"
+              type="text"
+              className="col-span-4"
             />
           </div>
+
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="bg" className="text-right">
-              Background color
+            <Label
+              htmlFor="bg"
+              className="text-left">
+              Background color{" "}
             </Label>
+            <p
+              style={{ backgroundColor: bgcolor }}
+              className="rounded-full h-6 w-6 col-span-1"
+            />
             <Input
-              onChange={(ev) => setBgColor(ev.target.value)}
+              onChange={(ev) => {
+                if (ev.target.value.trim().includes("#")) {
+                  setBgColor(ev.target.value);
+                  setError(false);
+                } else {
+                  setError(true);
+                }
+              }}
               id="bg"
               value={bgcolor}
-              type="color"
-              className="col-span-3"
+              type="text"
+              className="col-span-4"
             />
           </div>
         </div>
         <DialogFooter>
           <Button
+            disabled={err}
             onClick={() => {
               onSubmit({
                 color: color,
