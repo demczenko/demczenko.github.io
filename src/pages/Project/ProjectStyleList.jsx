@@ -19,7 +19,7 @@ const ProjectStyleList = ({ handleDelete, styles }) => {
   return (
     <div>
       <Heading title={"Project style"} />
-      <div className="grid grid-cols-2 xl:grid-cols-2 gap-2 mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
         {styles.map((item) => {
           for (const key in item.style) {
             const value = item.style[key];
