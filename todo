@@ -1,14 +1,2 @@
-<!-- CONSTRAINTS -->
-
-1 tag can contain only 1 data-table
-
-When creatin project.
-If of this project shared to every column_data.
-
---Handle new item add (sheet modal right side)
-link, image, plain text add options to columns select
-handle the same slug name
-
-; done
-check Slug import (letter capitalize)
-; check is it working
+Todo:
+  -handle color change for: background and text

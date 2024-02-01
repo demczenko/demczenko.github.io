@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { TableService } from "@/api/tables/init";
 import { useToast } from "@/components/ui/use-toast";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
@@ -287,13 +288,24 @@ const RenderSlug = () => {
         ]}
         title={
           <div className="flex gap-2 items-center">
-            <Link className="text-xl font-normal text-neutral-400" to={`/projects/`}>Projects</Link>
-            <span className="text-xl font-normal text-neutral-400">{" / "}</span>
-            <Link className="text-xl font-normal text-neutral-400" to={`/projects/${project?.id}`}>{project?.project_name}</Link>
-            <span className="text-xl font-normal text-neutral-400">{" / "}</span>
+            <BreadCrumbs
+              items={[
+                {
+                  name: "Projects",
+                  to: `/projects/`,
+                },
+                {
+                  name: project?.project_name,
+                  to: `/projects/${project?.id}`,
+                },
+              ]}
+            />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size="sm" variant="ghost" className="capitalize text-xl">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="capitalize text-xl">
                   {slug}
                   <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
