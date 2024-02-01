@@ -16,6 +16,7 @@ import { ChevronDown } from "lucide-react";
 import { TableService } from "@/api/tables/init";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { ProjectStyleService } from "@/api/projects_style/init";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
@@ -30,6 +31,8 @@ const RenderSlug = () => {
   const [template, setTemplate] = useState({});
   const [tablesData, setTablesData] = useState([]);
   const [tables, setTables] = useState([]);
+  const [projectStyle, setProjectStyle] = useState([]);
+
 
   const { toast } = useToast();
 
@@ -123,6 +126,18 @@ const RenderSlug = () => {
             if (table.id === data.table_id) {
               node.placeholder = data[placeholderKey];
             }
+          }
+        }
+      }
+    }
+
+    const nodes_to_update = document.querySelectorAll("[data-style-id]");
+
+    if (nodes_to_update) {
+      for (const node of nodes_to_update) {
+        for (const item of projectStyle) {
+          if (item.id === node.getAttribute("data-style-id")) {
+            Object.assign(node.style, item.style);
           }
         }
       }
@@ -234,7 +249,7 @@ const RenderSlug = () => {
   }, [project, selectedSlug]);
 
   useEffect(() => {
-    if (template && tablesData) {
+    if (template && tablesData && projectStyle) {
       hydrateTemplate(tablesData, template.template_html);
     }
   }, [tablesData, template]);
@@ -244,6 +259,29 @@ const RenderSlug = () => {
       navigator(`/projects/${project?.id}/${selectedSlug}`);
     }
   }, [project, selectedSlug]);
+
+  // Fetch all project styles
+  // TODO
+  useEffect(() => {
+    async function getProjectStyle() {
+      try {
+        const response = await ProjectStyleService.get();
+        if (response.ok) {
+          const data = await response.json();
+          const filteredTable = data.filter(
+            (table) => table.project_id === project.id
+          );
+          setProjectStyle(filteredTable);
+        }
+      } catch (error) {
+        console.warn(error.message);
+      }
+    }
+
+    if (project) {
+      getProjectStyle();
+    }
+  }, [project]);
 
   const availableSlugs = useMemo(() => {
     const slugsData = {};

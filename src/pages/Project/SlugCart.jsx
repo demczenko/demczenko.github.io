@@ -6,7 +6,7 @@ const SlugCart = ({ slug, project_id }) => {
   return (
     <section className="cursor-pointer group">
       <Link to={`/projects/${project_id}/${slug}`}>
-        <h3 className="p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors text-sm font-medium flex justify-between items-center">
+        <h3 className="capitalize p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors text-sm font-medium flex justify-between items-center">
           {slug}
           <div className="overflow-hidden flex">
             <ArrowRightIcon className="h-4 w-4 -translate-x-1 group-hover:translate-x-0 transition-transform" />

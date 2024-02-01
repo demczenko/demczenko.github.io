@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import { Heading } from "./components";
+import { PageContainer } from "./pages";
 
 const ErrorPage = () => {
   return (
-    <div>ErrorPage</div>
-  )
-}
+    <PageContainer>
+      <Heading title={"Error page"}/>
+    </PageContainer>
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

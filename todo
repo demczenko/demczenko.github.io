@@ -1,2 +1,17 @@
 Todo:
   -handle color change for: background and text
+  
+  Project responsible for saving the changes to colors.
+  There should be additional table for saving colors with fields:
+
+  project_id: related to project.
+  node: where apply colors.
+  style: styles
+
+[
+  {
+    project_id: 1,
+    node: url to object node,
+    style: object woth key value pairs related to CSS style
+  }
+]

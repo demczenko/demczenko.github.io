@@ -8,12 +8,17 @@ import { TabledataService } from "@/api/tables data/init";
 import { TableService } from "@/api/tables/init";
 import TablesList from "../Tables/TableList";
 import { TemplatesService } from "@/api/templates/init";
+import ProjectTemplatePreview from "./ProjectTemplatePreview";
+import { ProjectStyleService } from "@/api/projects_style/init";
+import ProjectStyleList from "./ProjectStyleList";
 
 const Project = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [projectStyle, setProjectStyle] = useState([]);
   const [slugs, setSlugs] = useState([]);
   const [tablesData, setTablesData] = useState([]);
   const [selectedSlug, setSelectedSlug] = useState("");
@@ -31,11 +36,7 @@ const Project = () => {
           const template = data.find(
             (template) => template.id === project.template_id
           );
-          if (template) {
-            setTemplate(template);
-          } else {
-            throw new Error("Template not found.");
-          }
+          setTemplate(template);
         }
       } catch (error) {
         console.warn(error.message);
@@ -115,6 +116,76 @@ const Project = () => {
     }
   }, [project]);
 
+  // Fetch all project styles
+  // TODO
+  useEffect(() => {
+    async function getProjectStyle() {
+      try {
+        const response = await ProjectStyleService.get();
+        if (response.ok) {
+          const data = await response.json();
+          const filteredTable = data.filter(
+            (table) => table.project_id === project.id
+          );
+          setProjectStyle(filteredTable);
+        }
+      } catch (error) {
+        console.warn(error.message);
+      }
+    }
+
+    if (project) {
+      getProjectStyle();
+    }
+  }, [project]);
+
+  const handleProjectStyle = (new_node) => {
+    let isExist = false;
+
+    for (const item of projectStyle) {
+      if (item.id === new_node.id) {
+        isExist = true;
+      }
+    }
+
+    if (isExist) {
+      ProjectStyleService.update(new_node);
+      setProjectStyle((prev) =>
+        prev.map((item) => {
+          if (item.id === new_node.id) {
+            return {
+              ...item,
+              ...new_node,
+            };
+          }
+          return item;
+        })
+      );
+    } else {
+      ProjectStyleService.set(new_node);
+      setProjectStyle((prev) => [...prev, new_node]);
+    }
+  };
+
+  const handleStyleDelete = (id) => {
+    setProjectStyle((prev) => prev.filter(item => item.id !== id));
+    ProjectStyleService.delete(id);
+  }
+
+  const handleUpdateTemplate = (body_with_data_attribute) => {
+    const old_document = new DOMParser().parseFromString(
+      template.template_html,
+      "text/html"
+    );
+    old_document.body.innerHTML = body_with_data_attribute;
+    const updated_template = {
+      ...template,
+      template_html: old_document.documentElement.outerHTML,
+    };
+    TemplatesService.updateTemplate(updated_template);
+    setTemplate(updated_template);
+  };
+
   const availableSlugs = useMemo(() => {
     const slugsData = {};
     for (const Slug of slugs) {
@@ -141,14 +212,21 @@ const Project = () => {
       <Heading
         title={loading ? "Loading" : error ? error : project.project_name}
         paragraph={
-          <Link to={`/templates/${template?.id}`}>{template?.template_name}</Link>
+          <Link to={`/templates/${template?.id}`}>
+            {template?.template_name}
+          </Link>
         }
       />
       <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
-        <iframe
-          className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
-          srcDoc={template?.template_html}></iframe>
+        <ProjectTemplatePreview
+          projectStyle={projectStyle}
+          handleUpdateTemplate={handleUpdateTemplate}
+          setProjectStyle={handleProjectStyle}
+          project_id={project?.id}
+          template_html={template?.template_html}
+        />
         <div className="grid gap-2 pt-4 lg:pt-0 w-full">
+          <ProjectStyleList handleDelete={handleStyleDelete} styles={projectStyle} />
           <SlugList
             project_id={project?.id}
             slugs={availableSlugs}

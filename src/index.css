@@ -7,3 +7,7 @@ body,
 #root {
   min-height: 100vh!important;
 }
+
+.hovered_node {
+  outline: 2px dashed rgb(146, 169, 204)
+}

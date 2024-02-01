@@ -10,7 +10,6 @@ import {
 import Papa from "papaparse";
 import ImportConflict from "@/pages/Template/ImportConflict";
 import { TabledataService } from "@/api/tables data/init";
-import { ImportIcon } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { ContextMenuRow } from "./ContextMenuTableRow";
 import { Button } from "@/components/ui/button";
