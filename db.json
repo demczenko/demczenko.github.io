@@ -6,7 +6,17 @@
       "first_name": "Viacheslav",
       "last_name": "Demchenko",
       "email": "demczenko@beliani.co.uk",
-      "role": "admin"
+      "role": "admin",
+      "isLogged": false
+    },
+    {
+      "id": "52ca0246-9dce-45bf-931f-f3abb1cf63d7",
+      "first_name": "Rafal",
+      "last_name": "Test",
+      "email": "demczenko@beliani.co.u",
+      "role": "user",
+      "full_name": "Rafal Test",
+      "isLogged": false
     }
   ],
   "tables": [

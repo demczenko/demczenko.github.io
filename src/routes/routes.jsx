@@ -3,6 +3,7 @@ import ErrorPage from "@/ErrorPage";
 import {
   Component,
   Components,
+  Login,
   Project,
   Projects,
   ProjectsArchive,
@@ -91,6 +92,10 @@ export const routes = createBrowserRouter(
         },
       ],
     },
+    {
+      path: "/login",
+      element: <Login />,
+      errorElement: <ErrorPage />,
+    },
   ],
-  { basename: "/cms-v3" }
 );

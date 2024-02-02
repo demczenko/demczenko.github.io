@@ -43,8 +43,9 @@ export const useUsers = () => {
 
   const set = async (new_data_table) => {
     try {
-      await UserService.set(new_data_table);
-      setData((prev) => [...prev, new_data_table]);
+      const new_user = await UserService.set(new_data_table);
+      setData((prev) => [...prev, new_user]);
+      return new_user;
     } catch (error) {}
   };
 

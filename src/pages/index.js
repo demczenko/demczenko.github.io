@@ -13,8 +13,10 @@ import RenderSlug from "./RenderSlug/RenderSlug";
 import Tables from "./Tables/Tables";
 import TemplatesLayouts from "./Layouts/TemplatesLayouts";
 import Users from "./Users/Users";
+import Login from "./Login/Login";
 
 export {
+  Login,
   Users,
   TemplatesLayouts,
   Tables,

@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Layout>
       <Sidebar />
-      <div className="bg-[#363636] w-full">
+      <div className="bg-[#363636] flex-grow">
         <Outlet />
       </div>
       <Toaster />
