@@ -1,8 +1,6 @@
 import TableCart from "./TableCart";
 import { Heading, List } from "@/components";
 
-// Handle columns, onDuplicate, onDeleteTable fetch inside component in order to reuse component through application.
-
 const TablesList = ({
   onDeleteTable,
   onDuplicate,

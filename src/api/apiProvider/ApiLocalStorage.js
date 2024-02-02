@@ -1,60 +1,60 @@
 export class ApiLocalStorage {
   async get(key) {
-    const prev = localStorage.getItem(key) || "[]";
-    const response = new Response(prev);
-    const data = await response.json();
-    return data;
+    return new Promise((res, rej) => {
+      const response = this.#parse(() => localStorage.getItem(key) || "[]");
+      res(response);
+    });
   }
 
   async set(key, data) {
-    let prev = this.#parse(() => localStorage.getItem(key) || "[]");
-    localStorage.setItem(
-      key,
-      this.#stringify(() => [...prev, data])
-    );
+    return new Promise((res, rej) => {
+      let response = this.#parse(() => localStorage.getItem(key) || "[]");
+      localStorage.setItem(
+        key,
+        this.#stringify(() => [...response, data])
+      );
 
-    const response = new Response(data);
-    const res = await response.json();
-    return res;
+      res(data);
+    });
   }
 
   async delete(key, id) {
-    let prev = this.#parse(() => localStorage.getItem(key) || "[]");
+    return new Promise((res, rej) => {
+      let prev = this.#parse(() => localStorage.getItem(key) || "[]");
 
-    const filtered = prev.filter((item) => item.id !== id);
+      const filtered = prev.filter((item) => item.id !== id);
 
-    localStorage.setItem(
-      key,
-      this.#stringify(() => filtered)
-    );
+      localStorage.setItem(
+        key,
+        this.#stringify(() => filtered)
+      );
 
-    const response = new Response(data);
-    const res = await response.json();
-    return res;
+      res(true);
+    });
   }
 
   async update(key, data) {
-    let prev = this.#parse(() => localStorage.getItem(key) || "[]");
+    return new Promise((res, rej) => {
+      let prev = this.#parse(() => localStorage.getItem(key) || "[]");
 
-    prev = prev.map((item) => {
-      if (item.id === data.id) {
-        return {
-          ...item,
-          ...data,
-        };
-      }
+      prev = prev.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            ...data,
+          };
+        }
 
-      return item;
+        return item;
+      });
+
+      localStorage.setItem(
+        key,
+        this.#stringify(() => prev)
+      );
+
+      res(data);
     });
-
-    localStorage.setItem(
-      key,
-      this.#stringify(() => prev)
-    );
-
-    const response = new Response(data);
-    const res = await response.json();
-    return res;
   }
 
   #parse(data) {

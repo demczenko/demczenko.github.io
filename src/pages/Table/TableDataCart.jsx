@@ -5,15 +5,8 @@ import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import CartHeader from "@/components/CartHeader";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { useDataTables } from "@/hooks/useDataTables";
 
-const TableDataCart = ({ table, onDelete, content }) => {
-  const {
-    data: dataTable,
-    isError: IsDataTableError,
-    isLoading: IsDataTableLoading,
-    update: updateDataTable,
-  } = useDataTables();
+const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
 
@@ -24,7 +17,7 @@ const TableDataCart = ({ table, onDelete, content }) => {
       ...name,
       updatedAt: Date.now(),
     };
-    updateDataTable(new_tabledata);
+    onUpdate(new_tabledata);
     toast({
       variant: "success",
       title: "Success",
@@ -87,6 +80,7 @@ const TableDataCart = ({ table, onDelete, content }) => {
               if (
                 objKey === "table_id" ||
                 objKey === "createdAt" ||
+                objKey === "createdat" ||
                 objKey === "updatedAt" ||
                 objKey === "project_id" ||
                 objKey === "id"

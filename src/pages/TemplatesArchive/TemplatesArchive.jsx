@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
+import LoadingPage from "@/LoadingPage";
 import { PageLayout } from "..";
-import { TemplatesService } from "@/api/templates/init";
 import { TemplateList } from "../Templates/TemplateList";
+import { useTemplates } from "@/hooks/useTemplates";
+import ErrorPage from "@/ErrorPage";
 
 const TemplatesArchive = () => {
-  const [templates, set] = useState([]);
+  const { data, isError, isLoading, update, remove } = useTemplates();
 
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        const response = await TemplatesService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const filtered = data.filter((table) => table.isArchived === true);
-          set(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
+  const templates = data.filter((template) => template.isArchived === true);
 
-    getTemplateList();
-  }, []);
+  if (isLoading) {
+    return <LoadingPage title="Loading your templates..." />;
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage title="Something went wrong while templates loading..." />
+    );
+  }
+
   return (
     <div className="w-full">
       <PageLayout

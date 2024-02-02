@@ -43,15 +43,17 @@ export const useProjects = () => {
 
   const set = async (new_data_table) => {
     try {
-      await ProjectService.update(new_data_table);
-      setData((prev) => [...prev, new_data_table]);
+      const response = await ProjectService.set(new_data_table);
+      setData((prev) => [...prev, response]);
     } catch (error) {}
   };
 
   const remove = async (id) => {
     try {
-      await ProjectService.delete(id);
-      setData((prev) => prev.filter((item) => item.id !== id));
+      const isDeleted = await ProjectService.delete(id);
+      if (isDeleted) {
+        setData((prev) => prev.filter((item) => item.id !== id));
+      }
     } catch (error) {}
   };
 

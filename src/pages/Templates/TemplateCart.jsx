@@ -26,7 +26,7 @@ const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
         {
           id: 2,
           name: template.isArchived ? "Un Archive" : "Archive",
-          onClick: () => onArchive(template.id),
+          onClick: () => onArchive(template),
         },
         {
           id: 4,
@@ -49,7 +49,7 @@ const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
         {
           id: 2,
           name: template.isArchived ? "Un Archive" : "Archive",
-          onClick: () => onArchive(template.id),
+          onClick: () => onArchive(template),
         },
       ];
     }

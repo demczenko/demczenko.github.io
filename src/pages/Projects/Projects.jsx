@@ -11,12 +11,18 @@ import ErrorPage from "@/ErrorPage";
 const Projects = () => {
   const { data, isError, isLoading, update } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const projects = data.filter((project) => project.isArchived !== true);
   
+  const projects = data.filter((project) => project.isArchived !== true);
+
   if (isError) {
-    return <ErrorPage title={"Something went wrong while projects loading..."} />
+    return (
+      <ErrorPage title={"Something went wrong while projects loading..."} />
+    );
   }
+
+  const handleArchived = async (project) => {
+    await update({ ...project, isArchived: project.isArchived ? false : true });
+  };
 
   return (
     <div className="w-full">
@@ -35,6 +41,7 @@ const Projects = () => {
               <LoadingPage title="Loading your projects..." />
             ) : (
               <ProjectList
+                handleArchived={handleArchived}
                 onCreate={() => setIsModalOpen(true)}
                 projects={projects}
               />

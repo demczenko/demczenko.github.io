@@ -22,7 +22,7 @@ const TemplateFilter = ({ filter, onSelect }) => {
       <DropdownMenuContent className="shadow-lg bg-[#363636] text-white border-2 border-[#363636]">
         <DropdownMenuItem className={`${filter === "all" ? "bg-neutral-50 text-gray-700 font-medium" : ""}`} onClick={() => onSelect("all")}>All</DropdownMenuItem>
         <DropdownMenuItem className={`${filter === "isArchived" ? "bg-neutral-50 text-gray-700 font-medium" : ""}`} onClick={() => onSelect("isArchived")}>Archived</DropdownMenuItem>
-        <DropdownMenuItem className={`${filter === "isNotArchived" ? "bg-neutral-50 text-gray-700 font-medium" : ""}`} onClick={() => onSelect("isNotArchived")}>Not Archived</DropdownMenuItem>
+        <DropdownMenuItem className={`${filter === "isNotArchived" ? "bg-neutral-50 text-gray-700 font-medium" : ""}`} onClick={() => onSelect("isNotArchived")}>Active</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

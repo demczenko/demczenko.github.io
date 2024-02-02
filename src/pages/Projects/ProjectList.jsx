@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import ProjectCart from "./ProjectCart";
 
-export const ProjectList = ({ onCreate, projects }) => {
+export const ProjectList = ({ handleArchived, onCreate, projects }) => {
   if (!projects.length) {
     return (
       <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
@@ -24,7 +24,11 @@ export const ProjectList = ({ onCreate, projects }) => {
   return (
     <>
       {projects.map((project) => (
-        <ProjectCart key={project.id} {...project} />
+        <ProjectCart
+          key={project.id}
+          handleArchived={handleArchived}
+          project={project}
+        />
       ))}
     </>
   );

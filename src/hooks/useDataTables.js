@@ -43,7 +43,7 @@ export const useDataTables = () => {
 
   const set = async (new_data_table) => {
     try {
-      await DataTableService.update(new_data_table);
+      await DataTableService.set(new_data_table);
       setData((prev) => [...prev, new_data_table]);
     } catch (error) {}
   };

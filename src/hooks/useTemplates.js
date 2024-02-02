@@ -43,7 +43,7 @@ export const useTemplates = () => {
 
   const set = async (new_data_table) => {
     try {
-      await TemplatesService.update(new_data_table);
+      await TemplatesService.set(new_data_table);
       setData((prev) => [...prev, new_data_table]);
     } catch (error) {}
   };

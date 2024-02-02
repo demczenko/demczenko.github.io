@@ -1,58 +1,29 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
 import { CardDescription, PreviewTemplate } from "@/components";
-import { TemplatesService } from "@/api/templates/init";
-import { ProjectService } from "@/api/projects/init";
+import { useTemplates } from "@/hooks/useTemplates";
+import LoadingPage from "@/LoadingPage";
+import ErrorPage from "@/ErrorPage";
 
-const ProjectCart = ({
-  id,
-  project_name,
-  createdAt,
-  template_id,
-}) => {
+const ProjectCart = ({ handleArchived, project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigator = useNavigate();
-  const [template, setTemplate] = useState([]);
+  const {
+    data: templates,
+    isError,
+    isLoading,
+    update,
+    remove,
+  } = useTemplates();
 
-  const handleArchived = (id) => {
-    ProjectService.update({
-      id,
-      project_name,
-      template_id,
-      isArchived: template.isArchived ? false : true,
-    });
-    navigator("/projects/archive/");
-  };
+  const template = templates.find(
+    (template) => template.id === project.template_id
+  );
 
   const handleDelete = (id) => {
     alert("under development");
-
-    // add delete action for every api
-    // TemplatesService.update({...template, isArchived: template.isArchived ? false : true})
   };
 
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        const response = await TemplatesService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const template = data.find((template) => template.id === template_id);
-          if (template) {
-            setTemplate(template);
-          } else {
-            throw new Error("Template not found.");
-          }
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-    getTemplateList();
-  }, []);
-
   const options = useMemo(() => {
-    if (template.isArchived) {
+    if (project?.isArchived) {
       return [
         {
           id: 3,
@@ -66,13 +37,13 @@ const ProjectCart = ({
         },
         {
           id: 2,
-          name: template.isArchived ? "Un Archive" : "Archive",
-          onClick: () => handleArchived(template.id),
+          name: project?.isArchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(project),
         },
         {
           id: 4,
           name: "Delete",
-          onClick: () => handleDelete(template.id),
+          onClick: () => handleDelete(project.id),
         },
       ];
     } else {
@@ -89,26 +60,36 @@ const ProjectCart = ({
         },
         {
           id: 2,
-          name: template.isArchived ? "Un Archive" : "Archive",
-          onClick: () => handleArchived(template.id),
+          name: project?.isArchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(project),
         },
       ];
     }
   }, []);
 
+  if (isLoading) {
+    return <LoadingPage title="Loading your template..." />;
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage title="Something went wrong while templates loading..." />
+    );
+  }
+
   return (
     <div>
       <PreviewTemplate
-        href={`/projects/${id}`}
-        template_html={template.template_html}
+        href={`/projects/${project.id}`}
+        template_html={template?.template_html}
       />
       <CardDescription
-        id={template.id}
-        template_name={template.template_name}
-        name={project_name}
+        id={template?.id}
+        template_name={template?.template_name}
+        name={project.project_name}
         options={options}
         title={"Manage project"}
-        createdAt={createdAt}
+        createdAt={project.createdAt}
       />
     </div>
   );

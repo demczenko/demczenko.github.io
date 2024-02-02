@@ -46,13 +46,13 @@ const Table = () => {
     setIsModalOpen(false);
   };
 
+  const table = dataTbs.find((table) => table.id === id);
   const project = projects.find(
     (project) => project.template_id === table.template_id
   );
-  const table = dataTbs.find((table) => table.id === id);
   const columns = dataCls.filter((col) => col.table_id === id);
   const tablesData = dataTable.filter((table) => {
-    if (table.table_id === id && table.project_id === project.id) {
+    if (table.table_id === id && table.project_id === project?.id) {
       return true;
     }
 
@@ -61,13 +61,16 @@ const Table = () => {
 
   const handleRename = (column, { header }) => {
     if (header.length < 3) return;
-    const new_columns = {
+    const new_column = {
       ...column,
       accessorKey: header,
       header: header,
     };
-    updateColumn(new_columns);
-    set((prev) => [...prev, new_columns]);
+    updateColumn(new_column);
+  };
+
+  const handleUpdate = (data) => {
+    updateDataTable(data);
   };
 
   // TODO: add edit column (after column edit need to be done:
@@ -107,6 +110,7 @@ const Table = () => {
       <div className="space-y-2 mt-6">
         <ColumnsList onRename={handleRename} columns={columns} />
         <TableDataList
+          onUpdate={handleUpdate}
           onDeleteTableData={(id) => removeDataTable(id)}
           tablesData={tablesData}
         />

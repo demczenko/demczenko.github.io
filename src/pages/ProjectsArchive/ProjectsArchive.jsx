@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useProjects } from "@/hooks/useProjects";
 import { PageLayout } from "..";
-import { ProjectService } from "@/api/projects/init";
 import { ProjectList } from "../Projects/ProjectList";
+import LoadingPage from "@/LoadingPage";
+import ErrorPage from "@/ErrorPage";
 
 const ProjectsArchive = () => {
-  const [projects, sets] = useState([]);
+  const { data, isError, isLoading, update } = useProjects();
 
-  useEffect(() => {
-    async function getProjectList() {
-      try {
-        const response = await ProjectService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const filtered = data.filter((project) => project.isArchived === true);
-          sets(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
+  const projects = data.filter((project) => project.isArchived === true);
 
-    getProjectList();
-  }, []);
+  if (isLoading) {
+    return <LoadingPage title="Loading your projects..." />;
+  }
+
+  if (isError) {
+    return <ErrorPage title="Something went wrong while projects loading..." />;
+  }
+
+  const handleArchived = (project) => {
+    update({ ...project, isArchived: project.isArchived ? false : true });
+  };
+
   return (
     <PageLayout
       title="Projects archive"
-      content={<ProjectList projects={projects} />}
+      content={
+        <ProjectList handleArchived={handleArchived} projects={projects} />
+      }
     />
   );
 };

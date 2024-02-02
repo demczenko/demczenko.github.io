@@ -12,6 +12,12 @@ const Tables = () => {
     set: setTables,
   } = useTables();
 
+  if (isTablesLoading) {
+    return (
+      <LoadingPage title="Loading your tables..." />
+    );
+  }
+
   if (IsTablesError) {
     return <ErrorPage title={"Something went wrong while data table loading..."} />;
   }

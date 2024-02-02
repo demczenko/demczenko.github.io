@@ -11,6 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
+import LoadingPage from "@/LoadingPage";
 
 const Template = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const Template = () => {
     isError: IsColumnsError,
     isLoading: isColumnsLoading,
     update: updateColumn,
-    set: setColumns,
+    set: setColumn,
     remove: removeColumn,
   } = useColumns();
 
@@ -77,7 +78,7 @@ const Template = () => {
     setError("");
 
     new_tables.forEach((table) => setTable(table));
-    columns.forEach((column) => setColumns(column));
+    columns.forEach((column) => setColumn(column));
   };
 
   const onDeleteTable = (table_id) => {
@@ -104,19 +105,25 @@ const Template = () => {
       table_id: new_template_id,
     }));
 
-    setTables(new_table);
+    setTable(new_table);
     change_columns_id.forEach((column) => setColumn(column));
   };
 
+  if (isLoading) {
+    return (
+      <LoadingPage title="Loading your template..." />
+    );
+  }
+
   if (isError) {
     return (
-      <ErrorPage title="Something went wrong while templates loading..." />
+      <ErrorPage title="Something went wrong while template loading..." />
     );
   }
   return (
     <PageContainer>
       <Heading
-        title={isLoading ? "Loading" : error ? error : template.template_name}
+        title={isLoading ? "Loading" : error ? error : template?.template_name}
         actions={[
           {
             id: 1,
@@ -138,7 +145,6 @@ const Template = () => {
           <TablesList
             onDeleteTable={onDeleteTable}
             onDuplicate={onDuplicate}
-            setTables={setTables}
             isProject={false}
             tables={tables}
           />
@@ -154,7 +160,7 @@ const Template = () => {
             <TemplateTables
               tables={new_tables}
               set={setNewTables}
-              setColumns={setColumns}
+              setColumns={setColumn}
               columns={columns}
               templateId={template?.id}
             />

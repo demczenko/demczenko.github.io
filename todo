@@ -22,3 +22,4 @@ Todo:
 table data update check why duplicated after saving
 project archive
 remove from table list duplicate and delete project
+add components header and footer with variables and tables for that component

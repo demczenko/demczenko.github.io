@@ -43,7 +43,7 @@ export const useColumns = () => {
 
   const set = async (new_data_table) => {
     try {
-      await ColumnService.update(new_data_table);
+      await ColumnService.set(new_data_table);
       setData((prev) => [...prev, new_data_table]);
     } catch (error) {}
   };

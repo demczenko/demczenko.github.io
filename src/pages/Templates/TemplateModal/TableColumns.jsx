@@ -46,12 +46,12 @@ const HandleColumnInput = ({ isOpenNewColumn, setIsOpenNewColumn }) => {
 };
 
 const TableColumns = ({ table_id, columns, set }) => {
-  const ref = useRef()
+  const ref = useRef();
   const [renamedColumnId, setRenamedColumnId] = useState();
   const [columnName, setColumnName] = useState("");
   const [error, setError] = useState(false);
   const [isOpenNewColumn, setIsOpenNewColumn] = useState(false);
-  
+
   const createColumn = () => {
     const new_column = {
       id: uuid(),
@@ -106,7 +106,7 @@ const TableColumns = ({ table_id, columns, set }) => {
     setIsOpenNewColumn(true);
     setColumnName(column.header);
     setRenamedColumnId(column.id);
-    ref.current.focus()
+    ref.current.focus();
   };
 
   const selectedColumns = columns.filter(
@@ -114,20 +114,18 @@ const TableColumns = ({ table_id, columns, set }) => {
   );
 
   useEffect(() => {
-    if (!ref.current) return
+    if (!ref.current) return;
 
-    ref.current.focus()
-  }, [isOpenNewColumn])
+    ref.current.focus();
+  }, [isOpenNewColumn]);
 
   if (!columns) {
     return <HandleEmptyColumns />;
   }
-  
 
   return (
     <div className="flex justify-between gap-2">
       <Table>
-        <TableCaption></TableCaption>
         <TableHeader>
           <TableRow className="flex items-center">
             {selectedColumns.map((column) => (

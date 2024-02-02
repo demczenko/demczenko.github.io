@@ -4,19 +4,19 @@ export class ProjectController {
     this.#model = model;
   }
 
-  get() {
-    return this.#model.get();
+  async get() {
+    return await this.#model.get();
   }
 
-  set(data) {
-    return this.#model.set(data);
+  async set(data) {
+    return await this.#model.set(data);
   }
 
-  update(data) {
-    return this.#model.update(data);
+  async update(data) {
+    return await this.#model.update(data);
   }
 
-  delete(data) {
-    return this.#model.delete(data);
+  async delete(data) {
+    return await this.#model.delete(data);
   }
 }

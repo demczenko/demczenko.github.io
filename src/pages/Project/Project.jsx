@@ -1,18 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
-import { PageContainer } from "../pages";
-import SlugList from "../pages/Project/SlugList";
-import TablesList from "../pages/Tables/TableList";
-import ProjectTemplatePreview from "../pages/Project/ProjectTemplatePreview";
-import { ProjectStyleService } from "@/api/projects_style/init";
-import ProjectStyleList from "../pages/Project/ProjectStyleList";
+import { PageContainer } from "..";
+import SlugList from "./SlugList";
+import TablesList from "../Tables/TableList";
+import ProjectTemplatePreview from "./ProjectTemplatePreview";
+import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useProjects } from "@/hooks/useProjects";
 import ErrorPage from "@/ErrorPage";
 import { useTables } from "@/hooks/useTables";
 import LoadingPage from "@/LoadingPage";
 import { useDataTables } from "@/hooks/useDataTables";
+import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 
 const Project = () => {
   const { id } = useParams();
@@ -36,8 +36,16 @@ const Project = () => {
     update: updateDataTable,
     remove,
   } = useDataTables();
+  const {
+    data: projectsStyles,
+    isError: IsProjectsStyles,
+    isLoading: IsrojectsStyles,
+    update: updateProjectsStyles,
+    set: setProjectsStyles,
+    remove: removeProjectsStyles,
+  } = useProjectsStyles();
 
-  const [projectStyle, setStyle] = useState([]);
+  const [sad, setStyle] = useState([]);
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const project = data.find((project) => project.id === id);
@@ -56,28 +64,9 @@ const Project = () => {
 
   const slugs = project_tables.map((item) => item.slug);
 
-  // Fetch all project styles
-  // TODO
-  useEffect(() => {
-    async function gettyle() {
-      try {
-        const response = await ProjectStyleService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredTable = data.filter(
-            (table) => table.project_id === project.id
-          );
-          setStyle(filteredTable);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      gettyle();
-    }
-  }, [project]);
+  const projectStyle = projectsStyles.filter(
+    (table) => table.project_id === project.id
+  );
 
   const handleProjectStyle = (new_node) => {
     let isExist = false;
@@ -89,27 +78,14 @@ const Project = () => {
     }
 
     if (isExist) {
-      ProjectStyleService.update(new_node);
-      setStyle((prev) =>
-        prev.map((item) => {
-          if (item.id === new_node.id) {
-            return {
-              ...item,
-              ...new_node,
-            };
-          }
-          return item;
-        })
-      );
+      updateProjectsStyles(new_node);
     } else {
-      ProjectStyleService.set(new_node);
-      setStyle((prev) => [...prev, new_node]);
+      setProjectsStyles(new_node);
     }
   };
 
   const handleStyleDelete = (id) => {
-    setStyle((prev) => prev.filter((item) => item.id !== id));
-    ProjectStyleService.delete(id);
+    removeProjectsStyles(id);
   };
 
   const handleUpdateTemplate = (body_with_data_attribute) => {
