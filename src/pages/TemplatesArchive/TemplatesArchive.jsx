@@ -4,16 +4,16 @@ import { TemplatesService } from "@/api/templates/init";
 import { TemplateList } from "../Templates/TemplateList";
 
 const TemplatesArchive = () => {
-  const [templates, setTemplates] = useState([]);
+  const [templates, set] = useState([]);
 
   useEffect(() => {
     async function getTemplateList() {
       try {
-        const response = await TemplatesService.getTemplates();
+        const response = await TemplatesService.get();
         if (response.ok) {
           const data = await response.json();
           const filtered = data.filter((table) => table.isArchived === true);
-          setTemplates(filtered);
+          set(filtered);
         }
       } catch (error) {
         console.warn(error.message);

@@ -12,10 +12,10 @@ const Tables = () => {
   useEffect(() => {
     async function getTableList() {
       try {
-        const response = await TableService.getTables();
+        const response = await TableService.get();
         if (response.ok) {
           const data = await response.json();
-          setTables(data);
+          set(data);
         }
       } catch (error) {
         console.warn(error.message);
@@ -29,10 +29,10 @@ const Tables = () => {
   // useEffect(() => {
   //   async function getColumnList() {
   //     try {
-  //       const response = await ColumnService.getColumns();
+  //       const response = await ColumnService.get();
   //       if (response.ok) {
   //         const data = await response.json();
-  //         setColumns(data);
+  //         set(data);
   //       }
   //     } catch (error) {
   //       console.warn(error.message);

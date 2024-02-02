@@ -6,19 +6,19 @@ export class ColumnModel {
     this.#path = path;
   }
 
-  getColumns() {
+  get() {
     return this.#api.get(this.#path )
   }
 
-  setColumns(data) {
+  set(data) {
     return this.#api.set(this.#path , data);
   }
 
-  updateColumn(data) {
+  update(data) {
     return this.#api.update(this.#path , data);
   }
 
-  deleteColumn(data) {
+  delete(data) {
     return this.#api.delete(this.#path, data);
   }
 }

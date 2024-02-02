@@ -4,16 +4,16 @@ export class TableController {
     this.#model = model;
   }
 
-  getTables() {
-    return this.#model.getTables();
+  get() {
+    return this.#model.get();
   }
 
-  setTables(data) {
-    return this.#model.setTables(data);
+  set(data) {
+    return this.#model.set(data);
   }
 
-  deleteTable(data) {
-    return this.#model.deleteTable(data);
+  delete(data) {
+    return this.#model.delete(data);
   }
 
   update(data) {

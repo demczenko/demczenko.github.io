@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "lucide-react";
 import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 
-const ColumnCart = ({ column, setColumns }) => {
+const ColumnCart = ({ column, set }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = ({ header }) => {
@@ -14,8 +14,8 @@ const ColumnCart = ({ column, setColumns }) => {
       accessorKey: header,
       header: header,
     };
-    ColumnService.updateColumn(new_columns);
-    setColumns((prev) => [...prev, new_columns]);
+    ColumnService.update(new_columns);
+    set((prev) => [...prev, new_columns]);
   };
 
   return (

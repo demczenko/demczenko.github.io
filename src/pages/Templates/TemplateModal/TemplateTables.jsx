@@ -44,8 +44,8 @@ const TemplateTables = ({
   templateId,
   columns,
   tables,
-  setColumns,
   setTables,
+  setColumns,
 }) => {
   const ref = useRef();
   const [tabValue, setTabValue] = useState();
@@ -78,7 +78,7 @@ const TemplateTables = ({
   };
 
   const renameTable = () => {
-    setTables((prev) => {
+    set((prev) => {
       return prev.map((table) => {
         if (table.id === renamedTableId) {
           return {
@@ -110,8 +110,8 @@ const TemplateTables = ({
       table_id: new_template_id,
     }));
 
-    setTables((prev) => [...prev, new_table]);
-    setColumns((prev) => [...prev, ...change_columns_id]);
+    set((prev) => [...prev, new_table]);
+    set((prev) => [...prev, ...change_columns_id]);
   };
 
   const handleCreateTable = () => {
@@ -133,7 +133,7 @@ const TemplateTables = ({
   };
 
   const handleDelete = (id) => {
-    setTables((prev) => {
+    set((prev) => {
       const filteredTables = prev.filter((table) => table.id !== id);
       if (filteredTables) {
         setTabValue(filteredTables[filteredTables.length - 1].id);
@@ -231,11 +231,7 @@ const TemplateTables = ({
                 },
               ]}
             />
-            <TableColumns
-              table_id={table.id}
-              columns={columns}
-              setColumns={setColumns}
-            />
+            <TableColumns table_id={table.id} columns={columns} set={set} />
           </TabsContent>
         ))}
       </Tabs>

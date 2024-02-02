@@ -4,7 +4,7 @@ import { CardDescription, PreviewTemplate } from "@/components";
 import { TemplatesService } from "@/api/templates/init";
 import { ProjectService } from "@/api/projects/init";
 
-const Project = ({
+const ProjectCart = ({
   id,
   project_name,
   createdAt,
@@ -16,7 +16,7 @@ const Project = ({
   const [template, setTemplate] = useState([]);
 
   const handleArchived = (id) => {
-    ProjectService.updateProject({
+    ProjectService.update({
       id,
       project_name,
       template_id,
@@ -29,13 +29,13 @@ const Project = ({
     alert("under development");
 
     // add delete action for every api
-    // TemplatesService.updateTemplate({...template, isArchived: template.isArchived ? false : true})
+    // TemplatesService.update({...template, isArchived: template.isArchived ? false : true})
   };
 
   useEffect(() => {
     async function getTemplateList() {
       try {
-        const response = await TemplatesService.getTemplates();
+        const response = await TemplatesService.get();
         if (response.ok) {
           const data = await response.json();
           const template = data.find((template) => template.id === template_id);
@@ -115,4 +115,4 @@ const Project = ({
   );
 };
 
-export default Project;
+export default ProjectCart;

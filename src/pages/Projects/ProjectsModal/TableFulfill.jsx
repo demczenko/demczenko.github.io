@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/table";
 import Papa from "papaparse";
 import ImportConflict from "@/pages/Template/ImportConflict";
-import { TabledataService } from "@/api/tables data/init";
 import { v4 as uuidv4 } from "uuid";
 import { ContextMenuRow } from "./ContextMenuTableRow";
 import { Button } from "@/components/ui/button";
@@ -17,19 +16,22 @@ import HandleImportCSV from "../../../components/HandleImportCSV";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HandleNewItem from "./HandleNewItem";
 import { useToast } from "@/components/ui/use-toast";
+import { useDataTables } from "@/hooks/useDataTables";
 
-const TableFulfill = ({
-  setTablesData,
-  setIsModalOpen,
-  table_id,
-  columns,
-  project_id,
-}) => {
+const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
+  const {
+    data: tablesData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    set,
+  } = useDataTables();
   const [error, setError] = useState("");
-  const [columnsData, setColumnsData] = useState([]);
-  const [tableData, setColData] = useState(null);
+  const [columnsData, setData] = useState([]);
   const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
   const { toast } = useToast();
+
+  const tableData = tablesData.filter((table) => table.table_id === table_id);
 
   const onDrop = useCallback((htmlFile) => {
     const html = htmlFile[0];
@@ -91,8 +93,7 @@ const TableFulfill = ({
       }
     }
 
-    setColumnsData(sorted_data_items);
-    setTablesData((prev) => [...prev, ...sorted_data_items]);
+    setData(sorted_data_items);
   };
 
   const handleImportCSV = (file) => {
@@ -105,27 +106,6 @@ const TableFulfill = ({
       complete: handle_complete,
     });
   };
-
-  // Fetch all tables data
-  // TODO
-  useEffect(() => {
-    async function getTableDataFiltered() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          const filtered = data.filter((table) => table.table_id === table_id);
-          setColData(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (columnsData) {
-      getTableDataFiltered();
-    }
-  }, [columnsData]);
 
   useEffect(() => {
     for (const { id, name, isSkip, isUpdate } of slugsAlreadyExist) {
@@ -140,9 +120,9 @@ const TableFulfill = ({
           }
 
           if (isUpdate) {
-            TabledataService.updateTabledata({
+            updateDataTable({
               ...data_item,
-              id: id
+              id: id,
             });
             handleDeleteConflict(name);
             handleDeleteRow(data_item.id);
@@ -154,7 +134,7 @@ const TableFulfill = ({
   }, [slugsAlreadyExist, columnsData]);
 
   const handleDeleteRow = (id) => {
-    setColumnsData((prev) => prev.filter((column) => column.id !== id));
+    setData((prev) => prev.filter((column) => column.id !== id));
   };
 
   const handleDeleteConflict = (name) => {
@@ -170,7 +150,7 @@ const TableFulfill = ({
             name: table_data_item.slug,
             isSkip: false,
             isUpdate: false,
-            id: table_data_item.id
+            id: table_data_item.id,
           });
         }
       }
@@ -180,14 +160,14 @@ const TableFulfill = ({
       setSlugsAlreadyExist(alreadyExistsSlugs);
     } else {
       for (const data_item of columnsData) {
-        TabledataService.setTabledata({ ...data_item, project_id: project_id });
+        set({ ...data_item, project_id: project_id });
       }
       setIsModalOpen(false);
     }
   };
 
   const handleRemoveRow = ({ slug }) => {
-    setColumnsData((prev) => prev.filter((column) => column.slug !== slug));
+    setData((prev) => prev.filter((column) => column.slug !== slug));
   };
 
   const handleNewItemAdd = (data) => {
@@ -207,14 +187,14 @@ const TableFulfill = ({
     }
 
     if (!isExist) {
-      TabledataService.setTabledata(new_item);
+      set(new_item);
       toast({
         variant: "success",
         title: "Created",
         description: "Table data has been successfully created",
       });
     } else {
-      TabledataService.updateTabledata(new_item);
+      updateDataTable(new_item);
       toast({
         variant: "success",
         title: "Updated",

@@ -2,12 +2,18 @@ import { DrawerModal } from "@/components/Drawer";
 import { Edit2, TrashIcon } from "lucide-react";
 import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
-import { TabledataService } from "@/api/tables data/init";
 import CartHeader from "@/components/CartHeader";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useDataTables } from "@/hooks/useDataTables";
 
-const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
+const TableDataCart = ({ table, onDelete, content }) => {
+  const {
+    data: dataTable,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+  } = useDataTables();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
 
@@ -18,8 +24,7 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
       ...name,
       updatedAt: Date.now(),
     };
-    TabledataService.updateTabledata(new_tabledata);
-    setTablesData((prev) => [...prev, new_tabledata]);
+    updateDataTable(new_tabledata);
     toast({
       variant: "success",
       title: "Success",
@@ -30,7 +35,10 @@ const TableDataCart = ({ setTablesData, table, onDelete, content }) => {
   return (
     <>
       <section className="group">
-        <CartHeader onClick={() => setIsModalOpen(true)} table_name={table.slug} />
+        <CartHeader
+          onClick={() => setIsModalOpen(true)}
+          table_name={table.slug}
+        />
         {content}
         <div className="flex justify-between mt-2">
           <div className="opacity-50 group-hover:opacity-100 transition-all">

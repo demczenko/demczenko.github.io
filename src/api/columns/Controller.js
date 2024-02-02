@@ -4,19 +4,19 @@ export class ColumnController {
     this.#model = model;
   }
 
-  getColumns() {
-    return this.#model.getColumns();
+  get() {
+    return this.#model.get();
   }
 
-  setColumns(data) {
-    return this.#model.setColumns(data);
+  set(data) {
+    return this.#model.set(data);
   }
 
-  updateColumn(data) {
-    return this.#model.updateColumn(data);
+  update(data) {
+    return this.#model.update(data);
   }
 
-  deleteColumn(data) {
-    return this.#model.deleteColumn(data);
+  delete(data) {
+    return this.#model.delete(data);
   }
 }

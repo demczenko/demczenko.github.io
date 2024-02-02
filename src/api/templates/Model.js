@@ -6,19 +6,19 @@ export class TemplateModel {
     this.#path = path;
   }
 
-  getTemplates() {
+  get() {
     return this.#api.get(this.#path)
   }
 
-  setTemplates(data) {
+  set(data) {
     return this.#api.set(this.#path, data);
   }
 
-  updateTemplate(data) {
+  update(data) {
     return this.#api.update(this.#path, data);
   }
 
-  deleteTemplate(data) {
+  delete(data) {
     return this.#api.delete(this.#path, data);
   }
 }

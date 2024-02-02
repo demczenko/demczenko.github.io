@@ -4,19 +4,19 @@ export class TabledataController {
     this.#model = model;
   }
 
-  getTabledata() {
-    return this.#model.getTabledata();
+  get() {
+    return this.#model.get();
   }
 
-  setTabledata(data) {
-    return this.#model.setTabledata(data);
+  set(data) {
+    return this.#model.set(data);
   }
 
-  deleteTabledata(data) {
-    return this.#model.deleteTabledata(data);
+  delete(data) {
+    return this.#model.delete(data);
   }
 
-  updateTabledata(data) {
-    return this.#model.updateTabledata(data);
+  update(data) {
+    return this.#model.update(data);
   }
 }

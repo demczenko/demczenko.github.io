@@ -4,19 +4,19 @@ export class ProjectController {
     this.#model = model;
   }
 
-  getProjects() {
-    return this.#model.getProjects();
+  get() {
+    return this.#model.get();
   }
 
-  setProject(data) {
-    return this.#model.setProject(data);
+  set(data) {
+    return this.#model.set(data);
   }
 
-  updateProject(data) {
-    return this.#model.updateProject(data);
+  update(data) {
+    return this.#model.update(data);
   }
 
-  deleteProject(data) {
-    return this.#model.deleteProject(data);
+  delete(data) {
+    return this.#model.delete(data);
   }
 }

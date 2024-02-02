@@ -2,60 +2,36 @@ import { TableService } from "@/api/tables/init";
 import TableCart from "./TableCart";
 import { Heading, List } from "@/components";
 import { ColumnService } from "@/api/columns/init";
-import { useEffect, useState } from "react";
-import { TabledataService } from "@/api/tables data/init";
-import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { useDataTables } from "@/hooks/useDataTables";
+import { useColumns } from "@/hooks/useColumns";
 
 // Handle columns, onDuplicate, onDeleteTable fetch inside component in order to reuse component through application.
 
 const TablesList = ({ setTables, tables, project_id, isProject }) => {
-  const [columns, setColumns] = useState(null);
-  const [tablesData, setTablesData] = useState([]);
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+  } = useColumns();
 
-  // Fetch all columns
-  // TODO
-  useEffect(() => {
-    async function getColumnList() {
-      try {
-        const response = await ColumnService.getColumns();
-        if (response.ok) {
-          const data = await response.json();
-          setColumns(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
+  const {
+    data: tablesData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    remove,
+  } = useDataTables();
 
-    getColumnList();
-  }, []);
-
-  // Fetch all tables data
-  // TODO
-  useEffect(() => {
-    async function getTableData() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          setTablesData(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTableData();
-  }, []);
   const onDeleteTable = (table_id) => {
-    TableService.deleteTable(table_id);
+    TableService.delete(table_id);
     columns
       .filter((column) => column.table_id === table_id)
-      .forEach((element) => ColumnService.deleteColumn(element.id));
+      .forEach((element) => ColumnService.delete(element.id));
     tablesData
       .filter((table) => table.table_id === table_id)
-      .forEach((element) => TabledataService.deleteTabledata(element.id));
+      .forEach((element) => remove(element.id));
   };
 
   const onDuplicate = (table_id) => {
@@ -78,9 +54,9 @@ const TablesList = ({ setTables, tables, project_id, isProject }) => {
       table_id: new_template_id,
     }));
 
-    TableService.setTables(new_table);
-    change_columns_id.forEach((column) => ColumnService.setColumns(column));
-    setTables(prev => ([...prev, new_table]))
+    TableService.set(new_table);
+    change_columns_id.forEach((column) => ColumnService.set(column));
+    setTables((prev) => [...prev, new_table]);
   };
 
   return (
@@ -101,7 +77,6 @@ const TablesList = ({ setTables, tables, project_id, isProject }) => {
                 columns={columns.filter(
                   (column) => column.table_id === table.id
                 )}
-                setTablesData={setTablesData}
                 key={table.id}
                 table={table}
               />

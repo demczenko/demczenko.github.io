@@ -1,23 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PageContainer from "../PageContainer";
 import { Heading } from "@/components";
-import { TableService } from "@/api/tables/init";
 import { useParams } from "react-router-dom";
 import ColumnsList from "./ColumnsList";
-import { ColumnService } from "@/api/columns/init";
 import TableDataList from "./TableDataList";
-import { TabledataService } from "@/api/tables data/init";
-import { ProjectService } from "@/api/projects/init";
 import { DrawerModal } from "@/components/Drawer";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
+import { useProjects } from "@/hooks/useProjects";
+import { useTables } from "@/hooks/useTables";
+import { useColumns } from "@/hooks/useColumns";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const Table = () => {
+  const { data: projects, isError, isLoading, update } = useProjects();
+  const {
+    data: dataTable,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+  } = useDataTables();
+  const {
+    data: dataTbs,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTable,
+  } = useTables();
+  const {
+    data: dataCls,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+  } = useColumns();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams();
-  const [table, setTable] = useState({});
-  const [columns, setColumns] = useState([]);
-  const [tablesData, setTablesData] = useState([]);
-  const [project, setProject] = useState(null);
 
   const onSubmit = ({ table_name }) => {
     if (table_name.length < 3) return;
@@ -26,123 +42,42 @@ const Table = () => {
       table_name: table_name,
     };
 
-    TableService.update(new_table);
-    setTable(new_table);
+    updateTable(new_table);
     setIsModalOpen(false);
   };
 
-  // Fetch all projects
-  useEffect(() => {
-    async function getProject() {
-      try {
-        const response = await ProjectService.getProjects();
-        if (response.ok) {
-          const data = await response.json();
-          const project = data.find(
-            (project) => project.template_id === table.template_id
-          );
-          setProject(project);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
+  const project = projects.find(
+    (project) => project.template_id === table.template_id
+  );
+  const table = dataTbs.find((table) => table.id === id);
+  const columns = dataCls.filter((col) => col.table_id === id);
+  const tablesData = dataTable.filter((table) => {
+    if (table.table_id === id && table.project_id === project.id) {
+      return true;
     }
 
-    if (table) {
-      getProject();
-    }
-  }, [table]);
-
-  // Fetch all tables
-  // TODO
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        const response = await TableService.getTables();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredTable = data.find((table) => table.id === id);
-          setTable(filteredTable);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTableList();
-  }, []);
-
-  // Fetch all columns
-  // TODO
-  useEffect(() => {
-    async function getColumnList() {
-      try {
-        const response = await ColumnService.getColumns();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredColumns = data.filter((col) => col.table_id === id);
-          setColumns(filteredColumns);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (table) {
-      getColumnList();
-    }
-  }, [table]);
-
-  // Fetch all tables data
-  // TODO
-  useEffect(() => {
-    async function getTableData() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          const project_tables = data.filter(
-            (table) => table.project_id === project.id
-          );
-          const filtered = project_tables.filter(
-            (table) => table.table_id === id
-          );
-          setTablesData(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      getTableData();
-    }
-  }, [project]);
-
-  const onDeleteTableData = (id) => {
-    tablesData.forEach((table_data) => {
-      if (table_data.id === id) {
-        TabledataService.deleteTabledata(table_data.id);
-      }
-    });
-
-    setTablesData(tablesData.filter((table_data) => table_data.id !== id));
-  };
+    return false;
+  });
 
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
   //  remind user to change variable in template or try to change it by yourself)
 
-  if (!table) {
+  if (isError) {
+    return <ErrorPage title={"Something went wrong while loading projects"} />;
+  }
+
+  if (IsTablesError) {
+    return <ErrorPage title={"Something went wrong while loading tables"} />;
+  }
+
+  if (IsColumnsError) {
+    return <ErrorPage title={"Something went wrong while loading columns"} />;
+  }
+
+  if (IsDataTableError) {
     return (
-      <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
-        <p className="text-6xl text-neutral-100 font-medium tracking-tight">
-          Whooops!
-        </p>
-        <p className="text-sm text-neutral-400 font-medium mt-4">
-          Looks like table you are looking for not exists.
-        </p>
-      </div>
+      <ErrorPage title={"Something went wrong while loading data table"} />
     );
   }
 
@@ -159,11 +94,10 @@ const Table = () => {
         ]}
       />
       <div className="space-y-2 mt-6">
-        <ColumnsList setColumns={setColumns} columns={columns} />
+        <ColumnsList set={set} columns={columns} />
         <TableDataList
-          onDeleteTableData={onDeleteTableData}
+          onDeleteTableData={(id) => removeDataTable(id)}
           tablesData={tablesData}
-          setTablesData={setTablesData}
         />
       </div>
       <DrawerModal

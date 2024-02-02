@@ -1,10 +1,7 @@
-import { Heading, PreviewTemplate } from "@/components";
+import { Heading } from "@/components";
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PageContainer from "../PageContainer";
-import { TabledataService } from "@/api/tables data/init";
-import { TemplatesService } from "@/api/templates/init";
-import { ProjectService } from "@/api/projects/init";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,29 +10,51 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import { TableService } from "@/api/tables/init";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { ProjectStyleService } from "@/api/projects_style/init";
+import { useProjects } from "@/hooks/useProjects";
+import { useTemplates } from "@/hooks/useTemplates";
+import { useTables } from "@/hooks/useTables";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
   const { id, slug } = useParams();
+
+  const { data: projects, isError, isLoading, update } = useProjects();
+  const {
+    data: templates,
+    isError: isTemplatesError,
+    isLoading: isTemplatesLoading,
+    update: updateTemplate,
+  } = useTemplates();
+  const {
+    data: dataTbs,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+  } = useTables();
+
+  const {
+    data: tableData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    remove,
+  } = useDataTables();
+
   const [hydratedTemplate, setHydratedTemplate] = useState("");
   const [loading, setLoading] = useState(true);
 
   const [selectedSlug, setSelectedSlug] = useState("");
-  const [slugs, setSlugs] = useState([]);
-
-  const [project, setProject] = useState(null);
-  const [template, setTemplate] = useState({});
-  const [tablesData, setTablesData] = useState([]);
-  const [tables, setTables] = useState([]);
-  const [projectStyle, setProjectStyle] = useState([]);
-
+  const [projectStyle, setStyle] = useState([]);
 
   const { toast } = useToast();
 
+  const project = projects.find((project) => project.id === id);
+  const template = templates.find((t) => t.id === project.template_id);
+  const tables = dataTbs.filter((t) => t.template_id === project.template_id);
   // Get all tables
   // Get table by name
   // Get table id
@@ -146,107 +165,15 @@ const RenderSlug = () => {
     setHydratedTemplate(document.documentElement.outerHTML);
   }
 
-  // Fetch all projects
-  // TODO
-  useEffect(() => {
-    async function getProject() {
-      try {
-        const response = await ProjectService.getProjects();
-        if (response.ok) {
-          const data = await response.json();
-          const project = data.find((project) => project.id === id);
-          if (project) {
-            setProject(project);
-            setLoading(false);
-          } else {
-            throw new Error("Project not found.");
-          }
-        }
-      } catch (error) {
-        setLoading(false);
-      }
-    }
+  const project_tables = tableData.filter(
+    (table) => table.project_id === project.id
+  );
 
-    getProject();
-  }, []);
+  const slugs = project_tables.map((item) => item.slug);
 
-  // Fetch all templates
-  // TODO
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        const response = await TemplatesService.getTemplates();
-        if (response.ok) {
-          const data = await response.json();
-          const template = data.find(
-            (template) => template.id === project.template_id
-          );
-          if (template) {
-            setTemplate(template);
-          } else {
-            throw new Error("Template not found.");
-          }
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      getTemplateList();
-    }
-  }, [project, selectedSlug]);
-
-  // Fetch all tables data
-  // TODO
-  useEffect(() => {
-    async function getTableData() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          const project_tables = data.filter(
-            (table) => table.project_id === project.id
-          );
-          setSlugs(project_tables.map((item) => item.slug));
-          setTablesData(
-            project_tables.filter(
-              (data) => data.slug.toLowerCase() === slug.toLowerCase()
-            )
-          );
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      getTableData();
-    }
-  }, [project, selectedSlug, slug]);
-
-  // Fetch all tables
-  // TODO
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        const response = await TableService.getTables();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredTable = data.filter(
-            (table) => table.template_id === project.template_id
-          );
-          setTables(filteredTable);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      getTableList();
-    }
-  }, [project, selectedSlug]);
+  const tablesData = project_tables.filter(
+    (data) => data.slug.toLowerCase() === slug.toLowerCase()
+  );
 
   useEffect(() => {
     if (template && tablesData && projectStyle) {
@@ -263,7 +190,7 @@ const RenderSlug = () => {
   // Fetch all project styles
   // TODO
   useEffect(() => {
-    async function getProjectStyle() {
+    async function gettyle() {
       try {
         const response = await ProjectStyleService.get();
         if (response.ok) {
@@ -271,7 +198,7 @@ const RenderSlug = () => {
           const filteredTable = data.filter(
             (table) => table.project_id === project.id
           );
-          setProjectStyle(filteredTable);
+          setStyle(filteredTable);
         }
       } catch (error) {
         console.warn(error.message);
@@ -279,7 +206,7 @@ const RenderSlug = () => {
     }
 
     if (project) {
-      getProjectStyle();
+      gettyle();
     }
   }, [project]);
 

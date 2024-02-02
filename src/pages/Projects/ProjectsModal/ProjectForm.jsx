@@ -44,7 +44,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       createdAt: Date.now(),
     };
 
-    ProjectService.setProject(project);
+    ProjectService.set(project);
 
     onSubmitForm();
     navigate("/projects/" + project_id);

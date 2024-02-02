@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.0",
+    "json-server": "^1.0.0-alpha.23",
     "lucide-react": "^0.303.0",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",

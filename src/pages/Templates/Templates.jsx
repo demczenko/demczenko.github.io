@@ -1,31 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { PageLayout } from "..";
 import { TemplateList } from "./TemplateList";
-import { TemplatesService } from "@/api/templates/init";
 import { DrawerModal } from "@/components/Drawer";
 import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
 import TemplateFilter from "./TemplateFilter";
+import { useTemplates } from "@/hooks/useTemplates";
+import LoadingPage from "@/LoadingPage";
 
 const Templates = () => {
-  const [templates, setTemplates] = useState([]);
+  const { data: templates, isError, isLoading, update } = useTemplates();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState("isNotArchived");
-
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        const response = await TemplatesService.getTemplates();
-        if (response.ok) {
-          const data = await response.json();
-          setTemplates(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTemplateList();
-  }, []);
 
   const filteredTemplate = useMemo(() => {
     if (filter === "isArchived") {
@@ -40,6 +25,10 @@ const Templates = () => {
       return templates;
     }
   }, [filter, templates]);
+
+  if (isError) {
+    return <ErrorPage />
+  }
 
   return (
     <div className="w-full">
@@ -63,10 +52,16 @@ const Templates = () => {
           },
         ]}
         content={
-          <TemplateList
-            onCreate={() => setIsModalOpen(true)}
-            templates={filteredTemplate}
-          />
+          <>
+            {isLoading ? (
+              <LoadingPage title="Loading your templates..." />
+            ) : (
+              <TemplateList
+                onCreate={() => setIsModalOpen(true)}
+                templates={filteredTemplate}
+              />
+            )}
+          </>
         }
       />
       <DrawerModal

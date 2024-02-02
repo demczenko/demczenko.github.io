@@ -1,33 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PageLayout } from "..";
-import { ProjectService } from "@/api/projects/init";
 import { ProjectList } from "./ProjectList";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectFormSelectTemplate from "./ProjectsModal/ProjectFormSelectTemplate";
 import { AddProjectDrawer } from "./ProjectsModal/AddProjectDrawer";
+import { useProjects } from "@/hooks/useProjects";
+import LoadingPage from "@/LoadingPage";
+import ErrorPage from "@/ErrorPage";
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
+  const { data, isError, isLoading, update } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    async function getProjectList() {
-      try {
-        const response = await ProjectService.getProjects();
-        if (response.ok) {
-          const data = await response.json();
-          const filtered = data.filter(
-            (project) => project.isArchived !== true
-          );
-          setProjects(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getProjectList();
-  }, []);
+  const projects = data.filter((project) => project.isArchived !== true);
+  
+  if (isError) {
+    return <ErrorPage />
+  }
 
   return (
     <div className="w-full">
@@ -41,10 +30,16 @@ const Projects = () => {
           },
         ]}
         content={
-          <ProjectList
-            onCreate={() => setIsModalOpen(true)}
-            projects={projects}
-          />
+          <>
+            {isLoading ? (
+              <LoadingPage title="Loading your projects..." />
+            ) : (
+              <ProjectList
+                onCreate={() => setIsModalOpen(true)}
+                projects={projects}
+              />
+            )}
+          </>
         }
       />
       <DrawerModal

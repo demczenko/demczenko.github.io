@@ -3,7 +3,7 @@ import ConfigureNode from "./ConfigureNode";
 import { v4 as uuidv4 } from "uuid";
 
 const ProjectTemplatePreview = ({
-  setProjectStyle,
+  setStyle,
   project_id,
   template_html,
   handleUpdateTemplate,
@@ -108,7 +108,7 @@ const ProjectTemplatePreview = ({
       node_id: uuidv4(),
     };
 
-    setProjectStyle(new_node);
+    setStyle(new_node);
     const updated_body = new DOMParser().parseFromString(
       ref.current.innerHTML,
       "text/html"

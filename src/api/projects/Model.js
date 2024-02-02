@@ -6,19 +6,19 @@ export class ProjectModel {
     this.#path = path
   }
 
-  getProjects() {
+  get() {
     return this.#api.get(this.#path)
   }
 
-  setProject(data) {
+  set(data) {
     return this.#api.set(this.#path, data);
   }
 
-  updateProject(data) {
+  update(data) {
     return this.#api.update(this.#path, data);
   }
 
-  deleteProject(data) {
+  delete(data) {
     return this.#api.delete(this.#path, data);
   }
 }

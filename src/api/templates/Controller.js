@@ -4,19 +4,19 @@ export class TemplateController {
     this.#model = model;
   }
 
-  getTemplates() {
-    return this.#model.getTemplates();
+  get() {
+    return this.#model.get();
   }
 
-  setTemplates(data) {
-    return this.#model.setTemplates(data);
+  set(data) {
+    return this.#model.set(data);
   }
 
-  updateTemplate(data) {
-    return this.#model.updateTemplate(data);
+  update(data) {
+    return this.#model.update(data);
   }
 
-  deleteTemplate(data) {
-    return this.#model.deleteTemplate(data);
+  delete(data) {
+    return this.#model.delete(data);
   }
 }

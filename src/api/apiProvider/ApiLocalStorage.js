@@ -1,44 +1,66 @@
 export class ApiLocalStorage {
-  get(key) {
+  async get(key) {
     const prev = localStorage.getItem(key) || "[]";
-    // const prev = this.#parse(() => localStorage.getItem(key) || "[]");
-    return new Response(prev)
+    const response = new Response(prev);
+    const data = await response.json();
+    return data;
   }
 
-  set(key, data) {
+  async set(key, data) {
     let prev = this.#parse(() => localStorage.getItem(key) || "[]");
-    localStorage.setItem(key, this.#stringify(() => [...prev, data]));
+    localStorage.setItem(
+      key,
+      this.#stringify(() => [...prev, data])
+    );
+
+    const response = new Response(data);
+    const res = await response.json();
+    return res;
   }
 
-  delete(key, id) {
+  async delete(key, id) {
     let prev = this.#parse(() => localStorage.getItem(key) || "[]");
 
-    const filtered = prev.filter((item) => item.id !== id)
+    const filtered = prev.filter((item) => item.id !== id);
 
-    localStorage.setItem(key, this.#stringify(() => filtered));
+    localStorage.setItem(
+      key,
+      this.#stringify(() => filtered)
+    );
+
+    const response = new Response(data);
+    const res = await response.json();
+    return res;
   }
 
-  update(key, data) {
+  async update(key, data) {
     let prev = this.#parse(() => localStorage.getItem(key) || "[]");
 
-    prev = prev.map(item => {
+    prev = prev.map((item) => {
       if (item.id === data.id) {
         return {
           ...item,
-          ...data
-        }
+          ...data,
+        };
       }
 
-      return item
-    })
+      return item;
+    });
 
-    localStorage.setItem(key, this.#stringify(() => prev));
+    localStorage.setItem(
+      key,
+      this.#stringify(() => prev)
+    );
+
+    const response = new Response(data);
+    const res = await response.json();
+    return res;
   }
 
   #parse(data) {
     try {
       const result = JSON.parse(data());
-      return result
+      return result;
     } catch (error) {
       console.warn(error);
     }
@@ -47,7 +69,7 @@ export class ApiLocalStorage {
   #stringify(data) {
     try {
       const result = JSON.stringify(data());
-      return result
+      return result;
     } catch (error) {
       console.warn(error);
     }

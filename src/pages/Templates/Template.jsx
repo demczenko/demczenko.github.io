@@ -1,104 +1,60 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
 import RenameTemplate from "./TemplateModal/RenameTemplate";
 import { TemplatesService } from "@/api/templates/init";
-import { ProjectService } from "@/api/projects/init";
-import { TabledataService } from "@/api/tables data/init";
-import { TableService } from "@/api/tables/init";
-import { ColumnService } from "@/api/columns/init";
+import { useTemplates } from "@/hooks/useTemplates";
+import { useProjects } from "@/hooks/useProjects";
+import { useTables } from "@/hooks/useTables";
+import { useColumns } from "@/hooks/useColumns";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const Template = ({ template }) => {
   const navigator = useNavigate();
-  const [projects, setProjects] = useState([]);
-  const [tableData, setTablesData] = useState(null);
-  const [columns, setColumns] = useState(null);
-  const [tables, setTables] = useState([]);
+  const {
+    data,
+    isError: IsProjectsError,
+    isLoading: IsProjectsLoading,
+    update: updateProjects,
+    remove: removeProject,
+  } = useProjects();
+  const { data: templates, isError, isLoading, update } = useTemplates();
+  const {
+    data: tables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTable,
+    remove: removeTable,
+  } = useTables();
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    remove: removeColumn,
+  } = useColumns();
+
+  const {
+    data: tableData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    remove: removeDataTable,
+  } = useDataTables();
 
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
-  // Fetch all projects
-  // TODO
-  useEffect(() => {
-    async function getProjectList() {
-      try {
-        const response = await ProjectService.getProjects();
-        if (response.ok) {
-          const data = await response.json();
-          const filtered = data.filter(
-            (project) => project.template_id === template.id
-          );
-          setProjects(filtered);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getProjectList();
-  }, []);
-
-  // Fetch all tables
-  // TODO
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        const response = await TableService.getTables();
-        if (response.ok) {
-          const data = await response.json();
-          setTables(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTableList();
-  }, []);
-
-  // Fetch all columns
-  // TODO
-  useEffect(() => {
-    async function getColumnList() {
-      try {
-        const response = await ColumnService.getColumns();
-        if (response.ok) {
-          const data = await response.json();
-          setColumns(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getColumnList();
-  }, []);
-
-  // Fetch all tables data
-  // TODO
-  useEffect(() => {
-    async function getTableDataFiltered() {
-      try {
-        const response = await TabledataService.getTabledata();
-        if (response.ok) {
-          const data = await response.json();
-          setTablesData(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    getTableDataFiltered();
-  }, []);
+  const projects = data.filter(
+    (project) => project.template_id === template.id
+  );
 
   const handleArchived = () => {
-    TemplatesService.updateTemplate({
+    TemplatesService.update({
       ...template,
       isArchived: template.isArchived ? false : true,
     });
@@ -112,29 +68,29 @@ const Template = ({ template }) => {
       )
     ) {
       // Delete template
-      TemplatesService.deleteTemplate(id);
+      TemplatesService.delete(id);
 
       // Delete tables related to that template
       tables
         .filter((project) => project.template_id === template.id)
         .forEach((table) => {
-          TableService.deleteTable(table.id);
+          removeTable(table.id);
 
           // Delete columns related to that template
           columns
             .filter((column) => column.table_id === table.id)
-            .forEach((col) => ColumnService.deleteColumn(col.id));
+            .forEach((col) => removeColumn(col.id));
         });
 
       // Delete projects related to that template
       projects
         .filter((project) => project.template_id === template.id)
         .forEach((project) => {
-          ProjectService.deleteProject(project.id);
+          removeProject(project.id);
           // Delete table data related to that template
           tableData
             .filter((table) => table.project_id === project.id)
-            .forEach((table) => TabledataService.deleteTabledata(table.id));
+            .forEach((table) => removeDataTable(table.id));
         });
     }
   };
@@ -186,7 +142,7 @@ const Template = ({ template }) => {
 
   const onSubmit = (name) => {
     if (name.length < 4) return;
-    TemplatesService.updateTemplate({ ...template, template_name: name });
+    TemplatesService.update({ ...template, template_name: name });
     navigator("/templates/" + template.id);
   };
 

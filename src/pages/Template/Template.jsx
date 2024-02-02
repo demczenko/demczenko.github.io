@@ -30,7 +30,7 @@ const Template = () => {
       ...template,
       template_html: data["modify template"],
     };
-    TemplatesService.updateTemplate(new_template);
+    TemplatesService.update(new_template);
     setTemplate(new_template);
     setTempalteModalOpen(false)
 
@@ -46,13 +46,13 @@ const Template = () => {
   useEffect(() => {
     async function getTableList() {
       try {
-        const response = await TableService.getTables();
+        const response = await TableService.get();
         if (response.ok) {
           const data = await response.json();
           const filteredTable = data.filter(
             (table) => table.template_id === template.id
           );
-          setTables(filteredTable);
+          set(filteredTable);
         }
       } catch (error) {
         console.warn(error.message);
@@ -67,7 +67,7 @@ const Template = () => {
     async function getTemplate() {
       try {
         setError("");
-        const response = await TemplatesService.getTemplates();
+        const response = await TemplatesService.get();
         if (response.ok) {
           const data = await response.json();
           const template = data.find((template) => template.id === id);
@@ -96,8 +96,8 @@ const Template = () => {
     setIsModalOpen(false);
     setError("");
 
-    new_tables.forEach((table) => TableService.setTables(table));
-    columns.forEach((column) => ColumnService.setColumns(column));
+    new_tables.forEach((table) => TableService.set(table));
+    columns.forEach((column) => ColumnService.set(column));
     navigator(`/table/${new_tables[0].id}`);
   };
   return (
@@ -134,7 +134,7 @@ const Template = () => {
           <>
             <TemplateTables
               tables={new_tables}
-              setTables={setNewTables}
+              set={setNewTables}
               setColumns={setColumns}
               columns={columns}
               templateId={template?.id}

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Project from "./Project";
+import ProjectCart from "./ProjectCart";
 
 export const ProjectList = ({ onCreate, projects }) => {
   if (!projects.length) {
@@ -24,7 +24,7 @@ export const ProjectList = ({ onCreate, projects }) => {
   return (
     <>
       {projects.map((project) => (
-        <Project key={project.id} {...project} />
+        <ProjectCart key={project.id} {...project} />
       ))}
     </>
   );

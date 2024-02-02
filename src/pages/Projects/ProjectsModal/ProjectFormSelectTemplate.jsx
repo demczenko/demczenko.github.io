@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
   const navigate = useNavigate();
 
-  const [templates, setTemplates] = useState([]);
+  const [templates, set] = useState([]);
   const form = useForm({
     defaultValues: {
       project_name: "",
@@ -59,7 +59,7 @@ const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
       createdAt: Date.now(),
     };
 
-    ProjectService.setProject(project);
+    ProjectService.set(project);
     onSubmitForm();
     navigate("/projects/" + project_id);
   };
@@ -67,10 +67,10 @@ const ProjectFormSelectTemplate = ({ onSubmitForm }) => {
   useEffect(() => {
     async function getTemplateList() {
       try {
-        const response = await TemplatesService.getTemplates();
+        const response = await TemplatesService.get();
         if (response.ok) {
           const data = await response.json();
-          setTemplates(data);
+          set(data);
         }
       } catch (error) {
         console.warn(error.message);

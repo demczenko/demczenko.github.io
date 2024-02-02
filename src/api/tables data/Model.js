@@ -6,19 +6,19 @@ export class TabledataModel {
     this.#path = path
   }
 
-  getTabledata() {
+  get() {
     return this.#api.get(this.#path)
   }
 
-  setTabledata(data) {
+  set(data) {
     return this.#api.set(this.#path, data);
   }
 
-  deleteTabledata(data) {
+  delete(data) {
     return this.#api.delete(this.#path, data);
   }
 
-  updateTabledata(data) {
+  update(data) {
     return this.#api.update(this.#path, data);
   }
 }

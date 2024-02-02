@@ -2,13 +2,13 @@ import React from "react";
 import TableDataCart from "./TableDataCart";
 import { Heading, List } from "@/components";
 
-const TableDataList = ({ setTablesData, tablesData, onDeleteTableData }) => {
+const TableDataList = ({ tablesData, onDeleteTableData }) => {
   return (
     <div>
       <Heading title={`Table data`} paragraph={`${tablesData.length} slugs`} />
       <List>
         {tablesData.map((table, i) => (
-          <TableDataCart setTablesData={setTablesData} onDelete={() => onDeleteTableData(table.id)} key={i} table={table} />
+          <TableDataCart onDelete={() => onDeleteTableData(table.id)} key={i} table={table} />
         ))}
       </List>
     </div>

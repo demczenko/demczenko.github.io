@@ -45,7 +45,7 @@ const HandleColumnInput = ({ isOpenNewColumn, setIsOpenNewColumn }) => {
   );
 };
 
-const TableColumns = ({ table_id, columns, setColumns }) => {
+const TableColumns = ({ table_id, columns, set }) => {
   const ref = useRef()
   const [renamedColumnId, setRenamedColumnId] = useState();
   const [columnName, setColumnName] = useState("");
@@ -61,11 +61,11 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
       createdAt: Date.now(),
       table_id,
     };
-    setColumns((prev) => [...prev, new_column]);
+    set((prev) => [...prev, new_column]);
   };
 
   const renameColumn = () => {
-    setColumns((prev) => {
+    set((prev) => {
       return prev.map((column) => {
         if (column.id == renamedColumnId) {
           return {
@@ -99,7 +99,7 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
   };
 
   const handleDelete = (id) => {
-    setColumns((prev) => prev.filter((column) => column.id !== id));
+    set((prev) => prev.filter((column) => column.id !== id));
   };
 
   const handleRename = (column) => {

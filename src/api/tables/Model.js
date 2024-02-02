@@ -6,14 +6,14 @@ export class TablesModel {
     this.#path = path
   }
 
-  getTables() {
+  get() {
     return this.#api.get(this.#path)
   }
 
-  setTables(data) {
+  set(data) {
     return this.#api.set(this.#path, data);
   }
-  deleteTable(data) {
+  delete(data) {
     return this.#api.delete(this.#path, data);
   }
 

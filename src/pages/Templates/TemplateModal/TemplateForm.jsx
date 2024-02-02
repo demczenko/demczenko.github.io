@@ -76,9 +76,9 @@ const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, s
 
     onSubmitForm();
     setError("");
-    TemplatesService.setTemplates(template);
-    tables.forEach(table => TableService.setTables(table))
-    columns.forEach(column => ColumnService.setColumns(column))
+    TemplatesService.set(template);
+    tables.forEach(table => TableService.set(table))
+    columns.forEach(column => ColumnService.set(column))
     navigate(`/templates/${template.id}`)
   };
 
