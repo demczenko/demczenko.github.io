@@ -10,8 +10,13 @@ import { useProjects } from "@/hooks/useProjects";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
 import { useDataTables } from "@/hooks/useDataTables";
+import { useToast } from "@/components/ui/use-toast";
 
 const Table = () => {
+  const { id } = useParams();
+  const { toast } = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { data: projects, isError, isLoading, update } = useProjects();
   const {
     data: dataTable,
@@ -31,9 +36,6 @@ const Table = () => {
     isLoading: isColumnsLoading,
     update: updateColumn,
   } = useColumns();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { id } = useParams();
 
   const onSubmit = ({ table_name }) => {
     if (table_name.length < 3) return;
@@ -67,10 +69,20 @@ const Table = () => {
       header: header,
     };
     updateColumn(new_column);
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Column name successfully updated",
+    });
   };
 
   const handleUpdate = (data) => {
     updateDataTable(data);
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Data item successfully updated",
+    });
   };
 
   // TODO: add edit column (after column edit need to be done:

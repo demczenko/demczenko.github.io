@@ -4,11 +4,9 @@ import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import CartHeader from "@/components/CartHeader";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 
 const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { toast } = useToast();
 
   const onSubmit = (name) => {
     if (name.length < 3) return;
@@ -18,11 +16,6 @@ const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
       updatedAt: Date.now(),
     };
     onUpdate(new_tabledata);
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Column successfully updated",
-    });
   };
 
   return (
