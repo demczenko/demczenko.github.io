@@ -110,8 +110,8 @@ const TemplateTables = ({
       table_id: new_template_id,
     }));
 
-    set((prev) => [...prev, new_table]);
-    set((prev) => [...prev, ...change_columns_id]);
+    setTables((prev) => [...prev, new_table]);
+    setColumns((prev) => [...prev, ...change_columns_id]);
   };
 
   const handleCreateTable = () => {
@@ -133,7 +133,7 @@ const TemplateTables = ({
   };
 
   const handleDelete = (id) => {
-    set((prev) => {
+    setTables((prev) => {
       const filteredTables = prev.filter((table) => table.id !== id);
       if (filteredTables) {
         setTabValue(filteredTables[filteredTables.length - 1].id);
@@ -231,7 +231,11 @@ const TemplateTables = ({
                 },
               ]}
             />
-            <TableColumns table_id={table.id} columns={columns} set={set} />
+            <TableColumns
+              table_id={table.id}
+              columns={columns}
+              setColumns={setColumns}
+            />
           </TabsContent>
         ))}
       </Tabs>

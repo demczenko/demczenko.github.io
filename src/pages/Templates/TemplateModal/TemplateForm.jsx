@@ -12,10 +12,9 @@ import { Input } from "@/components/ui/input";
 import { useColumns } from "@/hooks/useColumns";
 import { useTables } from "@/hooks/useTables";
 import { useTemplates } from "@/hooks/useTemplates";
-import { TrashIcon, X } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { useNavigate } from "react-router-dom";
 
 const TemplateForm = ({
   onSubmitForm,
@@ -28,7 +27,6 @@ const TemplateForm = ({
   fileName,
   setFileName,
 }) => {
-  const navigate = useNavigate();
   const [error, setError] = useState("");
   const {
     data,

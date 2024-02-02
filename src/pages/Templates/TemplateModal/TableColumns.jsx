@@ -1,13 +1,7 @@
 import { CardDescription } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -45,7 +39,7 @@ const HandleColumnInput = ({ isOpenNewColumn, setIsOpenNewColumn }) => {
   );
 };
 
-const TableColumns = ({ table_id, columns, set }) => {
+const TableColumns = ({ table_id, columns, setColumns }) => {
   const ref = useRef();
   const [renamedColumnId, setRenamedColumnId] = useState();
   const [columnName, setColumnName] = useState("");
@@ -61,11 +55,11 @@ const TableColumns = ({ table_id, columns, set }) => {
       createdAt: Date.now(),
       table_id,
     };
-    set((prev) => [...prev, new_column]);
+    setColumns((prev) => [...prev, new_column]);
   };
 
   const renameColumn = () => {
-    set((prev) => {
+    setColumns((prev) => {
       return prev.map((column) => {
         if (column.id == renamedColumnId) {
           return {
@@ -99,7 +93,7 @@ const TableColumns = ({ table_id, columns, set }) => {
   };
 
   const handleDelete = (id) => {
-    set((prev) => prev.filter((column) => column.id !== id));
+    setColumns((prev) => prev.filter((column) => column.id !== id));
   };
 
   const handleRename = (column) => {

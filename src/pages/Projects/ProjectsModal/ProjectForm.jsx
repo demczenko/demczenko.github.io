@@ -11,11 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { ProjectService } from "@/api/projects/init";
+import { useProjects } from "@/hooks/useProjects";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
-  const navigate = useNavigate();
+  const { data, isError, isLoading, update, set } = useProjects();
+
   const form = useForm({
     defaultValues: {
       project_name: "",
@@ -44,10 +44,8 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       createdAt: Date.now(),
     };
 
-    ProjectService.set(project);
-
+    set(project);
     onSubmitForm();
-    navigate("/projects/" + project_id);
   };
 
   return (
