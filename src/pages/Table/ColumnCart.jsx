@@ -1,22 +1,10 @@
-import { ColumnService } from "@/api/columns/init";
 import { DrawerModal } from "@/components/Drawer";
 import { ArrowRightIcon } from "lucide-react";
 import React, { useState } from "react";
 import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 
-const ColumnCart = ({ column, set }) => {
+const ColumnCart = ({ column, onRename }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const onSubmit = ({ header }) => {
-    if (header.length < 3) return;
-    const new_columns = {
-      ...column,
-      accessorKey: header,
-      header: header,
-    };
-    ColumnService.update(new_columns);
-    set((prev) => [...prev, new_columns]);
-  };
 
   return (
     <>
@@ -47,7 +35,7 @@ const ColumnCart = ({ column, set }) => {
           <RenameTemplate
             placeholder={column?.header}
             label={"header"}
-            onSubmit={onSubmit}
+            onSubmit={(data) => onRename(column, data)}
           />
         }
       />

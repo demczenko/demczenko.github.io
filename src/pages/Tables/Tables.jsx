@@ -1,50 +1,30 @@
-import React, { useEffect, useState } from "react";
+import ErrorPage from "@/ErrorPage";
 import PageContainer from "../PageContainer";
 import TablesList from "./TableList";
-import { TableService } from "@/api/tables/init";
-import { ColumnService } from "@/api/columns/init";
+import { useTables } from "@/hooks/useTables";
 
 const Tables = () => {
-  const [tables, setTables] = useState([]);
+  const {
+    data: tables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+    set: setTables,
+  } = useTables();
 
-  // Fetch all tables
-  // TODO
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        const response = await TableService.get();
-        if (response.ok) {
-          const data = await response.json();
-          set(data);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-    getTableList();
-  }, []);
-
-  // // Fetch all columns
-  // // TODO
-  // useEffect(() => {
-  //   async function getColumnList() {
-  //     try {
-  //       const response = await ColumnService.get();
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         set(data);
-  //       }
-  //     } catch (error) {
-  //       console.warn(error.message);
-  //     }
-  //   }
-
-  //   getColumnList();
-  // }, []);
+  if (IsTablesError) {
+    return <ErrorPage title={"Something went wrong while data table loading..."} />;
+  }
 
   return (
     <PageContainer>
-      {tables && <TablesList setTables={setTables} isProject={false} tables={tables} />}
+      <>
+        {isLoading ? (
+          <LoadingPage title="Loading your table data..." />
+        ) : (
+          <TablesList setTables={setTables} isProject={false} tables={tables} />
+        )}
+      </>
     </PageContainer>
   );
 };

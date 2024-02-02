@@ -59,6 +59,17 @@ const Table = () => {
     return false;
   });
 
+  const handleRename = (column, { header }) => {
+    if (header.length < 3) return;
+    const new_columns = {
+      ...column,
+      accessorKey: header,
+      header: header,
+    };
+    updateColumn(new_columns);
+    set((prev) => [...prev, new_columns]);
+  };
+
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
   //  remind user to change variable in template or try to change it by yourself)
@@ -94,7 +105,7 @@ const Table = () => {
         ]}
       />
       <div className="space-y-2 mt-6">
-        <ColumnsList set={set} columns={columns} />
+        <ColumnsList onRename={handleRename} columns={columns} />
         <TableDataList
           onDeleteTableData={(id) => removeDataTable(id)}
           tablesData={tablesData}

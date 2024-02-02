@@ -1,7 +1,7 @@
-import Template from "./Template";
+import TemplateCart from "./TemplateCart";
 import { Button } from "@/components/ui/button";
 
-export const TemplateList = ({ templates, onCreate }) => {
+export const TemplateList = ({ onRename, onArchive, onDelete, templates, onCreate }) => {
   if (!templates.length) {
     return (
       <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
@@ -25,7 +25,7 @@ export const TemplateList = ({ templates, onCreate }) => {
   return (
     <>
       {templates.map((template) => (
-        <Template key={template.id} template={template} />
+        <TemplateCart onRename={onRename} onArchive={onArchive} onDelete={onDelete} key={template.id} template={template} />
       ))}
     </>
   );

@@ -9,7 +9,6 @@ const ProjectCart = ({
   project_name,
   createdAt,
   template_id,
-  template_json,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigator = useNavigate();

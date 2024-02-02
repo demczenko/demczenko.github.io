@@ -1,6 +1,3 @@
-import { ColumnService } from "@/api/columns/init";
-import { TableService } from "@/api/tables/init";
-import { TemplatesService } from "@/api/templates/init";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,15 +9,52 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useColumns } from "@/hooks/useColumns";
+import { useTables } from "@/hooks/useTables";
+import { useTemplates } from "@/hooks/useTemplates";
 import { TrashIcon, X } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 
-const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, setHtml, fileName, setFileName }) => {
+const TemplateForm = ({
+  onSubmitForm,
+  templateId,
+  tables,
+  columns,
+  form,
+  html,
+  setHtml,
+  fileName,
+  setFileName,
+}) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const {
+    data,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    set: setColumns,
+    remove: removeColumn,
+  } = useColumns();
 
+  const {
+    data: templates,
+    isError,
+    isLoading,
+    update,
+    set: setTemplate,
+    remove,
+  } = useTemplates();
+
+  const {
+    data: dataTables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+    set: setTable,
+  } = useTables();
 
   const onDrop = useCallback((htmlFile) => {
     const html = htmlFile[0];
@@ -63,7 +97,7 @@ const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, s
 
   const onSubmit = (data) => {
     if (tables.length === 0) {
-      console.log("Please create at least one table.")
+      console.log("Please create at least one table.");
       return;
     }
     const template = {
@@ -71,15 +105,14 @@ const TemplateForm = ({ onSubmitForm, templateId, tables, columns, form, html, s
       template_html: html,
       isArchived: false,
       id: templateId,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
 
     onSubmitForm();
     setError("");
-    TemplatesService.set(template);
-    tables.forEach(table => TableService.set(table))
-    columns.forEach(column => ColumnService.set(column))
-    navigate(`/templates/${template.id}`)
+    setTemplate(template);
+    tables.forEach((table) => setTable(table));
+    columns.forEach((column) => setColumns(column));
   };
 
   return (

@@ -4,16 +4,24 @@ import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import { DrawerModal } from "@/components/Drawer";
 import CartActions from "./CartActions";
 import CartHeader from "@/components/CartHeader";
+import { useColumns } from "@/hooks/useColumns";
 
 const TableCart = ({
   table,
-  columns,
   onDeleteTable,
   onDuplicate,
   project_id,
   isProject,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    set: setColumn,
+    remove: removeColumn,
+  } = useColumns();
 
   return (
     <>
@@ -40,7 +48,9 @@ const TableCart = ({
                 setIsModalOpen={setIsModalOpen}
                 project_id={project_id}
                 table_id={table.id}
-                columns={columns}
+                columns={columns.filter(
+                  (column) => column.table_id === table.id
+                )}
               />
             }
           />

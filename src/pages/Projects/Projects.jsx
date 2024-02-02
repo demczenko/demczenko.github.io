@@ -15,7 +15,7 @@ const Projects = () => {
   const projects = data.filter((project) => project.isArchived !== true);
   
   if (isError) {
-    return <ErrorPage />
+    return <ErrorPage title={"Something went wrong while projects loading..."} />
   }
 
   return (

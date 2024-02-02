@@ -1,38 +1,64 @@
-import { TemplatesService } from "@/api/templates/init";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import { TableService } from "@/api/tables/init";
 import TablesList from "../Tables/TableList";
 import { DrawerModal } from "@/components/Drawer";
 import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";
-import { ColumnService } from "@/api/columns/init";
 import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
 import { useToast } from "@/components/ui/use-toast";
+import { useTemplates } from "@/hooks/useTemplates";
+import { useTables } from "@/hooks/useTables";
+import { useColumns } from "@/hooks/useColumns";
 
 const Template = () => {
   const { id } = useParams();
-  const [template, setTemplate] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: templates,
+    isError,
+    isLoading,
+    update,
+    set: setTemplate,
+    remove,
+  } = useTemplates();
+
+  const {
+    data: dataTables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+    set: setTable,
+  } = useTables();
+
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    set: setColumns,
+    remove: removeColumn,
+  } = useColumns();
+
   const [error, setError] = useState("");
-  const [tables, setTables] = useState([]);
-  const [columns, setColumns] = useState([]);
+
   const [new_tables, setNewTables] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTempalteModalOpen, setTempalteModalOpen] = useState(false);
-  const {toast} = useToast()
+  const { toast } = useToast();
 
+  const template = templates.find((template) => template.id === id);
+  const tables = dataTables.filter(
+    (table) => table.template_id === template.id
+  );
   const onChangeTemplateSubmit = (data) => {
     if (data["modify template"].length < 10) return;
     const new_template = {
       ...template,
       template_html: data["modify template"],
     };
-    TemplatesService.update(new_template);
-    setTemplate(new_template);
-    setTempalteModalOpen(false)
+    update(new_template);
+    setTempalteModalOpen(false);
 
     toast({
       variant: "success",
@@ -40,52 +66,6 @@ const Template = () => {
       description: "Template updated successfully",
     });
   };
-
-  // Fetch all tables
-  // TODO
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        const response = await TableService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredTable = data.filter(
-            (table) => table.template_id === template.id
-          );
-          set(filteredTable);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-    if (template) {
-      getTableList();
-    }
-  }, [template]);
-
-  useEffect(() => {
-    async function getTemplate() {
-      try {
-        setError("");
-        const response = await TemplatesService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const template = data.find((template) => template.id === id);
-          if (template) {
-            setTemplate(template);
-            setLoading(false);
-          } else {
-            throw new Error("Template not found.");
-          }
-        }
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    }
-
-    getTemplate();
-  }, []);
 
   const onSubmit = () => {
     if (new_tables.length < 1) {
@@ -96,14 +76,47 @@ const Template = () => {
     setIsModalOpen(false);
     setError("");
 
-    new_tables.forEach((table) => TableService.set(table));
-    columns.forEach((column) => ColumnService.set(column));
-    navigator(`/table/${new_tables[0].id}`);
+    new_tables.forEach((table) => setTable(table));
+    columns.forEach((column) => setColumns(column));
   };
+
+  const onDeleteTable = (table_id) => {
+    alert("Under development");
+  };
+
+  const onDuplicate = (table_id) => {
+    const duplicateTable = tables.find((table) => table.id == table_id);
+    const new_template_id = uuidv4();
+    const new_table = {
+      ...duplicateTable,
+      id: new_template_id,
+      table_name: duplicateTable.table_name + " Copy",
+    };
+
+    // Get columns for selected id
+    const new_columns = columns.filter(
+      (column) => column.table_id === table_id
+    );
+    // Change columns id
+    const change_columns_id = new_columns.map((col) => ({
+      ...col,
+      id: uuidv4(),
+      table_id: new_template_id,
+    }));
+
+    setTables(new_table);
+    change_columns_id.forEach((column) => setColumn(column));
+  };
+
+  if (isError) {
+    return (
+      <ErrorPage title="Something went wrong while templates loading..." />
+    );
+  }
   return (
     <PageContainer>
       <Heading
-        title={loading ? "Loading" : error ? error : template.template_name}
+        title={isLoading ? "Loading" : error ? error : template.template_name}
         actions={[
           {
             id: 1,
@@ -122,7 +135,13 @@ const Template = () => {
           className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
           srcDoc={template?.template_html}></iframe>
         <div className="pt-4 lg:pt-0 w-full">
-          <TablesList setTables={setTables} isProject={false} tables={tables} />
+          <TablesList
+            onDeleteTable={onDeleteTable}
+            onDuplicate={onDuplicate}
+            setTables={setTables}
+            isProject={false}
+            tables={tables}
+          />
         </div>
       </div>
       <DrawerModal
