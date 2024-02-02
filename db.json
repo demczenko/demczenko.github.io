@@ -1,4 +1,14 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "full_name": "Viacheslav Demchenko",
+      "first_name": "Viacheslav",
+      "last_name": "Demchenko",
+      "email": "demczenko@beliani.co.uk",
+      "role": "admin"
+    }
+  ],
   "tables": [
     {
       "id": "f963f996-9a03-46fc-b96a-198f0d8a3e2e",

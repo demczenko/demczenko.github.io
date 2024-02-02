@@ -1,4 +1,4 @@
-import { Columns, Columns2, Columns2Icon, Columns3, FolderOpen, Home, Trash } from "lucide-react";
+import { Columns, Columns2, Columns2Icon, Columns3, FolderOpen, Home, Trash, User2 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from ".";
@@ -49,6 +49,12 @@ const navigation = [
     path: "/components",
     name: "Components",
     icon: <Columns2Icon className="h-4 w-4 mr-2" />,
+  },
+  {
+    id: 5,
+    path: "/users",
+    name: "Users",
+    icon: <User2 className="h-4 w-4 mr-2" />,
   },
 ];
 

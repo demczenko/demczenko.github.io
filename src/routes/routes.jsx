@@ -13,6 +13,7 @@ import {
   Templates,
   TemplatesArchive,
   TemplatesLayouts,
+  Users,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -79,8 +80,13 @@ export const routes = createBrowserRouter(
           errorElement: <ErrorPage />,
         },
         {
-          path: "tables/",
+          path: "tables",
           element: <Tables />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "users",
+          element: <Users />,
           errorElement: <ErrorPage />,
         },
       ],

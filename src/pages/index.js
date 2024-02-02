@@ -12,7 +12,10 @@ import Component from "./Component/Component";
 import RenderSlug from "./RenderSlug/RenderSlug";
 import Tables from "./Tables/Tables";
 import TemplatesLayouts from "./Layouts/TemplatesLayouts";
+import Users from "./Users/Users";
+
 export {
+  Users,
   TemplatesLayouts,
   Tables,
   RenderSlug,
