@@ -4,7 +4,7 @@ import { useTemplates } from "@/hooks/useTemplates";
 import LoadingPage from "@/LoadingPage";
 import ErrorPage from "@/ErrorPage";
 
-const ProjectCart = ({ isProjectPage, handleArchived, project }) => {
+const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: templates,
@@ -17,11 +17,6 @@ const ProjectCart = ({ isProjectPage, handleArchived, project }) => {
   const template = templates.find(
     (template) => template.id === project.template_id
   );
-
-  const handleDelete = (id) => {
-    alert("under development");
-  };
-
   const options = useMemo(() => {
     if (project?.isArchived) {
       return [
@@ -43,7 +38,7 @@ const ProjectCart = ({ isProjectPage, handleArchived, project }) => {
         {
           id: 4,
           name: "Delete",
-          onClick: () => handleDelete(project.id),
+          onClick: () => onDelete(),
         },
       ];
     } else {
@@ -84,7 +79,7 @@ const ProjectCart = ({ isProjectPage, handleArchived, project }) => {
         template_html={template?.template_html}
       />
       <CardDescription
-        isProject={isProjectPage}
+        isProjectPage={isProjectPage}
         id={template?.id}
         template_name={template?.template_name}
         name={project.project_name}

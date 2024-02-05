@@ -9,7 +9,7 @@ import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useToast } from "@/components/ui/use-toast";
-import { AddNewItem } from "@/components/AddNewItem";
+import { CreateForm } from "@/components/CreateForm";
 import { v4 as uuidv4 } from "uuid";
 
 const Table = () => {
@@ -194,7 +194,7 @@ const Table = () => {
         }
       />
       <div className="space-y-2 mt-6">
-        <AddNewItem
+        <CreateForm
           onSubmit={handleCreateColumn}
           isOpen={isColumnModalOpen}
           setIsOpen={setIsModalOpen}

@@ -5,8 +5,11 @@ import { Heading, List } from "@/components";
 export const ProjectList = ({
   isProjectPage,
   handleArchived,
+  onDelete,
   onCreate,
+  actions,
   projects,
+  title,
 }) => {
   if (!projects.length) {
     return (
@@ -29,12 +32,13 @@ export const ProjectList = ({
   }
   return (
     <div>
-      <Heading title={`Projects`} />
+      <Heading title={title} actions={actions} />
       <List>
         {projects.map((project) => (
           <ProjectCart
             isProjectPage={isProjectPage}
             key={project.id}
+            onDelete={() => onDelete(project.id)}
             handleArchived={handleArchived}
             project={project}
           />

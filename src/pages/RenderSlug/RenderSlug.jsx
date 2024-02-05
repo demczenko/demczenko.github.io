@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { ProjectStyleService } from "@/api/projects_style/init";
 import { useProjects } from "@/hooks/useProjects";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";

@@ -24,10 +24,10 @@ const HandleNewItem = ({ onSubmit, fields }) => {
     for (const key in formData) {
       const value = formData[key];
 
-      if (value.trim().length < 1) {
+      if (value.trim().length < 3) {
         form.setError(key, {
           type: "required",
-          message: "Length must be at least 1 symbol",
+          message: "Length must be at least 3 symbol",
         });
         return;
       }

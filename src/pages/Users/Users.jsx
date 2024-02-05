@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { UsersList } from "./UsersList";
 import { useUsers } from "@/hooks/useUsers";
-import { PageLayout } from "..";
 import LoadingPage from "@/LoadingPage";
 
 const Users = () => {
@@ -15,25 +14,22 @@ const Users = () => {
   }
 
   return (
-    <PageLayout
-      title="Users"
-      actions={[
-        {
-          id: 1,
-          name: "Create User",
-          onClick: () => setIsModalOpen(true),
-        },
-      ]}
-      content={
-        <>
-          {isLoading ? (
-            <LoadingPage title="Loading users..." />
-          ) : (
-            <UsersList users={data} />
-          )}
-        </>
-      }
-    />
+    <PageContainer>
+      {isLoading ? (
+        <LoadingPage title="Loading users..." />
+      ) : (
+        <UsersList
+          actions={[
+            {
+              id: 1,
+              name: "Create User",
+              onClick: () => setIsModalOpen(true),
+            },
+          ]}
+          users={data}
+        />
+      )}
+    </PageContainer>
   );
 };
 

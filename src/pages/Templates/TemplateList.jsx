@@ -1,7 +1,18 @@
+import { Heading, List } from "@/components";
 import TemplateCart from "./TemplateCart";
 import { Button } from "@/components/ui/button";
 
-export const TemplateList = ({ onRename, onArchive, onDelete, templates, onCreate }) => {
+export const TemplateList = ({
+  onRename,
+  onArchive,
+  onDelete,
+  templates,
+  onCreate,
+  actions,
+  title,
+  isProjectPage,
+  isTemplatePage,
+}) => {
   if (!templates.length) {
     return (
       <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
@@ -23,10 +34,21 @@ export const TemplateList = ({ onRename, onArchive, onDelete, templates, onCreat
   }
 
   return (
-    <>
-      {templates.map((template) => (
-        <TemplateCart onRename={onRename} onArchive={onArchive} onDelete={onDelete} key={template.id} template={template} />
-      ))}
-    </>
+    <div>
+      <Heading title={title} actions={actions} />
+      <List>
+        {templates.map((template) => (
+          <TemplateCart
+            isTemplatePage={isTemplatePage}
+            isProjectPage={isProjectPage}
+            onRename={onRename}
+            onArchive={onArchive}
+            onDelete={() => onDelete(template.id)}
+            key={template.id}
+            template={template}
+          />
+        ))}
+      </List>
+    </div>
   );
 };

@@ -13,6 +13,7 @@ const CardDescription = ({
   createdAt,
   template_name,
   isProjectPage,
+  isTemplatePage,
   id,
 }) => {
   return (
@@ -25,6 +26,11 @@ const CardDescription = ({
           )}>
           {name}
         </div>
+        {title && options && isTemplatePage && (
+          <div className="w-1/2 flex justify-end">
+            <Options options={options} title={title} style={style} />
+          </div>
+        )}
         {title && options && isProjectPage && (
           <div className="w-1/2 flex justify-end">
             <Options options={options} title={title} style={style} />

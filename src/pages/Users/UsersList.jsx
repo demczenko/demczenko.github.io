@@ -1,7 +1,6 @@
 import UserCart from "./UserCart";
 
-export const UsersList = ({ users }) => {
-  console.log(users);
+export const UsersList = ({ actions, users }) => {
   return (
     <>
       {users.map((user) => (

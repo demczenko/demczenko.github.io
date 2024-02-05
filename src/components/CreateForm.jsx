@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,14 +12,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
-export function AddNewItem({
+export function CreateForm({
   title,
   description,
   isOpen,
@@ -41,7 +38,7 @@ export function AddNewItem({
     for (const key in formData) {
       const value = formData[key];
 
-      if (value.trim().length < 1) {
+      if (value.trim().length < 3) {
         form.setError(key, {
           type: "required",
           message: "Length must be at least 3 symbols",

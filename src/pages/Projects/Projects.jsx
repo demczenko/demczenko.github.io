@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageLayout } from "..";
+import { PageContainer } from "..";
 import { ProjectList } from "./ProjectList";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectFormSelectTemplate from "./ProjectsModal/ProjectFormSelectTemplate";
@@ -26,30 +26,26 @@ const Projects = () => {
 
   return (
     <div className="w-full">
-      <PageLayout
-        title="Projects"
-        actions={[
-          {
-            id: 1,
-            name: "Create Project",
-            onClick: () => setIsModalOpen(true),
-          },
-        ]}
-        content={
-          <>
-            {isLoading ? (
-              <LoadingPage title="Loading your projects..." />
-            ) : (
-              <ProjectList
-                isProjectPage={true}
-                handleArchived={handleArchived}
-                onCreate={() => setIsModalOpen(true)}
-                projects={projects}
-              />
-            )}
-          </>
-        }
-      />
+      <PageContainer>
+        {isLoading ? (
+          <LoadingPage title="Loading your projects..." />
+        ) : (
+          <ProjectList
+            title="Projects"
+            actions={[
+              {
+                id: 1,
+                name: "Create Project",
+                onClick: () => setIsModalOpen(true),
+              },
+            ]}
+            isProjectPage={true}
+            handleArchived={handleArchived}
+            onCreate={() => setIsModalOpen(true)}
+            projects={projects}
+          />
+        )}
+      </PageContainer>
       <DrawerModal
         title={"Create project"}
         description={

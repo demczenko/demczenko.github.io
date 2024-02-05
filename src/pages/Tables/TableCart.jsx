@@ -31,7 +31,19 @@ const TableCart = ({
     <>
       <section className="group mt-2">
         <CartHeader table_id={table.id} table_name={table.table_name} />
-        {isColumnsExists.length > 0 && (
+        {isProject && (
+          <>
+            {isColumnsExists.length > 0 && (
+              <CartActions
+                isProject={isProject}
+                onDuplicate={() => onDuplicate(table.id)}
+                onModalOpen={() => setIsModalOpen(true)}
+                onDelete={() => onDeleteTable(table.id)}
+              />
+            )}
+          </>
+        )}
+        {!isProject && (
           <CartActions
             isProject={isProject}
             onDuplicate={() => onDuplicate(table.id)}

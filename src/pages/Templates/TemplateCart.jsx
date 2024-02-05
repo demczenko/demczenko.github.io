@@ -3,9 +3,16 @@ import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
-import RenameTemplate from "./TemplateModal/RenameTemplate";
+import { CreateForm } from "@/components/CreateForm";
 
-const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
+const TemplateCart = ({
+  isTemplatePage,
+  isProjectPage,
+  onRename,
+  onArchive,
+  onDelete,
+  template,
+}) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
@@ -31,7 +38,7 @@ const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
         {
           id: 4,
           name: "Delete",
-          onClick: () => onDelete(template.id),
+          onClick: () => onDelete(),
         },
       ];
     } else {
@@ -62,6 +69,8 @@ const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
         template_html={template.template_html}
       />
       <CardDescription
+        isProjectPage={isProjectPage}
+        isTemplatePage={isTemplatePage}
         name={template.template_name}
         options={options}
         title={"Manage template"}
@@ -83,17 +92,23 @@ const TemplateCart = ({ onRename, onArchive, onDelete, template }) => {
           />
         }
       />
-      <DrawerModal
+      <CreateForm
         title={"Rename template"}
         description={"Enter new template name."}
-        open={isRenameModalOpen}
-        onOpenChange={setRenameModalOpen}
-        content={
-          <RenameTemplate
-            placeholder={template?.name}
-            onSubmit={(name) => onRename(template, name)}
-          />
-        }
+        isOpen={isRenameModalOpen}
+        setIsOpen={setRenameModalOpen}
+        fields={[
+          {
+            id: 1,
+            name: "template_name",
+            label: "Template Name",
+            placeholder: "name",
+          },
+        ]}
+        onSubmit={(name) => {
+          onRename(template, name);
+          setRenameModalOpen(false);
+        }}
       />
     </div>
   );
