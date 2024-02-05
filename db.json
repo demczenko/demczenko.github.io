@@ -175,6 +175,24 @@
       "table_name": "Top image",
       "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
       "createdAt": 1707132671688
+    },
+    {
+      "id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "table_name": "Header Category 1",
+      "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
+      "createdAt": 1707132671688
+    },
+    {
+      "id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "table_name": "Header Category 2",
+      "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
+      "createdAt": 1707132671688
+    },
+    {
+      "id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "table_name": "Header Category 3",
+      "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
+      "createdAt": 1707132671688
     }
   ],
   "data_tables": [
@@ -4467,7 +4485,7 @@
     {
       "slug": "pl",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "d2a1c0ab-eabd-48df-8342-7306f6c4bff2",
       "offer part 1": "Zrób zakupy za min. 1500 zł i odbierz voucher o wartości",
       "offer part 2": "500 zł ",
@@ -4485,12 +4503,13 @@
       "cta": "Kup teraz",
       "soon ending": "Zobacz oferty ograniczone czasowo ",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
-      "updatedAt": 1706800304189
+      "updatedAt": 1706800304189,
+      "createdat": 1707139765856
     },
     {
       "slug": "de",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "78be8d22-c421-42da-98db-ae49b2f6ea70",
       "offer part 1": "Kaufe für min. 300 € ein und erhalte einen ",
       "offer part 2": "100 € Gutschein",
@@ -4507,12 +4526,13 @@
       "title 4": "Accessoires",
       "cta": "Jetzt shoppen",
       "soon ending": "Entdecke unsere zeitlich begrenzten Angebote ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "at",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "760fbe9e-511e-4432-a3c9-f0045256b70d",
       "offer part 1": "Zrób zakupy za min. 1500 zł i odbierz voucher o wartości",
       "offer part 2": "500 zł ",
@@ -4529,12 +4549,13 @@
       "title 4": "Akcesoria",
       "cta": "Jetzt shoppen",
       "soon ending": "Entdecke unsere zeitlich begrenzten Angebote ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "chde",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "89fb84f7-d58c-44a1-a23e-ea7acb519508",
       "offer part 1": "Kaufe für min. 300 Fr. ein und erhalte einen ",
       "offer part 2": "100 Fr. Gutschein",
@@ -4551,12 +4572,13 @@
       "title 4": "Accessoires",
       "cta": "Jetzt shoppen",
       "soon ending": "Entdecke unsere zeitlich begrenzten Angebote ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "nl",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "dcf1a627-7043-47f8-b101-7fb24b9d2ed9",
       "offer part 1": "Shop voor tenminste € 300 en krijg",
       "offer part 2": "€ 100 cashback",
@@ -4573,12 +4595,13 @@
       "title 4": "Accessoires",
       "cta": "Koop nu",
       "soon ending": "Shop tijdelijke aanbiedingen ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "fr",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "f3c82593-d2d1-4771-a643-d2d2d828c0e3",
       "offer part 1": "Dépensez au moins 300 € lors de votre achat et nous vous offrirons",
       "offer part 2": "100 € de cashback",
@@ -4595,12 +4618,13 @@
       "title 4": "Accessoires",
       "cta": "Acheter maintenant",
       "soon ending": "Voir les offres à durée limitée ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "chfr",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1707128673218,
+      "createdAt": 1707139765856,
       "id": "89446cd5-eeee-40a5-8589-6a37edb98c13",
       "offer part 1": "Dépensez au moins 300 Fr. lors de votre achat et nous vous offrirons",
       "offer part 2": "100 Fr. de cashback",
@@ -4618,12 +4642,12 @@
       "cta": "Acheter maintenant",
       "soon ending": "Voir les offres à durée limitée ",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
-      "createdat": 1707128673218
+      "createdat": 1707139765856
     },
     {
       "slug": "es",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "58702f40-f695-4cbc-a4f7-32fcbcbc4f4e",
       "offer part 1": "Realiza un pedido mínimo de 300 € y consigue",
       "offer part 2": "100 € de devolución ",
@@ -4640,12 +4664,13 @@
       "title 4": "Accesorios",
       "cta": "Compra ahora",
       "soon ending": "Ver ofertas por tiempo limitado",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "pt",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765856,
       "id": "630c2673-9457-4443-b9f4-0c6df572e58d",
       "offer part 1": "Faça compras no valor mínimo de 300 € e receba",
       "offer part 2": "um desconto de 100 €",
@@ -4662,12 +4687,13 @@
       "title 4": "Acessórios",
       "cta": "Compre já",
       "soon ending": "Veja as nossas ofertas por tempo limitado ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765856
     },
     {
       "slug": "it",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765857,
       "id": "d3a152f3-efd2-44be-9f30-66a1ebcca75a",
       "offer part 1": "Spendi almeno 300 € per il tuo acquisto e ti regaliamo",
       "offer part 2": "un Voucher da 100 €",
@@ -4684,12 +4710,13 @@
       "title 4": "Accessori",
       "cta": "Acquista ora",
       "soon ending": "Scopri le nostre offerte a tempo limitato ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "dk",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707139765857,
       "id": "7985f945-2d6d-46be-a7bd-7294b1ea55c9",
       "offer part 1": "Køb for min. 2.500 kr. og vi giver dig",
       "offer part 2": "750 kr. i cashback",
@@ -4706,12 +4733,13 @@
       "title 4": "Tilbehør",
       "cta": "Køb nu",
       "soon ending": "Se vores tidsbegrænsede tilbud ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "no",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "f2d93808-631b-4404-9710-9b77d47f7ff1",
       "offer part 1": "Handle for minst 3 500 kr, og vi gir deg",
       "offer part 2": "1 000 kr i cashback",
@@ -4728,12 +4756,13 @@
       "title 4": "Tilbehør",
       "cta": "Kjøp nå",
       "soon ending": "Handle tidsbegrensede tilbud ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "fi",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "90af745d-79aa-4eef-b4e6-21b1a075e1d7",
       "offer part 1": "Tilaa vähintään 300 € edestä ja saa",
       "offer part 2": "100 € cashback-kuponki,",
@@ -4750,12 +4779,13 @@
       "title 4": "Sisustustarvikkeet",
       "cta": "Tilaa nyt",
       "soon ending": "Tutustu määräaikaisiin tarjouksiin",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "se",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "1619d9c3-1b58-4ab9-82d2-37d45ebf7321",
       "offer part 1": "Om du spenderar över 3 500 kr på ditt köp ger vi dig",
       "offer part 2": "1 000 kr i cashback",
@@ -4772,12 +4802,13 @@
       "title 4": "Hemtillbehör",
       "cta": "Handla nu",
       "soon ending": "Se våra tillfälliga erbjudanden",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "cz",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "79a09ace-5463-4a78-83c7-4f874e94ce60",
       "offer part 1": "Spend min. £300 on your purchase and we will give you a ",
       "offer part 2": "£100 cashback ",
@@ -4794,12 +4825,13 @@
       "title 4": "Accessories",
       "cta": "Do obchodu",
       "soon ending": "Objevte časově omezené nabídky",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "sk",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "bc3c5434-7e4a-4274-98cd-fc7479950b86",
       "offer part 1": "Nakúpte v hodnote nad 300 € a získajte voucher so",
       "offer part 2": "100 € cashbackom,",
@@ -4816,12 +4848,13 @@
       "title 4": "Doplnky",
       "cta": "Do obchodu",
       "soon ending": "Prezrite si časovo obmedzené ponuky",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "slug": "hu",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655739,
+      "createdAt": 1707139765857,
       "id": "f9cc1bbd-2890-46bc-a40a-bebd446fe862",
       "offer part 1": "Spend min. £300 on your purchase and we will give you a ",
       "offer part 2": "£100 cashback ",
@@ -4838,7 +4871,8 @@
       "title 4": "Accessories",
       "cta": "Rendelj most",
       "soon ending": "Nézd meg limitált ideig tartó ajánlatainkat ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707139765857
     },
     {
       "id": "53561c29-a2fe-4d38-8bd3-a90d0833a6fc",
@@ -5289,6 +5323,515 @@
       "href": "https://www.beliani.fr/content/lp24-02-12",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
       "createdat": 1707139111201
+    },
+    {
+      "id": "7e3d726c-fc26-4233-8708-0b5e08e931ee",
+      "slug": "es",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_es_02.jpg",
+      "href": "https://www.beliani.es/salon/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "f210d94a-d2d3-4142-adce-c152955ec8a1",
+      "slug": "pt",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_pt_02.jpg",
+      "href": "https://www.beliani.pt/sala/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "919540c2-3a93-4ae0-92dd-5f9b36e3a6b0",
+      "slug": "nl",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_nl_02.jpg",
+      "href": "https://www.beliani.nl/woonkamer/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "71204463-e1b0-422d-922f-211f54fbea24",
+      "slug": "at",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.at/wohnzimmer-moebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "6ba2c27e-e3d1-4690-ac1d-7753a9f54bb2",
+      "slug": "chde",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "ttps://www.beliani.ch/wohnzimmer-moebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "730b4a44-bf7a-4b62-b93d-65f4083a9bb4",
+      "slug": "de",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.de/wohnzimmer-moebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "d945a0ab-018f-4646-bdb4-0e839e7fa119",
+      "slug": "chfr",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_fr_02.jpg",
+      "href": "https://www.beliani.ch/meubles-de-salon/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c47fafd4-94bb-470f-9002-7527844b39af",
+      "slug": "fr",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_fr_02.jpg",
+      "href": "https://www.beliani.fr/meubles-de-salon/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "05418ec0-c188-40e8-9feb-557ee410b3e4",
+      "slug": "cz",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_cz_02.jpg",
+      "href": "https://www.beliani.cz/nabytek-do-obyvaku/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "1d63c81c-6881-48bf-a7f6-37f18e88f426",
+      "slug": "hu",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_hu_02.jpg",
+      "href": "https://www.beliani.hu/nappali-butorok/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "931fc6a1-6a7d-41bd-aa94-5c4a981fe09c",
+      "slug": "sk",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_sk_02.jpg",
+      "href": "https://www.beliani.sk/nabytok-do-obyvacky/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "1a856b70-0391-4485-bb79-8303a50f832f",
+      "slug": "it",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_it_02.jpg",
+      "href": "https://www.beliani.it/soggiorno/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "32931348-8a08-4b11-b249-b3c9b96063eb",
+      "slug": "se",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_se_02.jpg",
+      "href": "https://www.beliani.se/vardagsrumsmobler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "83dc8869-c5b4-4e29-b74d-26e6429f7139",
+      "slug": "uk",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_uk_02.jpg",
+      "href": "https://www.beliani.co.uk/living-room-furniture/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "2633d6e1-c8c2-463b-bdc0-15439970b86b",
+      "slug": "no",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_no_02.jpg",
+      "href": "https://www.beliani.no/stuemoebler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "6735cfe9-6592-48e9-af95-02977aff4731",
+      "slug": "dk",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_dk_02.jpg",
+      "href": "https://www.beliani.dk/stuemobler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "cb95cbf1-cf73-42aa-8b05-afd419dfa139",
+      "slug": "pl",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_pl_02.jpg",
+      "href": "https://www.beliani.pl/meble-do-salonu/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "1e5baf93-fa18-41bf-8c28-b21a0d74dc6e",
+      "slug": "fi",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "createdAt": 1707139675277,
+      "src": "https://beliani.info/newsletter/2022/header_fi_02.jpg",
+      "href": "https://www.beliani.fi/olohuoneen-kalusteet/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "fba9e831-e4fe-484d-8d8c-8ad8340037e6",
+      "slug": "pt",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680654,
+      "src": "https://beliani.info/newsletter/2022/header_pt_03.jpg",
+      "href": "https://www.beliani.pt/acessorios/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "f8f4f814-571b-4390-86e1-c57bbf438489",
+      "slug": "es",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_es_03.jpg",
+      "href": "https://www.beliani.es/accesorios-del-hogar/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "5d3866e7-4664-409e-bdb9-bc0463c7f538",
+      "slug": "nl",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_nl_03.jpg",
+      "href": "https://www.beliani.nl/woonaccessoires/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "a4769bc1-5780-4296-b040-0b9a85aafabc",
+      "slug": "chde",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.ch/wohnzubehor/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "2f3dbc46-6469-4b79-baed-d206a3ffa016",
+      "slug": "at",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.at/wohnzubehor/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "20dceca7-d035-4751-9b67-a3674fab5a62",
+      "slug": "de",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.de/wohnzubehor/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "75df10d6-9323-4135-91b3-bc2e8f6c4110",
+      "slug": "chfr",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_fr_03.jpg",
+      "href": "https://www.beliani.ch/accessoires/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "a2fde20f-d49d-4fbe-a5db-d1335333a3e9",
+      "slug": "fr",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_fr_03.jpg",
+      "href": "https://www.beliani.fr/accessoires/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "a4088489-c7d6-45df-9166-b14332f484b6",
+      "slug": "hu",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_hu_03.jpg",
+      "href": "https://www.beliani.hu/otthoni-kiegeszitok/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "75af16b4-d821-4a9c-a2ae-1daaa9d2fba6",
+      "slug": "cz",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_cz_03.jpg",
+      "href": "https://www.beliani.cz/doplnky/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "00db2663-6319-4dbf-b6ab-cc660397ef29",
+      "slug": "sk",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_sk_03.jpg",
+      "href": "https://www.beliani.sk/doplnky/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "d2b8325c-734a-43df-a356-9d7cb867e4d8",
+      "slug": "se",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_se_03.jpg",
+      "href": "https://www.beliani.se/hemtillbehor/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c468f2fe-7f02-47cc-a77e-3012fc244849",
+      "slug": "it",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_it_03.jpg",
+      "href": "https://www.beliani.it/accessori-casa/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "4945a541-7f34-4368-8227-bfcd1d3a77c1",
+      "slug": "uk",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_uk_03.jpg",
+      "href": "https://www.beliani.co.uk/home-accessories/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "8adc28da-6e6b-4bb2-9c3f-e8cf5d6f6adc",
+      "slug": "no",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_no_03.jpg",
+      "href": "https://www.beliani.no/tilbehoer/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "685bb83b-afd7-41d6-b4d8-d6136e6c4cea",
+      "slug": "dk",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_dk_03.jpg",
+      "href": "https://www.beliani.dk/boligtilbehor/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "23d06834-ccd7-4cc7-90d9-f583e2f17b6c",
+      "slug": "fi",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_fi_03.jpg",
+      "href": "https://www.beliani.fi/sisustustuotteet/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "98984d5f-9fc2-42af-83d2-0ede08e40cb1",
+      "slug": "pl",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "createdAt": 1707139680655,
+      "src": "https://beliani.info/newsletter/2022/header_pl_03.jpg",
+      "href": "https://www.beliani.pl/dodatki/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "35545103-33ff-4775-87f0-85e9ee8d1685",
+      "slug": "es",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_es_04.jpg",
+      "href": "https://www.beliani.es/jardin/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "5a2bea79-eb88-45bb-9f6f-2fe0dd84ca58",
+      "slug": "pt",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_pt_04.jpg",
+      "href": "https://www.beliani.pt/exterior/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "47272bb6-9f78-41e9-a17c-afbc2a91844c",
+      "slug": "nl",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_nl_04.jpg",
+      "href": "https://www.beliani.nl/tuinmeubelen/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "ec0e8750-2062-4f12-ba27-bac0df0d6427",
+      "slug": "chde",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.ch/gartenmoebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "37b5d37d-5d91-4456-8456-0437d7f24880",
+      "slug": "at",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.at/gartenmoebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "14ba5f1d-9854-4f9c-9bf3-fd634903ca2b",
+      "slug": "de",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_dach_02.jpg",
+      "href": "https://www.beliani.de/gartenmoebel/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "5f8bc71c-e8b3-49f1-ab3c-1fece00351f2",
+      "slug": "fr",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_fr_04.jpg",
+      "href": "https://www.beliani.fr/meubles-de-jardin/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "0aede5a4-042f-497c-ae7c-6c673e4a2b83",
+      "slug": "chfr",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_fr_04.jpg",
+      "href": "https://www.beliani.ch/meubles-de-jardin/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "47307925-a6dd-4245-9ba1-1b01eabf3d66",
+      "slug": "hu",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_hu_04.jpg",
+      "href": "https://www.beliani.hu/kerti-garniturak/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "1f1739eb-a908-4cda-864c-3767b588a5c6",
+      "slug": "cz",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_cz_04.jpg",
+      "href": "https://www.beliani.cz/zahradni-nabytek/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "8b077d76-a5ec-4065-9b0c-d19e646f9059",
+      "slug": "sk",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_sk_04.jpg",
+      "href": "https://www.beliani.sk/zahrada/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "4ef4488c-eb60-4d27-9d78-49933b5ad4cf",
+      "slug": "it",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_it_04.jpg",
+      "href": "https://www.beliani.it/giardino/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "05197963-8e0e-4c49-8be2-1ad404adf637",
+      "slug": "se",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_se_04.jpg",
+      "href": "https://www.beliani.se/tradgardsmobler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "233eb21c-35a5-4734-9334-ccca3e9add45",
+      "slug": "uk",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_uk_04.jpg",
+      "href": "https://www.beliani.co.uk/garden-furniture/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "fc41cdf3-5625-41c6-a340-df8c860dbeb9",
+      "slug": "no",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_no_04.jpg",
+      "href": "https://www.beliani.no/hagemoebler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c5b46abe-1655-4f12-827d-7a82af91274c",
+      "slug": "dk",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_dk_04.jpg",
+      "href": "https://www.beliani.dk/havemobler/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "d2bdb2b3-9a9b-427b-8249-1c76b5dfa549",
+      "slug": "fi",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_fi_04.jpg",
+      "href": "https://www.beliani.fi/puutarhakalusteet/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "63cfe9c0-1258-4102-968a-1d391c9bc0ae",
+      "slug": "pl",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "createdAt": 1707139686553,
+      "src": "https://beliani.info/newsletter/2022/header_pl_04.jpg",
+      "href": "https://www.beliani.pl/ogrod/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "a0f6cd0f-dbfe-4b33-8f47-1781aafe9142",
+      "slug": "uk",
+      "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
+      "createdAt": 1707139765856,
+      "offer part 1": "Spend min. £300 on your purchase and we will give you a ",
+      "offer part 2": "£100 cashback ",
+      "offer part 3": "to use in your next order. ",
+      "offer part 4": "Use the code at the check out to receive voucher with cashback. ",
+      "get code": "Get the code",
+      "offer date 1": "This is limited-time offer.",
+      "offer date 2": "Valid until the 25th of February.",
+      "intro title": "Unleash Carnival Colours at Home",
+      "intro": "As the carnival season bids farewell,  why allow the vibrant hues to vanish? Embrace the essence of celebration with our exquisite range, from opulent sofas to captivating accessories. Let the carnival spirit reign in every corner of your home.",
+      "title 1": "Sofas\r",
+      "title 2": "Beds",
+      "title 3": "Rugs",
+      "title 4": "Accessories",
+      "cta": "Shop now",
+      "soon ending": "Shop time-limited offers",
+      "createdat": 1707139765856,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     }
   ],
   "templates": [
@@ -6438,6 +6981,78 @@
     {
       "id": "dd267286-8486-488d-90bf-9f3cd81396df",
       "table_id": "4cf0fc3f-d289-4ed0-8de6-989d1857bdbe",
+      "accessorKey": "href",
+      "header": "href",
+      "type": "text",
+      "createdAt": 1707132973136
+    },
+    {
+      "id": "c2bd245a-bd5c-4884-9b4c-eb829b2cbf58",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "6d98f683-cab3-4f3f-bcf3-af636fdfbf16",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "accessorKey": "src",
+      "header": "src",
+      "type": "text",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "17dbdd6f-1421-4545-83d4-9b1ae0c59e8b",
+      "table_id": "41928ace-ef17-4fba-8f1b-83801d0b8b17",
+      "accessorKey": "href",
+      "header": "href",
+      "type": "text",
+      "createdAt": 1707132973136
+    },
+    {
+      "id": "a3e6347b-35d4-4eec-a0ad-49e6473b9a3c",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "1cbbcb85-e34f-4193-b944-0cae49fbaa8f",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "accessorKey": "src",
+      "header": "src",
+      "type": "text",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "d882bae8-b1b0-484e-b0b0-da0fc30e6b21",
+      "table_id": "f30fc4ca-4c3d-4ed7-b652-2ccb0cf7b163",
+      "accessorKey": "href",
+      "header": "href",
+      "type": "text",
+      "createdAt": 1707132973136
+    },
+    {
+      "id": "ba8505c7-b171-43f4-880d-994bf0b5e282",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "9500d7f8-a450-4c37-a46d-3df66912ed6c",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
+      "accessorKey": "src",
+      "header": "src",
+      "type": "text",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "bd97cb40-6655-413a-a464-73522cb52815",
+      "table_id": "b10a354d-b179-494a-8ca6-819ee3d1cb74",
       "accessorKey": "href",
       "header": "href",
       "type": "text",
