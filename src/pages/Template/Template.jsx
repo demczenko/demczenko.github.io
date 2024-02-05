@@ -11,6 +11,8 @@ import LoadingPage from "@/LoadingPage";
 import TemplatePreview from "./TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
+import { useProjects } from "@/hooks/useProjects";
+import { ProjectList } from "../Projects/ProjectList";
 
 const Template = () => {
   const { id } = useParams();
@@ -41,6 +43,12 @@ const Template = () => {
     remove: removeColumn,
   } = useColumns();
 
+  const {
+    data: projects,
+    isError: isErrorProjects,
+    isLoading: isLoadingProjects,
+  } = useProjects();
+
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
@@ -48,6 +56,9 @@ const Template = () => {
   const template = templates.find((template) => template.id === id);
   const tables = dataTables.filter(
     (table) => table.template_id === template?.id
+  );
+  const projectsTamplate = projects.filter(
+    (project) => project.template_id === template?.id
   );
   const onChangeTemplateSubmit = ({ template_html }) => {
     if (template_html.length < 10) return;
@@ -157,6 +168,7 @@ const Template = () => {
             isProject={false}
             tables={tables}
           />
+          <ProjectList isProjectPage={false} projects={projectsTamplate} />
         </div>
       </div>
       <AddTable

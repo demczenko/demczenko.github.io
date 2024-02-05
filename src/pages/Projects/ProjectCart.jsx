@@ -4,7 +4,7 @@ import { useTemplates } from "@/hooks/useTemplates";
 import LoadingPage from "@/LoadingPage";
 import ErrorPage from "@/ErrorPage";
 
-const ProjectCart = ({ handleArchived, project }) => {
+const ProjectCart = ({ isProjectPage, handleArchived, project }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: templates,
@@ -84,6 +84,7 @@ const ProjectCart = ({ handleArchived, project }) => {
         template_html={template?.template_html}
       />
       <CardDescription
+        isProject={isProjectPage}
         id={template?.id}
         template_name={template?.template_name}
         name={project.project_name}

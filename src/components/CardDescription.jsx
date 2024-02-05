@@ -12,6 +12,7 @@ const CardDescription = ({
   style,
   createdAt,
   template_name,
+  isProjectPage,
   id,
 }) => {
   return (
@@ -24,32 +25,34 @@ const CardDescription = ({
           )}>
           {name}
         </div>
-        {title && options && (
+        {title && options && isProjectPage && (
           <div className="w-1/2 flex justify-end">
             <Options options={options} title={title} style={style} />
           </div>
         )}
       </div>
-      <div className="flex justify-between mt-2">
-        {createdAt && (
-          <p className="text-xs">
-            <span className="text-neutral-300">created at: </span>
-            <span className="text-white font-semibold">
-              {new Date(createdAt).toDateString()}
-            </span>
-          </p>
-        )}
-        {template_name && (
-          <div className="flex justify-between">
-            <Link to={`/templates/${id}`}>
-              <Badge variant={"secondary"}>
-                <LinkIcon className="h-4 w-4 pr-2" />
-                {template_name}
-              </Badge>
-            </Link>
-          </div>
-        )}
-      </div>
+      {isProjectPage && (
+        <div className="flex justify-between mt-2">
+          {createdAt && (
+            <p className="text-xs">
+              <span className="text-neutral-300">created at: </span>
+              <span className="text-white font-semibold">
+                {new Date(createdAt).toDateString()}
+              </span>
+            </p>
+          )}
+          {template_name && (
+            <div className="flex justify-between">
+              <Link to={`/templates/${id}`}>
+                <Badge variant={"secondary"}>
+                  <LinkIcon className="h-4 w-4 mr-2" />
+                  <span className="text-xs">{template_name}</span>
+                </Badge>
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

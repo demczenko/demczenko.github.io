@@ -11,7 +11,7 @@ import ErrorPage from "@/ErrorPage";
 const Projects = () => {
   const { data, isError, isLoading, update } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const projects = data.filter((project) => project.isArchived !== true);
 
   if (isError) {
@@ -41,6 +41,7 @@ const Projects = () => {
               <LoadingPage title="Loading your projects..." />
             ) : (
               <ProjectList
+                isProjectPage={true}
                 handleArchived={handleArchived}
                 onCreate={() => setIsModalOpen(true)}
                 projects={projects}

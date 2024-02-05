@@ -23,12 +23,13 @@ const ProjectStyleList = ({ handleDelete, styles }) => {
         {styles.map((item) => {
           for (const key in item.style) {
             const value = item.style[key];
+            const name = item.style["name"];
             if (value) {
               return (
                 <ProjectStyleCart
                   handleDelete={() => handleDelete(item.id)}
                   key={item.id}
-                  name={key}
+                  name={name ?? "default"}
                   value={value}
                 />
               );

@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import ProjectCart from "./ProjectCart";
+import { Heading, List } from "@/components";
 
-export const ProjectList = ({ handleArchived, onCreate, projects }) => {
+export const ProjectList = ({
+  isProjectPage,
+  handleArchived,
+  onCreate,
+  projects,
+}) => {
   if (!projects.length) {
     return (
       <div className="fixed top-1/2 -translate-y-1/2 w-3/4 text-center z-10">
@@ -22,14 +28,18 @@ export const ProjectList = ({ handleArchived, onCreate, projects }) => {
     );
   }
   return (
-    <>
-      {projects.map((project) => (
-        <ProjectCart
-          key={project.id}
-          handleArchived={handleArchived}
-          project={project}
-        />
-      ))}
-    </>
+    <div>
+      <Heading title={`Projects`} />
+      <List>
+        {projects.map((project) => (
+          <ProjectCart
+            isProjectPage={isProjectPage}
+            key={project.id}
+            handleArchived={handleArchived}
+            project={project}
+          />
+        ))}
+      </List>
+    </div>
   );
 };

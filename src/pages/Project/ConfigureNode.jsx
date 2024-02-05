@@ -13,6 +13,7 @@ import { useState } from "react";
 
 const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
   const [bgcolor, setBgColor] = useState("");
+  const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [err, setError] = useState(true);
 
@@ -27,9 +28,20 @@ const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label
-              htmlFor="name"
-              className="text-left">
+            <Label htmlFor="name" className="text-left">
+              Section Name{" "}
+            </Label>
+            <Input
+              onChange={(ev) => setName(ev.target.value)}
+              id="name"
+              value={name}
+              type="text"
+              className="col-span-4"
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-left">
               Text color
             </Label>
             <p
@@ -53,9 +65,7 @@ const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label
-              htmlFor="bg"
-              className="text-left">
+            <Label htmlFor="bg" className="text-left">
               Background color{" "}
             </Label>
             <p
@@ -82,9 +92,13 @@ const ConfigureNode = ({ open, onOpenChange, onSubmit }) => {
           <Button
             disabled={err}
             onClick={() => {
+              if (name.trim().length < 3) {
+                return;
+              }
               onSubmit({
                 color: color,
                 backgroundColor: bgcolor,
+                name: name,
               });
               onOpenChange(false);
               setColor("");

@@ -11,8 +11,6 @@ import { useDataTables } from "@/hooks/useDataTables";
 import { useToast } from "@/components/ui/use-toast";
 import { AddNewItem } from "@/components/AddNewItem";
 import { v4 as uuidv4 } from "uuid";
-import { PlusCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const Table = () => {
   const { id } = useParams();
