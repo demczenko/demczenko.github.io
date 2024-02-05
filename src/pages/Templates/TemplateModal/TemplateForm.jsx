@@ -29,6 +29,14 @@ const TemplateForm = ({
 }) => {
   const [error, setError] = useState("");
   const {
+    data: templates,
+    isError,
+    isLoading,
+    update,
+    set: setTemplate,
+    remove,
+  } = useTemplates();
+  const {
     data,
     isError: IsColumnsError,
     isLoading: isColumnsLoading,
@@ -37,14 +45,7 @@ const TemplateForm = ({
     remove: removeColumn,
   } = useColumns();
 
-  const {
-    data: templates,
-    isError,
-    isLoading,
-    update,
-    set: setTemplate,
-    remove,
-  } = useTemplates();
+
 
   const {
     data: dataTables,
@@ -105,6 +106,9 @@ const TemplateForm = ({
       id: templateId,
       createdAt: Date.now(),
     };
+
+    console.log(tables)
+    console.log(columns)
 
     onSubmitForm();
     setError("");

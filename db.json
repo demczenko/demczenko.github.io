@@ -197,10 +197,10 @@
   ],
   "data_tables": [
     {
-      "slug": "pt",
+      "id": "e24f1538-adb6-4bd7-8e32-506900023b51",
       "table_id": "f963f996-9a03-46fc-b96a-198f0d8a3e2e",
       "createdAt": 1706622002272,
-      "id": "e24f1538-adb6-4bd7-8e32-506900023b51",
+      "slug": "pt",
       "src": "https://beliani.info/newsletter/2022/pt240129_01.jpg",
       "href": "https://www.beliani.pt/content/lp24-01-29",
       "project_id": "19cb47f8-5552-4466-bee0-89ea0f4b754b"
