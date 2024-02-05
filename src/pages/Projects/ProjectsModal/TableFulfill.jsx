@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HandleNewItem from "./HandleNewItem";
 import { useToast } from "@/components/ui/use-toast";
 import { useDataTables } from "@/hooks/useDataTables";
+import { List } from "@/components";
 
 const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
   const {
@@ -88,8 +89,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
             id: uuidv4(),
           };
         }
-        console.log(sorted);
-
         sorted_data_items.push(sorted);
       }
     }
@@ -222,6 +221,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       if (
         objKey === "table_id" ||
         objKey === "createdAt" ||
+        objKey === "createdat" ||
         objKey === "updatedAt" ||
         objKey === "project_id" ||
         objKey === "id"
@@ -229,7 +229,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
         continue;
       columns.push(
         <TableCell
-          key={i}
+          key={i + value}
           className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
           <ContextMenuRow
             actions={[
@@ -296,14 +296,14 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
           <TableBody>{createRows()}</TableBody>
         </Table>
       )}
-
       {columnsData.length > 0 && (
         <Button onClick={handlePopulateTable} className="w-full mt-2">
           Save
         </Button>
       )}
+
       {slugsAlreadyExist.length > 0 && (
-        <div className="mt-6">
+        <List>
           {slugsAlreadyExist.map((slug, i) => {
             return (
               <ImportConflict
@@ -338,7 +338,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
               />
             );
           })}
-        </div>
+        </List>
       )}
     </>
   );

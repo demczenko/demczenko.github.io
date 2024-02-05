@@ -60,17 +60,11 @@ const TableCart = ({
           setIsModalOpen(false);
         }}
         content={
-          <AddProjectDrawer
-            form={
-              <TableFulfill
-                setIsModalOpen={setIsModalOpen}
-                project_id={project_id}
-                table_id={table.id}
-                columns={columns.filter(
-                  (column) => column.table_id === table.id
-                )}
-              />
-            }
+          <TableFulfill
+            setIsModalOpen={setIsModalOpen}
+            project_id={project_id}
+            table_id={table.id}
+            columns={columns.filter((column) => column.table_id === table.id)}
           />
         }
       />
