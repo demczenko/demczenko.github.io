@@ -124,7 +124,7 @@ const ProjectTemplatePreview = ({
         dangerouslySetInnerHTML={{
           __html: hydratedTemplate,
         }}
-        className="w-full md:h-[1000px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
+        className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
       />
       <ConfigureNode
         onSubmit={handleStyle}

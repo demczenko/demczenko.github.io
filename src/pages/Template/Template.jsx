@@ -6,12 +6,13 @@ import TablesList from "../Tables/TableList";
 import { DrawerModal } from "@/components/Drawer";
 import TemplateTables from "../Templates/TemplateModal/TemplateTables";
 import { Button } from "@/components/ui/button";
-import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
 import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
 import LoadingPage from "@/LoadingPage";
+import TemplatePreview from "./TemplatePreview";
+import { v4 as uuidv4 } from "uuid";
 
 const Template = () => {
   const { id } = useParams();
@@ -45,21 +46,19 @@ const Template = () => {
 
   const [new_tables, setNewTables] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isTempalteModalOpen, setTempalteModalOpen] = useState(false);
   const { toast } = useToast();
 
   const template = templates.find((template) => template.id === id);
   const tables = dataTables.filter(
-    (table) => table.template_id === template.id
+    (table) => table.template_id === template?.id
   );
-  const onChangeTemplateSubmit = (data) => {
-    if (data["modify template"].length < 10) return;
+  const onChangeTemplateSubmit = ({ template_html }) => {
+    if (template_html.length < 10) return;
     const new_template = {
       ...template,
-      template_html: data["modify template"],
+      template_html: template_html,
     };
     update(new_template);
-    setTempalteModalOpen(false);
 
     toast({
       variant: "success",
@@ -110,15 +109,11 @@ const Template = () => {
   };
 
   if (isLoading) {
-    return (
-      <LoadingPage title="Loading your template..." />
-    );
+    return <LoadingPage title="Loading your template..." />;
   }
 
   if (isError) {
-    return (
-      <ErrorPage title="Something went wrong while template loading..." />
-    );
+    return <ErrorPage title="Something went wrong while template loading..." />;
   }
   return (
     <PageContainer>
@@ -130,17 +125,13 @@ const Template = () => {
             name: "Create tables",
             onClick: () => setIsModalOpen(true),
           },
-          {
-            id: 2,
-            name: "Manage template",
-            onClick: () => setTempalteModalOpen(true),
-          },
         ]}
       />
       <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
-        <iframe
-          className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
-          srcDoc={template?.template_html}></iframe>
+        <TemplatePreview
+          template_html={template?.template_html}
+          onChangeTemplateSubmit={onChangeTemplateSubmit}
+        />
         <div className="pt-4 lg:pt-0 w-full">
           <TablesList
             onDeleteTable={onDeleteTable}
@@ -170,19 +161,6 @@ const Template = () => {
               </Button>
             )}
           </>
-        }
-      />
-      <DrawerModal
-        title={"Create table"}
-        description={"Enter table name and table columns create tables."}
-        open={isTempalteModalOpen}
-        onOpenChange={setTempalteModalOpen}
-        content={
-          <ChangeTemplate
-            label={"Modify template"}
-            onSubmit={onChangeTemplateSubmit}
-            placeholder={template?.template_html}
-          />
         }
       />
     </PageContainer>

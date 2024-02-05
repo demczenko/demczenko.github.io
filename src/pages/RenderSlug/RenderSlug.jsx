@@ -17,6 +17,7 @@ import { useProjects } from "@/hooks/useProjects";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useDataTables } from "@/hooks/useDataTables";
+import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
@@ -43,18 +44,24 @@ const RenderSlug = () => {
     update: updateDataTable,
     remove,
   } = useDataTables();
+  const {
+    data: projectsStyles,
+    isError: IsProjectsStyles,
+    isLoading: IsrojectsStyles,
+    update: updateProjectsStyles,
+    set: setProjectsStyles,
+    remove: removeProjectsStyles,
+  } = useProjectsStyles();
 
   const [hydratedTemplate, setHydratedTemplate] = useState("");
-  const [loading, setLoading] = useState(true);
-
   const [selectedSlug, setSelectedSlug] = useState("");
-  const [projectStyle, setStyle] = useState([]);
 
   const { toast } = useToast();
 
   const project = projects.find((project) => project.id === id);
   const template = templates.find((t) => t.id === project.template_id);
   const tables = dataTbs.filter((t) => t.template_id === project.template_id);
+  const projectStyle = projectsStyles.filter((table) => table.project_id === project.id);
   // Get all tables
   // Get table by name
   // Get table id
@@ -179,36 +186,13 @@ const RenderSlug = () => {
     if (template && tablesData && projectStyle) {
       hydrateTemplate(tablesData, template.template_html);
     }
-  }, [tablesData, template]);
+  }, [tablesData, template, projectStyle]);
 
   useEffect(() => {
     if (selectedSlug) {
       navigator(`/projects/${project?.id}/${selectedSlug}`);
     }
   }, [project, selectedSlug]);
-
-  // Fetch all project styles
-  // TODO
-  useEffect(() => {
-    async function gettyle() {
-      try {
-        const response = await ProjectStyleService.get();
-        if (response.ok) {
-          const data = await response.json();
-          const filteredTable = data.filter(
-            (table) => table.project_id === project.id
-          );
-          setStyle(filteredTable);
-        }
-      } catch (error) {
-        console.warn(error.message);
-      }
-    }
-
-    if (project) {
-      gettyle();
-    }
-  }, [project]);
 
   const availableSlugs = useMemo(() => {
     const slugsData = {};

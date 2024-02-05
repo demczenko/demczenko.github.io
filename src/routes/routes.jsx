@@ -1,8 +1,6 @@
 import App from "@/App";
 import ErrorPage from "@/ErrorPage";
 import {
-  Component,
-  Components,
   Login,
   Project,
   Projects,
@@ -13,7 +11,6 @@ import {
   Template,
   Templates,
   TemplatesArchive,
-  TemplatesLayouts,
   Users,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
@@ -41,11 +38,6 @@ export const routes = createBrowserRouter(
           errorElement: <ErrorPage />,
         },
         {
-          path: "templates/layouts",
-          element: <TemplatesLayouts />,
-          errorElement: <ErrorPage />,
-        },
-        {
           path: "projects",
           element: <Projects />,
           errorElement: <ErrorPage />,
@@ -68,16 +60,6 @@ export const routes = createBrowserRouter(
         {
           path: "table/:id",
           element: <Table />,
-          errorElement: <ErrorPage />,
-        },
-        {
-          path: "components",
-          element: <Components />,
-          errorElement: <ErrorPage />,
-        },
-        {
-          path: "components/:id",
-          element: <Component />,
           errorElement: <ErrorPage />,
         },
         {

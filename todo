@@ -16,6 +16,29 @@ Todo:
   }
 ]
 
+Column type:
+  -add column type: when adding column type i can replace data-text data-href data-src to data-column because content that has to be replaced will be setted by column type
+
+Options:
+  -link
+  -image
+  -text
+if type text replace text
+if type href replace href
+if type src replace src
+{
+  "id": "177de4e8-41d1-40f8-b4c2-a6f1adbe4fb9",
+  "type": "text",
+  "header": "Href",
+  "accessorKey": "Href",
+  "createdAt": 1706611659375,
+  "table_id": "62dc9b12-0436-48d8-872a-a677c7689305"
+}
+
+Variables to template can be setted only from UI interface.
+
+What to do with colors?
+leave it as it is or add possibility change colors depending from renderend slug?
 
 host: localhost || 192.168.160.57
 port: 5432
