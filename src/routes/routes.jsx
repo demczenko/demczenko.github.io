@@ -79,5 +79,5 @@ export const routes = createBrowserRouter(
       element: <Login />,
       errorElement: <ErrorPage />,
     },
-  ], {basename: "cms-v3"}
+  ], {basename: "cms-v1"}
 );
