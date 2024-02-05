@@ -3,9 +3,6 @@ import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import TablesList from "../Tables/TableList";
-import { DrawerModal } from "@/components/Drawer";
-import TemplateTables from "../Templates/TemplateModal/TemplateTables";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
@@ -13,6 +10,7 @@ import { useColumns } from "@/hooks/useColumns";
 import LoadingPage from "@/LoadingPage";
 import TemplatePreview from "./TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
+import { AddTable } from "./AddTable";
 
 const Template = () => {
   const { id } = useParams();
@@ -31,6 +29,7 @@ const Template = () => {
     isLoading: isTablesLoading,
     update: updateTables,
     set: setTable,
+    remove: removeTable,
   } = useTables();
 
   const {
@@ -43,8 +42,6 @@ const Template = () => {
   } = useColumns();
 
   const [error, setError] = useState("");
-
-  const [new_tables, setNewTables] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
 
@@ -67,21 +64,41 @@ const Template = () => {
     });
   };
 
-  const onSubmit = () => {
-    if (new_tables.length < 1) {
-      console.log("Please create at least one table unique");
-      return;
-    }
-
+  const onSubmit = (data) => {
     setIsModalOpen(false);
     setError("");
 
-    new_tables.forEach((table) => setTable(table));
-    columns.forEach((column) => setColumn(column));
+    const new_table = {
+      id: uuidv4(),
+      table_name: data.table_name,
+      template_id: template.id,
+      createdAt: Date.now(),
+    };
+
+    setTable(new_table);
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Table created successfully",
+    });
   };
 
   const onDeleteTable = (table_id) => {
-    alert("Under development");
+    const isColumns = columns.filter((column) => column.table_id === table_id);
+    if (isColumns.length > 0) {
+      toast({
+        variant: "destructive",
+        title: "Failed to delete table",
+        description: "Firstly delete all columns",
+      });
+    } else {
+      removeTable(table_id);
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Table successfully deleted",
+      });
+    }
   };
 
   const onDuplicate = (table_id) => {
@@ -115,17 +132,11 @@ const Template = () => {
   if (isError) {
     return <ErrorPage title="Something went wrong while template loading..." />;
   }
+
   return (
     <PageContainer>
       <Heading
         title={isLoading ? "Loading" : error ? error : template?.template_name}
-        actions={[
-          {
-            id: 1,
-            name: "Create tables",
-            onClick: () => setIsModalOpen(true),
-          },
-        ]}
       />
       <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
         <TemplatePreview
@@ -134,6 +145,13 @@ const Template = () => {
         />
         <div className="pt-4 lg:pt-0 w-full">
           <TablesList
+            actions={[
+              {
+                id: 1,
+                name: "Add table",
+                onClick: () => setIsModalOpen(true),
+              },
+            ]}
             onDeleteTable={onDeleteTable}
             onDuplicate={onDuplicate}
             isProject={false}
@@ -141,27 +159,10 @@ const Template = () => {
           />
         </div>
       </div>
-      <DrawerModal
-        title={"Create table"}
-        description={"Enter table name and table columns create tables."}
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        content={
-          <>
-            <TemplateTables
-              tables={new_tables}
-              set={setNewTables}
-              setColumns={setColumn}
-              columns={columns}
-              templateId={template?.id}
-            />
-            {columns.length >= 2 && (
-              <Button onClick={onSubmit} className="w-full">
-                Save
-              </Button>
-            )}
-          </>
-        }
+      <AddTable
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        onSubmit={onSubmit}
       />
     </PageContainer>
   );

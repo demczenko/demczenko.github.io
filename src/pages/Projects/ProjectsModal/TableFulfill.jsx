@@ -88,11 +88,11 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
             id: uuidv4(),
           };
         }
+        console.log(sorted);
 
         sorted_data_items.push(sorted);
       }
     }
-
     setData(sorted_data_items);
   };
 
@@ -229,6 +229,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
         continue;
       columns.push(
         <TableCell
+          key={i}
           className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
           <ContextMenuRow
             actions={[
@@ -248,22 +249,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
 
   return (
     <>
-      {columnsData.length !== 0 && (
-        <Table>
-          <TableHeader>
-            <TableRow className="flex items-center">
-              {columns.map((column) => (
-                <TableHead
-                  className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
-                  key={column.id}>
-                  {column.header}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>{createRows()}</TableBody>
-        </Table>
-      )}
       <Tabs className="mt-6" defaultValue="import">
         <TabsList>
           <TabsTrigger value={"manually"}>New item</TabsTrigger>
@@ -294,6 +279,23 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
           )}
         </TabsContent>
       </Tabs>
+
+      {columnsData.length !== 0 && (
+        <Table>
+          <TableHeader>
+            <TableRow className="flex items-center">
+              {columns.map((column) => (
+                <TableHead
+                  className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
+                  key={column.id}>
+                  {column.header}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>{createRows()}</TableBody>
+        </Table>
+      )}
 
       {columnsData.length > 0 && (
         <Button onClick={handlePopulateTable} className="w-full mt-2">

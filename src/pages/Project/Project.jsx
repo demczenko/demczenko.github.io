@@ -34,6 +34,7 @@ const Project = () => {
     isError: IsDataTableError,
     isLoading: IsDataTableLoading,
     update: updateDataTable,
+    set: setDataTable,
     remove,
   } = useDataTables();
   const {
@@ -45,25 +46,19 @@ const Project = () => {
     remove: removeProjectsStyles,
   } = useProjectsStyles();
 
-  const [sad, setStyle] = useState([]);
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const project = data.find((project) => project.id === id);
-
   const template = templates.find(
     (template) => template.id === project.template_id
   );
-
   const tables = dataTables.filter(
     (table) => table.template_id === project.template_id
   );
-
   const project_tables = tablesData.filter(
     (table) => table.project_id === project.id
   );
-
   const slugs = project_tables.map((item) => item.slug);
-
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project.id
   );

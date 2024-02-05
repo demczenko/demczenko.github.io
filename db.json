@@ -4588,12 +4588,12 @@
     {
       "slug": "chfr",
       "table_id": "1e7c2949-ec90-4e36-9268-ccf4069c66ad",
-      "createdAt": 1706796655738,
+      "createdAt": 1707128673218,
       "id": "89446cd5-eeee-40a5-8589-6a37edb98c13",
       "offer part 1": "Dépensez au moins 300 Fr. lors de votre achat et nous vous offrirons",
       "offer part 2": "100 Fr. de cashback",
       "offer part 3": "à utiliser sur votre prochaine commande",
-      "offer part 4": "Ajoutez le code au moment du paiement pour recevoir le bon d'achat avec le cashback.",
+      "offer part 4": "Ajoutez le code au moment du paiement\npour recevoir le bon d'achat avec le cashback.",
       "get code": "Obtenez le code",
       "offer date 1": "Cette offre est limitée",
       "offer date 2": "Valable jusqu'au 25 février 2024",
@@ -4605,7 +4605,8 @@
       "title 4": "Accessoires",
       "cta": "Acheter maintenant",
       "soon ending": "Voir les offres à durée limitée ",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707128673218
     },
     {
       "slug": "es",
@@ -4825,6 +4826,168 @@
       "title 4": "Accessories",
       "cta": "Rendelj most",
       "soon ending": "Nézd meg limitált ideig tartó ajánlatainkat ",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "53561c29-a2fe-4d38-8bd3-a90d0833a6fc",
+      "slug": "pt",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.pt/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "10a56e5c-d16f-4079-b056-a1f08b3bf88b",
+      "slug": "nl",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.nl/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "239ad4c8-1fb1-4b06-ab57-05d54f523e77",
+      "slug": "es",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.es/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "b6b63ec9-b9f1-4420-a6cc-340a390cf40e",
+      "slug": "de",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.de/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "0e9821cd-f8f9-4640-9ba2-65535c16b103",
+      "slug": "at",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.at/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c9c0929c-9074-4efd-a66e-25b14cf2a5fc",
+      "slug": "chde",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.ch/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "dd281587-dd54-4416-9e6c-b28a8ffd47d5",
+      "slug": "sk",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.sk/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "b77f6d10-d271-4507-ad22-2b48ed0d5fb2",
+      "slug": "cz",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.cz/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "6845fc27-d8ff-4099-919f-3a5c0770b7f1",
+      "slug": "hu",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.hu/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "89cf8d66-cee6-479d-adf4-e9d74bbc4ce2",
+      "slug": "fr",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.fr/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "736de4aa-a772-4877-bb08-b9b1eca0d13b",
+      "slug": "chfr",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.ch/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "fe716265-b34b-4b47-b9c7-b94953f68f93",
+      "slug": "it",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.it/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "ea153abe-357f-4b3c-ae42-b91dec2b363a",
+      "slug": "se",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.se/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c2081963-cecd-42b7-b71d-8b9aa09559f1",
+      "slug": "uk",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308256,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.co.uk/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "8eb42e87-d22b-4d16-a6d4-7660c9b8e627",
+      "slug": "no",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308257,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.no/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "79551a08-ca18-4baa-8ec1-b4123b213cf5",
+      "slug": "dk",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308257,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.dk/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "433962d1-a1a0-40ba-bb20-71d4f17cc6b8",
+      "slug": "fi",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308257,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.fi/",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c36458e8-b706-4081-b07c-da1c0cfb40f6",
+      "slug": "pl",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "createdAt": 1707124308257,
+      "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
+      "href": "https://www.beliani.pl/",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     }
   ],
@@ -5893,28 +6056,44 @@
       "table_id": "416db62a-a68c-4168-acfd-c6e2e2444da8"
     },
     {
-      "id": "33c35cf3-d2e5-4031-9e3e-17ad223060e7",
-      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
-      "accessorKey": "Slug",
-      "header": "Slug",
-      "type": "slug",
-      "createdAt": 1706795503528
-    },
-    {
-      "id": "859601a5-0cc3-4b67-8aa7-cf0c5210d315",
-      "type": "text",
-      "header": "Src",
-      "accessorKey": "Src",
-      "createdAt": 1706795507216,
-      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26"
-    },
-    {
       "id": "fdd6a231-fe4a-4a93-8387-fa300cd3f109",
       "type": "text",
       "header": "Href",
       "accessorKey": "Href",
       "createdAt": 1706795509664,
       "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26"
+    },
+    {
+      "id": "64da5406-7db6-4eed-bcdc-c35842f4d77c",
+      "table_id": "f963f996-9a03-46fc-b96a-198f0d8a3e2e",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1706611636785
+    },
+    {
+      "id": "d589f552-a1cc-4221-8e2a-64e93b29c4a2",
+      "table_id": "f963f996-9a03-46fc-b96a-198f0d8a3e2e",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1706611636785
+    },
+    {
+      "id": "568b04fd-5a5a-4e49-924d-85e6d0b34448",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1707132502857
+    },
+    {
+      "id": "53e12687-e03c-43e2-9fbe-b17fe17315b1",
+      "table_id": "04a4697b-efdb-4d44-820c-353b2bc7ad26",
+      "accessorKey": "src",
+      "header": "src",
+      "type": "text",
+      "createdAt": 1707132502857
     }
   ],
   "projects_style": [

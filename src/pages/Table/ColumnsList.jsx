@@ -2,13 +2,18 @@ import React from "react";
 import ColumnCart from "./ColumnCart";
 import { Heading, List } from "@/components";
 
-const ColumnsList = ({ onRename, columns }) => {
+const ColumnsList = ({ onDelete, onRename, columns, actions }) => {
   return (
     <div>
-      <Heading title={"Columns"} />
+      <Heading title={"Columns"} actions={actions} />
       <List>
         {columns.map((column) => (
-          <ColumnCart onRename={onRename} key={column.id} column={column} />
+          <ColumnCart
+            onDelete={() => onDelete(column.id)}
+            onRename={onRename}
+            key={column.id}
+            column={column}
+          />
         ))}
       </List>
     </div>
