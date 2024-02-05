@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading } from "@/components";
+import { Heading, List } from "@/components";
 import ProjectStyleCart from "./ProjectStyleCart";
 
 const ProjectStyleList = ({ handleDelete, styles }) => {
@@ -19,7 +19,7 @@ const ProjectStyleList = ({ handleDelete, styles }) => {
   return (
     <div>
       <Heading title={"Project style"} />
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+      <List>
         {styles.map((item) => {
           for (const key in item.style) {
             const value = item.style[key];
@@ -35,7 +35,7 @@ const ProjectStyleList = ({ handleDelete, styles }) => {
             }
           }
         })}
-      </div>
+      </List>
     </div>
   );
 };

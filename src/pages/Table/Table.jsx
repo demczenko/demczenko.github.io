@@ -117,7 +117,6 @@ const Table = () => {
       createdAt: Date.now(),
     };
     const isSlugExist = columns.find((column) => column.type === "slug");
-    console.log(isSlugExist);
     if (isSlugExist) {
       setColumn(new_column);
     } else {

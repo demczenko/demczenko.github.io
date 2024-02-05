@@ -5,9 +5,15 @@ import React from "react";
 const ProjectStyleCart = ({ handleDelete, name, value }) => {
   return (
     <section className="cursor-pointer group">
-      <div className="p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors text-sm font-medium flex justify-between items-center">
+      <div className="capitalize p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors text-sm font-medium flex justify-between items-center">
         <span>{name}</span>
-        <span>{value}</span>
+        <div className="flex items-center justify-center gap-2">
+          <span
+            style={{ backgroundColor: value }}
+            className="rounded-full w-4 h-4 inline-block"
+          />
+          {value}
+        </div>
       </div>
       <div className="flex">
         <Button

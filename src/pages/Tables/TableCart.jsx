@@ -23,16 +23,22 @@ const TableCart = ({
     remove: removeColumn,
   } = useColumns();
 
+  const isColumnsExists = columns.filter(
+    (column) => column.table_id === table.id
+  );
+
   return (
     <>
-      <section className="group mt-4">
+      <section className="group mt-2">
         <CartHeader table_id={table.id} table_name={table.table_name} />
-        <CartActions
-          isProject={isProject}
-          onDuplicate={() => onDuplicate(table.id)}
-          onModalOpen={() => setIsModalOpen(true)}
-          onDelete={() => onDeleteTable(table.id)}
-        />
+        {isColumnsExists.length > 0 && (
+          <CartActions
+            isProject={isProject}
+            onDuplicate={() => onDuplicate(table.id)}
+            onModalOpen={() => setIsModalOpen(true)}
+            onDelete={() => onDeleteTable(table.id)}
+          />
+        )}
       </section>
       <DrawerModal
         title={`Populate ${table.table_name} table`}

@@ -144,16 +144,18 @@ const Project = () => {
           template_html={template?.template_html}
         />
         <div className="grid gap-2 pt-4 lg:pt-0 w-full">
-          <ProjectStyleList
-            handleDelete={handleStyleDelete}
-            styles={projectStyle}
-          />
           <SlugList
             project_id={project?.id}
             slugs={availableSlugs}
             selectedSlug={selectedSlug}
             onSlugSelect={(slug) => setSelectedSlug(slug)}
           />
+
+          <ProjectStyleList
+            handleDelete={handleStyleDelete}
+            styles={projectStyle}
+          />
+
           {isTablesLoading ? (
             <LoadingPage title={"Loading tables..."} />
           ) : (

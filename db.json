@@ -163,6 +163,12 @@
       "table_name": "Header Top Image",
       "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
       "createdAt": 1706795503528
+    },
+    {
+      "id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "table_name": "Top image title",
+      "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
+      "createdAt": 1707132671688
     }
   ],
   "data_tables": [
@@ -4989,6 +4995,114 @@
       "src": "https://beliani.info/newsletter/2022/header_2023_final.jpg",
       "href": "https://www.beliani.pl/",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "bf4a05f3-c156-43b2-a0db-949be8a65b3f",
+      "slug": "pt",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990511,
+      "src": "https://beliani.info/newsletter/2022/pt240212_01.jpg",
+      "href": "https://www.beliani.pt/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "de588d5c-2f77-45ea-9969-ee787aeaaa0a",
+      "slug": "at",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/at240212_01.jpg",
+      "href": "https://www.beliani.at/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "992787fe-3dc0-4c77-bebb-cb38145802df",
+      "slug": "chde",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/chde240212_01.jpg",
+      "href": "https://www.beliani.ch/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "103e49dd-63d8-41b9-a56a-eb75a81e04de",
+      "slug": "nl",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/nl240212_01.jpg",
+      "href": "https://www.beliani.nl/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "75459a9e-c04f-4502-a266-476d64b3a2c1",
+      "slug": "es",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/es240212_01.jpg",
+      "href": "https://www.beliani.es/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "03a7a8e9-f56e-45fb-9fd0-03125a4c6724",
+      "slug": "de",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/de240212_01.jpg",
+      "href": "https://www.beliani.de/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "166ac670-22d6-470a-aa6c-d536d5fd2884",
+      "slug": "se",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/se240212_01.jpg",
+      "href": "https://www.beliani.se/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "85e1e140-364f-4696-830b-44ebcadef909",
+      "slug": "uk",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/uk240212_01.jpg",
+      "href": "https://www.beliani.co.uk/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "94c75d47-fe5a-4ed2-a13c-b8b805fac10b",
+      "slug": "no",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/no240212_01.jpg",
+      "href": "https://www.beliani.no/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "e762b174-ff84-4eb6-ab35-507914fc5ee1",
+      "slug": "dk",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/dk240212_01.jpg",
+      "href": "https://www.beliani.dk/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "a79ec764-5477-4b7a-9a85-0aa3cec592e1",
+      "slug": "fi",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/fi240212_01.jpg",
+      "href": "https://www.beliani.fi/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "08db4158-d03f-4636-a30a-7532f9b78bee",
+      "slug": "pl",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707132990512,
+      "src": "https://beliani.info/newsletter/2022/pl240212_01.jpg",
+      "href": "https://www.beliani.pl/content/lp24-02-12",
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     }
   ],
   "templates": [
@@ -6094,6 +6208,30 @@
       "header": "src",
       "type": "text",
       "createdAt": 1707132502857
+    },
+    {
+      "id": "0c4c0e28-183b-4e32-9400-8a26bcfc0345",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "2574f3a2-c5a6-4759-9cce-60273abbd299",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "accessorKey": "src",
+      "header": "src",
+      "type": "text",
+      "createdAt": 1707132965970
+    },
+    {
+      "id": "39d16f30-0440-4f7f-891e-b6d4c5c84f5d",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "accessorKey": "href",
+      "header": "href",
+      "type": "text",
+      "createdAt": 1707132973136
     }
   ],
   "projects_style": [
