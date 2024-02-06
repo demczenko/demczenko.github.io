@@ -15,7 +15,7 @@ const TemplatePreview = ({ template_html, onChangeTemplateSubmit }) => {
       </TabsList>
       <TabsContent value="view" className="h-full">
         <iframe
-          className="w-full xl:h-full h-[600px] pointer-events-none rounded-md block"
+          className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
           srcDoc={template_html}></iframe>
       </TabsContent>
       <TabsContent value="code" className="h-full">

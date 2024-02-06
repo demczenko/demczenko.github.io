@@ -5255,109 +5255,121 @@
       "id": "bf4a05f3-c156-43b2-a0db-949be8a65b3f",
       "slug": "pt",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990511,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/pt240212_01.jpg",
       "href": "https://www.beliani.pt/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "de588d5c-2f77-45ea-9969-ee787aeaaa0a",
       "slug": "at",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/at240212_01.jpg",
       "href": "https://www.beliani.at/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "992787fe-3dc0-4c77-bebb-cb38145802df",
       "slug": "chde",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/chde240212_01.jpg",
       "href": "https://www.beliani.ch/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "103e49dd-63d8-41b9-a56a-eb75a81e04de",
       "slug": "nl",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/nl240212_01.jpg",
       "href": "https://www.beliani.nl/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "75459a9e-c04f-4502-a266-476d64b3a2c1",
       "slug": "es",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/es240212_01.jpg",
       "href": "https://www.beliani.es/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "03a7a8e9-f56e-45fb-9fd0-03125a4c6724",
       "slug": "de",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/de240212_01.jpg",
       "href": "https://www.beliani.de/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "166ac670-22d6-470a-aa6c-d536d5fd2884",
       "slug": "se",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/se240212_01.jpg",
       "href": "https://www.beliani.se/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "85e1e140-364f-4696-830b-44ebcadef909",
       "slug": "uk",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/uk240212_01.jpg",
       "href": "https://www.beliani.co.uk/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "94c75d47-fe5a-4ed2-a13c-b8b805fac10b",
       "slug": "no",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/no240212_01.jpg",
       "href": "https://www.beliani.no/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "e762b174-ff84-4eb6-ab35-507914fc5ee1",
       "slug": "dk",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/dk240212_01.jpg",
       "href": "https://www.beliani.dk/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "a79ec764-5477-4b7a-9a85-0aa3cec592e1",
       "slug": "fi",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/fi240212_01.jpg",
       "href": "https://www.beliani.fi/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "08db4158-d03f-4636-a30a-7532f9b78bee",
       "slug": "pl",
       "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
-      "createdAt": 1707132990512,
+      "createdAt": 1707232506228,
       "src": "https://beliani.info/newsletter/2022/pl240212_01.jpg",
       "href": "https://www.beliani.pl/content/lp24-02-12",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232506228
     },
     {
       "id": "735ad427-1865-445d-831d-ad40c047bd9f",
@@ -8093,145 +8105,161 @@
       "id": "afff147c-0779-40e0-8149-3ca65533e230",
       "slug": "pt",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.pt/content/pagamento/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_pt.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "3a090553-9fb1-4c39-beb6-3a23db5aa39f",
       "slug": "es",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.es/content/metodos-de-pago/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_es.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "eda3cb21-6a48-4405-9bfb-a2286ba3ba01",
       "slug": "nl",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.nl/content/betalen/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_nl.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "006665a8-3e13-4b36-92e2-de7f33b51476",
       "slug": "chde",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.ch/content/bezahlung/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_dach.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "a0bc0bfa-f13d-4ce0-8f70-05fa6c3eb574",
       "slug": "at",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.at/content/klarna-at/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_deat.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "4986e799-64ab-4bd0-a265-c0e76bcf1f3b",
       "slug": "de",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.de/content/klarna-de/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_deat.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "c50e14b1-de86-4cda-aa8e-42da9c9e7b71",
       "slug": "fr",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.fr/content/paiement/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_fr.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "827df502-3b47-403f-851c-a75ae698f343",
       "slug": "hu",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.ch/content/paiement/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_chfr.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "6117fce7-49dd-475e-aa2b-df96f431867f",
       "slug": "cz",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.cz/content/zpusoby-platby/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_cz.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "77323b5c-0d20-4bcc-a404-0ec803142a08",
       "slug": "it",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.it/content/klarna-it/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_it.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "752c7021-8c60-46fd-b6f0-1110b3003a43",
       "slug": "uk",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.co.uk/content/klarna-uk/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_uk.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "c592bb07-c29d-4a2c-8625-8e98b7383b04",
       "slug": "se",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.se/content/klarna-se/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_se.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "578d007f-8111-4f36-a0d0-ae541e99bfa6",
       "slug": "no",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.no/content/klarna-no/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_no.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "5b3992d7-e0a1-4c94-8b6f-29f4a22ef907",
       "slug": "dk",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.dk/content/betalingsmetoder/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_dk.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "673815d7-3858-4311-a7ae-c993b1ed4419",
       "slug": "fi",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.fi/content/klarna-fi/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_fi.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "f39f7fa8-0a15-4001-b8d3-67c455bb2805",
       "slug": "pl",
       "table_id": "0fde435e-72a0-4dd4-9239-b135f4f9e6fb",
-      "createdAt": 1707226260902,
+      "createdAt": 1707232349697,
       "href": "https://www.beliani.pl/content/platnosc/",
       "src": "https://beliani.info/newsletter/2022/NsltBanner_pl.png",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707232349697
     },
     {
       "id": "192b8345-a2f6-450b-9cee-14061cda33cb",
@@ -11970,216 +11998,294 @@
       "id": "4b8c6414-f46e-4a78-84e5-ff8d90e470ca",
       "slug": "sk",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803365,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.sk/bavlnena-nastenna-dekoracia-so-strapcami-oranzova-kamalia.html",
       "name": "KAMALIA",
       "price high": "109.99",
       "price low": "74.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "c6fe470e-18a6-4192-8b6f-b846b3cfc3eb",
       "slug": "cz",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803365,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.cz/bavlnena-nastenna-dekorace-se-strapci-oranzova-kamalia.html",
       "name": "KAMALIA",
       "price high": "1950.00",
       "price low": "1359.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "181b8f14-a338-4c45-b834-d878c508cd47",
       "slug": "dk",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803365,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.dk/bomuldsvagophang-med-kvaster-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "629.00",
       "price low": "439.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "a7d4b779-792c-464b-8a62-3a0649d28eff",
       "slug": "uk",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803365,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.co.uk/cotton-wall-hanging-with-tassels-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "109.99",
       "price low": "74.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "180eda43-2067-4bc0-ad13-7b617c26170a",
       "slug": "pt",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.pt/decoracao-de-parede-em-algodao-laranja-com-borlas-kamalia.html",
       "name": "KAMALIA",
       "price high": "79.99",
       "price low": "54.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "04a23dbf-088e-4d47-9901-6949671305aa",
       "slug": "es",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.es/decoracion-de-pared-de-algodon-naranja-rosa-blanco-marron-61-x-90-cm-kamalia.html",
       "name": "KAMALIA",
       "price high": "99.99",
       "price low": "69.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "28f86200-a8e6-4909-ba8d-aa371f30ba2b",
       "slug": "chfr",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.ch/decoration-murale-en-coton-avec-pompons-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "99.99",
       "price low": "69.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "de4cc305-7217-49ce-b10a-984c324cf209",
       "slug": "fr",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.fr/decoration-murale-en-coton-avec-pompons-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "99.99",
       "price low": "64.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "01d59220-2b29-47f8-99eb-3afc030e64b8",
       "slug": "it",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.it/decorazione-da-parete-cotone-arancione-e-multicolore-55-x-85-cm-kamalia.html",
       "name": "KAMALIA",
       "price high": "79.99",
       "price low": "54.99",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "672523bf-20b7-465b-82dc-116b30f34ab5",
       "slug": "pl",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.pl/dekoracja-scienna-z-fredzlami-bawelniana-pomaranczowa-kamalia.html",
       "name": "KAMALIA",
       "price high": "259.00",
       "price low": "179.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "c8208f4b-8e5f-4312-9883-23808f157f1e",
       "slug": "se",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257202,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.se/hangande-vaggdekor-med-tofsar-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "1095.00",
       "price low": "765.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257202
     },
     {
       "id": "06684761-d3d7-481d-82f5-09dd07a1b926",
       "slug": "hu",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.hu/narancssarga-pamut-falikarpit-58-x-90-cm-kamalia.html",
       "name": "KAMALIA",
       "price high": "28190.00",
       "price low": "19690.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
+      "createdat": 1707231257203
     },
     {
-      "id": "94cb00ce-5521-42f2-a2eb-cfab34262eaf",
+      "id": "36ae564a-bfb4-4b14-9bae-6fc2df6d6ce6",
       "slug": "fi",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.fi/seinakoriste-puuvilla-oranssi-58-x-90-cm-kamalia.html",
       "name": "KAMALIA",
       "price high": "99.99",
       "price low": "64.99",
+      "createdat": 1707231257203,
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     },
     {
-      "id": "4361ff93-39c7-4461-867e-258c4fe486d6",
-      "slug": "no",
-      "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
-      "src": "https://beliani.info/newsletter/2022/240212Category44.png",
-      "href": "https://www.beliani.no/veggdekorasjon-bomull-oransje-kamalia.html",
-      "name": "KAMALIA",
-      "price high": "1189.00",
-      "price low": "829.00",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
-    },
-    {
-      "id": "1185dff3-619e-41fa-b3ad-b8ac2f5af20e",
+      "id": "327761ab-55d6-41de-99b5-57af8fcd3eb3",
       "slug": "nl",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.nl/wanddecoratie-katoen-oranje-kamalia.html",
       "name": "KAMALIA",
       "price high": "89.99",
       "price low": "59.99",
+      "createdat": 1707231257203,
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     },
     {
-      "id": "de4b3111-9b52-45ae-af5e-d871a88d327d",
-      "slug": "chde",
+      "id": "b3717485-88ee-4675-9df1-312d965328ed",
+      "slug": "no",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
-      "href": "https://www.beliani.ch/wanddekoration-baumwolle-wolle-orange-kamalia.html",
+      "href": "https://www.beliani.no/veggdekorasjon-bomull-oransje-kamalia.html",
       "name": "KAMALIA",
-      "price high": "99.99",
-      "price low": "69.99",
+      "price high": "1189.00",
+      "price low": "829.00",
+      "createdat": 1707231257203,
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     },
     {
-      "id": "fd3a8eed-d6af-41b9-a8ff-13731d8da6dc",
+      "id": "698d6aaf-9cc3-4134-b345-ec728d0bfd4e",
       "slug": "at",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.at/wanddekoration-baumwolle-wolle-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "79.99",
       "price low": "54.99",
+      "createdat": 1707231257203,
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     },
     {
-      "id": "446827c9-8a7f-4afe-b045-461206762606",
+      "id": "bf8755d0-e55c-498d-894c-140bcbc5e738",
+      "slug": "chde",
+      "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
+      "createdAt": 1707231257203,
+      "src": "https://beliani.info/newsletter/2022/240212Category44.png",
+      "href": "https://www.beliani.ch/wanddekoration-baumwolle-wolle-orange-kamalia.html",
+      "name": "KAMALIA",
+      "price high": "99.99",
+      "price low": "69.99",
+      "createdat": 1707231257203,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "24be3645-4a6b-4c5f-aa52-b00aca643a0f",
       "slug": "de",
       "table_id": "8a8e2f3a-414b-450b-bbc4-3e974bdc68da",
-      "createdAt": 1707230803366,
+      "createdAt": 1707231257203,
       "src": "https://beliani.info/newsletter/2022/240212Category44.png",
       "href": "https://www.beliani.de/wanddekoration-baumwolle-wolle-orange-kamalia.html",
       "name": "KAMALIA",
       "price high": "79.99",
       "price low": "49.99",
+      "createdat": 1707231257203,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "95026110-9350-4533-8ee1-b4ab3519552b",
+      "slug": "chfr",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/chfr240212_01.jpg",
+      "href": "https://www.beliani.ch/content/lp24-02-12",
+      "createdat": 1707232506228,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "61141692-e9e9-4e91-b772-ba2b205be8d6",
+      "slug": "fr",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/fr240212_01.jpg",
+      "href": "https://www.beliani.fr/content/lp24-02-12",
+      "createdat": 1707232506228,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "c8fd39c7-6add-4afe-a31f-4be78c464523",
+      "slug": "hu",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/hu240212_01.jpg",
+      "href": "https://www.beliani.hu/content/lp24-02-12",
+      "createdat": 1707232506228,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "96ca09f0-0568-42c7-a3cd-ddda6d36fddf",
+      "slug": "cz",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/cz240212_01.jpg",
+      "href": "https://www.beliani.cz/content/lp24-02-12",
+      "createdat": 1707232506228,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "cc1a836d-a636-4a84-9dee-70b94ff4a4c9",
+      "slug": "sk",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/sk240212_01.jpg",
+      "href": "https://www.beliani.sk/content/lp24-02-12",
+      "createdat": 1707232506228,
+      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
+    },
+    {
+      "id": "1cba06b4-66bc-473f-8210-98992231544a",
+      "slug": "it",
+      "table_id": "0ef23ebb-b051-40b2-b6af-bf9a8517ee22",
+      "createdAt": 1707232506228,
+      "src": "https://beliani.info/newsletter/2022/it240212_01.jpg",
+      "href": "https://www.beliani.it/content/lp24-02-12",
+      "createdat": 1707232506228,
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe"
     }
   ],
