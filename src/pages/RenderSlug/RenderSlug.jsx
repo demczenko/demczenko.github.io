@@ -1,7 +1,6 @@
 import { Heading } from "@/components";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import PageContainer from "../PageContainer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CopyIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useProjects } from "@/hooks/useProjects";
@@ -60,7 +59,9 @@ const RenderSlug = () => {
   const project = projects.find((project) => project.id === id);
   const template = templates.find((t) => t.id === project.template_id);
   const tables = dataTbs.filter((t) => t.template_id === project.template_id);
-  const projectStyle = projectsStyles.filter((table) => table.project_id === project.id);
+  const projectStyle = projectsStyles.filter(
+    (table) => table.project_id === project.id
+  );
   // Get all tables
   // Get table by name
   // Get table id
@@ -181,18 +182,6 @@ const RenderSlug = () => {
     (data) => data.slug.toLowerCase() === slug.toLowerCase()
   );
 
-  useEffect(() => {
-    if (template && tablesData && projectStyle) {
-      hydrateTemplate(tablesData, template.template_html);
-    }
-  }, [tablesData, template, projectStyle]);
-
-  useEffect(() => {
-    if (selectedSlug) {
-      navigator(`/projects/${project?.id}/${selectedSlug}`);
-    }
-  }, [project, selectedSlug]);
-
   const availableSlugs = useMemo(() => {
     const slugsData = {};
     for (const Slug of slugs) {
@@ -224,68 +213,83 @@ const RenderSlug = () => {
     });
   };
 
+  useEffect(() => {
+    if (template && tablesData && projectStyle) {
+      hydrateTemplate(tablesData, template.template_html);
+    }
+  }, [tablesData, template, projectStyle]);
+
+  useEffect(() => {
+    if (selectedSlug) {
+      navigator(`/projects/${project?.id}/${selectedSlug}`);
+    }
+  }, [project, selectedSlug]);
+
   return (
-    <PageContainer>
-      <Heading
-        actions={[
-          {
-            id: 1,
-            name: "Copy",
-            onClick: () => handleCopy(),
-          },
-        ]}
-        title={
-          <div className="flex gap-2 items-center">
-            <BreadCrumbs
-              items={[
-                {
-                  name: "Projects",
-                  to: `/projects/`,
-                },
-                {
-                  name: project?.project_name,
-                  to: `/projects/${project?.id}`,
-                },
-              ]}
-            />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="capitalize text-xl">
-                  {slug}
-                  <ChevronDown className="w-4 h-4 ml-2" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {availableSlugs.map((item, i) => (
-                  <DropdownMenuItem
-                    className={`${
-                      selectedSlug === item
-                        ? "capitalize font-semibold text-slate-800 cursor-pointer hover:bg-slate-300 hover:text-slate-50 hover:font-semibold"
-                        : "text-neutral-400 capitalize cursor-pointer hover:bg-slate-300 hover:text-slate-50 hover:font-semibold"
-                    }`}
-                    onClick={() => setSelectedSlug(item)}
-                    key={i}>
-                    {item}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        }
-      />
-      <div className="mt-6 space-y-4 w-full">
+    <div style={{ backgroundColor: "#ececec" }} className="relative h-full">
+      <div className="absolute top-4 left-4 z-10 right-8">
+        <Heading
+          actions={[
+            {
+              id: 1,
+              name: "Copy",
+              onClick: () => handleCopy(),
+              icon: <CopyIcon className="h-4 w-4 mr-2" />,
+            },
+          ]}
+          title={
+            <div className="flex gap-2 items-center hover:bg-white px-4 py-1 rounded-md">
+              <BreadCrumbs
+                items={[
+                  {
+                    name: "Projects",
+                    to: `/projects/`,
+                  },
+                  {
+                    name: project?.project_name,
+                    to: `/projects/${project?.id}`,
+                  },
+                ]}
+              />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="capitalize text-sm text-slate-900">
+                    {slug}
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {availableSlugs.map((item, i) => (
+                    <DropdownMenuItem
+                      className={`${
+                        selectedSlug === item
+                          ? "capitalize font-semibold text-slate-800 cursor-pointer hover:bg-slate-300 hover:text-slate-900 hover:font-semibold"
+                          : "text-neutral-400 capitalize cursor-pointer hover:bg-slate-300 hover:text-slate-900 hover:font-semibold"
+                      }`}
+                      onClick={() => setSelectedSlug(item)}
+                      key={i}>
+                      {item}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          }
+        />
+      </div>
+      <div className="absolute inset-0 z-100">
         {hydratedTemplate && (
-          <div className="h-[1000px]">
+          <div className="h-full">
             <iframe
               className="w-full h-full rounded-md"
               srcDoc={hydratedTemplate}></iframe>
           </div>
         )}
       </div>
-    </PageContainer>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ const BreadCrumbs = ({ items }) => {
     <>
       {items.map((item, i) => {
         return (
-          <Link key={i} className="text-xl font-normal text-neutral-400" to={item.to}>
+          <Link key={i} className="text-sm font-normal text-slate-900" to={item.to}>
             {item.name} {" / "}
           </Link>
         );

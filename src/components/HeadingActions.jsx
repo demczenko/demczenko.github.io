@@ -3,11 +3,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 
 const HeadingActions = ({ actions }) => {
   return (
@@ -16,13 +14,14 @@ const HeadingActions = ({ actions }) => {
         <Button
           size="sm"
           variant="ghost"
-          className="hover:bg-[#888888] text-white transition-colors">
+          className="hover:bg-[#888888] text-slate-900 transition-colors">
           <PlusCircle className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="shadow-lg bg-[#363636] text-white border-2 border-[#363636]">
         {actions.map((action) => (
           <DropdownMenuItem onClick={action.onClick} key={action.id}>
+            {"icon" in action && action.icon}
             {action.name}
           </DropdownMenuItem>
         ))}
