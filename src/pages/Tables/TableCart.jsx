@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
-import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import { DrawerModal } from "@/components/Drawer";
 import CartActions from "./CartActions";
 import CartHeader from "@/components/CartHeader";
 import { useColumns } from "@/hooks/useColumns";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const TableCart = ({
   table,
@@ -23,9 +23,20 @@ const TableCart = ({
     remove: removeColumn,
   } = useColumns();
 
+  const {
+    data: tablesData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    set: setDataTable,
+    remove,
+  } = useDataTables();
+
   const isColumnsExists = columns.filter(
     (column) => column.table_id === table.id
   );
+
+  const talbeData = tablesData.filter((data) => data.table_id === table.id);
 
   return (
     <>
@@ -35,6 +46,7 @@ const TableCart = ({
           <>
             {isColumnsExists.length > 0 && (
               <CartActions
+                columns={talbeData.length}
                 isProject={isProject}
                 onDuplicate={() => onDuplicate(table.id)}
                 onModalOpen={() => setIsModalOpen(true)}
@@ -45,6 +57,7 @@ const TableCart = ({
         )}
         {!isProject && (
           <CartActions
+            columns={talbeData.length}
             isProject={isProject}
             onDuplicate={() => onDuplicate(table.id)}
             onModalOpen={() => setIsModalOpen(true)}

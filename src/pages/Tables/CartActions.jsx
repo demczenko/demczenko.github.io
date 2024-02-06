@@ -1,18 +1,33 @@
 import { Button } from "@/components/ui/button";
-import { Copy, ImportIcon, TrashIcon } from "lucide-react";
+import { Copy, ImportIcon, Rows, TrashIcon } from "lucide-react";
 import React from "react";
 
-const CartActions = ({ onModalOpen, onDuplicate, isProject, onDelete }) => {
+const CartActions = ({
+  columns,
+  onModalOpen,
+  onDuplicate,
+  isProject,
+  onDelete,
+}) => {
   return (
-    <div className="flex">
+    <div className="flex items-center justify-start">
       {isProject && (
-        <Button
-          size="sm"
-          variant="ghost"
-          className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
-          onClick={onModalOpen}>
-          <ImportIcon className="pr-2" /> Populate
-        </Button>
+        <>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+            onClick={onModalOpen}>
+            <ImportIcon className="pr-2" /> Populate
+          </Button>
+          <Button
+            className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
+            size="sm"
+            variant="ghost">
+            <Rows className="pr-2" />
+            Rows: {columns}
+          </Button>
+        </>
       )}
       {!isProject && (
         <>
