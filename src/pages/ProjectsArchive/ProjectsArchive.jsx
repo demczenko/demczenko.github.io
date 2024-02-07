@@ -1,13 +1,11 @@
-import { useProjects } from "@/hooks/useProjects";
 import { PageContainer } from "..";
 import { ProjectList } from "../Projects/ProjectList";
-import LoadingPage from "@/LoadingPage";
-import ErrorPage from "@/ErrorPage";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { useProjects } from "@/hooks/useProjects";
 import { useToast } from "@/components/ui/use-toast";
 
 const ProjectsArchive = () => {
-  const { toast } = useToast()
+  const { toast } = useToast();
   const { data, isError, isLoading, update } = useProjects();
   const {
     data: tablesData,
@@ -28,23 +26,15 @@ const ProjectsArchive = () => {
 
   const projects = data.filter((project) => project.isArchived === true);
 
-  if (isLoading) {
-    return <LoadingPage title="Loading your projects..." />;
-  }
-
-  if (isError) {
-    return <ErrorPage title="Something went wrong while projects loading..." />;
-  }
-
   const handleArchived = (project) => {
     update({ ...project, isArchived: project.isArchived ? false : true });
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const isTablesExists = tablesData.filter(
       (table) => table.project_id === id
     );
-    const projectsStyles = projectsStyles.filter(
+    const projectsStylesFiltered = projectsStyles.filter(
       (table) => table.project_id === id
     );
     if (isTablesExists.length > 0) {
@@ -53,35 +43,42 @@ const ProjectsArchive = () => {
         title: "Failed to delete project",
         description: "Firstly delete all data tables",
       });
-    } else if (projectsStyles.length > 0) {
+    } else if (projectsStylesFiltered.length > 0) {
       toast({
         variant: "destructive",
         title: "Failed to delete project",
         description: "Firstly delete all project styles",
       });
     } else {
-      remove(id);
-      toast({
-        variant: "success",
-        title: "Deleted",
-        description: "Project deleted successfully",
-      });
+      const candidate = await remove(id);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Deleted",
+          description: "Project deleted successfully",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete project",
+          description: "Something went wrong",
+        });
+      }
     }
   };
 
   return (
-    <PageContainer>
-      {isLoading ? (
-        <LoadingPage title="Loading your projects..." />
-      ) : (
-        <ProjectList
-          title={"Archived projects"}
-          isProjectPage={true}
-          onDelete={handleDelete}
-          handleArchived={handleArchived}
-          projects={projects}
-        />
-      )}
+    <PageContainer
+      isLoading={isLoading}
+      isError={isError}
+      title={"Arhived projects"}>
+      <ProjectList
+        title={"Archived projects"}
+        isProjectPage={true}
+        onDelete={handleDelete}
+        handleArchived={handleArchived}
+        projects={projects}
+      />
     </PageContainer>
   );
 };
