@@ -38,21 +38,32 @@ export const useDataTables = () => {
           return item;
         });
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const set = async (new_data_table) => {
     try {
-      await DataTableService.set(new_data_table);
-      setData((prev) => [...prev, new_data_table]);
-    } catch (error) {}
+      const response = await DataTableService.set(new_data_table);
+      setData((prev) => [...prev, response]);
+      return response;
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const remove = async (id) => {
     try {
       await DataTableService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {}
+      return true
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   return {

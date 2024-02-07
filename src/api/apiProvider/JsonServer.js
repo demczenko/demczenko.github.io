@@ -8,7 +8,7 @@ export class ApiLocalJson {
   async get(key) {
     const req = await fetch(this.#baseUrl + key);
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
@@ -16,16 +16,17 @@ export class ApiLocalJson {
   }
 
   async set(key, data) {
-    const req = await fetch(this.#baseUrl + key, {
+    if (true) {
+      throw new Error("Error while fetching data");
+    }
+    const req = await fetch("http://localhost:3001/" + key, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    if (!req.ok) {
-      throw new Error(prev.statusText);
-    }
+
 
     const response = await req.json();
     return response;
@@ -36,7 +37,7 @@ export class ApiLocalJson {
       method: "DELETE",
     });
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
@@ -52,7 +53,7 @@ export class ApiLocalJson {
       body: JSON.stringify(data),
     });
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();

@@ -38,21 +38,32 @@ export const useProjectsStyles = () => {
           return item;
         });
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const set = async (new_data_table) => {
     try {
-      await ProjectStyleService.set(new_data_table);
-      setData((prev) => [...prev, new_data_table]);
-    } catch (error) {}
+      const response = await ProjectStyleService.set(new_data_table);
+      setData((prev) => [...prev, response]);
+      return response
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const remove = async (id) => {
     try {
       await ProjectStyleService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {}
+      return true
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   return {

@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
-import { AddProjectDrawer } from "../Projects/ProjectsModal/AddProjectDrawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
 import { CreateForm } from "@/components/CreateForm";
 
@@ -82,13 +81,9 @@ const TemplateCart = ({
         open={isCreateProjectModalOpen}
         onOpenChange={setIsCreateProjectModalOpen}
         content={
-          <AddProjectDrawer
-            form={
-              <ProjectForm
-                onSubmitForm={() => setIsCreateProjectModalOpen(false)}
-                template_id={template.id}
-              />
-            }
+          <ProjectForm
+            onSubmitForm={() => setIsCreateProjectModalOpen(false)}
+            template_id={template.id}
           />
         }
       />

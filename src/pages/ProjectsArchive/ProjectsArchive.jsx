@@ -4,8 +4,10 @@ import { ProjectList } from "../Projects/ProjectList";
 import LoadingPage from "@/LoadingPage";
 import ErrorPage from "@/ErrorPage";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProjectsArchive = () => {
+  const { toast } = useToast()
   const { data, isError, isLoading, update } = useProjects();
   const {
     data: tablesData,

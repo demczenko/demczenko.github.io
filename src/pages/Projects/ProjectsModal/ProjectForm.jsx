@@ -12,9 +12,11 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { useProjects } from "@/hooks/useProjects";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProjectForm = ({ onSubmitForm, template_id }) => {
-  const { data, isError, isLoading, update, set } = useProjects();
+  const { toast } = useToast();
+  const { data, isError, isLoading, update, set: setProject } = useProjects();
 
   const form = useForm({
     defaultValues: {
@@ -34,17 +36,29 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
     cb(formData);
   };
 
-  const onSubmit = (data) => {
-    let project_id = uuidv4();
-    const project = {
+  const onSubmit = async (data) => {
+    const new_project = {
       project_name: data.project_name,
-      id: project_id,
+      id: uuidv4(),
       template_id: template_id,
       isArchived: false,
       createdAt: Date.now(),
     };
 
-    set(project);
+    const candidate = await setProject(new_project);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project added successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create project",
+        description: "Somethnig went wrong",
+      });
+    }
     onSubmitForm();
   };
 

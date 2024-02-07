@@ -391,6 +391,12 @@
       "table_name": "Product 16",
       "template_id": "391a6b5a-ed22-4b63-8fc3-c15c0eb83259",
       "createdAt": 1706795690248
+    },
+    {
+      "id": "0ae990f2-229c-44f7-ae42-828c77b531d0",
+      "table_name": "Top image title",
+      "template_id": "61f2a2bf-0933-43ca-8c19-fd469d0b3c20",
+      "createdAt": 1707310692577
     }
   ],
   "data_tables": [
@@ -12306,13 +12312,6 @@
     }
   ],
   "projects": [
-    {
-      "project_name": "Test",
-      "id": "19cb47f8-5552-4466-bee0-89ea0f4b754b",
-      "template_id": "fe6e296b-ca58-459f-9762-227cd579b4ea",
-      "isArchived": true,
-      "createdAt": 1706621977961
-    },
     {
       "project_name": "Newsletter Mardi Gras - Monday 12.02.24",
       "id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",

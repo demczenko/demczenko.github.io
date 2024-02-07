@@ -38,14 +38,22 @@ export const useProjects = () => {
           return item;
         });
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const set = async (new_data_table) => {
     try {
       const response = await ProjectService.set(new_data_table);
       setData((prev) => [...prev, response]);
-    } catch (error) {}
+      console.log(response);
+      return response
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   const remove = async (id) => {
@@ -54,7 +62,11 @@ export const useProjects = () => {
       if (isDeleted) {
         setData((prev) => prev.filter((item) => item.id !== id));
       }
-    } catch (error) {}
+      return true
+    } catch (error) {
+      console.error(error);
+      return false
+    }
   };
 
   return {

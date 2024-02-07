@@ -155,6 +155,7 @@ const Template = () => {
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
         <div className="pt-4 lg:pt-0 w-full">
+          <ProjectList isProjectPage={false} projects={projectsTamplate} />
           <TablesList
             actions={[
               {
@@ -168,7 +169,6 @@ const Template = () => {
             isProject={false}
             tables={tables}
           />
-          <ProjectList isProjectPage={false} projects={projectsTamplate} />
         </div>
       </div>
       <AddTable

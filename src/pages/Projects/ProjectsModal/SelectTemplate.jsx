@@ -18,49 +18,46 @@ import { useState } from "react";
 export function SelectTemplate({ value, onSelect, templates }) {
   const [open, setOpen] = useState(false);
   return (
-    <div>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            className={cn(
-              "w-[200px] justify-between",
-              !value && "text-muted-foreground"
-            )}>
-            {value
-              ? templates.find((template) => template.id === value)
-                  ?.template_name
-              : "Select template"}
-            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
-          <Command>
-            <CommandInput placeholder="Search template..." className="h-9" />
-            <CommandEmpty>No template found.</CommandEmpty>
-            <CommandGroup>
-              {templates.map((template) => (
-                <CommandItem
-                  value={template.name}
-                  key={template.id}
-                  onSelect={() => {
-                    onSelect(template.id);
-                    setOpen(false);
-                  }}>
-                  {template.template_name}
-                  <CheckIcon
-                    className={cn(
-                      "ml-auto h-4 w-4",
-                      template.id === value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </Command>
-        </PopoverContent>
-      </Popover>
-    </div>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          className={cn(
+            "w-full justify-between",
+            !value && "text-muted-foreground"
+          )}>
+          {value
+            ? templates.find((template) => template.id === value)?.template_name
+            : "Select template"}
+          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-fit p-0">
+        <Command>
+          <CommandInput placeholder="Search template..." className="h-9" />
+          <CommandEmpty>No template found.</CommandEmpty>
+          <CommandGroup>
+            {templates.map((template) => (
+              <CommandItem
+                value={template.name}
+                key={template.id}
+                onSelect={() => {
+                  onSelect(template.id);
+                  setOpen(false);
+                }}>
+                {template.template_name}
+                <CheckIcon
+                  className={cn(
+                    "ml-auto h-4 w-4",
+                    template.id === value ? "opacity-100" : "opacity-0"
+                  )}
+                />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

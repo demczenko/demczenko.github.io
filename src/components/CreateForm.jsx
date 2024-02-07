@@ -41,7 +41,7 @@ export function CreateForm({
       if (value.trim().length < 3) {
         form.setError(key, {
           type: "required",
-          message: "Length must be at least 3 symbols",
+          message: "Please enter a valid value",
         });
         return;
       }
@@ -75,7 +75,11 @@ export function CreateForm({
                   <FormItem>
                     <FormLabel>{item.label}</FormLabel>
                     <FormControl>
-                      <Input placeholder={item.placeholder} {...field} />
+                      {item.content ? (
+                        item.content(form)
+                      ) : (
+                        <Input placeholder={item.placeholder} {...field} />
+                      )}
                     </FormControl>
                     <FormMessage />
                   </FormItem>

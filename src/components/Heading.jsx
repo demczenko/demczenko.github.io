@@ -1,7 +1,8 @@
 import React from "react";
 import { HeadingActions } from ".";
+import { Button } from "./ui/button";
 
-const Heading = ({ title, paragraph, actions }) => {
+const Heading = ({ title, paragraph, action, actions }) => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-col">
@@ -12,7 +13,13 @@ const Heading = ({ title, paragraph, actions }) => {
           </h2>
         )}
       </div>
-      {actions && <HeadingActions actions={actions}/>}
+      {action && (
+        <Button size="sm" variant="outline" onClick={action.onClick}>
+          {"icon" in action && action.icon}
+          {action.name}
+        </Button>
+      )}
+      {actions && <HeadingActions actions={actions} />}
     </div>
   );
 };

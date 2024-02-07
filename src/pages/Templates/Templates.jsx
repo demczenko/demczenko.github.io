@@ -1,12 +1,11 @@
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import { TemplateList } from "./TemplateList";
 import { DrawerModal } from "@/components/Drawer";
 import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
 import { useTemplates } from "@/hooks/useTemplates";
-import LoadingPage from "@/LoadingPage";
-import ErrorPage from "@/ErrorPage";
 import { PageContainer } from "..";
 import { useToast } from "@/components/ui/use-toast";
+import { PlusCircle } from "lucide-react";
 
 const Templates = () => {
   const { toast } = useToast();
@@ -16,29 +15,13 @@ const Templates = () => {
     isLoading,
     update,
     remove,
+    set: setTemplate,
   } = useTemplates();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState("isNotArchived");
 
-  const filteredTemplate = useMemo(() => {
-    if (filter === "isArchived") {
-      return templates.filter((table) => table.isArchived === true);
-    }
-
-    if (filter === "isNotArchived") {
-      return templates.filter((table) => table.isArchived !== true);
-    }
-
-    if (filter === "all") {
-      return templates;
-    }
-  }, [filter, templates]);
-
-  if (isError) {
-    return (
-      <ErrorPage title="Something went wrong while templates loading..." />
-    );
-  }
+  const filteredTemplate = templates.filter(
+    (template) => template.isArchived === false
+  );
 
   const handleArchived = (template) => {
     update({
@@ -63,26 +46,22 @@ const Templates = () => {
 
   return (
     <div className="w-full">
-      <PageContainer>
-        {isLoading ? (
-          <LoadingPage title="Loading your templates..." />
-        ) : (
-          <TemplateList
-            title="Templates"
-            actions={[
-              {
-                id: 1,
-                name: "Create Template",
-                onClick: () => setIsModalOpen(true),
-              },
-            ]}
-            isTemplatePage={true}
-            onRename={handleRename}
-            onArchive={handleArchived}
-            onCreate={() => setIsModalOpen(true)}
-            templates={filteredTemplate}
-          />
-        )}
+      <PageContainer
+        action={{
+          id: 1,
+          name: "Create Template",
+          icon: <PlusCircle className="h-4 w-4 mr-2" />,
+          onClick: () => setIsModalOpen(true),
+        }}
+        isError={isError}
+        isLoading={isLoading}
+        title="Templates">
+        <TemplateList
+          isTemplatePage={true}
+          onRename={handleRename}
+          onArchive={handleArchived}
+          templates={filteredTemplate}
+        />
       </PageContainer>
       <DrawerModal
         title={"Create template"}
@@ -90,7 +69,10 @@ const Templates = () => {
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={
-          <AddTemplateDrawer onSubmitForm={() => setIsModalOpen(false)} />
+          <AddTemplateDrawer
+            setTemplate={setTemplate}
+            onSubmitForm={() => setIsModalOpen(false)}
+          />
         }
       />
     </div>

@@ -1,53 +1,148 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TemplateForm from "./TemplateForm";
-import TemplateTables from "./TemplateTables";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import Preview from "./Preview";
+import { useTables } from "@/hooks/useTables";
 
-export const AddTemplateDrawer = ({ onSubmitForm }) => {
-  const [templateId, setTemplateId] = useState(() => uuidv4());
-  const [fileName, setFileName] = useState("");
-  const [html, setHtml] = useState("");
+export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
+  const {
+    data: dataTables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+    set: setTable,
+  } = useTables();
+  const [tables, setTables] = useState([]);
+  const [html, setHTML] = useState("");
+
   const form = useForm({
     defaultValues: {
       template_name: "",
-      template_html: "",
+      table_name: "",
     },
   });
-  const [columns, setColumns] = useState([]);
-  const [tables, setTables] = useState([]);
+
+  useEffect(() => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setHTML(reader.result);
+    };
+
+    const file = form.watch("template_html");
+    if (file) {
+      reader.readAsText(file);
+    }
+  }, [form.watch("template_html")]);
+
+  const validateFormInput = (formData, cb) => {
+    for (const key in formData) {
+      if (key === "template_html") {
+        if (!html) {
+          form.setError("template_html", {
+            type: "required",
+            message: "Please, enter valid value",
+          });
+        }
+      } else if (key === "table_name") {
+        if (tables.length === 0) {
+          form.setError("table_name", {
+            type: "required",
+            message: "Please, add at least 1 table",
+          });
+        }
+      } else {
+        const value = formData[key];
+        if (value.trim().length < 1) {
+          form.setError(key, {
+            type: "required",
+            message: "Please, enter valid value",
+          });
+        }
+      }
+    }
+    cb(formData);
+  };
+  const template_id = uuidv4();
+
+  const onSubmit = async (data) => {
+    const new_template = {
+      template_name: data.template_name,
+      template_html: html,
+      id: template_id,
+      isArchived: false,
+      createdAt: Date.now(),
+    };
+
+    const candidate = await setTemplate(new_template);
+
+    if (candidate) {
+      for (const table of tables) {
+        // TODO
+        setTable(table);
+      }
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project added successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create project",
+        description: "Somethnig went wrong",
+      });
+    }
+    onSubmitForm();
+  };
+
+  const handleAddTable = () => {
+    const new_table = {
+      id: uuidv4(),
+      table_name: form.watch("table_name"),
+      template_id: template_id,
+      createdAt: Date.now(),
+    };
+
+    setTables((prev) => [...prev, new_table]);
+    form.resetField("table_name");
+  };
+
+  const handleRemoveTable = (id) => {
+    setTables((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const handleRenameTable = (table) => {
+    setTables((prev) =>
+      prev.map((item) => (item.id === table.id ? { ...item, ...table } : item))
+    );
+  };
 
   return (
-    <div className="mt-4">
-      <Tabs defaultValue="Campaign">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="Campaign">Campaign</TabsTrigger>
-          <TabsTrigger value="Tables">Tables</TabsTrigger>
-        </TabsList>
-        <TabsContent value="Campaign">
-          <TemplateForm
-            fileName={fileName}
-            setFileName={setFileName}
-            setHtml={setHtml}
-            html={html}
-            form={form}
-            tables={tables}
-            columns={columns}
-            templateId={templateId}
-            onSubmitForm={onSubmitForm}
-          />
-        </TabsContent>
-        <TabsContent value="Tables">
-          <TemplateTables
-            tables={tables}
-            setTables={setTables}
-            setColumns={setColumns}
-            columns={columns}
-            templateId={templateId}
-          />
-        </TabsContent>
-      </Tabs>
+    <div className="flex xl:flex-row flex-col gap-6 h-[calc(100%-56px)]">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit((data) =>
+            validateFormInput(data, onSubmit)
+          )}
+          className="space-y-8 h-full flex flex-col w-full">
+          {header}
+          <TemplateForm form={form} handleAddTable={handleAddTable} />
+          <Button type="submit" size="sm" className="w-full">
+            Create
+          </Button>
+        </form>
+      </Form>
+      <Preview
+        renameTable={handleRenameTable}
+        removeTable={handleRemoveTable}
+        template_html={html}
+        tables={tables}
+        template_name={form.watch("template_name")}
+      />
     </div>
   );
 };
