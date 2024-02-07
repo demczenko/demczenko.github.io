@@ -8,7 +8,7 @@ export class ApiLocalJson {
   async get(key) {
     const req = await fetch(this.#baseUrl + key);
     if (!req.ok) {
-      throw new Error(req.statusText);
+      throw new Error("Error while fetching data");
     }
 
     const response = await req.json();
@@ -16,9 +16,7 @@ export class ApiLocalJson {
   }
 
   async set(key, data) {
-    if (true) {
-      throw new Error("Error while fetching data");
-    }
+
     const req = await fetch("http://localhost:3001/" + key, {
       method: "POST",
       headers: {
@@ -26,7 +24,9 @@ export class ApiLocalJson {
       },
       body: JSON.stringify(data),
     });
-
+    if (!req.ok) {
+      throw new Error("Error while setting data");
+    }
 
     const response = await req.json();
     return response;
@@ -37,7 +37,7 @@ export class ApiLocalJson {
       method: "DELETE",
     });
     if (!req.ok) {
-      throw new Error(req.statusText);
+      throw new Error("Error while deleting data");
     }
 
     const response = await req.json();
@@ -53,7 +53,7 @@ export class ApiLocalJson {
       body: JSON.stringify(data),
     });
     if (!req.ok) {
-      throw new Error(req.statusText);
+      throw new Error("Error while updating data");
     }
 
     const response = await req.json();
