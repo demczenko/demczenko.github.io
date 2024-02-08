@@ -85,7 +85,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
             ...sorted,
             [accepted_column_name]: accepted_data_items[accepted_column_name],
             table_id: table_id,
-            createdAt: Date.now(),
+            createdat: Date.now(),
             id: uuidv4(),
           };
         }
@@ -174,7 +174,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
     const new_item = {
       ...data,
       id: uuidv4(),
-      createdAt: Date.now(),
+      createdat: Date.now(),
       project_id: project_id,
       table_id: table_id,
     };
@@ -220,7 +220,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       const value = colData[objKey];
       if (
         objKey === "table_id" ||
-        objKey === "createdAt" ||
+        objKey === "createdat" ||
         objKey === "createdat" ||
         objKey === "updatedAt" ||
         objKey === "project_id" ||

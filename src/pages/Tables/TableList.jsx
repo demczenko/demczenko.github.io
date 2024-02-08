@@ -7,12 +7,12 @@ const TablesList = ({
   tables,
   project_id,
   isProject,
-  actions,
+  action,
 }) => {
   return (
     <>
       <div>
-        <Heading title={"Tables"} actions={actions} />
+        <Heading title={"Tables"} action={action} />
         <List>
           {tables.map((table) => {
             return (

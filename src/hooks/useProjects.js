@@ -38,6 +38,7 @@ export const useProjects = () => {
           return item;
         });
       });
+      return response;
     } catch (error) {
       console.error(error);
       return false

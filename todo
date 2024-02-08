@@ -31,7 +31,7 @@ if type src replace src
   "type": "text",
   "header": "Href",
   "accessorKey": "Href",
-  "createdAt": 1706611659375,
+  "createdat": 1706611659375,
   "table_id": "62dc9b12-0436-48d8-872a-a677c7689305"
 }
 

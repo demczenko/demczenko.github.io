@@ -73,8 +73,8 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
       template_name: data.template_name,
       template_html: html,
       id: template_id,
-      isArchived: false,
-      createdAt: Date.now(),
+      isarchived: false,
+      createdat: Date.now(),
     };
 
     const candidate = await setTemplate(new_template);
@@ -104,7 +104,7 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
       id: uuidv4(),
       table_name: form.watch("table_name"),
       template_id: template_id,
-      createdAt: Date.now(),
+      createdat: Date.now(),
     };
 
     setTables((prev) => [...prev, new_table]);

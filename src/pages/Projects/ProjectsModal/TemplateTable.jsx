@@ -61,7 +61,7 @@ const TemplateTable = ({
       const value = colData[objKey];
       if (
         objKey === "table_id" ||
-        objKey === "createdAt" ||
+        objKey === "createdat" ||
         objKey === "updatedAt" ||
         objKey === "project_id" ||
         objKey === "id"

@@ -41,8 +41,8 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       project_name: data.project_name,
       id: uuidv4(),
       template_id: template_id,
-      isArchived: false,
-      createdAt: Date.now(),
+      isarchived: false,
+      createdat: Date.now(),
     };
 
     const candidate = await setProject(new_project);

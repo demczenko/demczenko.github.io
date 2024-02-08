@@ -17,7 +17,7 @@ const TemplateCart = ({
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   const options = useMemo(() => {
-    if (template.isArchived) {
+    if (template.isarchived) {
       return [
         {
           id: 1,
@@ -31,7 +31,7 @@ const TemplateCart = ({
         },
         {
           id: 2,
-          name: template.isArchived ? "Un Archive" : "Archive",
+          name: template.isarchived ? "Un Archive" : "Archive",
           onClick: () => onArchive(template),
         },
         {
@@ -54,7 +54,7 @@ const TemplateCart = ({
         },
         {
           id: 2,
-          name: template.isArchived ? "Un Archive" : "Archive",
+          name: template.isarchived ? "Un Archive" : "Archive",
           onClick: () => onArchive(template),
         },
       ];
@@ -73,7 +73,7 @@ const TemplateCart = ({
         name={template.template_name}
         options={options}
         title={"Manage template"}
-        createdAt={template.createdAt}
+        createdat={template.createdat}
       />
       <DrawerModal
         title={"Create project"}

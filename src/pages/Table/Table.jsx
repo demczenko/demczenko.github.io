@@ -86,7 +86,7 @@ const Table = () => {
     });
   };
 
-  const handleDeleteColumn = (id) => {
+  const handleDeleteColumn = async (id) => {
     const isDataTable = dataTable.filter((data) => data.table_id === table.id);
 
     if (isDataTable.length > 0) {
@@ -96,12 +96,20 @@ const Table = () => {
         description: "Firstly delete all data for this table",
       });
     } else {
-      removeColumn(id);
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Column successfully deleted",
-      });
+      const candidate = await removeColumn(id);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column successfully deleted",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete column",
+          description: "Somethnig went wrong",
+        });
+      }
     }
   };
 
@@ -112,7 +120,7 @@ const Table = () => {
       accessorKey: column.header.toLowerCase(),
       header: column.header.toLowerCase(),
       type: "text",
-      createdAt: Date.now(),
+      createdat: Date.now(),
     };
     const isSlugExist = columns.find((column) => column.type === "slug");
     if (isSlugExist) {
@@ -124,7 +132,7 @@ const Table = () => {
         accessorKey: "Slug",
         header: "Slug",
         type: "slug",
-        createdAt: Date.now(),
+        createdat: Date.now(),
       });
       setColumn(new_column);
     }
@@ -148,27 +156,8 @@ const Table = () => {
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
   //  remind user to change variable in template or try to change it by yourself)
-
-  if (isError) {
-    return <ErrorPage title={"Something went wrong while loading projects"} />;
-  }
-
-  if (IsTablesError) {
-    return <ErrorPage title={"Something went wrong while loading tables"} />;
-  }
-
-  if (IsColumnsError) {
-    return <ErrorPage title={"Something went wrong while loading columns"} />;
-  }
-
-  if (IsDataTableError) {
-    return (
-      <ErrorPage title={"Something went wrong while loading data table"} />
-    );
-  }
-
   return (
-    <PageContainer>
+    <PageContainer isError={isError} isLoading={isTablesLoading}>
       <Heading
         title={
           <>

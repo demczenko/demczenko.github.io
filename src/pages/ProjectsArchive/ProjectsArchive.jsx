@@ -24,10 +24,10 @@ const ProjectsArchive = () => {
     remove: removeProjectsStyles,
   } = useProjectsStyles();
 
-  const projects = data.filter((project) => project.isArchived === true);
+  const projects = data.filter((project) => project.isarchived === true);
 
   const handleArchived = (project) => {
-    update({ ...project, isArchived: project.isArchived ? false : true });
+    update({ ...project, isarchived: project.isarchived ? false : true });
   };
 
   const handleDelete = async (id) => {

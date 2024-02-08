@@ -3,8 +3,17 @@ import { CardDescription, PreviewTemplate } from "@/components";
 import { useTemplates } from "@/hooks/useTemplates";
 import LoadingPage from "@/LoadingPage";
 import ErrorPage from "@/ErrorPage";
+import { Link } from "react-router-dom";
+import { LinkIcon } from "lucide-react";
 
-const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
+const ProjectCart = ({
+  onDelete,
+  isProjectPage,
+  handleArchived,
+  project,
+  view,
+}) => {
+  view = view ? view : "cart";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: templates,
@@ -18,7 +27,7 @@ const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
     (template) => template.id === project.template_id
   );
   const options = useMemo(() => {
-    if (project?.isArchived) {
+    if (project?.isarchived) {
       return [
         {
           id: 3,
@@ -32,7 +41,7 @@ const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
         },
         {
           id: 2,
-          name: project?.isArchived ? "Un Archive" : "Archive",
+          name: project?.isarchived ? "Un Archive" : "Archive",
           onClick: () => handleArchived(project),
         },
         {
@@ -55,7 +64,7 @@ const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
         },
         {
           id: 2,
-          name: project?.isArchived ? "Un Archive" : "Archive",
+          name: project?.isarchived ? "Un Archive" : "Archive",
           onClick: () => handleArchived(project),
         },
       ];
@@ -72,6 +81,30 @@ const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
     );
   }
 
+  if (view === "cart") {
+    return (
+      <CartView
+        project={project}
+        isProjectPage={isProjectPage}
+        template={template}
+        options={options}
+      />
+    );
+  }
+
+  if (view === "list") {
+    return (
+      <ListView
+        project={project}
+        isProjectPage={isProjectPage}
+        template={template}
+        options={options}
+      />
+    );
+  }
+};
+
+function CartView({ project, isProjectPage, template, options }) {
   return (
     <div>
       <PreviewTemplate
@@ -85,10 +118,29 @@ const ProjectCart = ({ onDelete, isProjectPage, handleArchived, project }) => {
         name={project.project_name}
         options={options}
         title={"Manage project"}
-        createdAt={project.createdAt}
+        createdat={project.createdat}
       />
     </div>
   );
-};
+}
+
+function ListView({ project, isProjectPage, template, options }) {
+  return (
+    <Link
+      to={`/projects/${project.id}`}
+      className="hover:bg-neutral-700 px-2 rounded-md bg-neutral-900 transition-colors flex items-center justify-center gap-2">
+        <LinkIcon className="h-4 w-4 text-white" />
+      <CardDescription
+        isProjectPage={isProjectPage}
+        id={template?.id}
+        template_name={template?.template_name}
+        name={project.project_name}
+        options={options}
+        title={"Manage project"}
+        createdat={project.createdat}
+      />
+    </Link>
+  );
+}
 
 export default ProjectCart;

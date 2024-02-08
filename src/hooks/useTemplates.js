@@ -38,6 +38,7 @@ export const useTemplates = () => {
           return item;
         });
       });
+      return response
     } catch (error) {
       console.error(error);
       return false;

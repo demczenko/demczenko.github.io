@@ -9,12 +9,12 @@ const TemplatesArchive = () => {
   const { data, isError, isLoading, update, remove } = useTemplates();
   const { data: projects } = useProjects();
 
-  const templates = data.filter((template) => template.isArchived === true);
+  const templates = data.filter((template) => template.isarchived === true);
 
   const handleArchived = (template) => {
     update({
       ...template,
-      isArchived: template.isArchived ? false : true,
+      isarchived: template.isarchived ? false : true,
     });
   };
   const handleDelete = async (id) => {

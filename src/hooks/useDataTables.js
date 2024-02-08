@@ -26,7 +26,7 @@ export const useDataTables = () => {
 
   const update = async (new_data_table) => {
     try {
-      await DataTableService.update(new_data_table);
+      const response = await DataTableService.update(new_data_table);
       setData((prev) => {
         return prev.map((item) => {
           if (item.id === new_data_table.id) {
@@ -38,6 +38,7 @@ export const useDataTables = () => {
           return item;
         });
       });
+      return response;
     } catch (error) {
       console.error(error);
       return false

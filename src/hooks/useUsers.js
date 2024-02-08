@@ -38,7 +38,11 @@ export const useUsers = () => {
           return item;
         });
       });
-    } catch (error) {}
+      return response
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const set = async (new_data_table) => {
@@ -46,14 +50,20 @@ export const useUsers = () => {
       const new_user = await UserService.set(new_data_table);
       setData((prev) => [...prev, new_user]);
       return new_user;
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const remove = async (id) => {
     try {
       await UserService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   return {

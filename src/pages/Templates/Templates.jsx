@@ -20,13 +20,13 @@ const Templates = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredTemplate = templates.filter(
-    (template) => template.isArchived === false
+    (template) => template.isarchived === false
   );
 
   const handleArchived = (template) => {
     update({
       ...template,
-      isArchived: template.isArchived ? false : true,
+      isarchived: template.isarchived ? false : true,
     });
     toast({
       variant: "success",

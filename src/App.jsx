@@ -7,8 +7,10 @@ const App = () => {
   return (
     <Layout>
       <Sidebar />
-      <div className="bg-[#363636] flex-grow">
-        <Outlet />
+      <div className="pt-2 pl-2 flex-grow bg-[#111111]">
+        <div className="bg-[#363636] rounded-tl-2xl h-full">
+          <Outlet />
+        </div>
       </div>
       <Toaster />
     </Layout>

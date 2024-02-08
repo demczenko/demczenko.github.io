@@ -5,13 +5,9 @@ import { Button } from "./ui/button";
 const Heading = ({ title, paragraph, action, actions }) => {
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-col">
-        <h2 className="text-2xl font-semibold text-white">{title}</h2>
-        {paragraph && (
-          <h2 className="font-semibold  text-neutral-400 text-sm">
-            {paragraph}
-          </h2>
-        )}
+      <div className="space-y-2 grow">
+        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-white">{title}</h1>
+        {paragraph && <p className="text-sm text-neutral-300">{paragraph}</p>}
       </div>
       {action && (
         <Button size="sm" variant="outline" onClick={action.onClick}>

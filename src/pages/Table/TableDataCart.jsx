@@ -31,7 +31,7 @@ const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
             <p className="text-xs">
               <span className="text-neutral-300">created at: </span>
               <span className="text-white font-semibold">
-                {new Date(table.createdAt).toDateString()}
+                {new Date(table.createdat).toDateString()}
               </span>
             </p>
             {table.updatedAt && (
@@ -72,7 +72,7 @@ const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
             {Object.entries(table).map(([objKey, value], i) => {
               if (
                 objKey === "table_id" ||
-                objKey === "createdAt" ||
+                objKey === "createdat" ||
                 objKey === "createdat" ||
                 objKey === "updatedAt" ||
                 objKey === "project_id" ||

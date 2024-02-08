@@ -15,22 +15,21 @@ const Projects = () => {
   const { data: templates } = useTemplates();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const projects = data.filter((project) => project.isArchived !== true);
+  const projects = data.filter((project) => project.isarchived !== true);
 
   const handleArchived = async (project) => {
-    await update({ ...project, isArchived: project.isArchived ? false : true });
+    await update({ ...project, isarchived: project.isarchived ? false : true });
   };
 
   const handleCreateProject = async (project) => {
     const new_project = {
       ...project,
       id: uuidv4(),
-      isArchived: false,
-      createdAt: Date.now(),
+      isarchived: false,
+      createdat: Date.now(),
     };
 
     const candidate = await setProject(new_project);
-    console.log(candidate);
     if (candidate) {
       toast({
         variant: "success",

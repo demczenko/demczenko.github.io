@@ -10,7 +10,7 @@ const CardDescription = ({
   title,
   options,
   style,
-  createdAt,
+  createdat,
   template_name,
   isProjectPage,
   isTemplatePage,
@@ -18,10 +18,10 @@ const CardDescription = ({
 }) => {
   return (
     <div>
-      <div className="flex flex-1 mt-2 gap-2 items-center justify-between">
+      <div className="flex flex-1 my-2 gap-2 items-center justify-between">
         <div
           className={cn(
-            "w-full font-medium text-white overflow-hidden truncate",
+            "w-full font-medium text-white overflow-hidden truncate max-w-48",
             style
           )}>
           {name}
@@ -39,11 +39,11 @@ const CardDescription = ({
       </div>
       {isProjectPage && (
         <div className="flex justify-between mt-2">
-          {createdAt && (
+          {createdat && (
             <p className="text-xs">
               <span className="text-neutral-300">created at: </span>
               <span className="text-white font-semibold">
-                {new Date(createdAt).toDateString()}
+                {new Date(createdat).toDateString()}
               </span>
             </p>
           )}

@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import TablesList from "../Tables/TableList";
+import { PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
-import LoadingPage from "@/LoadingPage";
 import TemplatePreview from "./TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
@@ -24,6 +24,8 @@ const Template = () => {
     set: setTemplate,
     remove,
   } = useTemplates();
+
+  if (!templates) return;
 
   const {
     data: dataTables,
@@ -60,19 +62,26 @@ const Template = () => {
   const projectsTamplate = projects.filter(
     (project) => project.template_id === template?.id
   );
-  const onChangeTemplateSubmit = ({ template_html }) => {
+  const onChangeTemplateSubmit = async ({ template_html }) => {
     if (template_html.length < 10) return;
     const new_template = {
       ...template,
       template_html: template_html,
     };
-    update(new_template);
-
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Template updated successfully",
-    });
+    const candidate = await update(new_template);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Template successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update template",
+        description: "Somethnig went wrong",
+      });
+    }
   };
 
   const onSubmit = (data) => {
@@ -83,7 +92,7 @@ const Template = () => {
       id: uuidv4(),
       table_name: data.table_name,
       template_id: template.id,
-      createdAt: Date.now(),
+      createdat: Date.now(),
     };
 
     setTable(new_table);
@@ -136,34 +145,35 @@ const Template = () => {
     change_columns_id.forEach((column) => setColumn(column));
   };
 
-  if (isLoading) {
-    return <LoadingPage title="Loading your template..." />;
-  }
-
-  if (isError) {
-    return <ErrorPage title="Something went wrong while template loading..." />;
-  }
-
   return (
-    <PageContainer>
-      <Heading
-        title={isLoading ? "Loading" : error ? error : template?.template_name}
-      />
-      <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
+    <PageContainer isError={isError} isLoading={isLoading}>
+      <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           template_html={template?.template_html}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
-        <div className="pt-4 lg:pt-0 w-full">
-          <ProjectList isProjectPage={false} projects={projectsTamplate} />
+        <div className="flex gap-4 flex-col w-full items-start">
+          <Heading
+            title={template?.template_name}
+            paragraph={
+              template?.createdat && new Date(template.createdat).toDateString()
+            }
+          />
+          <div>
+            <Heading title={"Projects"} />
+            <ProjectList
+              view={"list"}
+              isProjectPage={false}
+              projects={projectsTamplate}
+            />
+          </div>
           <TablesList
-            actions={[
-              {
-                id: 1,
-                name: "Add table",
-                onClick: () => setIsModalOpen(true),
-              },
-            ]}
+            action={{
+              id: 1,
+              name: "Add table",
+              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              onClick: () => setIsModalOpen(true),
+            }}
             onDeleteTable={onDeleteTable}
             onDuplicate={onDuplicate}
             isProject={false}
@@ -171,6 +181,7 @@ const Template = () => {
           />
         </div>
       </div>
+
       <AddTable
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}

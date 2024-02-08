@@ -4,8 +4,8 @@ import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
 
 const TemplatePreview = ({ template_html, onChangeTemplateSubmit }) => {
   return (
-    <Tabs defaultValue="view">
-      <TabsList className="">
+    <Tabs defaultValue="view" className="w-full relative">
+      <TabsList className="absolute top-4 left-2 bg-[#363636]">
         <TabsTrigger value="view">
           <View className="w-4 h-4" />
         </TabsTrigger>
@@ -15,7 +15,7 @@ const TemplatePreview = ({ template_html, onChangeTemplateSubmit }) => {
       </TabsList>
       <TabsContent value="view" className="h-full">
         <iframe
-          className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
+          className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block"
           srcDoc={template_html}></iframe>
       </TabsContent>
       <TabsContent value="code" className="h-full">

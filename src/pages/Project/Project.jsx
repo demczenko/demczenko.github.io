@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
@@ -8,19 +8,24 @@ import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useProjects } from "@/hooks/useProjects";
-import ErrorPage from "@/ErrorPage";
 import { useTables } from "@/hooks/useTables";
 import LoadingPage from "@/LoadingPage";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { useToast } from "@/components/ui/use-toast";
 
 const Project = () => {
   const { id } = useParams();
+  const { toast } = useToast();
+  const [name, setName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef();
+
   const {
     data,
     isError: IsProjectsError,
     isLoading: IsProjectsLoading,
-    update: updateProjects,
+    update: updateProject,
   } = useProjects();
   const { data: templates, isError, isLoading, update } = useTemplates();
   const {
@@ -117,18 +122,51 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  if (isError) {
-    return <ErrorPage title={"Something went wrong while loading templates"} />;
-  }
-
-  if (IsProjectsError) {
-    return <ErrorPage title={"Something went wrong while loading projects"} />;
-  }
+  const handleChangeProjectName = async (table) => {
+    if (name.trim().length > 0) {
+      const candidate = await updateProject({ ...table, project_name: name });
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project name successfully updated",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to update project",
+          description: "Something went wrong",
+        });
+      }
+      setIsOpen(false);
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <PageContainer>
+    <PageContainer isError={isError} isLoading={IsProjectsLoading}>
       <Heading
-        title={project?.project_name}
+        title={
+          isOpen ? (
+            <input
+              ref={ref}
+              onBlur={() => handleChangeProjectName(project)}
+              onChange={(ev) => setName(ev.target.value)}
+              value={name}
+              className="text-4xl border-none w-full bg-transparent outline-none focus:border-none p-0"
+            />
+          ) : (
+            <p
+              onClick={() => {
+                setIsOpen(true);
+                setName(project?.project_name);
+              }}
+              className="font-semibold">
+              {project?.project_name}
+            </p>
+          )
+        }
         paragraph={
           <Link to={`/templates/${template?.id}`}>
             {template?.template_name}
