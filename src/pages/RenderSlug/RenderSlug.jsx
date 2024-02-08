@@ -16,6 +16,7 @@ import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 const RenderSlug = () => {
   const navigator = useNavigate();
@@ -225,6 +226,10 @@ const RenderSlug = () => {
     }
   }, [project, selectedSlug]);
 
+  if (isLoading) {
+    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  }
+
   return (
     <div style={{ backgroundColor: "#ececec" }} className="relative h-full">
       <div className="absolute top-4 left-4 z-10 right-8">
@@ -238,7 +243,7 @@ const RenderSlug = () => {
             },
           ]}
           title={
-            <div className="flex gap-2 items-center hover:bg-white px-4 py-1 rounded-md">
+            <div className="flex gap-2 items-center hover:bg-white w-fit px-4 py-1 rounded-md">
               <BreadCrumbs
                 items={[
                   {

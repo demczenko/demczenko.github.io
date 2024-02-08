@@ -11,9 +11,7 @@ const ProjectTemplatePreview = ({
   projectStyle,
   isLoading,
 }) => {
-  if (isLoading) {
-    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
-  }
+
 
   const ref = useRef(null);
   const [open, setIsOpen] = useState(false);
@@ -122,6 +120,10 @@ const ProjectTemplatePreview = ({
     const cleared_body = clear_body_from_style(updated_body, style);
     handleUpdateTemplate(cleared_body.innerHTML);
   };
+
+  if (isLoading) {
+    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  }
 
   return (
     <>
