@@ -29,8 +29,6 @@ const Template = () => {
     remove,
   } = useTemplates();
 
-  if (!templates) return;
-
   const {
     data: dataTables,
     isError: IsTablesError,

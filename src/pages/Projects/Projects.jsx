@@ -42,6 +42,7 @@ const Projects = () => {
         description: "Somethnig went wrong",
       });
     }
+    setIsModalOpen(false)
   };
 
   return (

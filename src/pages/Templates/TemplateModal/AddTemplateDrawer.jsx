@@ -6,6 +6,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import Preview from "./Preview";
 import { useTables } from "@/hooks/useTables";
+import { useToast } from "@/components/ui/use-toast";
 
 export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
   const {
@@ -15,8 +16,10 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
     update: updateTables,
     set: setTable,
   } = useTables();
+  const [template_id, setTemplateID] = useState(() => uuidv4())
   const [tables, setTables] = useState([]);
   const [html, setHTML] = useState("");
+  const { toast } = useToast();
 
   const form = useForm({
     defaultValues: {
@@ -66,7 +69,6 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
     }
     cb(formData);
   };
-  const template_id = uuidv4();
 
   const onSubmit = async (data) => {
     const new_template = {

@@ -5,6 +5,7 @@ import {
   Columns3,
   FolderOpen,
   Home,
+  Table,
   Trash,
   User2,
 } from "lucide-react";
@@ -52,6 +53,12 @@ const navigation = [
     path: "/users",
     name: "Users",
     icon: <User2 className="h-4 w-4 mr-2" />,
+  },
+  {
+    id: 6,
+    path: "/tables",
+    name: "Tables",
+    icon: <Table className="h-4 w-4 mr-2" />,
   },
 ];
 

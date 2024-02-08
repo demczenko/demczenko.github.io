@@ -29,10 +29,10 @@ export const useProjects = () => {
       const response = await ProjectService.update(new_project);
       setData((prev) => {
         return prev.map((item) => {
-          if (item.id === response.id) {
+          if (item.id === response[0].id) {
             return {
               ...item,
-              ...response,
+              ...response[0],
             };
           }
           return item;
@@ -48,7 +48,7 @@ export const useProjects = () => {
   const set = async (new_data_table) => {
     try {
       const response = await ProjectService.set(new_data_table);
-      setData((prev) => [...prev, response]);
+      setData((prev) => [...prev, response[0]]);
       console.log(response);
       return response
     } catch (error) {

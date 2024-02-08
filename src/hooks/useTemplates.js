@@ -48,7 +48,7 @@ export const useTemplates = () => {
   const set = async (new_data_table) => {
     try {
       const response = await TemplatesService.set(new_data_table);
-      setData((prev) => [...prev, response]);
+      setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);
