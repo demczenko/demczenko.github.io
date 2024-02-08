@@ -10,14 +10,14 @@ const TemplateCart = ({
   onRename,
   onArchive,
   onDelete,
-  template,
+  item,
 }) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   const options = useMemo(() => {
-    if (template.isarchived) {
+    if (item.isarchived) {
       return [
         {
           id: 1,
@@ -31,8 +31,8 @@ const TemplateCart = ({
         },
         {
           id: 2,
-          name: template.isarchived ? "Un Archive" : "Archive",
-          onClick: () => onArchive(template),
+          name: item.isarchived ? "Un Archive" : "Archive",
+          onClick: () => onArchive(item),
         },
         {
           id: 4,
@@ -54,8 +54,8 @@ const TemplateCart = ({
         },
         {
           id: 2,
-          name: template.isarchived ? "Un Archive" : "Archive",
-          onClick: () => onArchive(template),
+          name: item.isarchived ? "Un Archive" : "Archive",
+          onClick: () => onArchive(item),
         },
       ];
     }
@@ -64,16 +64,16 @@ const TemplateCart = ({
   return (
     <div>
       <PreviewTemplate
-        href={`/templates/${template.id}`}
-        template_html={template.template_html}
+        href={`/templates/${item.id}`}
+        template_html={item.template_html}
       />
       <CardDescription
         isProjectPage={isProjectPage}
         isTemplatePage={isTemplatePage}
-        name={template.template_name}
+        name={item.template_name}
         options={options}
         title={"Manage template"}
-        createdat={template.createdat}
+        createdat={item.createdat}
       />
       <DrawerModal
         title={"Create project"}
@@ -83,7 +83,7 @@ const TemplateCart = ({
         content={
           <ProjectForm
             onSubmitForm={() => setIsCreateProjectModalOpen(false)}
-            template_id={template.id}
+            template_id={item.id}
           />
         }
       />
@@ -101,7 +101,7 @@ const TemplateCart = ({
           },
         ]}
         onSubmit={(name) => {
-          onRename(template, name);
+          onRename(item, name);
           setRenameModalOpen(false);
         }}
       />

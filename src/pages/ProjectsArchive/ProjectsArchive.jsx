@@ -4,6 +4,7 @@ import { useProjects } from "@/hooks/useProjects";
 import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const ProjectsArchive = () => {
   const { toast } = useToast();
@@ -75,7 +76,6 @@ const ProjectsArchive = () => {
       title={"Arhived projects"}>
       <RenderList
         list={projects}
-        title={"Archived projects"}
         component={ProjectCart}
         isProjectPage={true}
       />
