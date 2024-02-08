@@ -2,7 +2,6 @@ import React, { useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import SlugList from "./SlugList";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
@@ -13,6 +12,7 @@ import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import TableCart from "../Tables/TableCart";
+import SlugCart from "./SlugCart";
 
 const Project = () => {
   const { id } = useParams();
@@ -147,34 +147,7 @@ const Project = () => {
 
   return (
     <PageContainer isError={isError} isLoading={IsProjectsLoading}>
-      <Heading
-        title={
-          isOpen ? (
-            <input
-              ref={ref}
-              onBlur={() => handleChangeProjectName(project)}
-              onChange={(ev) => setName(ev.target.value)}
-              value={name}
-              className="text-4xl border-none w-full bg-transparent outline-none focus:border-none p-0"
-            />
-          ) : (
-            <p
-              onClick={() => {
-                setIsOpen(true);
-                setName(project?.project_name);
-              }}
-              className="font-semibold">
-              {project?.project_name}
-            </p>
-          )
-        }
-        paragraph={
-          <Link to={`/templates/${template?.id}`}>
-            {template?.template_name}
-          </Link>
-        }
-      />
-      <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
+      <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <ProjectTemplatePreview
           isLoading={isLoading}
           projectStyle={projectStyle}
@@ -183,12 +156,42 @@ const Project = () => {
           project_id={project?.id}
           template_html={template?.template_html}
         />
-        <div className="grid gap-2 pt-4 lg:pt-0 w-full">
-          <SlugList
-            project_id={project?.id}
-            slugs={availableSlugs}
+        <div className="flex gap-4 flex-col w-full items-start">
+          <Heading
+            title={
+              isOpen ? (
+                <input
+                  ref={ref}
+                  onBlur={() => handleChangeProjectName(project)}
+                  onChange={(ev) => setName(ev.target.value)}
+                  value={name}
+                  className="text-4xl border-none w-full bg-transparent outline-none focus:border-none p-0"
+                />
+              ) : (
+                <p
+                  onClick={() => {
+                    setIsOpen(true);
+                    setName(project?.project_name);
+                  }}
+                  className="font-semibold">
+                  {project?.project_name}
+                </p>
+              )
+            }
+            paragraph={
+              <Link to={`/templates/${template?.id}`}>
+                {template?.template_name}
+              </Link>
+            }
+          />
+          <RenderList
             selectedSlug={selectedSlug}
             onSlugSelect={(slug) => setSelectedSlug(slug)}
+            isLoading={IsDataTableLoading}
+            component={SlugCart}
+            list={availableSlugs}
+            title={"Slugs"}
+            project_id={project?.id}
           />
 
           <ProjectStyleList
@@ -203,7 +206,6 @@ const Project = () => {
             title={"Tables"}
             isProject={true}
             project_id={project?.id}
-            tables={tables}
           />
         </div>
       </div>

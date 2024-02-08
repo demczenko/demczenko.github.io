@@ -6,12 +6,15 @@ const RenderList = ({ isLoading, list, title, action, component, ...rest }) => {
   return (
     <div className="w-full">
       {title && <Heading action={action} title={title} />}
-      {isLoading && <SkeletonCard />}
-      <List>
-        {list.map((item, i) => (
-          <Item key={i} item={item} {...rest} />
-        ))}
-      </List>
+      {isLoading ? (
+        <SkeletonCard />
+      ) : (
+        <List>
+          {list.map((item, i) => (
+            <Item key={i} item={item} {...rest} />
+          ))}
+        </List>
+      )}
     </div>
   );
 };
