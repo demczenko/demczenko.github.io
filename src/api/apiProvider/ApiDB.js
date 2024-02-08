@@ -44,7 +44,7 @@ export class ApiDB {
   }
 
   async update(key, data) {
-    const req = await fetch(this.#baseUrl + key + "/" + data.id, {
+    const req = await fetch(this.#baseUrl + key, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

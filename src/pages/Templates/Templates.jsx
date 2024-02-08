@@ -24,25 +24,45 @@ const Templates = () => {
     (template) => template.isarchived === false
   );
 
-  const handleArchived = (template) => {
-    update({
-      ...template,
+  const handleArchived = async (template) => {
+    const candidate = await update({
+      id: template.id,
       isarchived: template.isarchived ? false : true,
     });
-    toast({
-      variant: "success",
-      title: "Archived",
-      description: "Template successfully archived",
-    });
+
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Archived",
+        description: "Template successfully archived",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to archive template",
+        description: "Something went wrong",
+      });
+    }
   };
 
-  const handleRename = (template, { template_name }) => {
-    update({ ...template, template_name: template_name });
-    toast({
-      variant: "success",
-      title: "Updated",
-      description: "Template name successfully updated",
+  const handleRename = async (template, { template_name }) => {
+    const candidate = await update({
+      ...template,
+      template_name: template_name,
     });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Updated",
+        description: "Template name successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update template",
+        description: "Something went wrong",
+      });
+    }
   };
 
   return (

@@ -29,10 +29,10 @@ export const useTemplates = () => {
       const response = await TemplatesService.update(new_template);
       setData((prev) => {
         return prev.map((item) => {
-          if (item.id === response.id) {
+          if (item.id === response[0].id) {
             return {
               ...item,
-              ...response,
+              ...response[0],
             };
           }
           return item;

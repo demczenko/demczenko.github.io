@@ -12,11 +12,25 @@ const TemplatesArchive = () => {
 
   const templates = data.filter((template) => template.isarchived === true);
 
-  const handleArchived = (template) => {
-    update({
-      ...template,
+  const handleArchived = async (template) => {
+    const candidate = await update({
+      id: template.id,
       isarchived: template.isarchived ? false : true,
     });
+
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Archived",
+        description: "Template successfully archived",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to archive template",
+        description: "Something went wrong",
+      });
+    }
   };
   const handleDelete = async (id) => {
     const isProjectsExists = projects.filter(
