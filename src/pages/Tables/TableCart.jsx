@@ -40,7 +40,7 @@ const TableCart = ({
 
   return (
     <>
-      <section className="group mt-2">
+      <section className="group">
         <CartHeader table_id={item.id} table_name={item.table_name} />
         {isProject && (
           <>

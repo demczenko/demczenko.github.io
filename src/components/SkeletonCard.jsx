@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 
 export function SkeletonCard({style}) {
   return (
-    <div className="flex flex-col space-y-3 w-full">
+    <div className="space-y-3 w-full">
       <Skeleton className={cn("h-[125px] w-[250px] rounded-xl", style)} />
       <div className="space-y-2">
         <Skeleton className="h-4 w-[250px]" />
