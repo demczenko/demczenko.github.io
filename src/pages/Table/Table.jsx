@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import PageContainer from "../PageContainer";
 import { Heading } from "@/components";
 import { useParams } from "react-router-dom";
-import ColumnsList from "./ColumnsList";
 import TableDataList from "./TableDataList";
 import { useProjects } from "@/hooks/useProjects";
 import { useTables } from "@/hooks/useTables";
@@ -11,6 +10,9 @@ import { useDataTables } from "@/hooks/useDataTables";
 import { useToast } from "@/components/ui/use-toast";
 import { CreateForm } from "@/components/CreateForm";
 import { v4 as uuidv4 } from "uuid";
+import RenderList from "@/components/RenderList";
+import { PlusCircle } from "lucide-react";
+import ColumnCart from "./ColumnCart";
 
 const Table = () => {
   const { id } = useParams();
@@ -71,19 +73,26 @@ const Table = () => {
     ref.current.focus();
   }, [isOpen]);
 
-  const handleRenameColumn = (column, { header }) => {
+  const handleRenameColumn = async (column, { header }) => {
     if (header.length < 3) return;
     const new_column = {
-      ...column,
-      accessorKey: header,
+      id: column.id,
       header: header,
     };
-    updateColumn(new_column);
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Column name successfully updated",
-    });
+    const candidate = await updateColumn(new_column);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Column name successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update column",
+        description: "Something went wrong",
+      });
+    }
   };
 
   const handleDeleteColumn = async (id) => {
@@ -113,7 +122,7 @@ const Table = () => {
     }
   };
 
-  const handleCreateColumn = (column) => {
+  const handleCreateColumn = async (column) => {
     const new_column = {
       id: uuidv4(),
       table_id: table.id,
@@ -124,7 +133,20 @@ const Table = () => {
     };
     const isSlugExist = columns.find((column) => column.type === "slug");
     if (isSlugExist) {
-      setColumn(new_column);
+      const candidate = await setColumn(new_column);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column successfully created",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to create column",
+          description: "Something went wrong",
+        });
+      }
     } else {
       setColumn({
         id: uuidv4(),
@@ -134,14 +156,21 @@ const Table = () => {
         type: "slug",
         createdat: Date.now(),
       });
-      setColumn(new_column);
+      const candidate = await setColumn(new_column);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column successfully created",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to create column",
+          description: "Something went wrong",
+        });
+      }
     }
-
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Column successfully created",
-    });
   };
 
   const handleUpdate = (data) => {
@@ -198,17 +227,19 @@ const Table = () => {
             },
           ]}
         />
-        <ColumnsList
-          actions={[
-            {
-              id: 1,
-              name: "Add Column",
-              onClick: setIsModalOpen,
-            },
-          ]}
+
+        <RenderList
+          component={ColumnCart}
+          title={"Columns"}
+          action={{
+            id: 1,
+            name: "Add Column",
+            icon: <PlusCircle className="h-4 w-4 mr-2" />,
+            onClick: setIsModalOpen,
+          }}
+          list={columns}
           onDelete={handleDeleteColumn}
           onRename={handleRenameColumn}
-          columns={columns}
         />
         {tablesData.length > 0 && (
           <TableDataList

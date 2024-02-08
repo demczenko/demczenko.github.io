@@ -29,10 +29,10 @@ export const useColumns = () => {
       const response = await ColumnService.update(new_project);
       setData((prev) => {
         return prev.map((item) => {
-          if (item.id === response.id) {
+          if (item.id === response[0].id) {
             return {
               ...item,
-              ...response,
+              ...response[0],
             };
           }
           return item;
@@ -48,7 +48,7 @@ export const useColumns = () => {
   const set = async (new_data_table) => {
     try {
       const response = await ColumnService.set(new_data_table);
-      setData((prev) => [...prev, response]);
+      setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);

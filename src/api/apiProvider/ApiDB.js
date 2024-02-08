@@ -8,7 +8,7 @@ export class ApiDB {
   async get(key) {
     const req = await fetch(this.#baseUrl + key);
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
@@ -24,7 +24,7 @@ export class ApiDB {
       body: JSON.stringify(data),
     });
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
@@ -36,7 +36,7 @@ export class ApiDB {
       method: "DELETE",
     });
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
@@ -52,7 +52,7 @@ export class ApiDB {
       body: JSON.stringify(data),
     });
     if (!req.ok) {
-      throw new Error(prev.statusText);
+      throw new Error(req.statusText);
     }
 
     const response = await req.json();
