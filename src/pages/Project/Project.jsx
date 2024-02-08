@@ -8,7 +8,6 @@ import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useProjects } from "@/hooks/useProjects";
 import { useTables } from "@/hooks/useTables";
-import LoadingPage from "@/LoadingPage";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
@@ -177,6 +176,7 @@ const Project = () => {
       />
       <div className="grid xl:gap-8 xl:grid-cols-2 grid-cols-1 xl:h-3/4 h-[90%] xl:mt-6 mt-4">
         <ProjectTemplatePreview
+          isLoading={isLoading}
           projectStyle={projectStyle}
           handleUpdateTemplate={handleUpdateTemplate}
           setStyle={handleProjectStyle}
@@ -196,18 +196,15 @@ const Project = () => {
             styles={projectStyle}
           />
 
-          {isTablesLoading ? (
-            <LoadingPage title={"Loading tables..."} />
-          ) : (
-            <RenderList
-              component={TableCart}
-              list={tables}
-              title={"Tables"}
-              isProject={true}
-              project_id={project?.id}
-              tables={tables}
-            />
-          )}
+          <RenderList
+            isLoading={isTablesLoading}
+            component={TableCart}
+            list={tables}
+            title={"Tables"}
+            isProject={true}
+            project_id={project?.id}
+            tables={tables}
+          />
         </div>
       </div>
     </PageContainer>

@@ -1,10 +1,7 @@
-import React, { useMemo, useState } from "react";
-import { CardDescription, PreviewTemplate } from "@/components";
-import { useTemplates } from "@/hooks/useTemplates";
-import LoadingPage from "@/LoadingPage";
-import ErrorPage from "@/ErrorPage";
+import { useMemo } from "react";
+import { CardDescription, Options } from "@/components";
 import { Link } from "react-router-dom";
-import { LinkIcon } from "lucide-react";
+import { FolderInput, LinkIcon } from "lucide-react";
 
 const ProjectCart = ({
   onDelete,
@@ -14,18 +11,7 @@ const ProjectCart = ({
   view,
 }) => {
   view = view ? view : "cart";
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const {
-    data: templates,
-    isError,
-    isLoading,
-    update,
-    remove,
-  } = useTemplates();
 
-  const template = templates.find(
-    (template) => template.id === item?.template_id
-  );
   const options = useMemo(() => {
     if (item?.isarchived) {
       return [
@@ -33,11 +19,6 @@ const ProjectCart = ({
           id: 3,
           name: "Open",
           onClick: () => navigator("/projects/" + id),
-        },
-        {
-          id: 1,
-          name: "Rename",
-          onClick: () => setIsModalOpen(true),
         },
         {
           id: 2,
@@ -58,11 +39,6 @@ const ProjectCart = ({
           onClick: () => navigator("/projects/" + id),
         },
         {
-          id: 1,
-          name: "Rename",
-          onClick: () => setIsModalOpen(true),
-        },
-        {
           id: 2,
           name: item?.isarchived ? "Un Archive" : "Archive",
           onClick: () => handleArchived(item),
@@ -71,22 +47,11 @@ const ProjectCart = ({
     }
   }, []);
 
-  if (isLoading) {
-    return <LoadingPage title="Loading your template..." />;
-  }
-
-  if (isError) {
-    return (
-      <ErrorPage title="Something went wrong while templates loading..." />
-    );
-  }
-
   if (view === "cart") {
     return (
       <CartView
         project={item}
         isProjectPage={isProjectPage}
-        template={template}
         options={options}
       />
     );
@@ -97,43 +62,42 @@ const ProjectCart = ({
       <ListView
         project={item}
         isProjectPage={isProjectPage}
-        template={template}
         options={options}
       />
     );
   }
 };
 
-function CartView({ project, isProjectPage, template, options }) {
+function CartView({ project, isProjectPage, options }) {
   return (
-    <div>
-      <PreviewTemplate
-        href={`/projects/${project?.id}`}
-        template_html={template?.template_html}
-      />
-      <CardDescription
-        isProjectPage={isProjectPage}
-        id={template?.id}
-        template_name={template?.template_name}
-        name={project?.project_name}
-        options={options}
-        title={"Manage project"}
-        createdat={project?.createdat}
-      />
+    <div className="hover:bg-neutral-700 rounded-md bg-neutral-900 transition-colors p-4 min-w-80 hover:shadow-md">
+      <FolderInput className="w-12 h-12 mb-2 text-white" />
+      <div className="flex justify-between items-center">
+        <Link to={`/projects/${project.id}`}>
+          <h2 className="text-2xl text-white font-semibold">
+            {project.project_name}
+          </h2>
+        </Link>
+        <Options options={options} title={"Manage project"} />
+      </div>
+      <p className="text-xs">
+        <span className="text-neutral-300">created at: </span>
+        <span className="text-white font-semibold">
+          {new Date(project.createdat).toDateString()}
+        </span>
+      </p>
     </div>
   );
 }
 
-function ListView({ project, isProjectPage, template, options }) {
+function ListView({ project, isProjectPage, options }) {
   return (
     <Link
       to={`/projects/${project.id}`}
       className="hover:bg-neutral-700 px-2 rounded-md bg-neutral-900 transition-colors flex items-center justify-center gap-2">
-        <LinkIcon className="h-4 w-4 text-white" />
+      <LinkIcon className="h-4 w-4 text-white" />
       <CardDescription
         isProjectPage={isProjectPage}
-        id={template?.id}
-        template_name={template?.template_name}
         name={project.project_name}
         options={options}
         title={"Manage project"}

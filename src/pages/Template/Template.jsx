@@ -23,7 +23,7 @@ const Template = () => {
   const {
     data: templates,
     isError,
-    isLoading,
+    isLoading: isLoadingTemplates,
     update: updateTemplate,
     set: setTemplate,
     remove,
@@ -175,9 +175,10 @@ const Template = () => {
   };
 
   return (
-    <PageContainer isError={isError} isLoading={isLoading}>
+    <PageContainer isError={isError}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
+          isLoading={isLoadingTemplates}
           template_html={template?.template_html}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />

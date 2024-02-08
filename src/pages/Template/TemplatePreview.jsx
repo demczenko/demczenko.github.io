@@ -1,8 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code2, View } from "lucide-react";
 import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
-const TemplatePreview = ({ template_html, onChangeTemplateSubmit }) => {
+const TemplatePreview = ({ isLoading, template_html, onChangeTemplateSubmit }) => {
+
+  if (isLoading) {
+    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  }
+
   return (
     <Tabs defaultValue="view" className="w-full relative">
       <TabsList className="absolute top-4 left-2 bg-[#363636]">

@@ -1,9 +1,6 @@
 import React from "react";
 import { Options } from ".";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
-import { Badge } from "./ui/badge";
-import { LinkIcon } from "lucide-react";
 
 const CardDescription = ({
   name,
@@ -11,10 +8,8 @@ const CardDescription = ({
   options,
   style,
   createdat,
-  template_name,
   isProjectPage,
   isTemplatePage,
-  id,
 }) => {
   return (
     <div>
@@ -46,16 +41,6 @@ const CardDescription = ({
                 {new Date(createdat).toDateString()}
               </span>
             </p>
-          )}
-          {template_name && (
-            <div className="flex justify-between">
-              <Link to={`/templates/${id}`}>
-                <Badge variant={"secondary"}>
-                  <LinkIcon className="h-4 w-4 mr-2" />
-                  <span className="text-xs">{template_name}</span>
-                </Badge>
-              </Link>
-            </div>
           )}
         </div>
       )}

@@ -14,8 +14,10 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useTemplates } from "@/hooks/useTemplates";
 
-export function SelectTemplate({ value, onSelect, templates }) {
+export function SelectTemplate({ value, onSelect }) {
+  const { data: templates } = useTemplates();
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>

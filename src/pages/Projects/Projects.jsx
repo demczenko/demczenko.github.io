@@ -5,7 +5,6 @@ import { useProjects } from "@/hooks/useProjects";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectTemplate } from "./ProjectsModal/SelectTemplate";
-import { useTemplates } from "@/hooks/useTemplates";
 import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "./ProjectCart";
@@ -13,7 +12,6 @@ import ProjectCart from "./ProjectCart";
 const Projects = () => {
   const { toast } = useToast();
   const { data, isError, isLoading, update, set: setProject } = useProjects();
-  const { data: templates } = useTemplates();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const projects = data.filter((project) => project.isarchived !== true);
@@ -82,7 +80,6 @@ const Projects = () => {
             content: (form) => (
               <SelectTemplate
                 onSelect={(template) => form.setValue("template_id", template)}
-                templates={templates}
                 value={form.getValues("template_id")}
               />
             ),

@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 const Heading = ({ title, paragraph, action, actions }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between mb-4">
       <div className="space-y-2 grow">
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-white">{title}</h1>
         {paragraph && <p className="text-sm text-neutral-300">{paragraph}</p>}

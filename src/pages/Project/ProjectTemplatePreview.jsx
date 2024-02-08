@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ConfigureNode from "./ConfigureNode";
 import { v4 as uuidv4 } from "uuid";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 const ProjectTemplatePreview = ({
   setStyle,
@@ -8,7 +9,12 @@ const ProjectTemplatePreview = ({
   template_html,
   handleUpdateTemplate,
   projectStyle,
+  isLoading,
 }) => {
+  if (isLoading) {
+    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  }
+
   const ref = useRef(null);
   const [open, setIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState("");
