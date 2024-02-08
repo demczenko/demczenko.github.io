@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import SlugList from "./SlugList";
-import TablesList from "../Tables/TableList";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
@@ -13,6 +12,8 @@ import LoadingPage from "@/LoadingPage";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
+import RenderList from "@/components/RenderList";
+import TableCart from "../Tables/TableCart";
 
 const Project = () => {
   const { id } = useParams();
@@ -85,6 +86,7 @@ const Project = () => {
   };
 
   const handleStyleDelete = (id) => {
+    // TODO: Remove id from html template
     removeProjectsStyles(id);
   };
 
@@ -122,9 +124,9 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  const handleChangeProjectName = async (table) => {
+  const handleChangeProjectName = async (project) => {
     if (name.trim().length > 0) {
-      const candidate = await updateProject({ ...table, project_name: name });
+      const candidate = await updateProject({ ...project, project_name: name });
       if (candidate) {
         toast({
           variant: "success",
@@ -197,7 +199,10 @@ const Project = () => {
           {isTablesLoading ? (
             <LoadingPage title={"Loading tables..."} />
           ) : (
-            <TablesList
+            <RenderList
+              component={TableCart}
+              list={tables}
+              title={"Tables"}
               isProject={true}
               project_id={project?.id}
               tables={tables}

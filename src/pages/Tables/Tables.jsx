@@ -1,7 +1,8 @@
 import ErrorPage from "@/ErrorPage";
 import PageContainer from "../PageContainer";
-import TablesList from "./TableList";
 import { useTables } from "@/hooks/useTables";
+import RenderList from "@/components/RenderList";
+import TableCart from "./TableCart";
 
 const Tables = () => {
   const {
@@ -13,24 +14,18 @@ const Tables = () => {
   } = useTables();
 
   if (isTablesLoading) {
-    return (
-      <LoadingPage title="Loading your tables..." />
-    );
+    return <LoadingPage title="Loading your tables..." />;
   }
 
   if (IsTablesError) {
-    return <ErrorPage title={"Something went wrong while data table loading..."} />;
+    return (
+      <ErrorPage title={"Something went wrong while data table loading..."} />
+    );
   }
 
   return (
-    <PageContainer>
-      <>
-        {isLoading ? (
-          <LoadingPage title="Loading your table data..." />
-        ) : (
-          <TablesList setTables={setTables} isProject={false} tables={tables} />
-        )}
-      </>
+    <PageContainer isLoading={isTablesLoading} isError={IsTablesError}>
+      <RenderList list={tables} component={TableCart} setTables={setTables} isProject={false} />
     </PageContainer>
   );
 };

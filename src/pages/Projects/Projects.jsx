@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PageContainer } from "..";
-import { ProjectList } from "./ProjectList";
 import { useProjects } from "@/hooks/useProjects";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectTemplate } from "./ProjectsModal/SelectTemplate";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useToast } from "@/components/ui/use-toast";
+import RenderList from "@/components/RenderList";
+import ProjectCart from "./ProjectCart";
 
 const Projects = () => {
   const { toast } = useToast();
@@ -57,10 +58,11 @@ const Projects = () => {
         title="Projects"
         isError={isError}
         isLoading={isLoading}>
-        <ProjectList
-          isProjectPage={true}
+        <RenderList
+          list={projects}
           handleArchived={handleArchived}
-          projects={projects}
+          component={ProjectCart}
+          isProjectPage={true}
         />
       </PageContainer>
       <CreateForm

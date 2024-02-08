@@ -1,8 +1,9 @@
 import { PageContainer } from "..";
-import { TemplateList } from "../Templates/TemplateList";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useProjects } from "@/hooks/useProjects";
 import { useToast } from "@/components/ui/use-toast";
+import RenderList from "@/components/RenderList";
+import TemplateCart from "../Templates/TemplateCart";
 
 const TemplatesArchive = () => {
   const { toast } = useToast();
@@ -50,13 +51,13 @@ const TemplatesArchive = () => {
       isLoading={isLoading}
       isError={isError}
       title={"Archived templates"}>
-      <TemplateList
+      <RenderList
+        component={TemplateCart}
+        list={templates}
         isTemplatePage={true}
         isProjectPage={false}
         onDelete={handleDelete}
         onArchive={handleArchived}
-        title={"Archived templates"}
-        templates={templates}
       />
     </PageContainer>
   );

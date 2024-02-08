@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import TablesList from "../Tables/TableList";
 import { PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
@@ -12,15 +11,20 @@ import TemplatePreview from "./TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
 import { useProjects } from "@/hooks/useProjects";
-import { ProjectList } from "../Projects/ProjectList";
+import RenderList from "@/components/RenderList";
+import ProjectCart from "../Projects/ProjectCart";
+import TableCart from "../Tables/TableCart";
 
 const Template = () => {
+  const [name, setName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef();
   const { id } = useParams();
   const {
     data: templates,
     isError,
     isLoading,
-    update,
+    update: updateTemplate,
     set: setTemplate,
     remove,
   } = useTemplates();
@@ -145,6 +149,31 @@ const Template = () => {
     change_columns_id.forEach((column) => setColumn(column));
   };
 
+  const handleChangeTemplateName = async (template) => {
+    if (name.trim().length > 0) {
+      const candidate = await updateTemplate({
+        ...template,
+        template_name: name,
+      });
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template name successfully updated",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to update template",
+          description: "Something went wrong",
+        });
+      }
+      setIsOpen(false);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <PageContainer isError={isError} isLoading={isLoading}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
@@ -154,30 +183,50 @@ const Template = () => {
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <Heading
-            title={template?.template_name}
+            title={
+              isOpen ? (
+                <input
+                  ref={ref}
+                  onBlur={() => handleChangeTemplateName(template)}
+                  onChange={(ev) => setName(ev.target.value)}
+                  value={name}
+                  className="text-4xl border-none w-full bg-transparent outline-none focus:border-none p-0"
+                />
+              ) : (
+                <p
+                  onClick={() => {
+                    setIsOpen(true);
+                    setName(template?.template_name);
+                  }}
+                  className="font-semibold">
+                  {template?.template_name}
+                </p>
+              )
+            }
             paragraph={
               template?.createdat && new Date(template.createdat).toDateString()
             }
           />
-          <div>
-            <Heading title={"Projects"} />
-            <ProjectList
-              view={"list"}
-              isProjectPage={false}
-              projects={projectsTamplate}
-            />
-          </div>
-          <TablesList
+          <RenderList
+            list={projectsTamplate}
+            title={"Projects"}
+            view={"list"}
+            component={ProjectCart}
+            isProjectPage={false}
+          />
+          <RenderList
+            list={tables}
+            title={"Tables"}
+            component={TableCart}
+            onDeleteTable={onDeleteTable}
+            onDuplicate={onDuplicate}
+            isProject={false}
             action={{
               id: 1,
               name: "Add table",
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpen(true),
             }}
-            onDeleteTable={onDeleteTable}
-            onDuplicate={onDuplicate}
-            isProject={false}
-            tables={tables}
           />
         </div>
       </div>

@@ -10,7 +10,7 @@ const ProjectCart = ({
   onDelete,
   isProjectPage,
   handleArchived,
-  project,
+  item,
   view,
 }) => {
   view = view ? view : "cart";
@@ -24,10 +24,10 @@ const ProjectCart = ({
   } = useTemplates();
 
   const template = templates.find(
-    (template) => template.id === project.template_id
+    (template) => template.id === item?.template_id
   );
   const options = useMemo(() => {
-    if (project?.isarchived) {
+    if (item?.isarchived) {
       return [
         {
           id: 3,
@@ -41,8 +41,8 @@ const ProjectCart = ({
         },
         {
           id: 2,
-          name: project?.isarchived ? "Un Archive" : "Archive",
-          onClick: () => handleArchived(project),
+          name: item?.isarchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(item),
         },
         {
           id: 4,
@@ -64,8 +64,8 @@ const ProjectCart = ({
         },
         {
           id: 2,
-          name: project?.isarchived ? "Un Archive" : "Archive",
-          onClick: () => handleArchived(project),
+          name: item?.isarchived ? "Un Archive" : "Archive",
+          onClick: () => handleArchived(item),
         },
       ];
     }
@@ -84,7 +84,7 @@ const ProjectCart = ({
   if (view === "cart") {
     return (
       <CartView
-        project={project}
+        project={item}
         isProjectPage={isProjectPage}
         template={template}
         options={options}
@@ -95,7 +95,7 @@ const ProjectCart = ({
   if (view === "list") {
     return (
       <ListView
-        project={project}
+        project={item}
         isProjectPage={isProjectPage}
         template={template}
         options={options}
@@ -108,17 +108,17 @@ function CartView({ project, isProjectPage, template, options }) {
   return (
     <div>
       <PreviewTemplate
-        href={`/projects/${project.id}`}
+        href={`/projects/${project?.id}`}
         template_html={template?.template_html}
       />
       <CardDescription
         isProjectPage={isProjectPage}
         id={template?.id}
         template_name={template?.template_name}
-        name={project.project_name}
+        name={project?.project_name}
         options={options}
         title={"Manage project"}
-        createdat={project.createdat}
+        createdat={project?.createdat}
       />
     </div>
   );

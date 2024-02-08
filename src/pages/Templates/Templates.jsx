@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { TemplateList } from "./TemplateList";
 import { DrawerModal } from "@/components/Drawer";
 import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
 import { useTemplates } from "@/hooks/useTemplates";
 import { PageContainer } from "..";
 import { useToast } from "@/components/ui/use-toast";
 import { PlusCircle } from "lucide-react";
+import TemplateCart from "./TemplateCart";
+import RenderList from "@/components/RenderList";
 
 const Templates = () => {
   const { toast } = useToast();
@@ -56,11 +57,12 @@ const Templates = () => {
         isError={isError}
         isLoading={isLoading}
         title="Templates">
-        <TemplateList
+        <RenderList
+          list={filteredTemplate}
+          component={TemplateCart}
           isTemplatePage={true}
           onRename={handleRename}
           onArchive={handleArchived}
-          templates={filteredTemplate}
         />
       </PageContainer>
       <DrawerModal

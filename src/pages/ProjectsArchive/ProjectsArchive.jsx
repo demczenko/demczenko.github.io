@@ -1,8 +1,9 @@
 import { PageContainer } from "..";
-import { ProjectList } from "../Projects/ProjectList";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { useProjects } from "@/hooks/useProjects";
 import { useToast } from "@/components/ui/use-toast";
+import RenderList from "@/components/RenderList";
+import ProjectCart from "../Projects/ProjectCart";
 
 const ProjectsArchive = () => {
   const { toast } = useToast();
@@ -72,12 +73,11 @@ const ProjectsArchive = () => {
       isLoading={isLoading}
       isError={isError}
       title={"Arhived projects"}>
-      <ProjectList
+      <RenderList
+        list={projects}
         title={"Archived projects"}
+        component={ProjectCart}
         isProjectPage={true}
-        onDelete={handleDelete}
-        handleArchived={handleArchived}
-        projects={projects}
       />
     </PageContainer>
   );

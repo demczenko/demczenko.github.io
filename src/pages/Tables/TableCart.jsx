@@ -7,7 +7,7 @@ import { useColumns } from "@/hooks/useColumns";
 import { useDataTables } from "@/hooks/useDataTables";
 
 const TableCart = ({
-  table,
+  item,
   onDeleteTable,
   onDuplicate,
   project_id,
@@ -33,24 +33,24 @@ const TableCart = ({
   } = useDataTables();
 
   const isColumnsExists = columns.filter(
-    (column) => column.table_id === table.id
+    (column) => column.table_id === item.id
   );
 
-  const talbeData = tablesData.filter((data) => data.table_id === table.id);
+  const talbeData = tablesData.filter((data) => data.table_id === item.id);
 
   return (
     <>
       <section className="group mt-2">
-        <CartHeader table_id={table.id} table_name={table.table_name} />
+        <CartHeader table_id={item.id} table_name={item.table_name} />
         {isProject && (
           <>
             {isColumnsExists.length > 0 && (
               <CartActions
                 columns={talbeData.length}
                 isProject={isProject}
-                onDuplicate={() => onDuplicate(table.id)}
+                onDuplicate={() => onDuplicate(item.id)}
                 onModalOpen={() => setIsModalOpen(true)}
-                onDelete={() => onDeleteTable(table.id)}
+                onDelete={() => onDeleteTable(item.id)}
               />
             )}
           </>
@@ -59,14 +59,14 @@ const TableCart = ({
           <CartActions
             columns={talbeData.length}
             isProject={isProject}
-            onDuplicate={() => onDuplicate(table.id)}
+            onDuplicate={() => onDuplicate(item.id)}
             onModalOpen={() => setIsModalOpen(true)}
-            onDelete={() => onDeleteTable(table.id)}
+            onDelete={() => onDeleteTable(item.id)}
           />
         )}
       </section>
       <DrawerModal
-        title={`Populate ${table.table_name} table`}
+        title={`Populate ${item.table_name} table`}
         description={"Import CSV file or fulfill data manually"}
         open={isModalOpen}
         onOpenChange={() => {
@@ -76,8 +76,8 @@ const TableCart = ({
           <TableFulfill
             setIsModalOpen={setIsModalOpen}
             project_id={project_id}
-            table_id={table.id}
-            columns={columns.filter((column) => column.table_id === table.id)}
+            table_id={item.id}
+            columns={columns.filter((column) => column.table_id === item.id)}
           />
         }
       />
