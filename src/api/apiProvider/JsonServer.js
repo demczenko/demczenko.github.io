@@ -17,7 +17,7 @@ export class ApiLocalJson {
 
   async set(key, data) {
 
-    const req = await fetch("http://localhost:3001/" + key, {
+    const req = await fetch(this.#baseUrl + key, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
