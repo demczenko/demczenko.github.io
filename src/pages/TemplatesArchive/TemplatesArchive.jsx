@@ -40,7 +40,7 @@ const TemplatesArchive = () => {
       toast({
         variant: "destructive",
         title: "Failed to delete template",
-        description: "Firstly delete all projects",
+        description: "Firstly delete all projects that use that template",
       });
     } else {
       const candidate = await remove(id);

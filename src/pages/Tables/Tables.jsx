@@ -3,6 +3,7 @@ import PageContainer from "../PageContainer";
 import RenderList from "@/components/RenderList";
 import { useTables } from "@/hooks/useTables";
 import { useToast } from "@/components/ui/use-toast";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const Tables = () => {
   const {
@@ -13,10 +14,30 @@ const Tables = () => {
     set: setTables,
     remove: removeTable,
   } = useTables();
+
+  const {
+    data: tablesData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    set,
+  } = useDataTables();
+
   const { toast } = useToast();
 
-  const onDeleteTable = async (table_id) => {
-    const candidate = await removeTable(table_id);
+  const onDeleteTable = async (id) => {
+    const isTablesExists = tablesData.filter((table) => table.table_id === id);
+
+    if (isTablesExists.length > 0) {
+      toast({
+        variant: "destructive",
+        title: "Failed to delete table",
+        description: "Firstly delete all data tables",
+      });
+      return;
+    }
+
+    const candidate = await removeTable(id);
     if (candidate) {
       toast({
         variant: "success",

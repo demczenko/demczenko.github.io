@@ -40,7 +40,6 @@ const ProjectsArchive = () => {
       (table) => table.project_id === id
     );
 
-    console.log(isTablesExists);
     if (isTablesExists.length > 0) {
       toast({
         variant: "destructive",
