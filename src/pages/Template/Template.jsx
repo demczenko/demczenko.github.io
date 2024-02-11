@@ -26,13 +26,13 @@ const Template = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
-    data: template,
+    data: templates,
     isError,
     isLoading: isLoadingTemplates,
     update: updateTemplate,
     set: setTemplate,
     remove,
-  } = useTemplates(id);
+  } = useTemplates();
 
   const {
     data: dataTables,
@@ -59,10 +59,11 @@ const Template = () => {
     get: getProjects
   } = useProjects(`?template_id=${id}&isarchived=0`);
 
-  if (template.length === 0) {
+  if (templates.length === 0) {
     return <NotFound action={{to: "/templates", title: "Go to templates"}} title={`Template you are trying to access not found.`} />
   }
 
+  const template = templates.find(t => t.id === id)
   const tables = dataTables.filter(
     (table) => table.template_id === template?.id
   );

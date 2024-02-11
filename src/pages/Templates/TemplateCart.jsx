@@ -2,12 +2,14 @@ import React, { useMemo, useState } from "react";
 import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
+import { Archive, Copy, HandIcon, Trash2Icon } from "lucide-react";
 
 const TemplateCart = ({
   isTemplatePage,
   isProjectPage,
   onArchive,
   onDelete,
+  onDuplicate,
   item,
 }) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
@@ -17,31 +19,36 @@ const TemplateCart = ({
     if (item.isarchived) {
       return [
         {
-          id: 3,
-          name: "Select",
-          onClick: () => setIsCreateProjectModalOpen(true),
-        },
-        {
           id: 2,
           name: item.isarchived ? "Un Archive" : "Archive",
+          icon: <Archive className="h-4 w-4 mr-2" />,
           onClick: () => onArchive(item),
         },
         {
           id: 4,
           name: "Delete",
+          icon: <Trash2Icon className="h-4 w-4 mr-2" />,
           onClick: () => onDelete(item.id),
         },
       ];
     } else {
       return [
         {
+          id: 1,
+          name: "Duplicate",
+          icon: <Copy className="w-4 h-4 mr-2" />,
+          onClick: () => onDuplicate(item.id),
+        },
+        {
           id: 3,
           name: "Select",
+          icon: <HandIcon className="w-4 h-4 mr-2" />,
           onClick: () => setIsCreateProjectModalOpen(true),
         },
         {
           id: 2,
           name: item.isarchived ? "Un Archive" : "Archive",
+          icon: <Archive className="h-4 w-4 mr-2" />,
           onClick: () => onArchive(item),
         },
       ];

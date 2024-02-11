@@ -28,6 +28,7 @@ export const useTemplates = (params) => {
     try {
       const response = await TemplatesService.update(new_template);
       setData((prev) => {
+        console.log(prev);
         return prev.map((item) => {
           if (item.id === response[0].id) {
             return {

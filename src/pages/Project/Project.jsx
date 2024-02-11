@@ -29,11 +29,11 @@ const Project = () => {
   const ref = useRef();
 
   const {
-    data: project,
+    data: projects,
     isError: IsProjectsError,
     isLoading: IsProjectsLoading,
     update: updateProject,
-  } = useProjects(id);
+  } = useProjects();
   const { data: templates, isError, isLoading, update } = useTemplates();
   const {
     data: dataTables,
@@ -65,6 +65,8 @@ const Project = () => {
     set: setColumn,
     remove: removeColumn,
   } = useColumns();
+
+  const project = projects.find((p) => p.id === id);
 
   const template = templates.find(
     (template) => template.id === project?.template_id
@@ -101,7 +103,7 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  if (project.length === 0) {
+  if (projects.length === 0) {
     return (
       <NotFound
         action={{ to: "/projects", title: "Go to projects" }}
