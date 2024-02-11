@@ -169,8 +169,9 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
     setData((prev) => prev.filter((column) => column.slug !== slug));
   };
 
-  const handleNewItemAdd = (data) => {
+  const handleNewItemAdd = async (data) => {
     let isExist = false;
+    let itemId;
     const new_item = {
       ...data,
       id: uuidv4(),
@@ -182,23 +183,40 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
     for (const data_item of tableData) {
       if (new_item.slug === data_item.slug) {
         isExist = true;
+        itemId = data_item.id;
       }
     }
 
     if (!isExist) {
-      set(new_item);
-      toast({
-        variant: "success",
-        title: "Created",
-        description: "Table data has been successfully created",
-      });
+      const candidate = await set(new_item);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Created",
+          description: "Table data has been successfully created",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to create data table",
+          description: "Something went wrong",
+        });
+      }
     } else {
-      updateDataTable(new_item);
-      toast({
-        variant: "success",
-        title: "Updated",
-        description: "Table data has been successfully updated",
-      });
+      const candidate = await updateDataTable({ ...new_item, id: itemId });
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Updated",
+          description: "Table data has been successfully updated",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to update data table",
+          description: "Something went wrong",
+        });
+      }
     }
 
     setIsModalOpen(false);
@@ -230,7 +248,8 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       columns.push(
         <TableCell
           key={i + value}
-          className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
+          className={"p-2 text-nowrap truncate w-[200px] inline-block"}
+        >
           <ContextMenuRow
             actions={[
               {
@@ -238,7 +257,8 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
                 name: "Remove",
                 onClick: () => handleRemoveRow(colData),
               },
-            ]}>
+            ]}
+          >
             {value}
           </ContextMenuRow>
         </TableCell>
@@ -287,7 +307,8 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
               {columns.map((column) => (
                 <TableHead
                   className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
-                  key={column.id}>
+                  key={column.id}
+                >
                   {column.header}
                 </TableHead>
               ))}

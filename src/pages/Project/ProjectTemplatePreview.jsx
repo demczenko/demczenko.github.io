@@ -11,8 +11,6 @@ const ProjectTemplatePreview = ({
   projectStyle,
   isLoading,
 }) => {
-
-
   const ref = useRef(null);
   const [open, setIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState("");
@@ -62,7 +60,7 @@ const ProjectTemplatePreview = ({
         ref.current.removeEventListener("click", handleNodeSelect);
       }
     };
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     const document = new DOMParser().parseFromString(

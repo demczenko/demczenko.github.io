@@ -5,8 +5,8 @@ export class ApiLocalJson {
     this.#baseUrl = baseURl;
   }
 
-  async get(key) {
-    const req = await fetch(this.#baseUrl + key);
+  async get(key, id) {
+    const req = id ? await fetch(this.#baseUrl + key + "/" + id) : await fetch(this.#baseUrl + key)
     if (!req.ok) {
       throw new Error("Error while fetching data");
     }
@@ -29,7 +29,7 @@ export class ApiLocalJson {
     }
 
     const response = await req.json();
-    return response;
+    return [response];
   }
 
   async delete(key, id) {
@@ -41,7 +41,7 @@ export class ApiLocalJson {
     }
 
     const response = await req.json();
-    return response;
+    return [response];
   }
 
   async update(key, data) {
@@ -57,6 +57,6 @@ export class ApiLocalJson {
     }
 
     const response = await req.json();
-    return response;
+    return [response];
   }
 }

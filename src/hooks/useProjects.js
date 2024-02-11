@@ -1,27 +1,27 @@
 import { ProjectService } from "@/api/projects/init";
 import { useState, useEffect } from "react";
 
-export const useProjects = () => {
+export const useProjects = (params) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function getProjectList() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const response = await ProjectService.get();
-        setData(response);
-      } catch (error) {
-        setIsError(true);
-        console.warn(error.message);
-      } finally {
-        setIsLoading(false);
-      }
+  const get = async (params) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      const response = await ProjectService.get(params);
+      setData(response);
+    } catch (error) {
+      setIsError(true);
+      console.warn(error.message);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    getProjectList();
+  useEffect(() => {
+    get(params);
   }, []);
 
   const update = async (new_project) => {

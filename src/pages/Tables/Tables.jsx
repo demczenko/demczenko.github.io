@@ -1,8 +1,7 @@
-import ErrorPage from "@/ErrorPage";
-import PageContainer from "../PageContainer";
-import { useTables } from "@/hooks/useTables";
-import RenderList from "@/components/RenderList";
 import TableCart from "./TableCart";
+import PageContainer from "../PageContainer";
+import RenderList from "@/components/RenderList";
+import { useTables } from "@/hooks/useTables";
 import { useToast } from "@/components/ui/use-toast";
 
 const Tables = () => {
@@ -12,15 +11,9 @@ const Tables = () => {
     isLoading: isTablesLoading,
     update: updateTables,
     set: setTables,
-    remove: removeTable
+    remove: removeTable,
   } = useTables();
   const { toast } = useToast();
-
-  if (IsTablesError) {
-    return (
-      <ErrorPage title={"Something went wrong while data table loading..."} />
-    );
-  }
 
   const onDeleteTable = async (table_id) => {
     const candidate = await removeTable(table_id);

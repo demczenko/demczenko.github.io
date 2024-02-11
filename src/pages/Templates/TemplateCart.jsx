@@ -2,28 +2,20 @@ import React, { useMemo, useState } from "react";
 import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
-import { CreateForm } from "@/components/CreateForm";
 
 const TemplateCart = ({
   isTemplatePage,
   isProjectPage,
-  onRename,
   onArchive,
   onDelete,
   item,
 }) => {
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
-  const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   const options = useMemo(() => {
     if (item.isarchived) {
       return [
-        {
-          id: 1,
-          name: "Rename",
-          onClick: () => setRenameModalOpen(true),
-        },
         {
           id: 3,
           name: "Select",
@@ -42,11 +34,6 @@ const TemplateCart = ({
       ];
     } else {
       return [
-        {
-          id: 1,
-          name: "Rename",
-          onClick: () => setRenameModalOpen(true),
-        },
         {
           id: 3,
           name: "Select",
@@ -86,24 +73,6 @@ const TemplateCart = ({
             template_id={item.id}
           />
         }
-      />
-      <CreateForm
-        title={"Rename template"}
-        description={"Enter new template name."}
-        isOpen={isRenameModalOpen}
-        setIsOpen={setRenameModalOpen}
-        fields={[
-          {
-            id: 1,
-            name: "template_name",
-            label: "Template Name",
-            placeholder: "name",
-          },
-        ]}
-        onSubmit={(name) => {
-          onRename(item, name);
-          setRenameModalOpen(false);
-        }}
       />
     </div>
   );

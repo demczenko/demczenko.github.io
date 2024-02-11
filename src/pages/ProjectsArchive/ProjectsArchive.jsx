@@ -8,7 +8,7 @@ import { useDataTables } from "@/hooks/useDataTables";
 
 const ProjectsArchive = () => {
   const { toast } = useToast();
-  const { data, isError, isLoading, update } = useProjects();
+  const { data, isError, isLoading, update, remove } = useProjects();
   const {
     data: tablesData,
     isError: IsDataTableError,
@@ -39,6 +39,8 @@ const ProjectsArchive = () => {
     const projectsStylesFiltered = projectsStyles.filter(
       (table) => table.project_id === id
     );
+
+    console.log(isTablesExists);
     if (isTablesExists.length > 0) {
       toast({
         variant: "destructive",
@@ -63,7 +65,7 @@ const ProjectsArchive = () => {
         toast({
           variant: "destructive",
           title: "Failed to delete project",
-          description: "Something went wrong",
+          description: "Firstly delete all project styles",
         });
       }
     }
@@ -73,8 +75,11 @@ const ProjectsArchive = () => {
     <PageContainer
       isLoading={isLoading}
       isError={isError}
-      title={"Arhived projects"}>
+      title={"Arhived projects"}
+    >
       <RenderList
+        handleArchived={handleArchived}
+        onDelete={handleDelete}
         list={projects}
         component={ProjectCart}
         isProjectPage={true}

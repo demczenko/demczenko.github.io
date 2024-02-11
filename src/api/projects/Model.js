@@ -6,8 +6,8 @@ export class ProjectModel {
     this.#path = path
   }
 
-  async get() {
-    return await this.#api.get(this.#path)
+  async get(id) {
+    return await this.#api.get(this.#path, id)
   }
 
   async set(data) {

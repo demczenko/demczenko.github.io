@@ -1,27 +1,27 @@
 import { TemplatesService } from "@/api/templates/init";
 import { useState, useEffect } from "react";
 
-export const useTemplates = () => {
+export const useTemplates = (params) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function getTemplateList() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const response = await TemplatesService.get();
-        setData(response);
-      } catch (error) {
-        setIsError(true);
-        console.warn(error.message);
-      } finally {
-        setIsLoading(false);
-      }
+  const get = async (params) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      const response = await TemplatesService.get(params);
+      setData(response);
+    } catch (error) {
+      setIsError(true);
+      console.warn(error.message);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    getTemplateList();
+  useEffect(() => {
+    get(params);
   }, []);
 
   const update = async (new_template) => {
@@ -38,7 +38,7 @@ export const useTemplates = () => {
           return item;
         });
       });
-      return response
+      return response;
     } catch (error) {
       console.error(error);
       return false;

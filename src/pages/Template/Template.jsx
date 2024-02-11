@@ -14,20 +14,25 @@ import { useProjects } from "@/hooks/useProjects";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
 import TableCart from "../Tables/TableCart";
+import NotFound from "@/NotFound";
 
 const Template = () => {
-  const [name, setName] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const { id } = useParams();
+  const { toast } = useToast();
+
+  const [name, setName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
-    data: templates,
+    data: template,
     isError,
     isLoading: isLoadingTemplates,
     update: updateTemplate,
     set: setTemplate,
     remove,
-  } = useTemplates();
+  } = useTemplates(id);
 
   const {
     data: dataTables,
@@ -51,13 +56,13 @@ const Template = () => {
     data: projects,
     isError: isErrorProjects,
     isLoading: isLoadingProjects,
-  } = useProjects();
+    get: getProjects
+  } = useProjects(`?template_id=${id}&isarchived=0`);
 
-  const [error, setError] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { toast } = useToast();
+  if (template.length === 0) {
+    return <NotFound action={{to: "/templates", title: "Go to templates"}} title={`Template you are trying to access not found.`} />
+  }
 
-  const template = templates.find((template) => template.id === id);
   const tables = dataTables.filter(
     (table) => table.template_id === template?.id
   );
@@ -88,7 +93,6 @@ const Template = () => {
 
   const onSubmit = (data) => {
     setIsModalOpen(false);
-    setError("");
 
     const new_table = {
       id: uuidv4(),

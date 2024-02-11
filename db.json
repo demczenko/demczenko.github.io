@@ -15305,16 +15305,6 @@
       "node_id": "6aee8629-431b-4474-8ede-534b45e53c51"
     },
     {
-      "id": "427bc92f-e6aa-4a82-bb81-fd4dbaca871b",
-      "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
-      "style": {
-        "color": "",
-        "backgroundColor": "#Ffccb7",
-        "name": "Offer section"
-      },
-      "node_id": "77a674e9-c5d3-442b-a77b-e4001db60907"
-    },
-    {
       "id": "c1fb6bb0-e107-4df2-9ced-b50bfe2f654b",
       "project_id": "d67cecc6-c5c4-4388-a8e6-94d22d3cb1fe",
       "style": {
@@ -15468,16 +15458,6 @@
       "node_id": "28d1e7b4-1fda-4054-8496-9c97bd044794"
     },
     {
-      "id": "427bc92f-e6aa-4a82-bb81-fd4dbaca871b",
-      "project_id": "36711a06-502c-476a-8dde-a78baca458ac",
-      "style": {
-        "color": "#FFFFFFF",
-        "backgroundColor": "#FF0000",
-        "name": "Intro section"
-      },
-      "node_id": "49bb0148-7190-4982-8d59-5cf3ea211aff"
-    },
-    {
       "id": "d225e9e8-34ba-4a03-b527-1e12013e6304",
       "project_id": "36711a06-502c-476a-8dde-a78baca458ac",
       "style": {
@@ -15506,6 +15486,16 @@
         "name": "Freebie 1"
       },
       "node_id": "f5fd37bd-f9c0-465e-90f3-a63e31507cb8"
+    },
+    {
+      "id": "427bc92f-e6aa-4a82-bb81-fd4dbaca871b",
+      "project_id": "eae6e84b-4731-4270-a8e8-96f844079309",
+      "style": {
+        "color": "",
+        "backgroundColor": "#ff0000",
+        "name": "Intro section"
+      },
+      "node_id": "fbe77ec8-d9ba-42c9-b5f1-2b973348d233"
     }
   ]
 }

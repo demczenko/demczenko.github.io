@@ -26,7 +26,7 @@ export function CreateForm({
   fields,
 }) {
   const defaultValues = fields.reduce((acc, item) => {
-    acc[item.name.toLowerCase()] = "";
+    acc[item.name] = "";
     return acc;
   }, {});
 
@@ -88,7 +88,7 @@ export function CreateForm({
             ))}
 
             <Button type="submit" size="sm" className="w-full">
-              Create
+              Done
             </Button>
           </form>
         </Form>

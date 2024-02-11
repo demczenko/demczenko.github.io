@@ -58,7 +58,7 @@ export const routes = createBrowserRouter(
           errorElement: <ErrorPage />,
         },
         {
-          path: "table/:id",
+          path: "tables/:id",
           element: <Table />,
           errorElement: <ErrorPage />,
         },

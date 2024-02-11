@@ -5,7 +5,7 @@ const CartHeader = ({ onClick, table_id, table_name }) => {
   return (
     <>
       {table_id ? (
-        <Link to={`/table/${table_id}`}>
+        <Link to={`/tables/${table_id}`}>
           <h3 className="capitalize p-2 rounded bg-slate-200 hover:bg-slate-50 hover:text-blue-600 transition-colors cursor-pointer text-sm font-medium flex justify-between items-center">
             {table_name}
             <div className="overflow-hidden flex">

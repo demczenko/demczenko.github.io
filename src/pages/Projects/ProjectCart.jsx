@@ -28,7 +28,7 @@ const ProjectCart = ({
         {
           id: 4,
           name: "Delete",
-          onClick: () => onDelete(),
+          onClick: () => onDelete(item.id),
         },
       ];
     } else {

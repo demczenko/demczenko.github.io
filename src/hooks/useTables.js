@@ -1,27 +1,27 @@
 import { TableService } from "@/api/tables/init";
 import { useState, useEffect } from "react";
 
-export const useTables = () => {
+export const useTables = (params) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function getTableList() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const response = await TableService.get();
-        setData(response);
-      } catch (error) {
-        setIsError(true);
-        console.warn(error.message);
-      } finally {
-        setIsLoading(false);
-      }
+  const get = async (params) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      const response = await TableService.get(params);
+      setData(response);
+    } catch (error) {
+      setIsError(true);
+      console.warn(error.message);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    getTableList();
+  useEffect(() => {
+    get(params);
   }, []);
 
   const update = async (new_table) => {
@@ -38,7 +38,7 @@ export const useTables = () => {
           return item;
         });
       });
-      return response
+      return response;
     } catch (error) {
       console.error(error);
       return false;

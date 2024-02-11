@@ -8,4 +8,4 @@ const APIS = {
   db: () => new ApiDB("http://localhost:7777/"),
 };
 
-export const API = APIS.db();
+export const API = APIS.local_json();

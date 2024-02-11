@@ -14,7 +14,7 @@ export class ApiLocalStorage {
         this.#stringify(() => [...response, data])
       );
 
-      res(data);
+      res([data]);
     });
   }
 
@@ -53,7 +53,7 @@ export class ApiLocalStorage {
         this.#stringify(() => prev)
       );
 
-      res(data);
+      res([data]);
     });
   }
 

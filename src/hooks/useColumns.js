@@ -1,27 +1,27 @@
 import { ColumnService } from "@/api/columns/init";
 import { useState, useEffect } from "react";
 
-export const useColumns = () => {
+export const useColumns = (params) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function getProjectList() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const response = await ColumnService.get();
-        setData(response);
-      } catch (error) {
-        setIsError(true);
-        console.warn(error.message);
-      } finally {
-        setIsLoading(false);
-      }
+  const get = async (params) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      const response = await ColumnService.get(params);
+      setData(response);
+    } catch (error) {
+      setIsError(true);
+      console.warn(error.message);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    getProjectList();
+  useEffect(() => {
+    get(params);
   }, []);
 
   const update = async (new_project) => {
@@ -60,7 +60,7 @@ export const useColumns = () => {
     try {
       await ColumnService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
-      return true
+      return true;
     } catch (error) {
       console.error(error);
       return false;

@@ -4,8 +4,8 @@ export class ProjectController {
     this.#model = model;
   }
 
-  async get() {
-    return await this.#model.get();
+  async get(id) {
+    return await this.#model.get(id);
   }
 
   async set(data) {

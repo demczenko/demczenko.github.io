@@ -4,8 +4,8 @@ export class TemplateController {
     this.#model = model;
   }
 
-  get() {
-    return this.#model.get();
+  get(id) {
+    return this.#model.get(id);
   }
 
   set(data) {

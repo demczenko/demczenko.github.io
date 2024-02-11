@@ -24,10 +24,10 @@ const HandleNewItem = ({ onSubmit, fields }) => {
     for (const key in formData) {
       const value = formData[key];
 
-      if (value.trim().length < 3) {
+      if (value.trim().length < 2) {
         form.setError(key, {
           type: "required",
-          message: "Length must be at least 3 symbol",
+          message: "Length must be at least 2 symbol",
         });
         return;
       }
@@ -39,7 +39,7 @@ const HandleNewItem = ({ onSubmit, fields }) => {
   return (
     <Form {...form}>
       <form
-        className="grid xl:grid-cols-2 grid-cols-1 gap-2"
+        className="grid gap-4"
         onSubmit={form.handleSubmit((formData) =>
           validateFormInput(formData, onSubmit)
         )}>
@@ -51,9 +51,9 @@ const HandleNewItem = ({ onSubmit, fields }) => {
               name={item.header.toLowerCase()}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{item.header}</FormLabel>
+                  <FormLabel className="capitalize">{item.header}</FormLabel>
                   <FormControl>
-                    <Input placeholder={item.header} {...field} />
+                    <Input placeholder={item.header.toLowerCase()} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -61,7 +61,7 @@ const HandleNewItem = ({ onSubmit, fields }) => {
             />
           );
         })}
-        <Button type="submit" size="sm">
+        <Button type="submit" size="sm" className="w-full">
           Create
         </Button>
       </form>

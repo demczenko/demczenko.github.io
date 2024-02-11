@@ -2,31 +2,38 @@ import React, { useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import ProjectTemplatePreview from "./ProjectTemplatePreview";
-import ProjectStyleList from "./ProjectStyleList";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useProjects } from "@/hooks/useProjects";
 import { useTables } from "@/hooks/useTables";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
+import { DrawerModal } from "@/components/Drawer";
+import { useColumns } from "@/hooks/useColumns";
+import { TableCartProject } from "../Tables/TableCartProject";
+import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
-import TableCart from "../Tables/TableCart";
 import SlugCart from "./SlugCart";
+import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
+import NotFound from "@/NotFound";
+import ProjectStyleCart from "./ProjectStyleCart";
 
 const Project = () => {
   const { id } = useParams();
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedSlug, setSelectedSlug] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTable, setSelectedTable] = useState("");
   const ref = useRef();
 
   const {
-    data,
+    data: project,
     isError: IsProjectsError,
     isLoading: IsProjectsLoading,
     update: updateProject,
-  } = useProjects();
+  } = useProjects(id);
   const { data: templates, isError, isLoading, update } = useTemplates();
   const {
     data: dataTables,
@@ -50,10 +57,15 @@ const Project = () => {
     set: setProjectsStyles,
     remove: removeProjectsStyles,
   } = useProjectsStyles();
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    set: setColumn,
+    remove: removeColumn,
+  } = useColumns();
 
-  const [selectedSlug, setSelectedSlug] = useState("");
-
-  const project = data.find((project) => project.id === id);
   const template = templates.find(
     (template) => template.id === project?.template_id
   );
@@ -67,40 +79,6 @@ const Project = () => {
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project?.id
   );
-
-  const handleProjectStyle = (new_node) => {
-    let isExist = false;
-
-    for (const item of projectStyle) {
-      if (item.id === new_node.id) {
-        isExist = true;
-      }
-    }
-
-    if (isExist) {
-      updateProjectsStyles(new_node);
-    } else {
-      setProjectsStyles(new_node);
-    }
-  };
-
-  const handleStyleDelete = (id) => {
-    // TODO: Remove id from html template
-    removeProjectsStyles(id);
-  };
-
-  const handleUpdateTemplate = (body_with_data_attribute) => {
-    const old_document = new DOMParser().parseFromString(
-      template.template_html,
-      "text/html"
-    );
-    old_document.body.innerHTML = body_with_data_attribute;
-    const updated_template = {
-      ...template,
-      template_html: old_document.documentElement.outerHTML,
-    };
-    update(updated_template);
-  };
 
   const availableSlugs = useMemo(() => {
     const slugsData = {};
@@ -122,6 +100,94 @@ const Project = () => {
 
     return slugsDataArr;
   }, [slugs, tables]);
+
+  if (project.length === 0) {
+    return (
+      <NotFound
+        action={{ to: "/projects", title: "Go to projects" }}
+        title={`Project you are trying to access not found.`}
+      />
+    );
+  }
+
+  const handleProjectStyle = async (new_node) => {
+    let isExist = false;
+    let itemId;
+
+    for (const item of projectStyle) {
+      if (item.id === new_node.id) {
+        isExist = true;
+        itemId = item.id;
+      }
+    }
+
+    if (isExist) {
+      const candidate = await updateProjectsStyles({ ...new_node, id: itemId });
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project style successfully updated",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to update project style",
+          description: "Something went wrong",
+        });
+      }
+    } else {
+      const candidate = await setProjectsStyles(new_node);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project style successfully created",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to create project style",
+          description: "Something went wrong",
+        });
+      }
+    }
+  };
+
+  const handleStyleDelete = async (id) => {
+    // TODO: Remove id from html template (i cant make it because other projects can have this id)
+    removeProjectsStyles(id);
+  };
+
+  const handleStylEdit = async (item) => {
+    const candidate = await updateProjectsStyles(item);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project style successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update project style",
+        description: "Something went wrong",
+      });
+    }
+  };
+
+  const handleUpdateTemplate = (body_with_data_attribute) => {
+    const old_document = new DOMParser().parseFromString(
+      template.template_html,
+      "text/html"
+    );
+    old_document.body.innerHTML = body_with_data_attribute;
+    const updated_template = {
+      ...template,
+      template_html: old_document.documentElement.outerHTML,
+    };
+    update(updated_template);
+  };
 
   const handleChangeProjectName = async (project) => {
     if (name.trim().length > 0) {
@@ -173,7 +239,8 @@ const Project = () => {
                     setIsOpen(true);
                     setName(project?.project_name);
                   }}
-                  className="font-semibold">
+                  className="font-semibold"
+                >
                   {project?.project_name}
                 </p>
               )
@@ -194,21 +261,44 @@ const Project = () => {
             project_id={project?.id}
           />
 
-          <ProjectStyleList
+          <RenderList
+            title={"Project style"}
+            component={ProjectStyleCart}
             handleDelete={handleStyleDelete}
-            styles={projectStyle}
+            handleEdit={handleStylEdit}
+            list={projectStyle}
           />
 
           <RenderList
+            onTableSelect={(table) => {
+              setSelectedTable(table);
+              setIsModalOpen(true);
+            }}
             isLoading={isTablesLoading}
-            component={TableCart}
+            component={TableCartProject}
             list={tables}
             title={"Tables"}
-            isProject={true}
-            project_id={project?.id}
           />
         </div>
       </div>
+      <DrawerModal
+        title={`Populate ${selectedTable.table_name} table`}
+        description={"Import CSV file or fulfill data manually"}
+        open={isModalOpen}
+        onOpenChange={() => {
+          setIsModalOpen(false);
+        }}
+        content={
+          <TableFulfill
+            project_id={project?.id}
+            setIsModalOpen={setIsModalOpen}
+            table_id={selectedTable.id}
+            columns={columns.filter(
+              (column) => column.table_id === selectedTable.id
+            )}
+          />
+        }
+      />
     </PageContainer>
   );
 };

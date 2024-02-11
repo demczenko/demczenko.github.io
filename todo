@@ -2,12 +2,12 @@ copy template
 
 concatenate templates
 
-filter projects archive
-check error page after submitting
+; filter projects archive
+; check error page after submitting
 
-fix copy table
-fix name change for table
-fix populate table confirmation
+; fix copy table
+; fix name change for table
+; fix populate table confirmation
 
 подумать над добавлением переменных через UI.
 Думаю лучшим выходом будет парсинг таблиц и переменных с шаблона.
@@ -17,4 +17,4 @@ fix populate table confirmation
 
 Удалить возможность копирования шаблона руками. при копировании удалять переменные из шаблона.
 
-обработать неизвестный айдишник
+; обработать неизвестный айдишник

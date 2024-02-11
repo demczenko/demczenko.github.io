@@ -6,8 +6,8 @@ export class TemplateModel {
     this.#path = path;
   }
 
-  get() {
-    return this.#api.get(this.#path)
+  get(id) {
+    return this.#api.get(this.#path, id)
   }
 
   set(data) {
