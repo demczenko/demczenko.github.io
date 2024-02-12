@@ -116,7 +116,7 @@ const Table = () => {
         toast({
           variant: "destructive",
           title: "Failed to delete column",
-          description: "Somethnig went wrong",
+          description: "Something went wrong",
         });
       }
     }

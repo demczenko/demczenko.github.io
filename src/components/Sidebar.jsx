@@ -1,8 +1,10 @@
 import {
+  Archive,
   Columns,
   Columns2,
   Columns2Icon,
   Columns3,
+  ComponentIcon,
   FolderOpen,
   Home,
   Table,
@@ -12,13 +14,26 @@ import {
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from ".";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 const navigation = [
   {
     id: 1,
     path: "/",
-    name: "Home",
-    icon: <Home className="h-4 w-4 mr-2" />,
+    name: "Dashboard",
+    icon: <DashboardIcon className="h-4 w-4 mr-2" />,
+  },
+  {
+    id: 6,
+    path: "/tables",
+    name: "Tables",
+    icon: <Table className="h-4 w-4 mr-2" />,
+  },
+  {
+    id: 7,
+    path: "/components",
+    name: "Components",
+    icon: <ComponentIcon className="h-4 w-4 mr-2" />,
   },
   {
     id: 2,
@@ -30,7 +45,7 @@ const navigation = [
         id: 1,
         path: "/templates/archive",
         name: "Archive",
-        icon: <Trash className="h-4 w-4 mr-2" />,
+        icon: <Archive className="h-3 w-3 mr-2" />,
       },
     ],
   },
@@ -44,7 +59,7 @@ const navigation = [
         id: 1,
         path: "/projects/archive",
         name: "Archive",
-        icon: <Trash className="h-4 w-4 mr-2" />,
+        icon: <Archive className="h-3 w-3 mr-2" />,
       },
     ],
   },
@@ -54,12 +69,6 @@ const navigation = [
     name: "Users",
     icon: <User2 className="h-4 w-4 mr-2" />,
   },
-  {
-    id: 6,
-    path: "/tables",
-    name: "Tables",
-    icon: <Table className="h-4 w-4 mr-2" />,
-  },
 ];
 
 const Sidebar = () => {
@@ -67,7 +76,7 @@ const Sidebar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="w-1/6 min-w-[320px] px-2 bg-[#111111]">
+    <div className="min-w-[320px] px-2 bg-[#111111]">
       <Logo />
       <p className="text-white font-semibold text-xl mb-2">Navigation</p>
       <ol className="flex flex-col gap-1">

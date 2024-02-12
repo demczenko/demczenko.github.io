@@ -13,6 +13,8 @@ import {
   TemplatesArchive,
   Users,
 } from "@/pages";
+import Component from "@/pages/Component/Component";
+import Components from "@/pages/Components/Components";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = createBrowserRouter(
@@ -70,6 +72,16 @@ export const routes = createBrowserRouter(
         {
           path: "users",
           element: <Users />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "components",
+          element: <Components />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "components/:id",
+          element: <Component />,
           errorElement: <ErrorPage />,
         },
       ],

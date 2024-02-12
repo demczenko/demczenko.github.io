@@ -87,7 +87,7 @@ const Template = () => {
       toast({
         variant: "destructive",
         title: "Failed to update template",
-        description: "Somethnig went wrong",
+        description: "Something went wrong",
       });
     }
   };

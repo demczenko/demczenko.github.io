@@ -56,7 +56,7 @@ const ProjectForm = ({ onSubmitForm, template_id }) => {
       toast({
         variant: "destructive",
         title: "Failed to create project",
-        description: "Somethnig went wrong",
+        description: "Something went wrong",
       });
     }
     onSubmitForm();

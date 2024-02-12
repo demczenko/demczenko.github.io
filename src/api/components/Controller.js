@@ -4,12 +4,20 @@ export class ComponentsController {
     this.#model = model;
   }
 
-  getComponents() {
-    return this.#model.getComponents();
+  async get(id) {
+    return await this.#model.get(id);
   }
 
-  setComponents(data) {
-    return this.#model.setComponents(data);
+  async set(data) {
+    return await this.#model.set(data);
+  }
+
+  async update(data) {
+    return await this.#model.update(data);
+  }
+
+  async delete(data) {
+    return await this.#model.delete(data);
   }
 
 }

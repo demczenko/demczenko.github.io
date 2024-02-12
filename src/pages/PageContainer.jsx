@@ -5,7 +5,7 @@ import React from "react";
 
 const PageContainer = ({ children, isError, isLoading, title, action }) => {
   return (
-    <div className="pt-4 px-6 h-full relative">
+    <div className="pt-4 px-6 w-full h-full relative">
       {title && <Heading title={title} action={action} />}
       {isLoading ? <SkeletonCard /> : children}
       {isError && (

@@ -95,7 +95,7 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
       toast({
         variant: "destructive",
         title: "Failed to create project",
-        description: "Somethnig went wrong",
+        description: "Something went wrong",
       });
     }
     onSubmitForm();

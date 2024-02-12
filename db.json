@@ -19,6 +19,14 @@
       "isLogged": false
     }
   ],
+  "components": [
+    {
+      "id": "35676d6f-dcef-4ba1-a4f7-a11c1d00fb68",
+      "createdat": 1707725434385,
+      "component_name": "Header",
+      "component_html": {}
+    }
+  ],
   "tables": [
     {
       "id": "f963f996-9a03-46fc-b96a-198f0d8a3e2e",

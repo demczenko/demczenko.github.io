@@ -1,5 +1,3 @@
-import { Copy, Trash } from "lucide-react";
-import CardActions from "../../components/CardActions";
 import {
   Card,
   CardContent,
@@ -8,15 +6,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import CardActions from "../../components/CardActions";
+import { TrashIcon } from "lucide-react";
 
-const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
+const ComponentCart = ({ item, onDelete }) => {
   return (
     <Card className="w-[350px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={item.id}>
-          <CardTitle className="text-white hover:underline">
-            {item.table_name}
-          </CardTitle>
+          <CardTitle className="text-white hover:underline">{item.component_name}</CardTitle>
         </Link>
       </CardHeader>
       <CardContent>
@@ -32,15 +30,9 @@ const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
           actions={[
             {
               id: 1,
-              name: "Duplicate",
-              icon: <Copy className="w-4 h-4 mr-2" />,
-              onClick: () => onDuplicate(item.id),
-            },
-            {
-              id: 2,
+              onClick: () => onDelete(item.id),
+              icon: <TrashIcon className="w-4 h-4 mr-2" />,
               name: "Delete",
-              icon: <Trash className="w-4 h-4 mr-2" />,
-              onClick: () => onDeleteTable(item.id),
             },
           ]}
         />
@@ -49,4 +41,4 @@ const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
   );
 };
 
-export default TableCart;
+export default ComponentCart;

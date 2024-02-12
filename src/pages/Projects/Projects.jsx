@@ -39,14 +39,14 @@ const Projects = () => {
       toast({
         variant: "destructive",
         title: "Failed to create project",
-        description: "Somethnig went wrong",
+        description: "Something went wrong",
       });
     }
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
 
   return (
-    <div className="w-full">
+    <>
       <PageContainer
         action={{
           id: 1,
@@ -90,7 +90,7 @@ const Projects = () => {
         title={"Create project"}
         description={"Enter project name, select html template."}
       />
-    </div>
+    </>
   );
 };
 

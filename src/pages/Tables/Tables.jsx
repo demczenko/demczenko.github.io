@@ -54,7 +54,7 @@ const Tables = () => {
   };
 
   return (
-    <PageContainer isLoading={isTablesLoading} isError={IsTablesError}>
+    <PageContainer title={"Tables"} isLoading={isTablesLoading} isError={IsTablesError}>
       <RenderList
         list={tables}
         onDeleteTable={onDeleteTable}

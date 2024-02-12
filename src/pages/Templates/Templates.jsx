@@ -151,7 +151,7 @@ const Templates = () => {
   };
 
   return (
-    <div className="w-full">
+    <>
       <PageContainer
         action={{
           id: 1,
@@ -161,8 +161,7 @@ const Templates = () => {
         }}
         isError={isError}
         isLoading={isLoading}
-        title="Templates"
-      >
+        title="Templates">
         <RenderList
           list={filteredTemplate}
           component={TemplateCart}
@@ -184,7 +183,7 @@ const Templates = () => {
           />
         }
       />
-    </div>
+    </>
   );
 };
 

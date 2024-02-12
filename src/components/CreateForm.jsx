@@ -38,12 +38,14 @@ export function CreateForm({
     for (const key in formData) {
       const value = formData[key];
 
-      if (value.trim().length < 3) {
-        form.setError(key, {
-          type: "required",
-          message: "Please enter a valid value",
-        });
-        return;
+      if (typeof value === "string") {
+        if (value.trim().length < 3) {
+          form.setError(key, {
+            type: "required",
+            message: "Please enter a valid value",
+          });
+          return;
+        }
       }
     }
 
@@ -78,7 +80,11 @@ export function CreateForm({
                       {item.content ? (
                         item.content(form)
                       ) : (
-                        <Input placeholder={item.placeholder} {...field} />
+                        <Input
+                          type={item.type ?? "text"}
+                          placeholder={item.placeholder}
+                          {...field}
+                        />
                       )}
                     </FormControl>
                     <FormMessage />
