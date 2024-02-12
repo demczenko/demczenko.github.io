@@ -16,6 +16,8 @@ import ProjectCart from "../Projects/ProjectCart";
 import TableCart from "../Tables/TableCart";
 import NotFound from "@/NotFound";
 import { CreateForm } from "@/components/CreateForm";
+import { useComponents } from "@/hooks/useComponents";
+import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 
 const Template = () => {
   const ref = useRef();
@@ -25,6 +27,7 @@ const Template = () => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenComponent, setIsModalOpenComponent] = useState(false);
   const [isModalOpenCreateProject, setIsModalOpenCreateProject] =
     useState(false);
 
@@ -63,6 +66,12 @@ const Template = () => {
     set: setProject,
   } = useProjects(`?template_id=${id}&isarchived=0`);
 
+  const {
+    data: componentsData,
+    set: setComponent,
+    remove: removeComponent,
+  } = useComponents();
+
   if (templates.length === 0) {
     return (
       <NotFound
@@ -79,6 +88,16 @@ const Template = () => {
   const projectsTamplate = projects.filter(
     (project) => project.template_id === template?.id
   );
+  const components = componentsData.filter((component) => {
+    if (
+      component.id === template?.header_id ||
+      component.id === template?.footer_id
+    ) {
+      return true;
+    }
+    return false;
+  });
+
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
     const new_template = {
@@ -211,6 +230,8 @@ const Template = () => {
     }
   };
 
+  const handleSelectComponent = () => {};
+
   return (
     <PageContainer isError={isError}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
@@ -250,6 +271,16 @@ const Template = () => {
           <RenderList
             action={{
               id: 1,
+              name: "Add component",
+              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              onClick: () => setIsModalOpenComponent(true),
+            }}
+            list={components}
+            title={"Components"}
+          />
+          <RenderList
+            action={{
+              id: 1,
               name: "Create project",
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpenCreateProject(true),
@@ -276,6 +307,38 @@ const Template = () => {
           />
         </div>
       </div>
+
+      <CreateForm
+        isOpen={isModalOpenComponent}
+        setIsOpen={setIsModalOpenComponent}
+        fields={[
+          {
+            id: 2,
+            name: "header_id",
+            title: "Header",
+            content: (form) => (
+              <SelectComponent
+                onSelect={(template) => form.setValue("header_id", template)}
+                value={form.getValues("header_id")}
+              />
+            ),
+          },
+          {
+            id: 3,
+            name: "footer_id",
+            title: "Footer",
+            content: (form) => (
+              <SelectComponent
+                onSelect={(template) => form.setValue("footer_id", template)}
+                value={form.getValues("footer_id")}
+              />
+            ),
+          },
+        ]}
+        onSubmit={(component) => handleSelectComponent(component)}
+        title={"Select components"}
+        description={"Select header and footer html templates."}
+      />
 
       <CreateForm
         isOpen={isModalOpenCreateProject}

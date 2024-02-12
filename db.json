@@ -717,6 +717,12 @@
       "table_name": "Product 16",
       "template_id": "24ec78e2-c98d-4a73-b9b5-bd712b4389b2",
       "createdat": 1707666140670
+    },
+    {
+      "id": "67e9dae3-b3dd-4caf-b839-b88637f82f42",
+      "table_name": "Top image title",
+      "template_id": "1562345d-7e69-4626-8b32-909d6ab80b6b",
+      "createdat": 1707733535281
     }
   ],
   "data_tables": [

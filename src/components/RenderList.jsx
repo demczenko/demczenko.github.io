@@ -2,8 +2,6 @@ import { Heading, List } from "@/components";
 import { SkeletonCard } from "./SkeletonCard";
 
 const RenderList = ({ isLoading, list, title, action, component, ...rest }) => {
-  if(list.length === 0) return
-
   const Item = component;
   return (
     <div className="w-full">

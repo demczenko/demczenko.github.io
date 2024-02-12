@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CreateForm } from "@/components/CreateForm";
+import CardActions from "@/components/CardActions";
 
 const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,15 +29,17 @@ const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
   };
 
   return (
-    <Card className="w-[350px]">
+    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
-        <CardTitle>{style.name}</CardTitle>
+        <CardTitle className="text-white hover:underline">
+          {style.name}
+        </CardTitle>
       </CardHeader>
       {style_data.map(([key, value]) => {
         if (value.length > 0 && key !== "name") {
           return (
             <CardContent key={key}>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center text-white">
                 <p className="capitalize">
                   {key === "backgroundColor"
                     ? "Background Color"
@@ -47,8 +50,7 @@ const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
                 <p className="flex gap-2 items-center">
                   <span
                     className="rounded-full w-4 h-4 inline-block"
-                    style={{ backgroundColor: value }}
-                  ></span>
+                    style={{ backgroundColor: value }}></span>
                   {value}
                 </p>
               </div>
@@ -57,24 +59,22 @@ const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
         }
       })}
       <CardFooter className="flex gap-2">
-        <Button
-          size="sm"
-          variant="ghost"
-          className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
-          onClick={() => handleDelete(item.id)}
-        >
-          <TrashIcon className="pr-2" />
-          Delete
-        </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          className="mt-2 h-fit px-2 py-1 rounded-sm text-xs text-blue-300 hover:text-blue-600 flex items-center justify-center"
-          onClick={() => setIsOpen(true)}
-        >
-          <Edit2Icon className="pr-2" />
-          Edit
-        </Button>
+        <CardActions
+          actions={[
+            {
+              id: 1,
+              name: "Delete",
+              icon: <TrashIcon className="h-4 w-4 mr-2" />,
+              onClick: () => handleDelete(item.id),
+            },
+            {
+              id: 2,
+              name: "Edit",
+              icon: <Edit2Icon className="h-4 w-4 mr-2" />,
+              onClick: () => setIsOpen(true),
+            },
+          ]}
+        />
       </CardFooter>
       <CreateForm
         fields={style_data.map(([key, value], i) => {
