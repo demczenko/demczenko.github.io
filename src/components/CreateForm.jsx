@@ -60,7 +60,7 @@ export function CreateForm({
             onSubmit={form.handleSubmit((formData) =>
               validateFormInput(formData, onSubmit)
             )}
-            className="space-y-8 h-full flex flex-col w-full">
+            className="space-y-6 h-full flex flex-col w-full">
             <DialogHeader>
               <DialogTitle>{title}</DialogTitle>
               {description && (

@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 
 const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
   return (
-    <Card className="w-[350px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
-        <Link to={item.id}>
+        <Link to={`/tables/${item.id}`}>
           <CardTitle className="text-white hover:underline">
             {item.table_name}
           </CardTitle>

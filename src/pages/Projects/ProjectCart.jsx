@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Archive, LinkIcon, MoveUpRight } from "lucide-react";
+import { Archive, LinkIcon, MoveUpRight, Trash2Icon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -84,7 +84,7 @@ const ProjectCart = ({
 
 function CartView({ project, isProjectPage, options }) {
   return (
-    <Card className="w-[350px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={project.id}>
           <CardTitle className="text-white hover:underline">

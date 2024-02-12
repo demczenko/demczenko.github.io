@@ -1,8 +1,7 @@
-import { DrawerModal } from "@/components/Drawer";
+import { useState } from "react";
 import { ArrowRightIcon, TrashIcon } from "lucide-react";
-import React, { useState } from "react";
-import RenameTemplate from "../Templates/TemplateModal/RenameTemplate";
 import { Button } from "@/components/ui/button";
+import { CreateForm } from "@/components/CreateForm";
 
 const ColumnCart = ({ item, onRename, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,18 +36,20 @@ const ColumnCart = ({ item, onRename, onDelete }) => {
           </Button>
         </div>
       </section>
-      <DrawerModal
+      <CreateForm
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        fields={[
+          {
+            id: 1,
+            name: "header",
+            title: "Column name",
+            placeholder: "name",
+          },
+        ]}
+        onSubmit={(data) => onRename(item, data)}
         title={"Manage column"}
         description={"Change column name"}
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        content={
-          <RenameTemplate
-            placeholder={item?.header}
-            label={"header"}
-            onSubmit={(data) => onRename(item, data)}
-          />
-        }
       />
     </>
   );
