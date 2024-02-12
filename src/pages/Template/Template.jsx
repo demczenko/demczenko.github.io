@@ -100,7 +100,6 @@ const Template = () => {
   });
 
   const onChangeTemplateSubmit = async ({ html }) => {
-    console.log(html);
     if (html.length < 10) return;
     const new_template = {
       ...template,
@@ -147,7 +146,7 @@ const Template = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setIsModalOpen(false);
 
     const new_table = {
@@ -157,7 +156,20 @@ const Template = () => {
       createdat: Date.now(),
     };
 
-    setTable(new_table);
+    const candidate = await setTable(new_table);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Table created successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create table",
+        description: "Something went wrong",
+      });
+    }
     toast({
       variant: "success",
       title: "Success",
@@ -165,7 +177,7 @@ const Template = () => {
     });
   };
 
-  const onDeleteTable = (table_id) => {
+  const onDeleteTable = async (table_id) => {
     const isColumns = columns.filter((column) => column.table_id === table_id);
     if (isColumns.length > 0) {
       toast({
@@ -174,16 +186,24 @@ const Template = () => {
         description: "Firstly delete all columns",
       });
     } else {
-      removeTable(table_id);
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Table successfully deleted",
-      });
+      const candidate = await removeTable(table_id);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table successfully deleted",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete table",
+          description: "Something went wrong",
+        });
+      }
     }
   };
 
-  const onDuplicate = (table_id) => {
+  const onDuplicate = async (table_id) => {
     const duplicateTable = tables.find((table) => table.id == table_id);
     const new_template_id = uuidv4();
     const new_table = {
@@ -203,7 +223,20 @@ const Template = () => {
       table_id: new_template_id,
     }));
 
-    setTable(new_table);
+    const candidate = await setTable(new_table);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Table successfully duplicated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to duplicate table",
+        description: "Something went wrong",
+      });
+    }
     change_columns_id.forEach((column) => setColumn(column));
   };
 
@@ -260,15 +293,15 @@ const Template = () => {
     if (isHeader) {
       new_template = {
         ...template,
-        header_id: null
-      }
+        header_id: null,
+      };
     }
 
     if (isFooter) {
       new_template = {
         ...template,
-        footer_id: null
-      }
+        footer_id: null,
+      };
     }
 
     const candidate = await updateTemplate(new_template);
@@ -285,7 +318,7 @@ const Template = () => {
         description: "Something went wrong",
       });
     }
-  }
+  };
 
   const header = componentsData.find((c) => c.id === template?.header_id);
   const footer = componentsData.find((c) => c.id === template?.footer_id);

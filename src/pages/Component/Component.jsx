@@ -1,13 +1,27 @@
 import { useComponents } from "@/hooks/useComponents";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { PageContainer } from "..";
 import TemplatePreview from "../../components/TemplatePreview";
 import { useToast } from "@/components/ui/use-toast";
+import RenderList from "@/components/RenderList";
+import { PlusCircle } from "lucide-react";
+import { AddTable } from "../Template/AddTable";
+import TableCart from "../Tables/TableCart";
+import { useTables } from "@/hooks/useTables";
+import { v4 as uuidv4 } from "uuid";
+import { useColumns } from "@/hooks/useColumns";
+import { DrawerModal } from "@/components/Drawer";
+import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
+import { useDataTables } from "@/hooks/useDataTables";
 
 const Component = () => {
   const { toast } = useToast();
   const { id } = useParams();
+  const [selectedTable, setSelectedTable] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenPopulate, setIsModalOpenPopulate] = useState(false);
+
   const {
     data: components,
     isError,
@@ -15,7 +29,40 @@ const Component = () => {
     set: setComponent,
     update: updateComponent,
   } = useComponents("?id=" + id);
+
+  const {
+    data: columns,
+    isError: IsColumnsError,
+    isLoading: isColumnsLoading,
+    update: updateColumn,
+    set: setColumn,
+    remove: removeColumn,
+  } = useColumns();
+
+  const {
+    data: dataTables,
+    isError: IsTablesError,
+    isLoading: isTablesLoading,
+    update: updateTables,
+    set: setTable,
+    remove: removeTable,
+  } = useTables();
+
+  const {
+    data: tablesData,
+    isError: IsDataTableError,
+    isLoading: IsDataTableLoading,
+    update: updateDataTable,
+    set: setDataTable,
+    remove,
+  } = useDataTables();
   const component = components[0];
+  const tables = dataTables.filter(
+    (table) => table.component_id === component?.id
+  );
+  const isTableHasColumns = columns.filter(
+    (column) => column.table_id === selectedTable.id
+  );
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -39,6 +86,115 @@ const Component = () => {
     }
   };
 
+  const onSubmit = async (data) => {
+    setIsModalOpen(false);
+
+    const new_table = {
+      id: uuidv4(),
+      table_name: data.table_name,
+      component_id: component.id,
+      createdat: Date.now(),
+    };
+
+    const candidate = await setTable(new_table);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Table created successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create table",
+        description: "Something went wrong",
+      });
+    }
+  };
+
+  const onDeleteTable = async (table_id) => {
+    const isColumns = columns.filter((column) => column.table_id === table_id);
+    if (isColumns.length > 0) {
+      toast({
+        variant: "destructive",
+        title: "Failed to delete table",
+        description: "Firstly delete all columns",
+      });
+    } else {
+      const candidate = await removeTable(table_id);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table successfully deleted",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete table",
+          description: "Something went wrong",
+        });
+      }
+    }
+  };
+
+  const onDuplicate = async (table_id) => {
+    const duplicateTable = tables.find((table) => table.id == table_id);
+    const new_template_id = uuidv4();
+    const new_table = {
+      ...duplicateTable,
+      id: new_template_id,
+      table_name: duplicateTable.table_name + " Copy",
+    };
+
+    // Get columns for selected id
+    const new_columns = columns.filter(
+      (column) => column.table_id === table_id
+    );
+    // Change columns id
+    const change_columns_id = new_columns.map((col) => ({
+      ...col,
+      id: uuidv4(),
+      table_id: new_template_id,
+    }));
+
+    const candidate = await setTable(new_table);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Table successfully duplicated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to duplicate table",
+        description: "Something went wrong",
+      });
+    }
+    change_columns_id.forEach((column) => setColumn(column));
+  };
+
+  const handleImport = async (data) => {
+    const candidate = await setDataTable({
+      ...data,
+      component_id: component.id,
+    });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Created",
+        description: "Table data has been successfully created",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create data table",
+        description: "Something went wrong",
+      });
+    }
+  };
+
   return (
     <PageContainer
       isError={isError}
@@ -49,8 +205,59 @@ const Component = () => {
           html={component?.component_html}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
-        <div className="flex gap-4 flex-col w-full items-start"></div>
+        <div className="flex gap-4 flex-col w-full items-start">
+          <RenderList
+            list={tables}
+            title={"Tables"}
+            component={TableCart}
+            onTableSelect={(table) => {
+              setSelectedTable(table);
+              if (isTableHasColumns) {
+                setIsModalOpenPopulate(true);
+              } else {
+                toast({
+                  variant: "destructive",
+                  title: "Failed to populate table",
+                  description: "Table has no columns",
+                });
+              }
+            }}
+            onDeleteTable={onDeleteTable}
+            onDuplicate={onDuplicate}
+            isProject={false}
+            action={{
+              id: 1,
+              name: "Create table",
+              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              onClick: () => setIsModalOpen(true),
+            }}
+          />
+        </div>
       </div>
+      <AddTable
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        onSubmit={onSubmit}
+      />
+      <DrawerModal
+        title={`Populate ${selectedTable.table_name} table`}
+        description={"Import CSV file or fulfill data manually"}
+        open={isModalOpenPopulate}
+        onOpenChange={() => {
+          setIsModalOpenPopulate(false);
+        }}
+        content={
+          <TableFulfill
+            onUpdate={updateDataTable}
+            onSubmit={handleImport}
+            setIsModalOpen={setIsModalOpenPopulate}
+            table_id={selectedTable.id}
+            columns={columns.filter(
+              (column) => column.table_id === selectedTable.id
+            )}
+          />
+        }
+      />
     </PageContainer>
   );
 };

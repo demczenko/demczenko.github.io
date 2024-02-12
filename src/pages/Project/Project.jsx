@@ -123,7 +123,6 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-
   if (projects.length === 0) {
     return (
       <NotFound
@@ -132,6 +131,23 @@ const Project = () => {
       />
     );
   }
+
+  const handleImport = async (data) => {
+    const candidate = await setDataTable({ ...data, project_id: project.id });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Created",
+        description: "Table data has been successfully created",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create data table",
+        description: "Something went wrong",
+      });
+    }
+  };
 
   const handleProjectStyle = async (new_node) => {
     let isExist = false;
@@ -319,7 +335,8 @@ const Project = () => {
         }}
         content={
           <TableFulfill
-            project_id={project?.id}
+            onUpdate={updateDataTable}
+            onSubmit={handleImport}
             setIsModalOpen={setIsModalOpen}
             table_id={selectedTable.id}
             columns={columns.filter(

@@ -1,4 +1,4 @@
-import { Copy, Trash } from "lucide-react";
+import { Copy, Import, Trash } from "lucide-react";
 import CardActions from "../../components/CardActions";
 import {
   Card,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
-const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
+const TableCart = ({ item, onDeleteTable, onTableSelect, onDuplicate }) => {
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
@@ -27,24 +27,32 @@ const TableCart = ({ item, onDeleteTable, onDuplicate }) => {
           </span>
         </p>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <CardActions
-          actions={[
-            {
-              id: 1,
-              name: "Duplicate",
-              icon: <Copy className="w-4 h-4 mr-2" />,
-              onClick: () => onDuplicate(item.id),
-            },
-            {
-              id: 2,
-              name: "Delete",
-              icon: <Trash className="w-4 h-4 mr-2" />,
-              onClick: () => onDeleteTable(item.id),
-            },
-          ]}
-        />
-      </CardFooter>
+      {onDeleteTable && onDuplicate && onTableSelect && (
+        <CardFooter className="flex justify-between">
+          <CardActions
+            actions={[
+              {
+                id: 1,
+                name: "Duplicate",
+                icon: <Copy className="w-4 h-4 mr-2" />,
+                onClick: () => onDuplicate(item.id),
+              },
+              {
+                id: 2,
+                name: "Delete",
+                icon: <Trash className="w-4 h-4 mr-2" />,
+                onClick: () => onDeleteTable(item.id),
+              },
+              {
+                id: 3,
+                name: "Populate",
+                icon: <Import className="w-4 h-4 mr-2" />,
+                onClick: () => onTableSelect(item),
+              },
+            ]}
+          />
+        </CardFooter>
+      )}
     </Card>
   );
 };

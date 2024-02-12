@@ -19,18 +19,24 @@ import { useToast } from "@/components/ui/use-toast";
 import { useDataTables } from "@/hooks/useDataTables";
 import { List } from "@/components";
 
-const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
+const TableFulfill = ({
+  setIsModalOpen,
+  onUpdate,
+  onSubmit,
+  table_id,
+  columns,
+}) => {
+  const [error, setError] = useState("");
+  const [columnsData, setData] = useState([]);
+  const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
+  const { toast } = useToast();
+
   const {
     data: tablesData,
     isError: IsDataTableError,
     isLoading: IsDataTableLoading,
     update: updateDataTable,
-    set,
   } = useDataTables();
-  const [error, setError] = useState("");
-  const [columnsData, setData] = useState([]);
-  const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
-  const { toast } = useToast();
 
   const tableData = tablesData.filter((table) => table.table_id === table_id);
 
@@ -106,6 +112,14 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
     });
   };
 
+  const handleDeleteRow = (id) => {
+    setData((prev) => prev.filter((column) => column.id !== id));
+  };
+
+  const handleDeleteConflict = (name) => {
+    setSlugsAlreadyExist((prev) => prev.filter((slug) => slug.name !== name));
+  };
+
   useEffect(() => {
     for (const { id, name, isSkip, isUpdate } of slugsAlreadyExist) {
       for (const data_item of columnsData) {
@@ -119,26 +133,33 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
           }
 
           if (isUpdate) {
-            updateDataTable({
-              ...data_item,
-              id: id,
-            });
-            handleDeleteConflict(name);
-            handleDeleteRow(data_item.id);
+            update();
+            async function update() {
+              const candidate = await updateDataTable({
+                ...data_item,
+                id: id,
+              });
+              if (candidate) {
+                toast({
+                  variant: "success",
+                  title: "Created",
+                  description: "Table data has been successfully created",
+                });
+              } else {
+                toast({
+                  variant: "destructive",
+                  title: "Failed to create data table",
+                  description: "Something went wrong",
+                });
+              }
+              handleDeleteConflict(name);
+              handleDeleteRow(data_item.id);
+            }
           }
-        } else {
         }
       }
     }
   }, [slugsAlreadyExist, columnsData]);
-
-  const handleDeleteRow = (id) => {
-    setData((prev) => prev.filter((column) => column.id !== id));
-  };
-
-  const handleDeleteConflict = (name) => {
-    setSlugsAlreadyExist((prev) => prev.filter((slug) => slug.name !== name));
-  };
 
   const handlePopulateTable = () => {
     const alreadyExistsSlugs = [];
@@ -159,7 +180,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       setSlugsAlreadyExist(alreadyExistsSlugs);
     } else {
       for (const data_item of columnsData) {
-        set({ ...data_item, project_id: project_id });
+        onSubmit(data_item);
       }
       setIsModalOpen(false);
     }
@@ -176,7 +197,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       ...data,
       id: uuidv4(),
       createdat: Date.now(),
-      project_id: project_id,
       table_id: table_id,
     };
 
@@ -188,22 +208,9 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
     }
 
     if (!isExist) {
-      const candidate = await set(new_item);
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Created",
-          description: "Table data has been successfully created",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to create data table",
-          description: "Something went wrong",
-        });
-      }
+      onSubmit(new_item);
     } else {
-      const candidate = await updateDataTable({ ...new_item, id: itemId });
+      const candidate = await onUpdate({ ...new_item, id: itemId });
       if (candidate) {
         toast({
           variant: "success",
@@ -248,8 +255,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
       columns.push(
         <TableCell
           key={i + value}
-          className={"p-2 text-nowrap truncate w-[200px] inline-block"}
-        >
+          className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
           <ContextMenuRow
             actions={[
               {
@@ -257,8 +263,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
                 name: "Remove",
                 onClick: () => handleRemoveRow(colData),
               },
-            ]}
-          >
+            ]}>
             {value}
           </ContextMenuRow>
         </TableCell>
@@ -307,8 +312,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, columns, project_id }) => {
               {columns.map((column) => (
                 <TableHead
                   className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
-                  key={column.id}
-                >
+                  key={column.id}>
                   {column.header}
                 </TableHead>
               ))}
