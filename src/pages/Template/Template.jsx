@@ -208,7 +208,7 @@ const Template = () => {
               )
             }
             paragraph={
-              template?.createdat && <p>created at: {new Date(template.createdat).toDateString()}</p>
+              template?.createdat && <>created at: {new Date(template.createdat).toDateString()}</>
             }
           />
           <RenderList

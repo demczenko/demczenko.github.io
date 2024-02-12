@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from ".";
 import { DashboardIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 
 const navigation = [
   {
@@ -88,15 +89,18 @@ const Sidebar = () => {
   );
 };
 
-const NavItem = ({ path, name, isActive, icon, children }) => {
+const NavItem = ({ path, name, isActive, icon, children, isChildren }) => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <li
-        className={`px-2 py-1 hover:text-white transition-colors rounded-md flex items-center ${
-          isActive
-            ? "text-white font-semibold bg-[#252525]"
-            : "text-neutral-400"
-        }`}>
+        className={cn(
+          "px-2 py-1 hover:text-white transition-colors rounded-md flex items-center text-neutral-400",
+          {
+            "text-white font-semibold bg-[#252525]": isActive,
+          }
+        )}>
         {icon && icon}
         <Link className="grow" to={path}>
           {name}
@@ -105,7 +109,11 @@ const NavItem = ({ path, name, isActive, icon, children }) => {
       {children && (
         <ol style={{ paddingLeft: "1rem" }}>
           {children.map((item) => (
-            <NavItem key={item.id} {...item} />
+            <NavItem
+              isActive={pathname === item.path}
+              key={item.id}
+              {...item}
+            />
           ))}
         </ol>
       )}
