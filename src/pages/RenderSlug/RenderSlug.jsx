@@ -17,10 +17,14 @@ import { useTables } from "@/hooks/useTables";
 import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { useComponents } from "@/hooks/useComponents";
 
 const RenderSlug = () => {
+  const { toast } = useToast();
   const navigator = useNavigate();
   const { id, slug } = useParams();
+  const [hydratedTemplate, setHydratedTemplate] = useState("");
+  const [selectedSlug, setSelectedSlug] = useState("");
 
   const { data: projects, isError, isLoading, update } = useProjects();
   const {
@@ -51,11 +55,11 @@ const RenderSlug = () => {
     set: setProjectsStyles,
     remove: removeProjectsStyles,
   } = useProjectsStyles();
-
-  const [hydratedTemplate, setHydratedTemplate] = useState("");
-  const [selectedSlug, setSelectedSlug] = useState("");
-
-  const { toast } = useToast();
+  const {
+    data: componentsData,
+    set: setComponent,
+    remove: removeComponent,
+  } = useComponents();
 
   const project = projects.find((project) => project.id === id);
   const template = templates.find((t) => t.id === project.template_id);
@@ -63,6 +67,18 @@ const RenderSlug = () => {
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project.id
   );
+  const components = componentsData.filter((component) => {
+    if (
+      component.id === template?.header_id ||
+      component.id === template?.footer_id
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  const header = componentsData.find((c) => c.id === template?.header_id);
+  const footer = componentsData.find((c) => c.id === template?.footer_id);
   // Get all tables
   // Get table by name
   // Get table id
@@ -216,7 +232,10 @@ const RenderSlug = () => {
 
   useEffect(() => {
     if (template && tablesData && projectStyle) {
-      hydrateTemplate(tablesData, template.template_html);
+      hydrateTemplate(
+        tablesData,
+        (header?.component_html ?? "") + template.template_html + (footer?.component_html ?? "")
+      );
     }
   }, [tablesData, template, projectStyle]);
 

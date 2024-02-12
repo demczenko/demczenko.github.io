@@ -17,6 +17,8 @@ import SlugCart from "./SlugCart";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import NotFound from "@/NotFound";
 import ProjectStyleCart from "./ProjectStyleCart";
+import { useComponents } from "@/hooks/useComponents";
+import ComponentCart from "../Components/ComponentCart";
 
 const Project = () => {
   const { id } = useParams();
@@ -65,6 +67,11 @@ const Project = () => {
     set: setColumn,
     remove: removeColumn,
   } = useColumns();
+  const {
+    data: componentsData,
+    set: setComponent,
+    remove: removeComponent,
+  } = useComponents();
 
   const project = projects.find((p) => p.id === id);
 
@@ -77,10 +84,23 @@ const Project = () => {
   const project_tables = tablesData.filter(
     (table) => table.project_id === project?.id
   );
+
   const slugs = project_tables.map((item) => item.slug);
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project?.id
   );
+  const components = componentsData.filter((component) => {
+    if (
+      component.id === template?.header_id ||
+      component.id === template?.footer_id
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  const header = componentsData.find((c) => c.id === template?.header_id);
+  const footer = componentsData.find((c) => c.id === template?.footer_id);
 
   const availableSlugs = useMemo(() => {
     const slugsData = {};
@@ -102,6 +122,7 @@ const Project = () => {
 
     return slugsDataArr;
   }, [slugs, tables]);
+
 
   if (projects.length === 0) {
     return (
@@ -222,7 +243,9 @@ const Project = () => {
           handleUpdateTemplate={handleUpdateTemplate}
           setStyle={handleProjectStyle}
           project_id={project?.id}
-          template_html={template?.template_html}
+          header={header?.component_html ?? ""}
+          html={template?.template_html ?? ""}
+          footer={footer?.component_html ?? ""}
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <Heading
@@ -241,8 +264,7 @@ const Project = () => {
                     setIsOpen(true);
                     setName(project?.project_name);
                   }}
-                  className="font-semibold"
-                >
+                  className="font-semibold">
                   {project?.project_name}
                 </p>
               )
@@ -252,6 +274,11 @@ const Project = () => {
                 {template?.template_name}
               </Link>
             }
+          />
+          <RenderList
+            component={ComponentCart}
+            list={components}
+            title={"Components"}
           />
           <RenderList
             selectedSlug={selectedSlug}

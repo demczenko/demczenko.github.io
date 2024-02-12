@@ -26,6 +26,7 @@ export function SelectComponent({ title, value, onSelect }) {
         <div>
           <Label>{title}</Label>
           <Button
+            type="button"
             variant="outline"
             role="combobox"
             className={cn(

@@ -6,7 +6,9 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 const ProjectTemplatePreview = ({
   setStyle,
   project_id,
-  template_html,
+  footer,
+  header,
+  html,
   handleUpdateTemplate,
   projectStyle,
   isLoading,
@@ -64,7 +66,7 @@ const ProjectTemplatePreview = ({
 
   useEffect(() => {
     const document = new DOMParser().parseFromString(
-      template_html,
+      header + html + footer,
       "text/html"
     );
 
@@ -81,7 +83,7 @@ const ProjectTemplatePreview = ({
     }
 
     setHydratedTemplate(document.documentElement.outerHTML);
-  }, [projectStyle, template_html]);
+  }, [projectStyle, html]);
 
   const clear_body_from_style = (body, style) => {
     const nodes_to_clear = body.querySelectorAll("[data-style-id]");

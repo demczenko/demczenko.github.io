@@ -18,6 +18,7 @@ import NotFound from "@/NotFound";
 import { CreateForm } from "@/components/CreateForm";
 import { useComponents } from "@/hooks/useComponents";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
+import ComponentCart from "../Components/ComponentCart";
 
 const Template = () => {
   const ref = useRef();
@@ -99,12 +100,13 @@ const Template = () => {
   });
 
   const onChangeTemplateSubmit = async ({ html }) => {
+    console.log(html);
     if (html.length < 10) return;
     const new_template = {
       ...template,
       template_html: html,
     };
-    const candidate = await update(new_template);
+    const candidate = await updateTemplate(new_template);
     if (candidate) {
       toast({
         variant: "success",
@@ -230,16 +232,72 @@ const Template = () => {
     }
   };
 
-  const handleSelectComponent = (data) => {
-    console.log(data);
+  const handleSelectComponent = async (data) => {
+    const candidate = await updateTemplate({
+      ...template,
+      ...data,
+    });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Html template successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update template",
+        description: "Something went wrong",
+      });
+    }
   };
+
+  const removeComponentFromTemplate = async (id) => {
+    const isHeader = template.header_id === id;
+    const isFooter = template.footer_id === id;
+
+    let new_template;
+    if (isHeader) {
+      new_template = {
+        ...template,
+        header_id: null
+      }
+    }
+
+    if (isFooter) {
+      new_template = {
+        ...template,
+        footer_id: null
+      }
+    }
+
+    const candidate = await updateTemplate(new_template);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "HTML template name successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update template",
+        description: "Something went wrong",
+      });
+    }
+  }
+
+  const header = componentsData.find((c) => c.id === template?.header_id);
+  const footer = componentsData.find((c) => c.id === template?.footer_id);
 
   return (
     <PageContainer isError={isError}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           isLoading={isLoadingTemplates}
-          html={template?.template_html}
+          header={header?.component_html ?? ""}
+          html={template?.template_html ?? ""}
+          footer={footer?.component_html ?? ""}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
         <div className="flex gap-4 flex-col w-full items-start">
@@ -277,6 +335,8 @@ const Template = () => {
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpenComponent(true),
             }}
+            component={ComponentCart}
+            onDelete={removeComponentFromTemplate}
             list={components}
             title={"Components"}
           />
@@ -320,7 +380,7 @@ const Template = () => {
             title: "Header",
             content: (form) => (
               <SelectComponent
-              title={"Header"}
+                title={"Header"}
                 onSelect={(template) => form.setValue("header_id", template)}
                 value={form.getValues("header_id")}
               />
@@ -332,7 +392,7 @@ const Template = () => {
             title: "Footer",
             content: (form) => (
               <SelectComponent
-              title={"Footer"}
+                title={"Footer"}
                 onSelect={(template) => form.setValue("footer_id", template)}
                 value={form.getValues("footer_id")}
               />

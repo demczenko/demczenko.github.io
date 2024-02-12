@@ -13,8 +13,10 @@ const ComponentCart = ({ item, onDelete }) => {
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
-        <Link to={item.id}>
-          <CardTitle className="text-white hover:underline">{item.component_name}</CardTitle>
+        <Link to={`/components/${item.id}`}>
+          <CardTitle className="text-white hover:underline">
+            {item.component_name}
+          </CardTitle>
         </Link>
       </CardHeader>
       <CardContent>
@@ -25,18 +27,20 @@ const ComponentCart = ({ item, onDelete }) => {
           </span>
         </p>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <CardActions
-          actions={[
-            {
-              id: 1,
-              onClick: () => onDelete(item.id),
-              icon: <TrashIcon className="w-4 h-4 mr-2" />,
-              name: "Delete",
-            },
-          ]}
-        />
-      </CardFooter>
+      {onDelete && (
+        <CardFooter className="flex justify-between">
+          <CardActions
+            actions={[
+              {
+                id: 1,
+                onClick: () => onDelete(item.id),
+                icon: <TrashIcon className="w-4 h-4 mr-2" />,
+                name: "Delete",
+              },
+            ]}
+          />
+        </CardFooter>
+      )}
     </Card>
   );
 };

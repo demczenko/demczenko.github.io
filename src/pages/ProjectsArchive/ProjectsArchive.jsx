@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
 import { useDataTables } from "@/hooks/useDataTables";
+import { useComponents } from "@/hooks/useComponents";
 
 const ProjectsArchive = () => {
   const { toast } = useToast();
@@ -25,6 +26,7 @@ const ProjectsArchive = () => {
     set: setProjectsStyles,
     remove: removeProjectsStyles,
   } = useProjectsStyles();
+
 
   const projects = data.filter((project) => project.isarchived === true);
 

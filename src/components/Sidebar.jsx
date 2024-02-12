@@ -19,6 +19,12 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   {
+    id: 7,
+    path: "/components",
+    name: "Components",
+    icon: <ComponentIcon className="h-4 w-4 mr-2" />,
+  },
+  {
     id: 1,
     path: "/",
     name: "Dashboard",
@@ -29,12 +35,6 @@ const navigation = [
     path: "/tables",
     name: "Tables",
     icon: <Table className="h-4 w-4 mr-2" />,
-  },
-  {
-    id: 7,
-    path: "/components",
-    name: "Components",
-    icon: <ComponentIcon className="h-4 w-4 mr-2" />,
   },
   {
     id: 2,
