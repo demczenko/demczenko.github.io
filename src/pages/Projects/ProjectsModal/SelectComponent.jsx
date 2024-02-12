@@ -15,26 +15,30 @@ import {
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useComponents } from "@/hooks/useComponents";
+import { Label } from "@/components/ui/label";
 
-export function SelectComponent({ value, onSelect }) {
+export function SelectComponent({ title, value, onSelect }) {
   const { data: components } = useComponents();
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          className={cn(
-            "w-full justify-between",
-            !value && "text-muted-foreground"
-          )}>
-          {value
-            ? components.find((component) => component.id === value)
-                ?.component_name
-            : "Select template"}
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
+        <div>
+          <Label>{title}</Label>
+          <Button
+            variant="outline"
+            role="combobox"
+            className={cn(
+              "w-full justify-between",
+              !value && "text-muted-foreground"
+            )}>
+            {value
+              ? components.find((component) => component.id === value)
+                  ?.component_name
+              : "Select template"}
+            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </div>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0">
         <Command>

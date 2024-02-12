@@ -230,7 +230,9 @@ const Template = () => {
     }
   };
 
-  const handleSelectComponent = () => {};
+  const handleSelectComponent = (data) => {
+    console.log(data);
+  };
 
   return (
     <PageContainer isError={isError}>
@@ -318,6 +320,7 @@ const Template = () => {
             title: "Header",
             content: (form) => (
               <SelectComponent
+              title={"Header"}
                 onSelect={(template) => form.setValue("header_id", template)}
                 value={form.getValues("header_id")}
               />
@@ -329,6 +332,7 @@ const Template = () => {
             title: "Footer",
             content: (form) => (
               <SelectComponent
+              title={"Footer"}
                 onSelect={(template) => form.setValue("footer_id", template)}
                 value={form.getValues("footer_id")}
               />
