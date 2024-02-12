@@ -60,9 +60,6 @@ const Component = () => {
   const tables = dataTables.filter(
     (table) => table.component_id === component?.id
   );
-  const isTableHasColumns = columns.filter(
-    (column) => column.table_id === selectedTable.id
-  );
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -212,15 +209,7 @@ const Component = () => {
             component={TableCart}
             onTableSelect={(table) => {
               setSelectedTable(table);
-              if (isTableHasColumns) {
-                setIsModalOpenPopulate(true);
-              } else {
-                toast({
-                  variant: "destructive",
-                  title: "Failed to populate table",
-                  description: "Table has no columns",
-                });
-              }
+              setIsModalOpenPopulate(true);
             }}
             onDeleteTable={onDeleteTable}
             onDuplicate={onDuplicate}

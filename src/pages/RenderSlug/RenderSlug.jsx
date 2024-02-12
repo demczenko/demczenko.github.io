@@ -63,22 +63,38 @@ const RenderSlug = () => {
 
   const project = projects.find((project) => project.id === id);
   const template = templates.find((t) => t.id === project.template_id);
-  const tables = dataTbs.filter((t) => t.template_id === project.template_id);
-  const projectStyle = projectsStyles.filter(
-    (table) => table.project_id === project.id
-  );
-  const components = componentsData.filter((component) => {
-    if (
-      component.id === template?.header_id ||
-      component.id === template?.footer_id
-    ) {
+  const header = componentsData.find((c) => c.id === template?.header_id);
+  const footer = componentsData.find((c) => c.id === template?.footer_id);
+
+  let tables = dataTbs.filter((t) => {
+    if (t.component_id === footer?.id || t.component_id === header?.id)
       return true;
-    }
+
     return false;
   });
 
-  const header = componentsData.find((c) => c.id === template?.header_id);
-  const footer = componentsData.find((c) => c.id === template?.footer_id);
+  const projectStyle = projectsStyles.filter(
+    (table) => table.project_id === project.id
+  );
+
+  const project_tables = tableData.filter(
+    (table) => table.project_id === project.id
+  );
+  const slugs = project_tables.map((item) => item.slug);
+  const components_tables = tableData.filter((table) => {
+    if (table.component_id === footer?.id || table.component_id === header?.id)
+      return true;
+
+    return false;
+  });
+
+  let tablesData = project_tables.filter(
+    (data) => data.slug.toLowerCase() === slug.toLowerCase()
+  );
+  tablesData.push(...components_tables.filter(
+    (data) => data.slug.toLowerCase() === slug.toLowerCase()
+  ));
+
   // Get all tables
   // Get table by name
   // Get table id
@@ -123,6 +139,7 @@ const RenderSlug = () => {
             (table) =>
               table.table_name.toLowerCase() === dataTable.toLowerCase()
           );
+
           if (table) {
             if (table.id === data.table_id) {
               node.src = data[srcKey];
@@ -189,16 +206,6 @@ const RenderSlug = () => {
     setHydratedTemplate(document.documentElement.outerHTML);
   }
 
-  const project_tables = tableData.filter(
-    (table) => table.project_id === project.id
-  );
-
-  const slugs = project_tables.map((item) => item.slug);
-
-  const tablesData = project_tables.filter(
-    (data) => data.slug.toLowerCase() === slug.toLowerCase()
-  );
-
   const availableSlugs = useMemo(() => {
     const slugsData = {};
     for (const Slug of slugs) {
@@ -220,6 +227,9 @@ const RenderSlug = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
+  // AFTER available slugs because tables.length will be different from heade rand footer component
+  tables.push(...dataTbs.filter((t) => t.template_id === project.template_id));
+
   const handleCopy = () => {
     window.navigator.clipboard.writeText(hydratedTemplate);
 
@@ -234,7 +244,9 @@ const RenderSlug = () => {
     if (template && tablesData && projectStyle) {
       hydrateTemplate(
         tablesData,
-        (header?.component_html ?? "") + template.template_html + (footer?.component_html ?? "")
+        (header?.component_html ?? "") +
+          template.template_html +
+          (footer?.component_html ?? "")
       );
     }
   }, [tablesData, template, projectStyle]);
