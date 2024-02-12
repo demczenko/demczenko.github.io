@@ -15,6 +15,7 @@ import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
 import TableCart from "../Tables/TableCart";
 import NotFound from "@/NotFound";
+import { CreateForm } from "@/components/CreateForm";
 
 const Template = () => {
   const ref = useRef();
@@ -24,6 +25,8 @@ const Template = () => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenCreateProject, setIsModalOpenCreateProject] =
+    useState(false);
 
   const {
     data: templates,
@@ -56,14 +59,20 @@ const Template = () => {
     data: projects,
     isError: isErrorProjects,
     isLoading: isLoadingProjects,
-    get: getProjects
+    get: getProjects,
+    set: setProject,
   } = useProjects(`?template_id=${id}&isarchived=0`);
 
   if (templates.length === 0) {
-    return <NotFound action={{to: "/templates", title: "Go to templates"}} title={`Template you are trying to access not found.`} />
+    return (
+      <NotFound
+        action={{ to: "/templates", title: "Go to templates" }}
+        title={`Template you are trying to access not found.`}
+      />
+    );
   }
 
-  const template = templates.find(t => t.id === id)
+  const template = templates.find((t) => t.id === id);
   const tables = dataTables.filter(
     (table) => table.template_id === template?.id
   );
@@ -87,6 +96,31 @@ const Template = () => {
       toast({
         variant: "destructive",
         title: "Failed to update template",
+        description: "Something went wrong",
+      });
+    }
+  };
+
+  const createProject = async (data) => {
+    const new_project = {
+      project_name: data.project_name,
+      id: uuidv4(),
+      template_id: template.id,
+      isarchived: false,
+      createdat: Date.now(),
+    };
+
+    const candidate = await setProject(new_project);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project added successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create project",
         description: "Something went wrong",
       });
     }
@@ -208,10 +242,18 @@ const Template = () => {
               )
             }
             paragraph={
-              template?.createdat && <>created at: {new Date(template.createdat).toDateString()}</>
+              template?.createdat && (
+                <>created at: {new Date(template.createdat).toDateString()}</>
+              )
             }
           />
           <RenderList
+            action={{
+              id: 1,
+              name: "Create project",
+              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              onClick: () => setIsModalOpenCreateProject(true),
+            }}
             list={projectsTamplate}
             title={"Projects"}
             view={"list"}
@@ -227,13 +269,29 @@ const Template = () => {
             isProject={false}
             action={{
               id: 1,
-              name: "Add table",
+              name: "Create table",
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpen(true),
             }}
           />
         </div>
       </div>
+
+      <CreateForm
+        isOpen={isModalOpenCreateProject}
+        setIsOpen={setIsModalOpenCreateProject}
+        fields={[
+          {
+            id: 1,
+            name: "project_name",
+            title: "Project Name",
+            placeholder: "project name",
+          },
+        ]}
+        onSubmit={createProject}
+        title={"Create project"}
+        description={"Enter project name."}
+      />
 
       <AddTable
         isOpen={isModalOpen}
