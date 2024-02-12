@@ -1,12 +1,18 @@
 import React, { useMemo, useState } from "react";
-import { CardDescription, PreviewTemplate } from "@/components";
 import { DrawerModal } from "@/components/Drawer";
 import ProjectForm from "../Projects/ProjectsModal/ProjectForm";
 import { Archive, Copy, HandIcon, Trash2Icon } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import CardActions from "@/components/CardActions";
 
 const TemplateCart = ({
-  isTemplatePage,
-  isProjectPage,
   onArchive,
   onDelete,
   onDuplicate,
@@ -57,18 +63,26 @@ const TemplateCart = ({
 
   return (
     <div>
-      <PreviewTemplate
-        href={`/templates/${item.id}`}
-        template_html={item.template_html}
-      />
-      <CardDescription
-        isProjectPage={isProjectPage}
-        isTemplatePage={isTemplatePage}
-        name={item.template_name}
-        options={options}
-        title={"Manage template"}
-        createdat={item.createdat}
-      />
+      <Card className="w-[350px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+        <CardHeader>
+          <Link to={item.id}>
+            <CardTitle className="text-white hover:underline">
+              {item.template_name}
+            </CardTitle>
+          </Link>
+        </CardHeader>
+        <CardContent>
+          <p className="text-xs">
+            <span className="text-neutral-300">created at: </span>
+            <span className="text-white font-semibold">
+              {new Date(item.createdat).toDateString()}
+            </span>
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <CardActions actions={options} />
+        </CardFooter>
+      </Card>
       <DrawerModal
         title={"Create project"}
         description={"Enter project name and fulfill tables."}

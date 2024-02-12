@@ -15,32 +15,58 @@ const Components = () => {
     isError,
     isLoading,
     set: setComponent,
+    remove: removeComponent
   } = useComponents();
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleComponentCreate = async (data) => {
-    const new_component = {
-      id: uuidv4(),
-      createdat: Date.now(),
-      ...data,
+  const handleComponentCreate = (data) => {
+    let html;
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      html = reader.result;
+      const new_component = {
+        id: uuidv4(),
+        createdat: Date.now(),
+        component_html: html,
+        component_name: data.component_name,
+      };
+      const candidate = await setComponent(new_component);
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Component added successfully",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to create component",
+          description: "Something went wrong",
+        });
+      }
+      setIsModalOpen(false);
     };
-    const candidate = await setComponent(new_component);
+    reader.readAsText(data.component_html);
+  };
+
+  const handleComponentDelete = async (id) => {
+    const candidate = await removeComponent(id);
     if (candidate) {
       toast({
         variant: "success",
         title: "Success",
-        description: "Component added successfully",
+        description: "Component successfully deleted",
       });
     } else {
       toast({
         variant: "destructive",
-        title: "Failed to create component",
+        title: "Failed to delete component",
         description: "Something went wrong",
       });
     }
-    setIsModalOpen(false);
-  };
+  }
 
   return (
     <>
@@ -54,8 +80,8 @@ const Components = () => {
           icon: <PlusCircle className="w-4 h-4 mr-2" />,
           onClick: () => setIsModalOpen(true),
         }}>
-          <RenderList list={components} component={ComponentCart} />
-        </PageContainer>
+        <RenderList onDelete={handleComponentDelete} list={components} component={ComponentCart} />
+      </PageContainer>
       <CreateForm
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}

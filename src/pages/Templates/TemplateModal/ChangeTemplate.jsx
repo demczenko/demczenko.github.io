@@ -23,7 +23,7 @@ const ChangeTemplate = ({ placeholder, onSubmit }) => {
       </div>
       <Button
         className="mt-6 w-full"
-        onClick={() => onSubmit({ template_html: html })}>
+        onClick={() => onSubmit({ html: html })}>
         Save
       </Button>
     </>

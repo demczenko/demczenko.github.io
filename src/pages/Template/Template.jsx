@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useTemplates } from "@/hooks/useTemplates";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
-import TemplatePreview from "./TemplatePreview";
+import TemplatePreview from "../../components/TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
 import { useProjects } from "@/hooks/useProjects";
@@ -70,11 +70,11 @@ const Template = () => {
   const projectsTamplate = projects.filter(
     (project) => project.template_id === template?.id
   );
-  const onChangeTemplateSubmit = async ({ template_html }) => {
-    if (template_html.length < 10) return;
+  const onChangeTemplateSubmit = async ({ html }) => {
+    if (html.length < 10) return;
     const new_template = {
       ...template,
-      template_html: template_html,
+      template_html: html,
     };
     const candidate = await update(new_template);
     if (candidate) {
@@ -182,7 +182,7 @@ const Template = () => {
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           isLoading={isLoadingTemplates}
-          template_html={template?.template_html}
+          html={template?.template_html}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
         <div className="flex gap-4 flex-col w-full items-start">

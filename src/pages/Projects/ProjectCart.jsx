@@ -1,7 +1,6 @@
 import { useMemo } from "react";
-import { CardDescription, Options } from "@/components";
 import { Link } from "react-router-dom";
-import { Archive, FolderInput, LinkIcon, MoveUpRight } from "lucide-react";
+import { Archive, LinkIcon, MoveUpRight } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -112,15 +111,11 @@ function ListView({ project, isProjectPage, options }) {
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="hover:bg-neutral-700 px-2 rounded-md bg-neutral-900 transition-colors flex items-center justify-center gap-2">
+      className="hover:bg-neutral-700 p-4 py-3 rounded-md bg-neutral-900 transition-colors flex items-center justify-center gap-2">
       <LinkIcon className="h-4 w-4 text-white" />
-      <CardDescription
-        isProjectPage={isProjectPage}
-        name={project.project_name}
-        options={options}
-        title={"Manage project"}
-        createdat={project.createdat}
-      />
+      <CardTitle className="text-white hover:underline">
+        {project.project_name}
+      </CardTitle>
     </Link>
   );
 }

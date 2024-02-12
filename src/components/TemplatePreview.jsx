@@ -1,10 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code2, View } from "lucide-react";
-import ChangeTemplate from "../Templates/TemplateModal/ChangeTemplate";
+import ChangeTemplate from "../pages/Templates/TemplateModal/ChangeTemplate";
 import { SkeletonCard } from "@/components/SkeletonCard";
 
-const TemplatePreview = ({ isLoading, template_html, onChangeTemplateSubmit }) => {
-
+const TemplatePreview = ({ isLoading, html, onChangeTemplateSubmit }) => {
   if (isLoading) {
     return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
   }
@@ -22,13 +21,10 @@ const TemplatePreview = ({ isLoading, template_html, onChangeTemplateSubmit }) =
       <TabsContent value="view" className="h-full">
         <iframe
           className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block"
-          srcDoc={template_html}></iframe>
+          srcDoc={html}></iframe>
       </TabsContent>
       <TabsContent value="code" className="h-full">
-        <ChangeTemplate
-          onSubmit={onChangeTemplateSubmit}
-          placeholder={template_html}
-        />
+        <ChangeTemplate onSubmit={onChangeTemplateSubmit} placeholder={html} />
       </TabsContent>
     </Tabs>
   );
