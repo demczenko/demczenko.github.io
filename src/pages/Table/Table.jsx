@@ -19,7 +19,10 @@ const Table = () => {
   const { toast } = useToast();
   const ref = useRef();
   const [isOpen, setIsOpen] = useState(false);
-  const [isColumnModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedColumn, setSelectedColumn] = useState({});
+  const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
+
   const [name, setName] = useState("");
 
   const { data: projects, isError, isLoading, update } = useProjects();
@@ -73,10 +76,10 @@ const Table = () => {
     ref.current.focus();
   }, [isOpen]);
 
-  const handleRenameColumn = async (column, { header }) => {
+  const handleRenameColumn = async ({ header }) => {
     if (header.length < 3) return;
     const new_column = {
-      id: column.id,
+      id: selectedColumn.id,
       header: header,
     };
     const candidate = await updateColumn(new_column);
@@ -86,12 +89,15 @@ const Table = () => {
         title: "Success",
         description: "Column name successfully updated",
       });
+      setSelectedColumn({});
+      setIsColumnModalOpen(false);
     } else {
       toast({
         variant: "destructive",
         title: "Failed to update column",
         description: "Something went wrong",
       });
+      setIsColumnModalOpen(false);
     }
   };
 
@@ -173,13 +179,53 @@ const Table = () => {
     }
   };
 
-  const handleUpdate = (data) => {
-    updateDataTable(data);
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Data item successfully updated",
-    });
+  const handleUpdate = async (data) => {
+    const candidate = await updateDataTable(data);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Data item successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update data item",
+        description: "Something went wrong",
+      });
+    }
+  };
+
+  const handleDuplicate = async (id) => {
+    const column = columns.find((column) => column.id === id);
+    const name = column.header;
+    let getHeaderCount = Number(name[name.length - 1]) + 1;
+    const new_name = name.slice(0, name.length - 2) + " " + getHeaderCount;
+
+    const new_column = {
+      ...column,
+      header: new_name,
+      accessorKey: new_name,
+      id: uuidv4(),
+      table_id: table.id,
+      type: "text",
+      createdat: Date.now(),
+    };
+
+    const candidate = await setColumn(new_column);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Column successfully duplicated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to duplicated column",
+        description: "Something went wrong",
+      });
+    }
   };
 
   // TODO: add edit column (after column edit need to be done:
@@ -214,7 +260,7 @@ const Table = () => {
       <div className="space-y-2 mt-6">
         <CreateForm
           onSubmit={handleCreateColumn}
-          isOpen={isColumnModalOpen}
+          isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           title={"Create column"}
           description={"Create new column. Click create when you are ready."}
@@ -226,6 +272,21 @@ const Table = () => {
               placeholder: "name",
             },
           ]}
+        />
+        <CreateForm
+          isOpen={isColumnModalOpen}
+          setIsOpen={setIsColumnModalOpen}
+          fields={[
+            {
+              id: 1,
+              name: "header",
+              title: "Column name",
+              placeholder: "name",
+            },
+          ]}
+          onSubmit={handleRenameColumn}
+          title={"Manage column"}
+          description={"Change column name"}
         />
 
         <RenderList
@@ -239,7 +300,11 @@ const Table = () => {
           }}
           list={columns}
           onDelete={handleDeleteColumn}
-          onRename={handleRenameColumn}
+          onSelect={(item) => {
+            setSelectedColumn(item);
+            setIsColumnModalOpen(true);
+          }}
+          onDuplicate={handleDuplicate}
         />
         {tablesData.length > 0 && (
           <TableDataList

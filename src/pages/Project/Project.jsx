@@ -195,7 +195,20 @@ const Project = () => {
 
   const handleStyleDelete = async (id) => {
     // TODO: Remove id from html template (i cant make it because other projects can have this id)
-    removeProjectsStyles(id);
+    const candidate = await removeProjectsStyles(id);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project style successfully deleted",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to delete project style",
+        description: "Something went wrong",
+      });
+    }
   };
 
   const handleStylEdit = async (item) => {

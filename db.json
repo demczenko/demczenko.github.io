@@ -38,6 +38,12 @@
       "table_name": "Company details",
       "component_id": "7eac87a5-c5d2-4509-a1b3-559c20670578",
       "createdat": 1707817144085
+    },
+    {
+      "id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "table_name": "Products",
+      "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+      "createdat": 1707818873259
     }
   ],
   "data_tables": [
@@ -2054,6 +2060,270 @@
       "header": "vat",
       "type": "text",
       "createdat": 1707817357484
+    },
+    {
+      "id": "39e4f407-7382-4d52-b556-6e334da4964e",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "Slug",
+      "header": "Slug",
+      "type": "slug",
+      "createdat": 1707819030168
+    },
+    {
+      "id": "379f6877-d8ab-4db7-8a49-401ae7460de2",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 1",
+      "header": "Product Src 1",
+      "type": "text",
+      "createdat": 1707819030168
+    },
+    {
+      "id": "92e4b319-90af-4c4c-9c91-2a5086c970ac",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 2",
+      "header": "product src 2",
+      "type": "text",
+      "createdat": 1707819032135
+    },
+    {
+      "id": "8e5fad8a-e889-43e2-84a8-341b551642dd",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 3",
+      "header": "product src 3",
+      "type": "text",
+      "createdat": 1707819033271
+    },
+    {
+      "id": "f9bebc79-81be-4b77-b7d8-feb96a3d9e30",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 4",
+      "header": "product src 4",
+      "type": "text",
+      "createdat": 1707819034447
+    },
+    {
+      "id": "06c2ebc5-7231-43e7-8987-3445e24f3300",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 5",
+      "header": "product src 5",
+      "type": "text",
+      "createdat": 1707819036359
+    },
+    {
+      "id": "a626b09f-2abc-455b-a5d6-0b31df45654a",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 6",
+      "header": "product src 6",
+      "type": "text",
+      "createdat": 1707819037350
+    },
+    {
+      "id": "c4d8a6f1-54c9-43e2-a858-de3c6a551964",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 7",
+      "header": "product src 7",
+      "type": "text",
+      "createdat": 1707819038239
+    },
+    {
+      "id": "906bf09c-d94b-42a6-9418-38a41d497458",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 8",
+      "header": "product src 8",
+      "type": "text",
+      "createdat": 1707819038839
+    },
+    {
+      "id": "694b32bc-05e9-4106-84ee-4c022c9f9324",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 9",
+      "header": "product src 9",
+      "type": "text",
+      "createdat": 1707819039815
+    },
+    {
+      "id": "81d59e1e-24e0-42b3-912b-5f28372efaf7",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 10",
+      "header": "product src 10",
+      "type": "text",
+      "createdat": 1707819041935
+    },
+    {
+      "id": "c4dfd8bb-ea42-4f39-a6c3-273acb13cb69",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 11",
+      "header": "product src 11",
+      "type": "text",
+      "createdat": 1707819042719
+    },
+    {
+      "id": "84c01c18-c8a3-4696-9d46-7a14cc616717",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 12",
+      "header": "product src 12",
+      "type": "text",
+      "createdat": 1707819043495
+    },
+    {
+      "id": "36b9de49-1144-4fab-b63c-bc21940e54d5",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 13",
+      "header": "product src 13",
+      "type": "text",
+      "createdat": 1707819044391
+    },
+    {
+      "id": "31c5a6ba-54c8-4567-881a-25868dfb2b4f",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 14",
+      "header": "product src 14",
+      "type": "text",
+      "createdat": 1707819045751
+    },
+    {
+      "id": "99d4ad45-9d78-4f08-9807-b5966129d10e",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 15",
+      "header": "product src 15",
+      "type": "text",
+      "createdat": 1707819046639
+    },
+    {
+      "id": "568f0686-fb65-4ad6-a455-42210bcaf85e",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product src 16",
+      "header": "product src 16",
+      "type": "text",
+      "createdat": 1707819047447
+    },
+    {
+      "id": "0f331c0f-6a3b-498e-9172-b430dba39c3e",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 1",
+      "header": "product href 1",
+      "type": "text",
+      "createdat": 1707819052623
+    },
+    {
+      "id": "987b2edb-3fc4-4681-8807-8f5b061abdf7",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 2",
+      "header": "product href 2",
+      "type": "text",
+      "createdat": 1707819053262
+    },
+    {
+      "id": "750208c8-2363-421e-a36a-103fa7dcaa90",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 3",
+      "header": "product href 3",
+      "type": "text",
+      "createdat": 1707819053750
+    },
+    {
+      "id": "5400dc2b-3dcd-4505-b32e-ee88faa73fba",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 4",
+      "header": "product href 4",
+      "type": "text",
+      "createdat": 1707819056646
+    },
+    {
+      "id": "f4624909-63aa-4b13-845f-93a27b4437d4",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 5",
+      "header": "product href 5",
+      "type": "text",
+      "createdat": 1707819057246
+    },
+    {
+      "id": "ce986166-e5ad-4641-8dff-f6654e8560e6",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 6",
+      "header": "product href 6",
+      "type": "text",
+      "createdat": 1707819057830
+    },
+    {
+      "id": "fdb2b6e0-9838-4618-aa8f-f6a726ac771c",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 7",
+      "header": "product href 7",
+      "type": "text",
+      "createdat": 1707819059655
+    },
+    {
+      "id": "f7ae78a6-cf26-41f3-893d-14bb2c36a511",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 8",
+      "header": "product href 8",
+      "type": "text",
+      "createdat": 1707819060991
+    },
+    {
+      "id": "cfc7aeec-250d-4354-aa31-6630cd813365",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 9",
+      "header": "product href 9",
+      "type": "text",
+      "createdat": 1707819061943
+    },
+    {
+      "id": "058b9491-c2e5-48d1-817b-0bcbcf2bcd0b",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 10",
+      "header": "product href 10",
+      "type": "text",
+      "createdat": 1707819063662
+    },
+    {
+      "id": "f3e1a6f1-47ce-4bb1-8c73-b7bfc03a3791",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 11",
+      "header": "product href 11",
+      "type": "text",
+      "createdat": 1707819064951
+    },
+    {
+      "id": "614208d6-229c-4f1f-945d-b47dc0a18604",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 12",
+      "header": "product href 12",
+      "type": "text",
+      "createdat": 1707819066311
+    },
+    {
+      "id": "16359b33-a2aa-483c-b505-6f0c71758de6",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 13",
+      "header": "product href 13",
+      "type": "text",
+      "createdat": 1707819067047
+    },
+    {
+      "id": "5945e075-1d1c-4a2b-8f12-f0da5c25284b",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 14",
+      "header": "product href 14",
+      "type": "text",
+      "createdat": 1707819067703
+    },
+    {
+      "id": "a5068c55-ecfe-4c67-9c09-e0bebcb03d77",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 15",
+      "header": "product href 15",
+      "type": "text",
+      "createdat": 1707819071175
+    },
+    {
+      "id": "0b315b49-ef0b-4362-963d-f142b29f64c0",
+      "table_id": "767404b8-442a-454c-b6ac-a1092b5d5be5",
+      "accessorKey": "product href 16",
+      "header": "product href 16",
+      "type": "text",
+      "createdat": 1707819074439
     }
   ],
   "projects_style": []
