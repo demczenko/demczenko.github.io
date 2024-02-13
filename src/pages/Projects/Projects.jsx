@@ -17,7 +17,23 @@ const Projects = () => {
   const projects = data.filter((project) => project.isarchived !== true);
 
   const handleArchived = async (project) => {
-    await update({ ...project, isarchived: project.isarchived ? false : true });
+    const candidate = await update({
+      id: project.id,
+      isarchived: project.isarchived ? false : true,
+    });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project updated successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update project",
+        description: "Something went wrong",
+      });
+    }
   };
 
   const handleCreateProject = async (project) => {

@@ -11,7 +11,7 @@ const TableDataCart = ({ onUpdate, table, onDelete, content }) => {
   const onSubmit = (name) => {
     if (name.length < 3) return;
     const new_tabledata = {
-      ...table,
+      id: table.id,
       ...name,
       updatedAt: Date.now(),
     };

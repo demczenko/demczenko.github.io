@@ -19,7 +19,7 @@ const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
 
   const handleSubmit = (data) => {
     const new_item = {
-      ...item,
+      id: item.id,
       style: {
         ...item.style,
         ...data,

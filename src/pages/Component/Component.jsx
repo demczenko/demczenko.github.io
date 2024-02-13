@@ -64,7 +64,7 @@ const Component = () => {
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
     const new_component = {
-      ...component,
+      id: component.id,
       component_html: html,
     };
     const candidate = await updateComponent(new_component);

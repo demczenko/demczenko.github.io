@@ -62,7 +62,7 @@ const Table = () => {
 
   const handleChangeTableName = async (table) => {
     if (name.trim().length > 0) {
-      const candidate = await updateTable({ ...table, table_name: name });
+      const candidate = await updateTable({ id: table.id, table_name: name });
       if (candidate) {
         toast({
           variant: "success",

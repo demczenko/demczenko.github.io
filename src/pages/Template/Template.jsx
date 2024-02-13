@@ -102,7 +102,7 @@ const Template = () => {
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
     const new_template = {
-      ...template,
+      id: template.id,
       template_html: html,
     };
     const candidate = await updateTemplate(new_template);
@@ -243,7 +243,7 @@ const Template = () => {
   const handleChangeTemplateName = async (template) => {
     if (name.trim().length > 0) {
       const candidate = await updateTemplate({
-        ...template,
+        id: template.id,
         template_name: name,
       });
       if (candidate) {
@@ -267,7 +267,7 @@ const Template = () => {
 
   const handleSelectComponent = async (data) => {
     const candidate = await updateTemplate({
-      ...template,
+      id: template.id,
       ...data,
     });
     if (candidate) {
@@ -292,14 +292,14 @@ const Template = () => {
     let new_template;
     if (isHeader) {
       new_template = {
-        ...template,
+        id: template.id,
         header_id: null,
       };
     }
 
     if (isFooter) {
       new_template = {
-        ...template,
+        id: template.id,
         footer_id: null,
       };
     }

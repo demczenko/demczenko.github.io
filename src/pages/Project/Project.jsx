@@ -235,7 +235,7 @@ const Project = () => {
     );
     old_document.body.innerHTML = body_with_data_attribute;
     const updated_template = {
-      ...template,
+      id: template.id,
       template_html: old_document.documentElement.outerHTML,
     };
     // TODO: Why i need to clear template from style.
@@ -257,7 +257,7 @@ const Project = () => {
 
   const handleChangeProjectName = async (project) => {
     if (name.trim().length > 0) {
-      const candidate = await updateProject({ ...project, project_name: name });
+      const candidate = await updateProject({ id: project.id, project_name: name });
       if (candidate) {
         toast({
           variant: "success",

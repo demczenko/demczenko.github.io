@@ -132,7 +132,7 @@ const Templates = () => {
 
   const handleRename = async (template, { template_name }) => {
     const candidate = await update({
-      ...template,
+      id: template.id,
       template_name: template_name,
     });
     if (candidate) {

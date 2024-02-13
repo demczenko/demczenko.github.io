@@ -27,11 +27,26 @@ const ProjectsArchive = () => {
     remove: removeProjectsStyles,
   } = useProjectsStyles();
 
-
   const projects = data.filter((project) => project.isarchived === true);
 
-  const handleArchived = (project) => {
-    update({ ...project, isarchived: project.isarchived ? false : true });
+  const handleArchived = async (project) => {
+    const candidate = await update({
+      id: project.id,
+      isarchived: project.isarchived ? false : true,
+    });
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project updated successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update project",
+        description: "Something went wrong",
+      });
+    }
   };
 
   const handleDelete = async (id) => {
@@ -76,8 +91,7 @@ const ProjectsArchive = () => {
     <PageContainer
       isLoading={isLoading}
       isError={isError}
-      title={"Arhived projects"}
-    >
+      title={"Arhived projects"}>
       <RenderList
         handleArchived={handleArchived}
         onDelete={handleDelete}
