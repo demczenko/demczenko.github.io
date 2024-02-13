@@ -298,7 +298,7 @@ const RenderSlug = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  {availableSlugs.map((item, i) => (
+                  {slugs.map((item, i) => (
                     <DropdownMenuItem
                       className={`${
                         selectedSlug === item

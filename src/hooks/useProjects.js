@@ -11,7 +11,11 @@ export const useProjects = (params) => {
       setIsError(false);
       setIsLoading(true);
       const response = await ProjectService.get(params);
-      setData(response);
+      if (Array.isArray(response)) {
+        setData(response);
+      } else {
+        setData([response])
+      }
     } catch (error) {
       setIsError(true);
       console.warn(error.message);

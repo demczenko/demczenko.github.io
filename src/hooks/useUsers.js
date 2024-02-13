@@ -12,7 +12,11 @@ export const useUsers = () => {
         setIsError(false);
         setIsLoading(true);
         const response = await UserService.get();
-        setData(response);
+        if (Array.isArray(response)) {
+          setData(response);
+        } else {
+          setData([response])
+        }
       } catch (error) {
         setIsError(true);
         console.warn(error.message);

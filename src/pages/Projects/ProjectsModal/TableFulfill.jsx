@@ -74,10 +74,16 @@ const TableFulfill = ({
       for (const key in data_item) {
         let lowerKey = key.toLowerCase();
 
+        // check if length of content is greater than 0
+        // if (acceptedColumns.includes(lowerKey)) {
+        //   if (data_item[key].length > 0) {
+        //     accepted_data_items[lowerKey] = data_item[key];
+        //   }
+        // }
+
+        // not check if length of content is greater than 0
         if (acceptedColumns.includes(lowerKey)) {
-          if (data_item[key].length > 0) {
-            accepted_data_items[lowerKey] = data_item[key];
-          }
+          accepted_data_items[lowerKey] = data_item[key];
         }
       }
       // Filter out if accepted_data_items doesn't have the same length as acceptedColumns length
@@ -254,7 +260,7 @@ const TableFulfill = ({
         continue;
       columns.push(
         <TableCell
-          key={i + value}
+          key={colData.id + uuidv4()}
           className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
           <ContextMenuRow
             actions={[

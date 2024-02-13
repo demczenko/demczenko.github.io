@@ -301,7 +301,7 @@ const Project = () => {
             onSlugSelect={(slug) => setSelectedSlug(slug)}
             isLoading={IsDataTableLoading}
             component={SlugCart}
-            list={availableSlugs}
+            list={slugs}
             title={"Slugs"}
             project_id={project?.id}
           />

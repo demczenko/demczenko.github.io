@@ -11,7 +11,11 @@ export const useDataTables = (params) => {
       setIsError(false);
       setIsLoading(true);
       const response = await DataTableService.get(params);
-      setData(response);
+      if (Array.isArray(response)) {
+        setData(response);
+      } else {
+        setData([response])
+      }
     } catch (error) {
       setIsError(true);
       console.warn(error.message);
@@ -29,10 +33,10 @@ export const useDataTables = (params) => {
       const response = await DataTableService.update(new_data_table);
       setData((prev) => {
         return prev.map((item) => {
-          if (item.id === new_data_table.id) {
+          if (item.id === response[0].id) {
             return {
               ...item,
-              ...new_data_table,
+              ...response[0],
             };
           }
           return item;
@@ -48,7 +52,7 @@ export const useDataTables = (params) => {
   const set = async (new_data_table) => {
     try {
       const response = await DataTableService.set(new_data_table);
-      setData((prev) => [...prev, response]);
+      setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);
