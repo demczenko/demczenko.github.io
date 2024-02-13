@@ -86,23 +86,40 @@ const TableFulfill = ({
           accepted_data_items[lowerKey] = data_item[key];
         }
       }
+
+      console.log(acceptedColumns);
+
       // Filter out if accepted_data_items doesn't have the same length as acceptedColumns length
-      if (Object.keys(accepted_data_items).length !== acceptedColumns.length) {
-        console.error("Some key is empty for: " + accepted_data_items.slug);
-      } else {
-        let sorted = {};
-        // 2. Sort data items according to acceptedColumns
-        for (const accepted_column_name of acceptedColumns) {
-          sorted = {
-            ...sorted,
-            [accepted_column_name]: accepted_data_items[accepted_column_name],
-            table_id: table_id,
-            createdat: Date.now(),
-            id: uuidv4(),
-          };
-        }
-        sorted_data_items.push(sorted);
+      // if (Object.keys(accepted_data_items).length !== acceptedColumns.length) {
+      //   console.error("Some key is empty for: " + accepted_data_items.slug);
+      // } else {
+      //   let sorted = {};
+      //   // 2. Sort data items according to acceptedColumns
+      //   for (const accepted_column_name of acceptedColumns) {
+      //     sorted = {
+      //       ...sorted,
+      //       [accepted_column_name]: accepted_data_items[accepted_column_name],
+      //       table_id: table_id,
+      //       createdat: Date.now(),
+      //       id: uuidv4(),
+      //     };
+      //   }
+      //   sorted_data_items.push(sorted);
+      // }
+
+      // Not Filter out if accepted_data_items doesn't have the same length as acceptedColumns length
+      let sorted = {};
+      // 2. Sort data items according to acceptedColumns
+      for (const accepted_column_name of acceptedColumns) {
+        sorted = {
+          ...sorted,
+          [accepted_column_name]: accepted_data_items[accepted_column_name],
+          table_id: table_id,
+          createdat: Date.now(),
+          id: uuidv4(),
+        };
       }
+      sorted_data_items.push(sorted);
     }
     setData(sorted_data_items);
   };
@@ -238,9 +255,7 @@ const TableFulfill = ({
   const createRows = () => {
     return columnsData.map((colData, i) => {
       return (
-        <TableRow className="hover:bg-blue-50 cursor-pointer" key={colData.id}>
-          {...createColumns(colData, i)}
-        </TableRow>
+        <TableRow key={colData.id}>{...createColumns(colData, i)}</TableRow>
       );
     });
   };
@@ -259,9 +274,7 @@ const TableFulfill = ({
       )
         continue;
       columns.push(
-        <TableCell
-          key={colData.id + uuidv4()}
-          className={"p-2 text-nowrap truncate w-[200px] inline-block"}>
+        <TableCell className="truncate" key={colData.id + uuidv4()}>
           <ContextMenuRow
             actions={[
               {
@@ -314,11 +327,9 @@ const TableFulfill = ({
       {columnsData.length !== 0 && (
         <Table>
           <TableHeader>
-            <TableRow className="flex items-center">
+            <TableRow>
               {columns.map((column) => (
-                <TableHead
-                  className="md:w-[200px] w-[100px] text-nowrap flex justify-start items-center text-sm"
-                  key={column.id}>
+                <TableHead className="w-[200px]" key={column.id}>
                   {column.header}
                 </TableHead>
               ))}

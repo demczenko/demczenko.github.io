@@ -80,7 +80,7 @@ const RenderSlug = () => {
   const project_tables = tableData.filter(
     (table) => table.project_id === project.id
   );
-  const slugs = project_tables.map((item) => item.slug);
+  const slugs = Array.from(new Set(project_tables.map((item) => item.slug)));
   const components_tables = tableData.filter((table) => {
     if (table.component_id === footer?.id || table.component_id === header?.id)
       return true;

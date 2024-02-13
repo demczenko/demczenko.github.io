@@ -12,7 +12,7 @@ const ColumnCart = ({ item, onSelect, onDuplicate, onDelete }) => {
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
-        <CardTitle className="text-white hover:underline capitalize">
+        <CardTitle className="text-white capitalize">
           {item.header}
         </CardTitle>
       </CardHeader>

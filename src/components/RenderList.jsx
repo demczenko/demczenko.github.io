@@ -1,7 +1,15 @@
 import { Heading, List } from "@/components";
 import { SkeletonCard } from "./SkeletonCard";
 
-const RenderList = ({ isLoading, list, title, action, component, ...rest }) => {
+const RenderList = ({
+  restrictHeigh,
+  isLoading,
+  list,
+  title,
+  action,
+  component,
+  ...rest
+}) => {
   const Item = component;
   return (
     <div className="w-full">
@@ -14,11 +22,23 @@ const RenderList = ({ isLoading, list, title, action, component, ...rest }) => {
           <SkeletonCard />
         </div>
       ) : (
-        <List>
-          {list.map((item, i) => (
-            <Item key={i} item={item} {...rest} />
-          ))}
-        </List>
+        <>
+          {restrictHeigh ? (
+            <div className="h-[600px] overflow-auto">
+              <List>
+                {list.map((item, i) => (
+                  <Item key={i} item={item} {...rest} />
+                ))}
+              </List>
+            </div>
+          ) : (
+            <List>
+              {list.map((item, i) => (
+                <Item key={i} item={item} {...rest} />
+              ))}
+            </List>
+          )}
+        </>
       )}
     </div>
   );

@@ -204,7 +204,7 @@ const Table = () => {
     let new_name;
     if (number) {
       getHeaderCount = Number(number[0].trim());
-      name = name.replace(getHeaderCount, "");
+      name = name.replace(` ${getHeaderCount}`, "");
       getHeaderCount = getHeaderCount + 1;
       new_name = name + " " + getHeaderCount;
     }
@@ -297,6 +297,7 @@ const Table = () => {
         />
 
         <RenderList
+          restrictHeigh={true}
           component={ColumnCart}
           title={"Columns"}
           action={{
@@ -313,6 +314,7 @@ const Table = () => {
           }}
           onDuplicate={handleDuplicate}
         />
+
         {tablesData.length > 0 && (
           <TableDataList
             onUpdate={handleUpdate}

@@ -85,7 +85,7 @@ const Project = () => {
     (table) => table.project_id === project?.id
   );
 
-  const slugs = project_tables.map((item) => item.slug);
+  const slugs = Array.from(new Set(project_tables.map((item) => item.slug)));
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project?.id
   );
