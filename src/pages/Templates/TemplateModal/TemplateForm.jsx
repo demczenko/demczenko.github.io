@@ -39,6 +39,7 @@ const TemplateForm = ({ form, handleAddTable }) => {
             <FormControl>
               <Input
                 type="file"
+                accept=".html"
                 placeholder="html template"
                 onChange={(e) => {
                   form.setValue("template_html", e.target.files[0]);
