@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Archive, LinkIcon, MoveUpRight, Trash2Icon } from "lucide-react";
+import { Archive, LinkIcon, Trash2Icon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -23,12 +23,6 @@ const ProjectCart = ({
     if (item?.isarchived) {
       return [
         {
-          id: 3,
-          name: "Open",
-          icon: <MoveUpRight className="h-4 w-4 mr-2" />,
-          onClick: () => navigator("/projects/" + id),
-        },
-        {
           id: 2,
           name: item?.isarchived ? "Un Archive" : "Archive",
           icon: <Archive className="h-4 w-4 mr-2" />,
@@ -44,12 +38,6 @@ const ProjectCart = ({
       ];
     } else {
       return [
-        {
-          id: 3,
-          name: "Open",
-          icon: <MoveUpRight className="h-4 w-4 mr-2" />,
-          onClick: () => navigator("/projects/" + id),
-        },
         {
           id: 2,
           name: item?.isarchived ? "Un Archive" : "Archive",
