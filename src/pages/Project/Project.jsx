@@ -228,7 +228,7 @@ const Project = () => {
     }
   };
 
-  const handleUpdateTemplate = (body_with_data_attribute) => {
+  const handleUpdateTemplate = async (body_with_data_attribute) => {
     const old_document = new DOMParser().parseFromString(
       template.template_html,
       "text/html"
@@ -238,7 +238,21 @@ const Project = () => {
       ...template,
       template_html: old_document.documentElement.outerHTML,
     };
-    update(updated_template);
+    // TODO: Why i need to clear template from style.
+    const candidate = await update(updated_template);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Template style successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update project style",
+        description: "Something went wrong",
+      });
+    }
   };
 
   const handleChangeProjectName = async (project) => {

@@ -60,9 +60,25 @@ const Table = () => {
     return false;
   });
 
-  const handleChangeTableName = (table) => {
+  const handleChangeTableName = async (table) => {
     if (name.trim().length > 0) {
-      updateTable({ ...table, table_name: name });
+      const candidate = await updateTable({ ...table, table_name: name });
+      if (candidate) {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table name successfully updated",
+        });
+        setSelectedColumn({});
+        setIsColumnModalOpen(false);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to update table",
+          description: "Something went wrong",
+        });
+        setIsColumnModalOpen(false);
+      }
 
       setIsOpen(false);
     } else {
@@ -297,6 +313,7 @@ const Table = () => {
         />
 
         <RenderList
+          isLoading={isColumnsLoading}
           restrictHeigh={true}
           component={ColumnCart}
           title={"Columns"}
