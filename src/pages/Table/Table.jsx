@@ -198,14 +198,21 @@ const Table = () => {
 
   const handleDuplicate = async (id) => {
     const column = columns.find((column) => column.id === id);
-    const name = column.header;
-    let getHeaderCount = Number(name[name.length - 1]) + 1;
-    const new_name = name.slice(0, name.length - 2) + " " + getHeaderCount;
+    let name = column.header;
+    const number = name.match(/\d+/g);
+    let getHeaderCount;
+    let new_name;
+    if (number) {
+      getHeaderCount = Number(number[0].trim());
+      name = name.replace(getHeaderCount, "");
+      getHeaderCount = getHeaderCount + 1;
+      new_name = name + " " + getHeaderCount;
+    }
 
     const new_column = {
       ...column,
-      header: new_name,
-      accessorKey: new_name,
+      header: new_name ?? name + " Copy",
+      accessorKey: new_name ?? name + " Copy",
       id: uuidv4(),
       table_id: table.id,
       type: "text",
