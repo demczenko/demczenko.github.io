@@ -6,6 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useDataTables } from "@/hooks/useDataTables";
 
 const Tables = () => {
+  const { toast } = useToast();
+
   const {
     data: tables,
     isError: IsTablesError,
@@ -23,7 +25,6 @@ const Tables = () => {
     set,
   } = useDataTables();
 
-  const { toast } = useToast();
 
   const onDeleteTable = async (id) => {
     const isTablesExists = tablesData.filter((table) => table.table_id === id);

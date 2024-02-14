@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import PageContainer from "../PageContainer";
 import { Heading } from "@/components";
 import { useParams } from "react-router-dom";
-import TableDataList from "./TableDataList";
 import { useProjects } from "@/hooks/useProjects";
 import { useTables } from "@/hooks/useTables";
 import { useColumns } from "@/hooks/useColumns";
@@ -13,6 +12,8 @@ import { v4 as uuidv4 } from "uuid";
 import RenderList from "@/components/RenderList";
 import { PlusCircle } from "lucide-react";
 import ColumnCart from "./ColumnCart";
+import ProjectCart from "../Projects/ProjectCart";
+import DataTableCart from "./DataTableCart";
 
 const Table = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const Table = () => {
 
   const [name, setName] = useState("");
 
-  const { data: projects, isError, isLoading, update } = useProjects();
+  const { data: projectsData, isError, isLoading, update } = useProjects();
   const {
     data: dataTable,
     isError: IsDataTableError,
@@ -48,17 +49,16 @@ const Table = () => {
   } = useColumns();
 
   const table = dataTbs.find((table) => table.id === id);
-  const project = projects.find(
+  const projects = projectsData.filter(
     (project) => project.template_id === table?.template_id
   );
   const columns = dataCls.filter((col) => col.table_id === id);
-  const tablesData = dataTable.filter((table) => {
-    if (table.table_id === id && table.project_id === project?.id) {
-      return true;
-    }
 
-    return false;
-  });
+  useEffect(() => {
+    if (!ref.current) return;
+
+    ref.current.focus();
+  }, [isOpen]);
 
   const handleChangeTableName = async (table) => {
     if (name.trim().length > 0) {
@@ -85,12 +85,6 @@ const Table = () => {
       setIsOpen(false);
     }
   };
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    ref.current.focus();
-  }, [isOpen]);
 
   const handleRenameColumn = async ({ header }) => {
     if (header.length < 3) return;
@@ -195,23 +189,6 @@ const Table = () => {
     }
   };
 
-  const handleUpdate = async (data) => {
-    const candidate = await updateDataTable(data);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Data item successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update data item",
-        description: "Something went wrong",
-      });
-    }
-  };
-
   const handleDuplicate = async (id) => {
     const column = columns.find((column) => column.id === id);
     let name = column.header;
@@ -280,7 +257,7 @@ const Table = () => {
           </>
         }
       />
-      <div className="space-y-2 mt-6">
+      <div className="space-y-6 mt-6">
         <CreateForm
           onSubmit={handleCreateColumn}
           isOpen={isModalOpen}
@@ -332,13 +309,14 @@ const Table = () => {
           onDuplicate={handleDuplicate}
         />
 
-        {tablesData.length > 0 && (
-          <TableDataList
-            onUpdate={handleUpdate}
-            onDeleteTableData={(id) => removeDataTable(id)}
-            tablesData={tablesData}
-          />
-        )}
+        <RenderList
+          isLoading={isLoading}
+          restrictHeigh={true}
+          component={DataTableCart}
+          title={"Projects data"}
+          list={projects}
+          view={"list"}
+        />
       </div>
     </PageContainer>
   );

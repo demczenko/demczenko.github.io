@@ -87,8 +87,6 @@ const TableFulfill = ({
         }
       }
 
-      console.log(acceptedColumns);
-
       // Filter out if accepted_data_items doesn't have the same length as acceptedColumns length
       // if (Object.keys(accepted_data_items).length !== acceptedColumns.length) {
       //   console.error("Some key is empty for: " + accepted_data_items.slug);
@@ -113,7 +111,10 @@ const TableFulfill = ({
       for (const accepted_column_name of acceptedColumns) {
         sorted = {
           ...sorted,
-          [accepted_column_name]: accepted_data_items[accepted_column_name],
+          data: {
+            ...sorted.data,
+            [accepted_column_name]: accepted_data_items[accepted_column_name]
+          },
           table_id: table_id,
           createdat: Date.now(),
           id: uuidv4(),
@@ -262,17 +263,8 @@ const TableFulfill = ({
 
   const createColumns = (colData, i) => {
     const columns = [];
-    for (const objKey in colData) {
-      const value = colData[objKey];
-      if (
-        objKey === "table_id" ||
-        objKey === "createdat" ||
-        objKey === "createdat" ||
-        objKey === "updatedAt" ||
-        objKey === "project_id" ||
-        objKey === "id"
-      )
-        continue;
+    for (const objKey in colData.data) {
+      const value = colData.data[objKey];
       columns.push(
         <TableCell className="truncate" key={colData.id + uuidv4()}>
           <ContextMenuRow

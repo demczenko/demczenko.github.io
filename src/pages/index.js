@@ -10,8 +10,10 @@ import RenderSlug from "./RenderSlug/RenderSlug";
 import Tables from "./Tables/Tables";
 import Users from "./Users/Users";
 import Login from "./Login/Login";
+import DataTable from "./Data Table/DataTable";
 
 export {
+  DataTable,
   Login,
   Users,
   Tables,

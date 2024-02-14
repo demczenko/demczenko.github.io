@@ -27,30 +27,49 @@ const TableCart = ({ item, onDeleteTable, onTableSelect, onDuplicate }) => {
           </span>
         </p>
       </CardContent>
-      {onDeleteTable && onDuplicate && onTableSelect && (
+      {onDeleteTable && onDuplicate && (
         <CardFooter className="flex justify-between">
-          <CardActions
-            actions={[
-              {
-                id: 1,
-                name: "Duplicate",
-                icon: <Copy className="w-4 h-4 mr-2" />,
-                onClick: () => onDuplicate(item.id),
-              },
-              {
-                id: 2,
-                name: "Delete",
-                icon: <Trash className="w-4 h-4 mr-2" />,
-                onClick: () => onDeleteTable(item.id),
-              },
-              {
-                id: 3,
-                name: "Populate",
-                icon: <Import className="w-4 h-4 mr-2" />,
-                onClick: () => onTableSelect(item),
-              },
-            ]}
-          />
+          {onTableSelect ? (
+            <CardActions
+              actions={[
+                {
+                  id: 1,
+                  name: "Duplicate",
+                  icon: <Copy className="w-4 h-4 mr-2" />,
+                  onClick: () => onDuplicate(item.id),
+                },
+                {
+                  id: 2,
+                  name: "Delete",
+                  icon: <Trash className="w-4 h-4 mr-2" />,
+                  onClick: () => onDeleteTable(item.id),
+                },
+                {
+                  id: 3,
+                  name: "Populate",
+                  icon: <Import className="w-4 h-4 mr-2" />,
+                  onClick: () => onTableSelect(item),
+                },
+              ]}
+            />
+          ) : (
+            <CardActions
+              actions={[
+                {
+                  id: 1,
+                  name: "Duplicate",
+                  icon: <Copy className="w-4 h-4 mr-2" />,
+                  onClick: () => onDuplicate(item.id),
+                },
+                {
+                  id: 2,
+                  name: "Delete",
+                  icon: <Trash className="w-4 h-4 mr-2" />,
+                  onClick: () => onDeleteTable(item.id),
+                },
+              ]}
+            />
+          )}
         </CardFooter>
       )}
     </Card>

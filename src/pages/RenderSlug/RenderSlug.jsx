@@ -18,6 +18,7 @@ import { useDataTables } from "@/hooks/useDataTables";
 import { useProjectsStyles } from "@/hooks/useProjectsStyles";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useComponents } from "@/hooks/useComponents";
+import ErrorPage from "@/ErrorPage";
 
 const RenderSlug = () => {
   const { toast } = useToast();
@@ -49,8 +50,8 @@ const RenderSlug = () => {
   } = useDataTables();
   const {
     data: projectsStyles,
-    isError: IsProjectsStyles,
-    isLoading: IsrojectsStyles,
+    isError: IsProjectsStylesError,
+    isLoading: IsProjectsStylesLoading,
     update: updateProjectsStyles,
     set: setProjectsStyles,
     remove: removeProjectsStyles,
@@ -80,7 +81,9 @@ const RenderSlug = () => {
   const project_tables = tableData.filter(
     (table) => table.project_id === project.id
   );
-  const slugs = Array.from(new Set(project_tables.map((item) => item.slug)));
+  const slugs = Array.from(
+    new Set(project_tables.map((item) => item.data.slug))
+  );
   const components_tables = tableData.filter((table) => {
     if (table.component_id === footer?.id || table.component_id === header?.id)
       return true;
@@ -89,11 +92,13 @@ const RenderSlug = () => {
   });
 
   let tablesData = project_tables.filter(
-    (data) => data.slug.toLowerCase() === slug.toLowerCase()
+    (data) => data.data.slug.toLowerCase() === slug.toLowerCase()
   );
-  tablesData.push(...components_tables.filter(
-    (data) => data.slug.toLowerCase() === slug.toLowerCase()
-  ));
+  tablesData.push(
+    ...components_tables.filter(
+      (data) => data.data.slug.toLowerCase() === slug.toLowerCase()
+    )
+  );
 
   // Get all tables
   // Get table by name
@@ -113,7 +118,7 @@ const RenderSlug = () => {
       const textKey = node.getAttribute("data-text").toLowerCase();
 
       for (const data of dataSlug) {
-        if (textKey in data) {
+        if (textKey in data.data) {
           const dataTable = node.getAttribute("data-table");
           const table = tables.find(
             (table) =>
@@ -121,7 +126,7 @@ const RenderSlug = () => {
           );
           if (table) {
             if (table.id === data.table_id) {
-              node.textContent = data[textKey];
+              node.textContent = data.data[textKey];
             }
           }
         }
@@ -129,11 +134,11 @@ const RenderSlug = () => {
     }
 
     // Iterate over DataSrc
+
     for (const node of dataSrc) {
       const srcKey = node.getAttribute("data-src").toLowerCase();
-
       for (const data of dataSlug) {
-        if (srcKey in data) {
+        if (srcKey in data.data) {
           const dataTable = node.getAttribute("data-table");
           const table = tables.find(
             (table) =>
@@ -142,7 +147,7 @@ const RenderSlug = () => {
 
           if (table) {
             if (table.id === data.table_id) {
-              node.src = data[srcKey];
+              node.src = data.data[srcKey];
             }
           }
         }
@@ -154,7 +159,7 @@ const RenderSlug = () => {
       const urlKey = node.getAttribute("data-href").toLowerCase();
 
       for (const data of dataSlug) {
-        if (urlKey in data) {
+        if (urlKey in data.data) {
           const dataTable = node.getAttribute("data-table");
           const table = tables.find(
             (table) =>
@@ -162,7 +167,7 @@ const RenderSlug = () => {
           );
           if (table) {
             if (table.id === data.table_id) {
-              node.href = data[urlKey];
+              node.href = data.data[urlKey];
             }
           }
         }
@@ -176,7 +181,7 @@ const RenderSlug = () => {
         .toLowerCase();
 
       for (const data of dataSlug) {
-        if (placeholderKey in data) {
+        if (placeholderKey in data.data) {
           const dataTable = node.getAttribute("data-table");
           const table = tables.find(
             (table) =>
@@ -184,7 +189,7 @@ const RenderSlug = () => {
           );
           if (table) {
             if (table.id === data.table_id) {
-              node.placeholder = data[placeholderKey];
+              node.placeholder = data.data[placeholderKey];
             }
           }
         }
@@ -228,7 +233,7 @@ const RenderSlug = () => {
   }, [slugs, tables]);
 
   // AFTER available slugs because tables.length will be different from heade rand footer component
-  tables.push(...dataTbs.filter((t) => t.template_id === project.template_id));
+  tables.push(...dataTbs.filter((t) => t.template_id === project?.template_id));
 
   const handleCopy = () => {
     window.navigator.clipboard.writeText(hydratedTemplate);
@@ -259,6 +264,20 @@ const RenderSlug = () => {
 
   if (isLoading) {
     return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  }
+
+  if (
+    isError ||
+    IsProjectsStylesError ||
+    IsDataTableError ||
+    IsTablesError ||
+    isTemplatesError
+  ) {
+    return (
+      <ErrorPage
+        title={`Something went wrong while fetching data. Try reload page.`}
+      />
+    );
   }
 
   return (

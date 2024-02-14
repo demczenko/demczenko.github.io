@@ -73,7 +73,7 @@ const Template = () => {
     remove: removeComponent,
   } = useComponents();
 
-  if (templates.length === 0) {
+  if (templates.length === 0 && !isLoadingTemplates) {
     return (
       <NotFound
         action={{ to: "/templates", title: "Go to templates" }}
@@ -204,7 +204,7 @@ const Template = () => {
   };
 
   const onDuplicate = async (table_id) => {
-    const duplicateTable = tables.find((table) => table.id == table_id);
+    const duplicateTable = tables.find((table) => table.id === table_id);
     const new_template_id = uuidv4();
     const new_table = {
       ...duplicateTable,

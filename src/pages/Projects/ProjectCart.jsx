@@ -70,7 +70,7 @@ const ProjectCart = ({
   }
 };
 
-function CartView({ project, isProjectPage, options }) {
+function CartView({ project, options }) {
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
@@ -95,7 +95,7 @@ function CartView({ project, isProjectPage, options }) {
   );
 }
 
-function ListView({ project, isProjectPage, options }) {
+function ListView({ project, options }) {
   return (
     <Link
       to={`/projects/${project.id}`}

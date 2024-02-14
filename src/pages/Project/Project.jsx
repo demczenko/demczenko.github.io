@@ -85,9 +85,9 @@ const Project = () => {
     (table) => table.project_id === project?.id
   );
 
-  const slugs = Array.from(new Set(project_tables.map((item) => item.slug)));
+  const slugs = Array.from(new Set(project_tables.map((item) => item.data.slug)));
   const projectStyle = projectsStyles.filter(
-    (table) => table.project_id === project?.id
+    (table) => table.project_id === project?.idx
   );
   const components = componentsData.filter((component) => {
     if (
@@ -123,7 +123,7 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  if (projects.length === 0) {
+  if (projects.length === 0 && !IsProjectsLoading) {
     return (
       <NotFound
         action={{ to: "/projects", title: "Go to projects" }}
@@ -257,7 +257,10 @@ const Project = () => {
 
   const handleChangeProjectName = async (project) => {
     if (name.trim().length > 0) {
-      const candidate = await updateProject({ id: project.id, project_name: name });
+      const candidate = await updateProject({
+        id: project.id,
+        project_name: name,
+      });
       if (candidate) {
         toast({
           variant: "success",
@@ -278,7 +281,7 @@ const Project = () => {
   };
 
   return (
-    <PageContainer isError={isError} isLoading={IsProjectsLoading}>
+    <PageContainer isError={IsProjectsError} isLoading={IsProjectsLoading}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <ProjectTemplatePreview
           isLoading={isLoading}

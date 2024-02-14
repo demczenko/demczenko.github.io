@@ -15,10 +15,11 @@ export const useUsers = () => {
         if (Array.isArray(response)) {
           setData(response);
         } else {
-          setData([response])
+          setData([response]);
         }
       } catch (error) {
         setIsError(true);
+        setData([]);
         console.warn(error.message);
       } finally {
         setIsLoading(false);
@@ -42,7 +43,7 @@ export const useUsers = () => {
           return item;
         });
       });
-      return response
+      return response;
     } catch (error) {
       console.error(error);
       return false;

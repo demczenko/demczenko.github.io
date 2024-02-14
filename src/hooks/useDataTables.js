@@ -18,6 +18,7 @@ export const useDataTables = (params) => {
       }
     } catch (error) {
       setIsError(true);
+      setData([])
       console.warn(error.message);
     } finally {
       setIsLoading(false);

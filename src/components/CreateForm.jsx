@@ -26,7 +26,7 @@ export function CreateForm({
   fields,
 }) {
   const defaultValues = fields.reduce((acc, item) => {
-    acc[item.name] = "";
+    acc[item.name] = item.value ?? "";
     return acc;
   }, {});
 
@@ -39,7 +39,7 @@ export function CreateForm({
       const value = formData[key];
 
       if (typeof value === "string") {
-        if (value.trim().length < 3) {
+        if (value.trim().length < 2) {
           form.setError(key, {
             type: "required",
             message: "Please enter a valid value",
@@ -62,7 +62,7 @@ export function CreateForm({
             )}
             className="space-y-6 h-full flex flex-col w-full">
             <DialogHeader>
-              <DialogTitle>{title}</DialogTitle>
+              <DialogTitle className="capitalize">{title}</DialogTitle>
               {description && (
                 <DialogDescription>{description}</DialogDescription>
               )}
@@ -75,7 +75,7 @@ export function CreateForm({
                 name={item.name}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{item.label}</FormLabel>
+                    <FormLabel className="capitalize">{item.label}</FormLabel>
                     <FormControl>
                       {item.content ? (
                         item.content(form)

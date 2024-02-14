@@ -1,6 +1,7 @@
 import App from "@/App";
 import ErrorPage from "@/ErrorPage";
 import {
+  DataTable,
   Login,
   Project,
   Projects,
@@ -82,6 +83,11 @@ export const routes = createBrowserRouter(
         {
           path: "components/:id",
           element: <Component />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "data_tables/:id",
+          element: <DataTable />,
           errorElement: <ErrorPage />,
         },
       ],

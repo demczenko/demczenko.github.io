@@ -24,7 +24,7 @@ const RenderList = ({
       ) : (
         <>
           {restrictHeigh ? (
-            <div className="h-[600px] overflow-auto">
+            <div className="max-h-[600px] overflow-auto">
               <List>
                 {list.map((item, i) => (
                   <Item key={i} item={item} {...rest} />

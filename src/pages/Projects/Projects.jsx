@@ -87,13 +87,13 @@ const Projects = () => {
           {
             id: 1,
             name: "project_name",
-            title: "Project Name",
+            label: "Project Name",
             placeholder: "project name",
           },
           {
             id: 2,
             name: "template_id",
-            title: "Template",
+            label: "Template",
             content: (form) => (
               <SelectTemplate
                 onSelect={(template) => form.setValue("template_id", template)}
