@@ -123,7 +123,7 @@ const Project = () => {
     return slugsDataArr;
   }, [slugs, tables]);
 
-  if (projects.length === 0 && !IsProjectsLoading) {
+  if (!project && !IsProjectsLoading) {
     return (
       <NotFound
         action={{ to: "/projects", title: "Go to projects" }}

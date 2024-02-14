@@ -19,6 +19,7 @@ import { CreateForm } from "@/components/CreateForm";
 import { useComponents } from "@/hooks/useComponents";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 import ComponentCart from "../Components/ComponentCart";
+import ErrorPage from "@/ErrorPage";
 
 const Template = () => {
   const ref = useRef();
@@ -73,15 +74,6 @@ const Template = () => {
     remove: removeComponent,
   } = useComponents();
 
-  if (templates.length === 0 && !isLoadingTemplates) {
-    return (
-      <NotFound
-        action={{ to: "/templates", title: "Go to templates" }}
-        title={`Template you are trying to access not found.`}
-      />
-    );
-  }
-
   const template = templates.find((t) => t.id === id);
   const tables = dataTables.filter(
     (table) => table.template_id === template?.id
@@ -98,6 +90,15 @@ const Template = () => {
     }
     return false;
   });
+
+  if (!template && !isLoadingTemplates) {
+    return (
+      <NotFound
+        action={{ to: "/templates", title: "Go to templates" }}
+        title={`Template you are trying to access not found.`}
+      />
+    );
+  }
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -322,6 +323,14 @@ const Template = () => {
 
   const header = componentsData.find((c) => c.id === template?.header_id);
   const footer = componentsData.find((c) => c.id === template?.footer_id);
+
+  if (isError || isErrorProjects || IsColumnsError || IsTablesError) {
+    return (
+      <ErrorPage
+        title={`Something went wrong while fetching data. Try reload page.`}
+      />
+    );
+  }
 
   return (
     <PageContainer isError={isError}>
