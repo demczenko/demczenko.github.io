@@ -15,7 +15,7 @@ const Components = () => {
     isError,
     isLoading,
     set: setComponent,
-    remove: removeComponent
+    remove: removeComponent,
   } = useComponents();
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,7 +66,7 @@ const Components = () => {
         description: "Something went wrong",
       });
     }
-  }
+  };
 
   return (
     <>
@@ -80,9 +80,14 @@ const Components = () => {
           icon: <PlusCircle className="w-4 h-4 mr-2" />,
           onClick: () => setIsModalOpen(true),
         }}>
-        <RenderList onDelete={handleComponentDelete} list={components} component={ComponentCart} />
+        <RenderList
+          onDelete={handleComponentDelete}
+          list={components}
+          component={ComponentCart}
+        />
       </PageContainer>
       <CreateForm
+        isLoading={isLoading}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         fields={[

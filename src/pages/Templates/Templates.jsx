@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { CreateForm } from "@/components/CreateForm";
 import { DrawerModal } from "@/components/Drawer";
 import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
 import { useTemplates } from "@/hooks/useTemplates";
@@ -10,6 +11,7 @@ import TemplateCart from "./TemplateCart";
 import RenderList from "@/components/RenderList";
 import { useColumns } from "@/hooks/useColumns";
 import { useTables } from "@/hooks/useTables";
+import { useProjects } from "@/hooks/useProjects";
 
 const Templates = () => {
   const { toast } = useToast();
@@ -21,6 +23,8 @@ const Templates = () => {
     remove,
     set: setTemplate,
   } = useTemplates();
+
+  const { data, isLoading: isProjectsLoading, set: setProject } = useProjects();
 
   const {
     data: columns,
@@ -38,7 +42,12 @@ const Templates = () => {
     update: updateTables,
     set: setTable,
   } = useTables();
+
+  const [selectedTemplate, setSelectedTemplate] = useState();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenCreateProject, setIsModalOpenCreatepProject] =
+    useState(false);
 
   const filteredTemplate = templates.filter(
     (template) => template.isarchived === false
@@ -150,6 +159,33 @@ const Templates = () => {
     }
   };
 
+  const onSubmit = async (data) => {
+    const new_project = {
+      project_name: data.project_name,
+      id: uuidv4(),
+      template_id: selectedTemplate.id,
+      isarchived: false,
+      createdat: Date.now(),
+    };
+
+    const candidate = await setProject(new_project);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project added successfully",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to create project",
+        description: "Something went wrong",
+      });
+    }
+
+    setIsModalOpenCreatepProject(false);
+  };
+
   return (
     <>
       <PageContainer
@@ -166,9 +202,28 @@ const Templates = () => {
           list={filteredTemplate}
           component={TemplateCart}
           onDuplicate={handleDuplicate}
-          isTemplatePage={true}
+          handleSelect={(item) => {
+            setSelectedTemplate(item);
+            setIsModalOpenCreatepProject(true);
+          }}
           onRename={handleRename}
           onArchive={handleArchived}
+        />
+        <CreateForm
+          isLoading={isProjectsLoading}
+          isOpen={isModalOpenCreateProject}
+          setIsOpen={setIsModalOpenCreatepProject}
+          fields={[
+            {
+              id: 1,
+              name: "project_name",
+              title: "Project Name",
+              placeholder: "project name",
+            },
+          ]}
+          onSubmit={onSubmit}
+          title={"Create project"}
+          description={"Enter project name."}
         />
       </PageContainer>
       <DrawerModal

@@ -54,7 +54,7 @@ const Project = () => {
   const {
     data: projectsStyles,
     isError: IsProjectsStyles,
-    isLoading: IsrojectsStyles,
+    isLoading: IsrojectsStylesLoading,
     update: updateProjectsStyles,
     set: setProjectsStyles,
     remove: removeProjectsStyles,
@@ -85,7 +85,9 @@ const Project = () => {
     (table) => table.project_id === project?.id
   );
 
-  const slugs = Array.from(new Set(project_tables.map((item) => item.data.slug)));
+  const slugs = Array.from(
+    new Set(project_tables.map((item) => item.data.slug))
+  );
   const projectStyle = projectsStyles.filter(
     (table) => table.project_id === project?.idx
   );
@@ -337,6 +339,7 @@ const Project = () => {
           />
 
           <RenderList
+            isLoading={IsrojectsStylesLoading}
             title={"Project style"}
             component={ProjectStyleCart}
             handleDelete={handleStyleDelete}

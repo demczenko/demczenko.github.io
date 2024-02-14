@@ -14,11 +14,11 @@ export const useTemplates = (params) => {
       if (Array.isArray(response)) {
         setData(response);
       } else {
-        setData([response])
+        setData([response]);
       }
     } catch (error) {
       setIsError(true);
-      setData([])
+      setData([]);
       console.warn(error.message);
     } finally {
       setIsLoading(false);
@@ -31,6 +31,7 @@ export const useTemplates = (params) => {
 
   const update = async (new_template) => {
     try {
+      setIsLoading(true);
       const response = await TemplatesService.update(new_template);
       setData((prev) => {
         console.log(prev);
@@ -48,28 +49,36 @@ export const useTemplates = (params) => {
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const set = async (new_data_table) => {
     try {
+      setIsLoading(true);
       const response = await TemplatesService.set(new_data_table);
       setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const remove = async (id) => {
     try {
+      setIsLoading(true);
       await TemplatesService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
       return true;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 

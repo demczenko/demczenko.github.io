@@ -414,12 +414,13 @@ const Template = () => {
 
       <CreateForm
         isOpen={isModalOpenComponent}
+        isLoading={isLoadingTemplates}
         setIsOpen={setIsModalOpenComponent}
         fields={[
           {
             id: 2,
             name: "header_id",
-            title: "Header",
+            label: "Header",
             content: (form) => (
               <SelectComponent
                 title={"Header"}
@@ -431,7 +432,7 @@ const Template = () => {
           {
             id: 3,
             name: "footer_id",
-            title: "Footer",
+            label: "Footer",
             content: (form) => (
               <SelectComponent
                 title={"Footer"}
@@ -447,13 +448,14 @@ const Template = () => {
       />
 
       <CreateForm
+        isLoading={isLoadingProjects}
         isOpen={isModalOpenCreateProject}
         setIsOpen={setIsModalOpenCreateProject}
         fields={[
           {
             id: 1,
             name: "project_name",
-            title: "Project Name",
+            label: "Project Name",
             placeholder: "project name",
           },
         ]}

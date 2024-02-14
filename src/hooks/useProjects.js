@@ -31,6 +31,7 @@ export const useProjects = (params) => {
 
   const update = async (new_project) => {
     try {
+      setIsLoading(true);
       const response = await ProjectService.update(new_project);
       setData((prev) => {
         return prev.map((item) => {
@@ -47,11 +48,14 @@ export const useProjects = (params) => {
     } catch (error) {
       console.error(error);
       return false
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const set = async (new_data_table) => {
     try {
+      setIsLoading(true);
       const response = await ProjectService.set(new_data_table);
       setData((prev) => [...prev, response[0]]);
       console.log(response);
@@ -59,11 +63,14 @@ export const useProjects = (params) => {
     } catch (error) {
       console.error(error);
       return false
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const remove = async (id) => {
     try {
+      setIsLoading(true);
       const isDeleted = await ProjectService.delete(id);
       if (isDeleted) {
         setData((prev) => prev.filter((item) => item.id !== id));
@@ -72,6 +79,8 @@ export const useProjects = (params) => {
     } catch (error) {
       console.error(error);
       return false
+    } finally {
+      setIsLoading(false);
     }
   };
 

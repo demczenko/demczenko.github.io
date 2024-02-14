@@ -11,7 +11,7 @@ import {
 import { CreateForm } from "@/components/CreateForm";
 import CardActions from "@/components/CardActions";
 
-const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
+const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const style = item.style;
@@ -77,10 +77,12 @@ const ProjectStyleCart = ({ item, handleEdit, handleDelete }) => {
         />
       </CardFooter>
       <CreateForm
+        isLoading={isLoading}
         fields={style_data.map(([key, value], i) => {
           return {
             id: i,
             key: key,
+            value: value,
             label:
               key === "backgroundColor"
                 ? "Background Color"

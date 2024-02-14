@@ -16,8 +16,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 export function CreateForm({
+  isLoading,
   title,
   description,
   isOpen,
@@ -93,8 +96,20 @@ export function CreateForm({
               />
             ))}
 
-            <Button type="submit" size="sm" className="w-full">
-              Done
+            <Button
+              disabled={isLoading}
+              type="submit"
+              size="sm"
+              className="w-full">
+              {isLoading ? (
+                <Loader2
+                  className={cn(" h-4 w-4", {
+                    "animate-spin": isLoading,
+                  })}
+                />
+              ) : (
+                "Done"
+              )}
             </Button>
           </form>
         </Form>

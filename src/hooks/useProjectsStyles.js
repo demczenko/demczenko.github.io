@@ -31,6 +31,7 @@ export const useProjectsStyles = (params) => {
 
   const update = async (new_project) => {
     try {
+      setIsLoading(true);
       const response = await ProjectStyleService.update(new_project);
       setData((prev) => {
         return prev.map((item) => {
@@ -47,28 +48,36 @@ export const useProjectsStyles = (params) => {
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const set = async (new_data_table) => {
     try {
+      setIsLoading(true);
       const response = await ProjectStyleService.set(new_data_table);
       setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const remove = async (id) => {
     try {
+      setIsLoading(true);
       await ProjectStyleService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
       return true;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 

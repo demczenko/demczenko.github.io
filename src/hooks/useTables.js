@@ -14,11 +14,11 @@ export const useTables = (params) => {
       if (Array.isArray(response)) {
         setData(response);
       } else {
-        setData([response])
+        setData([response]);
       }
     } catch (error) {
       setIsError(true);
-      setData([])
+      setData([]);
       console.warn(error.message);
     } finally {
       setIsLoading(false);
@@ -31,6 +31,8 @@ export const useTables = (params) => {
 
   const update = async (new_table) => {
     try {
+      setIsLoading(true);
+
       const response = await TableService.update(new_table);
       setData((prev) => {
         return prev.map((item) => {
@@ -47,28 +49,38 @@ export const useTables = (params) => {
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const set = async (new_data_table) => {
     try {
+      setIsLoading(true);
+
       const response = await TableService.set(new_data_table);
       setData((prev) => [...prev, response[0]]);
       return response;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const remove = async (id) => {
     try {
+      setIsLoading(true);
+
       await TableService.delete(id);
       setData((prev) => prev.filter((item) => item.id !== id));
       return true;
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -81,6 +81,7 @@ const Projects = () => {
         />
       </PageContainer>
       <CreateForm
+        isLoading={isLoading}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         fields={[

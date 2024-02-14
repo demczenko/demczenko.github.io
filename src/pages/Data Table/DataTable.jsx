@@ -65,6 +65,7 @@ const DataTable = () => {
       />
       {selectgedSlug && (
         <CreateForm
+          isLoading={IsDataTableLoading}
           isOpen={isModalOpen}
           setIsOpen={() => {
             setIsModalOpen(false);

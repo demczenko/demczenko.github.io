@@ -259,6 +259,7 @@ const Table = () => {
       />
       <div className="space-y-6 mt-6">
         <CreateForm
+          isLoading={isColumnsLoading}
           onSubmit={handleCreateColumn}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
@@ -274,13 +275,15 @@ const Table = () => {
           ]}
         />
         <CreateForm
+          isLoading={isColumnsLoading}
           isOpen={isColumnModalOpen}
           setIsOpen={setIsColumnModalOpen}
           fields={[
             {
               id: 1,
               name: "header",
-              title: "Column name",
+              label: "Column name",
+              value: selectedColumn['header'],
               placeholder: "name",
             },
           ]}
