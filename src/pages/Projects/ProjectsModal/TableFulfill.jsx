@@ -16,16 +16,20 @@ import HandleImportCSV from "../../../components/HandleImportCSV";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HandleNewItem from "./HandleNewItem";
 import { useToast } from "@/components/ui/use-toast";
-import { useDataTables } from "@/hooks/useDataTables";
+import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { List } from "@/components";
+import { Loader } from "lucide-react";
+import { useColumns } from "@/hooks/columns/useColumns";
 
 const TableFulfill = ({
+  isLoading,
   setIsModalOpen,
   onUpdate,
   onSubmit,
   table_id,
-  columns,
 }) => {
+  const { data: columns } = useColumns();
+
   const [error, setError] = useState("");
   const [columnsData, setData] = useState([]);
   const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
@@ -113,7 +117,7 @@ const TableFulfill = ({
           ...sorted,
           data: {
             ...sorted.data,
-            [accepted_column_name]: accepted_data_items[accepted_column_name]
+            [accepted_column_name]: accepted_data_items[accepted_column_name],
           },
           table_id: table_id,
           createdat: Date.now(),
@@ -234,20 +238,7 @@ const TableFulfill = ({
     if (!isExist) {
       onSubmit(new_item);
     } else {
-      const candidate = await onUpdate({ ...new_item, id: itemId });
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Updated",
-          description: "Table data has been successfully updated",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to update data table",
-          description: "Something went wrong",
-        });
-      }
+      await onUpdate({ ...new_item, id: itemId });
     }
 
     setIsModalOpen(false);
@@ -331,8 +322,11 @@ const TableFulfill = ({
         </Table>
       )}
       {columnsData.length > 0 && (
-        <Button onClick={handlePopulateTable} className="w-full mt-2">
-          Save
+        <Button
+          disabled={isLoading}
+          onClick={handlePopulateTable}
+          className="w-full mt-2">
+          {isLoading ? <Loader className="w-4 h-4 animate-spin" /> : "Save"}
         </Button>
       )}
 

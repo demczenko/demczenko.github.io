@@ -6,20 +6,24 @@ export class TabledataModel {
     this.#path = path
   }
 
-  get() {
-    return this.#api.get(this.#path)
+  async get(id) {
+    return  await this.#api.get(this.#path, id)
   }
 
-  set(data) {
-    return this.#api.set(this.#path, data);
+  async getAll(id) {
+    return  await this.#api.getAll(this.#path, id)
   }
 
-  delete(data) {
-    return this.#api.delete(this.#path, data);
+  async set(data) {
+    return  await this.#api.set(this.#path, data);
   }
 
-  update(data) {
-    return this.#api.update(this.#path, data);
+  async delete(data) {
+    return  await this.#api.delete(this.#path, data);
+  }
+
+  async update(data) {
+    return  await this.#api.update(this.#path, data);
   }
 }
   

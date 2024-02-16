@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Archive, LinkIcon, Trash2Icon } from "lucide-react";
+import { Archive, LinkIcon, Loader, Trash2Icon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -9,64 +9,134 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import CardActions from "@/components/CardActions";
+import { useProjectUpdate } from "@/hooks/projects/useProjectUpdate";
+import { useProjectDelete } from "@/hooks/projects/useProjectDelete";
+import { useToast } from "@/components/ui/use-toast";
+import { useQueryClient } from "react-query";
 
-const ProjectCart = ({
-  onDelete,
-  isProjectPage,
-  handleArchived,
-  item,
-  view,
-}) => {
-  view = view ? view : "cart";
+const ProjectCart = ({ item, view = "cart" }) => {
+  const { toast } = useToast();
+  const client = useQueryClient();
+
+  const {
+    mutate: updateProject,
+    isError: isErrorgProjectUpdate,
+    isLoading: isLoadingProjectUpdate,
+  } = useProjectUpdate();
+  const {
+    mutate: deleteProject,
+    isError: isErrorProjectDelete,
+    isLoading: isLoadingProjectDelete,
+  } = useProjectDelete();
+
+  const handleArchive = async () => {
+    updateProject(
+      {
+        id: item.id,
+        isarchived: item.isarchived ? false : true,
+      },
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update project",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries("projects");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Project updated successfully",
+          });
+        },
+      }
+    );
+  };
+
+  const handleDelete = () => {
+    deleteProject(item.id, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed",
+          description: "Failed to delete project",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("projects");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project successfully deleted",
+        });
+      },
+    });
+  };
 
   const options = useMemo(() => {
-    if (item?.isarchived) {
+    if (item.isarchived) {
       return [
         {
-          id: 2,
-          name: item?.isarchived ? "Un Archive" : "Archive",
-          icon: <Archive className="h-4 w-4 mr-2" />,
-
-          onClick: () => handleArchived(item),
+          id: 1,
+          name: item.isarchived ? "Un Archive" : "Archive",
+          icon: (
+            <>
+              {isLoadingProjectUpdate ? (
+                <Loader className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Archive className="h-4 w-4 mr-2" />
+              )}
+            </>
+          ),
+          onClick: handleArchive,
         },
         {
-          id: 4,
+          id: 2,
           name: "Delete",
-          icon: <Trash2Icon className="h-4 w-4 mr-2" />,
-          onClick: () => onDelete(item.id),
+          icon: (
+            <>
+              {isLoadingProjectUpdate ? (
+                <Loader className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Trash2Icon className="h-4 w-4 mr-2" />
+              )}
+            </>
+          ),
+          onClick: handleDelete,
         },
       ];
     } else {
       return [
         {
-          id: 2,
-          name: item?.isarchived ? "Un Archive" : "Archive",
-          icon: <Archive className="h-4 w-4 mr-2" />,
-
-          onClick: () => handleArchived(item),
+          id: 1,
+          name: item.isarchived ? "Un Archive" : "Archive",
+          icon: (
+            <>
+              {isLoadingProjectUpdate ? (
+                <Loader className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Archive className="h-4 w-4 mr-2" />
+              )}
+            </>
+          ),
+          onClick: handleArchive,
         },
       ];
     }
   }, []);
 
   if (view === "cart") {
-    return (
-      <CartView
-        project={item}
-        isProjectPage={isProjectPage}
-        options={options}
-      />
-    );
+    return <CartView project={item} options={options} />;
   }
 
   if (view === "list") {
-    return (
-      <ListView
-        project={item}
-        isProjectPage={isProjectPage}
-        options={options}
-      />
-    );
+    return <ListView project={item} options={options} />;
   }
 };
 

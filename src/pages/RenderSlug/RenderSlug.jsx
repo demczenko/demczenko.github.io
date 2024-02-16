@@ -11,13 +11,13 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, CopyIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useProjects } from "@/hooks/useProjects";
-import { useTemplates } from "@/hooks/useTemplates";
-import { useTables } from "@/hooks/useTables";
-import { useDataTables } from "@/hooks/useDataTables";
-import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { useProjects } from "@/hooks/projects/useProjects";
+import { useTemplates } from "@/hooks/templates/useTemplates";
+import { useTables } from "@/hooks/tables/useTables";
+import { useDataTables } from "@/hooks/dataTables/useDataTables";
+import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { SkeletonCard } from "@/components/SkeletonCard";
-import { useComponents } from "@/hooks/useComponents";
+import { useComponents } from "@/hooks/components/useComponents";
 import ErrorPage from "@/ErrorPage";
 
 const RenderSlug = () => {

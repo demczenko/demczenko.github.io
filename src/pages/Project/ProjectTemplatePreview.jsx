@@ -2,17 +2,30 @@ import React, { useEffect, useRef, useState } from "react";
 import ConfigureNode from "./ConfigureNode";
 import { v4 as uuidv4 } from "uuid";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { useTemplate } from "@/hooks/templates/useTemplate";
+import ErrorPage from "@/ErrorPage";
+import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 
 const ProjectTemplatePreview = ({
   setStyle,
   project_id,
+  template_id,
   footer,
   header,
-  html,
   handleUpdateTemplate,
-  projectStyle,
-  isLoading,
 }) => {
+  const {
+    data: template,
+    isError: IsTemplateError,
+    isLoading: IsTemplateLoading,
+  } = useTemplate(template_id);
+
+  const {
+    data: projectStyle,
+    isLoading: isProjectStyleLoading,
+    isError: isProjectStyleError,
+  } = useProjectsStyles(`?project_id=${project_id}`);
+
   const ref = useRef(null);
   const [open, setIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState("");
@@ -62,11 +75,12 @@ const ProjectTemplatePreview = ({
         ref.current.removeEventListener("click", handleNodeSelect);
       }
     };
-  }, [isLoading]);
+  }, [IsTemplateLoading]);
 
   useEffect(() => {
+    if (!projectStyle) return;
     const document = new DOMParser().parseFromString(
-      header + html + footer,
+      header ?? "" + template?.template_html + footer ?? "",
       "text/html"
     );
 
@@ -83,7 +97,7 @@ const ProjectTemplatePreview = ({
     }
 
     setHydratedTemplate(document.documentElement.outerHTML);
-  }, [projectStyle, html]);
+  }, [projectStyle, template?.template_html]);
 
   const clear_body_from_style = (body, style) => {
     const nodes_to_clear = body.querySelectorAll("[data-style-id]");
@@ -121,8 +135,16 @@ const ProjectTemplatePreview = ({
     handleUpdateTemplate(cleared_body.innerHTML);
   };
 
-  if (isLoading) {
-    return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
+  if (IsTemplateLoading || isProjectStyleLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (isProjectStyleError || IsTemplateError) {
+    return (
+      <ErrorPage
+        title={`Something went wrong while project style loading...`}
+      />
+    );
   }
 
   return (

@@ -4,19 +4,23 @@ export class TabledataController {
     this.#model = model;
   }
 
-  get() {
-    return this.#model.get();
+  async get(id) {
+    return await this.#model.get(id);
   }
 
-  set(data) {
-    return this.#model.set(data);
+  async getAll(id) {
+    return await this.#model.getAll(id)
   }
 
-  delete(data) {
-    return this.#model.delete(data);
+  async set(data) {
+    return await this.#model.set(data);
   }
 
-  update(data) {
-    return this.#model.update(data);
+  async delete(data) {
+    return await this.#model.delete(data);
+  }
+
+  async update(data) {
+    return await this.#model.update(data);
   }
 }

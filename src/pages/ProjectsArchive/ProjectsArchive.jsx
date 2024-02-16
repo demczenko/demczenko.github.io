@@ -1,104 +1,26 @@
 import { PageContainer } from "..";
-import { useProjectsStyles } from "@/hooks/useProjectsStyles";
-import { useProjects } from "@/hooks/useProjects";
-import { useToast } from "@/components/ui/use-toast";
+import { useProjects } from "@/hooks/projects/useProjects";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
-import { useDataTables } from "@/hooks/useDataTables";
-import { useComponents } from "@/hooks/useComponents";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
 
 const ProjectsArchive = () => {
-  const { toast } = useToast();
-  const { data, isError, isLoading, update, remove } = useProjects();
-  const {
-    data: tablesData,
-    isError: IsDataTableError,
-    isLoading: IsDataTableLoading,
-    update: updateDataTable,
-    set,
-  } = useDataTables();
+  const { data: projects, isError, isLoading } = useProjects(`?isarchived=1`);
 
-  const {
-    data: projectsStyles,
-    isError: IsProjectsStyles,
-    isLoading: IsrojectsStyles,
-    update: updateProjectsStyles,
-    set: setProjectsStyles,
-    remove: removeProjectsStyles,
-  } = useProjectsStyles();
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
 
-  const projects = data.filter((project) => project.isarchived === true);
-
-  const handleArchived = async (project) => {
-    const candidate = await update({
-      id: project.id,
-      isarchived: project.isarchived ? false : true,
-    });
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project updated successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update project",
-        description: "Something went wrong",
-      });
-    }
-  };
-
-  const handleDelete = async (id) => {
-    const isTablesExists = tablesData.filter(
-      (table) => table.project_id === id
+  if (isError) {
+    return (
+      <ErrorPage title={`Something went wrong while projects loading...`} />
     );
-    const projectsStylesFiltered = projectsStyles.filter(
-      (table) => table.project_id === id
-    );
-
-    if (isTablesExists.length > 0) {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete project",
-        description: "Firstly delete all data tables",
-      });
-    } else if (projectsStylesFiltered.length > 0) {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete project",
-        description: "Firstly delete all project styles",
-      });
-    } else {
-      const candidate = await remove(id);
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Deleted",
-          description: "Project deleted successfully",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to delete project",
-          description: "Firstly delete all project styles",
-        });
-      }
-    }
-  };
+  }
 
   return (
-    <PageContainer
-      isLoading={isLoading}
-      isError={isError}
-      title={"Arhived projects"}>
-      <RenderList
-        handleArchived={handleArchived}
-        onDelete={handleDelete}
-        list={projects}
-        component={ProjectCart}
-        isProjectPage={true}
-      />
+    <PageContainer title={"Arhived projects"}>
+      <RenderList list={projects} component={ProjectCart} />
     </PageContainer>
   );
 };

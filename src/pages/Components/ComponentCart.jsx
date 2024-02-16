@@ -5,11 +5,41 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import CardActions from "../../components/CardActions";
-import { TrashIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Loader, TrashIcon } from "lucide-react";
+import { useComponentDelete } from "@/hooks/components/useComponentDelete";
+import { useQueryClient } from "react-query";
+import { useToast } from "@/components/ui/use-toast";
 
-const ComponentCart = ({ item, onDelete }) => {
+const ComponentCart = ({ item }) => {
+  const client = useQueryClient();
+  const { toast } = useToast();
+
+  const { mutate: onDelete, isLoading: onDeleteLoading } = useComponentDelete();
+
+  const handleComponentDelete = async (id) => {
+    onDelete(id, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed",
+          description: "Failed to delete component",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("components");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Component successfully deleted",
+        });
+      },
+    });
+  };
+
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
@@ -27,20 +57,26 @@ const ComponentCart = ({ item, onDelete }) => {
           </span>
         </p>
       </CardContent>
-      {onDelete && (
-        <CardFooter className="flex justify-between">
-          <CardActions
-            actions={[
-              {
-                id: 1,
-                onClick: () => onDelete(item.id),
-                icon: <TrashIcon className="w-4 h-4 mr-2" />,
-                name: "Delete",
-              },
-            ]}
-          />
-        </CardFooter>
-      )}
+      <CardFooter className="flex justify-between">
+        <CardActions
+          actions={[
+            {
+              id: 1,
+              onClick: () => handleComponentDelete(item.id),
+              icon: (
+                <>
+                  {onDeleteLoading ? (
+                    <Loader className="animate-spin" />
+                  ) : (
+                    <TrashIcon className="w-4 h-4 mr-2" />
+                  )}
+                </>
+              ),
+              name: "Delete",
+            },
+          ]}
+        />
+      </CardFooter>
     </Card>
   );
 };

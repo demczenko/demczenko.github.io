@@ -1,13 +1,12 @@
 import React from "react";
-import { Heading } from "./components";
 import { Button } from "./components/ui/button";
+import { PageContainer } from "./pages";
 
 const ErrorPage = ({ title, refresh }) => {
   return (
-    <>
-      <Heading title={title ?? "Error page"} />
+    <PageContainer title={title ?? "Error page"}>
       {refresh && <Button onClick={refresh}>Try again</Button>}
-    </>
+    </PageContainer>
   );
 };
 

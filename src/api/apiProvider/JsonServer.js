@@ -1,12 +1,21 @@
-
 export class ApiLocalJson {
   #baseUrl;
   constructor(baseURl) {
     this.#baseUrl = baseURl;
   }
 
-  async get(key, id) {
-    const req = id ? await fetch(this.#baseUrl + key + "/" + id) : await fetch(this.#baseUrl + key)
+  async get(key, params) {
+    const req = await fetch(this.#baseUrl + key + "/" + params);
+    if (!req.ok) {
+      throw new Error("Error while fetching data");
+    }
+
+    const response = await req.json();
+    return response;
+  }
+
+  async getAll(key, params) {
+    const req = params ? await fetch(this.#baseUrl + key + "/" + params) : await fetch(this.#baseUrl + key);
     if (!req.ok) {
       throw new Error("Error while fetching data");
     }
@@ -16,7 +25,6 @@ export class ApiLocalJson {
   }
 
   async set(key, data) {
-
     const req = await fetch(this.#baseUrl + key, {
       method: "POST",
       headers: {

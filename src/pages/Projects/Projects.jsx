@@ -1,40 +1,36 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PageContainer } from "..";
-import { useProjects } from "@/hooks/useProjects";
+import { useProjects } from "@/hooks/projects/useProjects";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectTemplate } from "./ProjectsModal/SelectTemplate";
 import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "./ProjectCart";
+import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
 
 const Projects = () => {
   const { toast } = useToast();
-  const { data, isError, isLoading, update, set: setProject } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: projects, isError, isLoading } = useProjects(`?isarchived=0`);
+  const {
+    mutate: onProjectCreate,
+    isError: projectUpdateIsError,
+    isLoading: projectUpdateIsLoading,
+  } = useProjectCreate();
 
-  const projects = data.filter((project) => project.isarchived !== true);
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
 
-  const handleArchived = async (project) => {
-    const candidate = await update({
-      id: project.id,
-      isarchived: project.isarchived ? false : true,
-    });
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project updated successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update project",
-        description: "Something went wrong",
-      });
-    }
-  };
+  if (isError) {
+    return (
+      <ErrorPage title={`Something went wrong while projects loading...`} />
+    );
+  }
 
   const handleCreateProject = async (project) => {
     const new_project = {
@@ -44,21 +40,26 @@ const Projects = () => {
       createdat: Date.now(),
     };
 
-    const candidate = await setProject(new_project);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project added successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create project",
-        description: "Something went wrong",
-      });
-    }
-    setIsModalOpen(false);
+    onProjectCreate(new_project, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create project",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpen(false);
+        client.invalidateQueries("projects");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project added successfully",
+        });
+      },
+    });
   };
 
   return (
@@ -70,15 +71,8 @@ const Projects = () => {
           icon: <PlusCircle className="h-4 w-4 mr-2" />,
           onClick: () => setIsModalOpen(true),
         }}
-        title="Projects"
-        isError={isError}
-        isLoading={isLoading}>
-        <RenderList
-          list={projects}
-          handleArchived={handleArchived}
-          component={ProjectCart}
-          isProjectPage={true}
-        />
+        title="Projects">
+        <RenderList list={projects || []} component={ProjectCart} />
       </PageContainer>
       <CreateForm
         isLoading={isLoading}

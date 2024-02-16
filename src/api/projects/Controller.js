@@ -8,6 +8,10 @@ export class ProjectController {
     return await this.#model.get(id);
   }
 
+  async getAll(id) {
+    return await this.#model.getAll(id)
+  }
+
   async set(data) {
     return await this.#model.set(data);
   }

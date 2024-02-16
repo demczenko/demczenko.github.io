@@ -4,19 +4,23 @@ export class TemplateController {
     this.#model = model;
   }
 
-  get(id) {
-    return this.#model.get(id);
+  async get(id) {
+    return await this.#model.get(id);
   }
 
-  set(data) {
-    return this.#model.set(data);
+  async getAll(id) {
+    return await this.#model.getAll(id)
   }
 
-  update(data) {
-    return this.#model.update(data);
+  async set(data) {
+    return await this.#model.set(data);
   }
 
-  delete(data) {
-    return this.#model.delete(data);
+  async update(data) {
+    return await this.#model.update(data);
+  }
+
+  async delete(data) {
+    return await this.#model.delete(data);
   }
 }

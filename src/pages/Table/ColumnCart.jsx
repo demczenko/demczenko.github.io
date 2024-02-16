@@ -1,4 +1,4 @@
-import { Copy, Edit, Trash } from "lucide-react";
+import { Copy, Edit, Loader, Trash } from "lucide-react";
 import CardActions from "../../components/CardActions";
 import {
   Card,
@@ -7,50 +7,202 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { v4 as uuidv4 } from "uuid";
+import { CreateForm } from "@/components/CreateForm";
+import { useState } from "react";
+import { useColumnDelete } from "@/hooks/columns/useColumnDelete";
+import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
+import { useColumnUpdate } from "@/hooks/columns/useColumnUpdate";
+import { useQueryClient } from "react-query";
+import { useToast } from "@/components/ui/use-toast";
 
-const ColumnCart = ({ item, onSelect, onDuplicate, onDelete }) => {
+const ColumnCart = ({ item }) => {
+  const { toast } = useToast();
+  const client = useQueryClient();
+  const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
+  const {
+    mutate: deleteColumn,
+    isLoading: isColumnDeleteLoading,
+    isError: isColumnDeleteError,
+  } = useColumnDelete();
+  const {
+    mutate: createColumn,
+    isLoading: isColumnCreateLoading,
+    isError: isColumnCreateError,
+  } = useColumnCreate();
+  const {
+    mutate: updateColumn,
+    isLoading: isColumnUpdateLoading,
+    isError: isColumnUpdateError,
+  } = useColumnUpdate();
+
+  const handleDeleteColumn = async () => {
+    deleteColumn(item.id, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete column",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("columns");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column successfully deleted",
+        });
+      },
+    });
+  };
+
+  const handleDuplicate = async () => {
+    let name = item.header;
+    const number = name.match(/\d+/g);
+    let getHeaderCount;
+    let new_name;
+    if (number) {
+      getHeaderCount = Number(number[0].trim());
+      name = name.replace(` ${getHeaderCount}`, "");
+      getHeaderCount = getHeaderCount + 1;
+      new_name = name + " " + getHeaderCount;
+    }
+
+    const new_column = {
+      ...item,
+      header: new_name ?? name + " Copy",
+      accessorKey: new_name ?? name + " Copy",
+      id: uuidv4(),
+      table_id: item.table_id,
+      type: "text",
+      createdat: Date.now(),
+    };
+
+    createColumn(new_column, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create column",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("columns");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column successfully created",
+        });
+      },
+    });
+  };
+
+  const handleRenameColumn = async ({ header }) => {
+    if (header.length < 3) return;
+    const new_column = {
+      id: item.id,
+      header: header,
+    };
+
+    updateColumn(new_column, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update column",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        setIsColumnModalOpen(false);
+        client.invalidateQueries("columns");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Column name successfully updated",
+        });
+      },
+    });
+  };
+
   return (
-    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
-      <CardHeader>
-        <CardTitle className="text-white capitalize">
-          {item.header}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-xs">
-          <span className="text-neutral-300">created at: </span>
-          <span className="text-white font-semibold">
-            {new Date(item.createdat).toDateString()}
-          </span>
-        </p>
-      </CardContent>
-      {onDelete && onDuplicate && onSelect && (
+    <>
+      <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+        <CardHeader>
+          <CardTitle className="text-white capitalize">{item.header}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-xs">
+            <span className="text-neutral-300">created at: </span>
+            <span className="text-white font-semibold">
+              {new Date(item.createdat).toDateString()}
+            </span>
+          </p>
+        </CardContent>
         <CardFooter className="flex justify-between">
           <CardActions
             actions={[
               {
                 id: 1,
                 name: "Duplicate",
-                icon: <Copy className="w-4 h-4 mr-2" />,
-                onClick: () => onDuplicate(item.id),
+                icon: (
+                  <>
+                    {isColumnCreateLoading ? (
+                      <Loader className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Copy className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                onClick: () => handleDuplicate(),
               },
               {
                 id: 2,
                 name: "Delete",
-                icon: <Trash className="w-4 h-4 mr-2" />,
-                onClick: () => onDelete(item.id),
+                icon: (
+                  <>
+                    {isColumnDeleteLoading ? (
+                      <Loader className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Trash className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                onClick: () => handleDeleteColumn(),
               },
               {
                 id: 3,
                 name: "Edit",
                 icon: <Edit className="w-4 h-4 mr-2" />,
-                onClick: () => onSelect(item),
+                onClick: () => setIsColumnModalOpen(true),
               },
             ]}
           />
         </CardFooter>
-      )}
-    </Card>
+      </Card>
+      <CreateForm
+        isLoading={isColumnUpdateLoading}
+        isOpen={isColumnModalOpen}
+        setIsOpen={setIsColumnModalOpen}
+        fields={[
+          {
+            id: 1,
+            name: "header",
+            label: "Column name",
+            value: item.header,
+            placeholder: "name",
+          },
+        ]}
+        onSubmit={handleRenameColumn}
+        title={"Manage column"}
+        description={"Change column name"}
+      />
+    </>
   );
 };
 

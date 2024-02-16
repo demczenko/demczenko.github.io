@@ -28,6 +28,41 @@ const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
     handleEdit(new_item);
   };
 
+  const handleStyleDelete = async (id) => {
+    // TODO: Remove id from html template (i cant make it because other projects can have this id)
+    const candidate = await removeProjectsStyles(id);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project style successfully deleted",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to delete project style",
+        description: "Something went wrong",
+      });
+    }
+  };
+
+  const handleStylEdit = async (item) => {
+    const candidate = await updateProjectsStyles(item);
+    if (candidate) {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Project style successfully updated",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed to update project style",
+        description: "Something went wrong",
+      });
+    }
+  };
+
   return (
     <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>

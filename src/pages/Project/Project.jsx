@@ -2,135 +2,79 @@ import React, { useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import { useTemplates } from "@/hooks/useTemplates";
-import { useProjects } from "@/hooks/useProjects";
-import { useTables } from "@/hooks/useTables";
-import { useDataTables } from "@/hooks/useDataTables";
-import { useProjectsStyles } from "@/hooks/useProjectsStyles";
+import { useTemplates } from "@/hooks/templates/useTemplates";
+import { useProjects } from "@/hooks/projects/useProjects";
+import { useTables } from "@/hooks/tables/useTables";
+import { useDataTables } from "@/hooks/dataTables/useDataTables";
+import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
 import { DrawerModal } from "@/components/Drawer";
-import { useColumns } from "@/hooks/useColumns";
+import { useColumns } from "@/hooks/columns/useColumns";
 import { TableCartProject } from "../Tables/TableCartProject";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
-import SlugCart from "./SlugCart";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
-import NotFound from "@/NotFound";
 import ProjectStyleCart from "./ProjectStyleCart";
-import { useComponents } from "@/hooks/useComponents";
+import { useComponents } from "@/hooks/components/useComponents";
 import ComponentCart from "../Components/ComponentCart";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
+import { useProject } from "@/hooks/projects/useProject";
+import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
+import { useQueryClient } from "react-query";
+import { useTemplate } from "@/hooks/templates/useTemplate";
+import SlugList from "./SlugList";
 
 const Project = () => {
   const { id } = useParams();
   const { toast } = useToast();
+  const client = useQueryClient();
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedSlug, setSelectedSlug] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState("");
   const ref = useRef();
 
   const {
-    data: projects,
-    isError: IsProjectsError,
-    isLoading: IsProjectsLoading,
-    update: updateProject,
-  } = useProjects();
-  const { data: templates, isError, isLoading, update } = useTemplates();
+    data: project,
+    isError: IsProjectError,
+    isLoading: IsProjectLoading,
+  } = useProject(id);
+
   const {
-    data: dataTables,
-    isError: IsTablesError,
-    isLoading: isTablesLoading,
-    update: updateTables,
-  } = useTables();
-  const {
-    data: tablesData,
-    isError: IsDataTableError,
-    isLoading: IsDataTableLoading,
-    update: updateDataTable,
-    set: setDataTable,
-    remove,
-  } = useDataTables();
-  const {
-    data: projectsStyles,
-    isError: IsProjectsStyles,
-    isLoading: IsrojectsStylesLoading,
-    update: updateProjectsStyles,
-    set: setProjectsStyles,
-    remove: removeProjectsStyles,
-  } = useProjectsStyles();
-  const {
-    data: columns,
-    isError: IsColumnsError,
-    isLoading: isColumnsLoading,
-    update: updateColumn,
-    set: setColumn,
-    remove: removeColumn,
-  } = useColumns();
-  const {
-    data: componentsData,
-    set: setComponent,
-    remove: removeComponent,
-  } = useComponents();
+    mutate,
+    isLoading: tableUpdateLoading,
+    isError: tableUpdateError,
+  } = useTableUpdate();
 
-  const project = projects.find((p) => p.id === id);
+  // const availableSlugs = useMemo(() => {
+  //   const slugsData = {};
+  //   for (const Slug of slugs) {
+  //     if (Slug in slugsData) {
+  //       slugsData[Slug] += 1;
+  //     } else {
+  //       slugsData[Slug] = 1;
+  //     }
+  //   }
 
-  const template = templates.find(
-    (template) => template.id === project?.template_id
-  );
-  const tables = dataTables.filter(
-    (table) => table.template_id === project?.template_id
-  );
-  const project_tables = tablesData.filter(
-    (table) => table.project_id === project?.id
-  );
+  //   const slugsDataArr = [];
+  //   for (const key in slugsData) {
+  //     const slugCount = slugsData[key];
+  //     if (slugCount === tables.length) {
+  //       slugsDataArr.push(key);
+  //     }
+  //   }
 
-  const slugs = Array.from(
-    new Set(project_tables.map((item) => item.data.slug))
-  );
-  const projectStyle = projectsStyles.filter(
-    (table) => table.project_id === project?.idx
-  );
-  const components = componentsData.filter((component) => {
-    if (
-      component.id === template?.header_id ||
-      component.id === template?.footer_id
-    ) {
-      return true;
-    }
-    return false;
-  });
+  //   return slugsDataArr;
+  // }, [slugs, tables]);
 
-  const header = componentsData.find((c) => c.id === template?.header_id);
-  const footer = componentsData.find((c) => c.id === template?.footer_id);
+  if (IsProjectLoading) {
+    return <SkeletonCard />;
+  }
 
-  const availableSlugs = useMemo(() => {
-    const slugsData = {};
-    for (const Slug of slugs) {
-      if (Slug in slugsData) {
-        slugsData[Slug] += 1;
-      } else {
-        slugsData[Slug] = 1;
-      }
-    }
-
-    const slugsDataArr = [];
-    for (const key in slugsData) {
-      const slugCount = slugsData[key];
-      if (slugCount === tables.length) {
-        slugsDataArr.push(key);
-      }
-    }
-
-    return slugsDataArr;
-  }, [slugs, tables]);
-
-  if (!project && !IsProjectsLoading) {
+  if (IsProjectError) {
     return (
-      <NotFound
-        action={{ to: "/projects", title: "Go to projects" }}
-        title={`Project you are trying to access not found.`}
-      />
+      <ErrorPage title={`Something went wrong while projects loading...`} />
     );
   }
 
@@ -195,41 +139,6 @@ const Project = () => {
     }
   };
 
-  const handleStyleDelete = async (id) => {
-    // TODO: Remove id from html template (i cant make it because other projects can have this id)
-    const candidate = await removeProjectsStyles(id);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project style successfully deleted",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete project style",
-        description: "Something went wrong",
-      });
-    }
-  };
-
-  const handleStylEdit = async (item) => {
-    const candidate = await updateProjectsStyles(item);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project style successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update project style",
-        description: "Something went wrong",
-      });
-    }
-  };
-
   const handleUpdateTemplate = async (body_with_data_attribute) => {
     const old_document = new DOMParser().parseFromString(
       template.template_html,
@@ -281,19 +190,37 @@ const Project = () => {
       setIsOpen(false);
     }
   };
+  const handleTableUpdate = (data) => {
+    mutate(data, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed",
+          description: "Failed to update table",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpen(false);
+        client.invalidateQueries("components");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table successfully update",
+        });
+      },
+    });
+  };
 
   return (
-    <PageContainer isError={IsProjectsError} isLoading={IsProjectsLoading}>
+    <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <ProjectTemplatePreview
-          isLoading={isLoading}
-          projectStyle={projectStyle}
           handleUpdateTemplate={handleUpdateTemplate}
           setStyle={handleProjectStyle}
-          project_id={project?.id}
-          header={header?.component_html ?? ""}
-          html={template?.template_html ?? ""}
-          footer={footer?.component_html ?? ""}
+          project_id={project.id}
+          template_id={project.template_id}
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <Heading
@@ -310,51 +237,33 @@ const Project = () => {
                 <p
                   onClick={() => {
                     setIsOpen(true);
-                    setName(project?.project_name);
+                    setName(project.project_name);
                   }}
                   className="font-semibold">
                   {project?.project_name}
                 </p>
               )
             }
-            paragraph={
-              <Link to={`/templates/${template?.id}`}>
-                {template?.template_name}
-              </Link>
-            }
           />
+          <SlugList project_id={project.id} />
           <RenderList
+            query={`?template_id=${project.template_id}`}
+            service={"components"}
             component={ComponentCart}
-            list={components}
             title={"Components"}
           />
-          <RenderList
-            selectedSlug={selectedSlug}
-            onSlugSelect={(slug) => setSelectedSlug(slug)}
-            isLoading={IsDataTableLoading}
-            component={SlugCart}
-            list={slugs}
-            title={"Slugs"}
-            project_id={project?.id}
-          />
 
           <RenderList
-            isLoading={IsrojectsStylesLoading}
+            query={`?project_id=${project.id}`}
+            service={"project_styles"}
             title={"Project style"}
             component={ProjectStyleCart}
-            handleDelete={handleStyleDelete}
-            handleEdit={handleStylEdit}
-            list={projectStyle}
           />
 
           <RenderList
-            onTableSelect={(table) => {
-              setSelectedTable(table);
-              setIsModalOpen(true);
-            }}
-            isLoading={isTablesLoading}
+            service={"tables"}
+            query={`?template_id=${project.template_id}`}
             component={TableCartProject}
-            list={tables}
             title={"Tables"}
           />
         </div>
@@ -368,13 +277,11 @@ const Project = () => {
         }}
         content={
           <TableFulfill
-            onUpdate={updateDataTable}
+            isLoading={tableUpdateLoading}
+            onUpdate={handleTableUpdate}
             onSubmit={handleImport}
             setIsModalOpen={setIsModalOpen}
             table_id={selectedTable.id}
-            columns={columns.filter(
-              (column) => column.table_id === selectedTable.id
-            )}
           />
         }
       />

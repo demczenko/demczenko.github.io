@@ -4,22 +4,24 @@ import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { useTemplates } from "@/hooks/useTemplates";
-import { useTables } from "@/hooks/useTables";
-import { useColumns } from "@/hooks/useColumns";
 import TemplatePreview from "../../components/TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
-import { useProjects } from "@/hooks/useProjects";
+import { useProjects } from "@/hooks/projects/useProjects";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
 import TableCart from "../Tables/TableCart";
 import NotFound from "@/NotFound";
 import { CreateForm } from "@/components/CreateForm";
-import { useComponents } from "@/hooks/useComponents";
+import { useComponents } from "@/hooks/components/useComponents";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 import ComponentCart from "../Components/ComponentCart";
 import ErrorPage from "@/ErrorPage";
+import { useTemplate } from "@/hooks/templates/useTemplate";
+import { useTable } from "@/hooks/tables/useTable";
+import { ComponentsService } from "@/api/components/init";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import { useComponent } from "@/hooks/components/useComponent";
 
 const Template = () => {
   const ref = useRef();
@@ -34,71 +36,57 @@ const Template = () => {
     useState(false);
 
   const {
-    data: templates,
-    isError,
-    isLoading: isLoadingTemplates,
-    update: updateTemplate,
-    set: setTemplate,
-    remove,
-  } = useTemplates();
+    isLoading: templateIsLoading,
+    data: template,
+    isError: templateError,
+  } = useTemplate(id);
 
   const {
-    data: dataTables,
-    isError: IsTablesError,
-    isLoading: isTablesLoading,
-    update: updateTables,
-    set: setTable,
-    remove: removeTable,
-  } = useTables();
-
+    data: header,
+    isLoading: isHeaderLoading,
+    isError: isHeaderError,
+  } = useComponent(template?.header_id, { enabled: !!template?.id });
   const {
-    data: columns,
-    isError: IsColumnsError,
-    isLoading: isColumnsLoading,
-    update: updateColumn,
-    set: setColumn,
-    remove: removeColumn,
-  } = useColumns();
+    data: footer,
+    isLoading: isFooterLoading,
+    isError: isFooterError,
+  } = useComponent(template?.footer_id, { enabled: !!template?.id });
 
-  const {
-    data: projects,
-    isError: isErrorProjects,
-    isLoading: isLoadingProjects,
-    get: getProjects,
-    set: setProject,
-  } = useProjects(`?template_id=${id}&isarchived=0`);
+  // const {
+  //   data: columns,
+  //   isError: IsColumnsError,
+  //   isLoading: isColumnsLoading,
+  //   update: updateColumn,
+  //   set: setColumn,
+  //   remove: removeColumn,
+  // } = useColumns();
 
-  const {
-    data: componentsData,
-    set: setComponent,
-    remove: removeComponent,
-  } = useComponents();
+  // const {
+  //   data: projects,
+  //   isError: isErrorProjects,
+  //   isLoading: isLoadingProjects,
+  //   get: getProjects,
+  //   set: setProject,
+  // } = useProjects(`?template_id=${id}&isarchived=0`);
 
-  const template = templates.find((t) => t.id === id);
-  const tables = dataTables.filter(
-    (table) => table.template_id === template?.id
-  );
-  const projectsTamplate = projects.filter(
-    (project) => project.template_id === template?.id
-  );
-  const components = componentsData.filter((component) => {
-    if (
-      component.id === template?.header_id ||
-      component.id === template?.footer_id
-    ) {
-      return true;
-    }
-    return false;
-  });
+  // const {
+  //   data: componentsData,
+  //   set: setComponent,
+  //   remove: removeComponent,
+  // } = useComponents();
 
-  if (!template && !isLoadingTemplates) {
-    return (
-      <NotFound
-        action={{ to: "/templates", title: "Go to templates" }}
-        title={`Template you are trying to access not found.`}
-      />
-    );
-  }
+  // const projectsTamplate = projects.filter(
+  //   (project) => project.template_id === template?.id
+  // );
+  // const components = componentsData.filter((component) => {
+  //   if (
+  //     component.id === template?.header_id ||
+  //     component.id === template?.footer_id
+  //   ) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -176,69 +164,6 @@ const Template = () => {
       title: "Success",
       description: "Table created successfully",
     });
-  };
-
-  const onDeleteTable = async (table_id) => {
-    const isColumns = columns.filter((column) => column.table_id === table_id);
-    if (isColumns.length > 0) {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete table",
-        description: "Firstly delete all columns",
-      });
-    } else {
-      const candidate = await removeTable(table_id);
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table successfully deleted",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to delete table",
-          description: "Something went wrong",
-        });
-      }
-    }
-  };
-
-  const onDuplicate = async (table_id) => {
-    const duplicateTable = tables.find((table) => table.id === table_id);
-    const new_template_id = uuidv4();
-    const new_table = {
-      ...duplicateTable,
-      id: new_template_id,
-      table_name: duplicateTable.table_name + " Copy",
-    };
-
-    // Get columns for selected id
-    const new_columns = columns.filter(
-      (column) => column.table_id === table_id
-    );
-    // Change columns id
-    const change_columns_id = new_columns.map((col) => ({
-      ...col,
-      id: uuidv4(),
-      table_id: new_template_id,
-    }));
-
-    const candidate = await setTable(new_table);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Table successfully duplicated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to duplicate table",
-        description: "Something went wrong",
-      });
-    }
-    change_columns_id.forEach((column) => setColumn(column));
   };
 
   const handleChangeTemplateName = async (template) => {
@@ -321,24 +246,24 @@ const Template = () => {
     }
   };
 
-  const header = componentsData.find((c) => c.id === template?.header_id);
-  const footer = componentsData.find((c) => c.id === template?.footer_id);
+  if (templateIsLoading || isFooterLoading || isHeaderLoading) {
+    return <SkeletonCard />;
+  }
 
-  if (isError || isErrorProjects || IsColumnsError || IsTablesError) {
+  if (templateError || isFooterError || isHeaderError) {
     return (
       <ErrorPage
-        title={`Something went wrong while fetching data. Try reload page.`}
+        title={`Something went wrong while template, header, footer loading...`}
       />
     );
   }
 
   return (
-    <PageContainer isError={isError}>
+    <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
-          isLoading={isLoadingTemplates}
           header={header?.component_html ?? ""}
-          html={template?.template_html ?? ""}
+          html={template.template_html ?? ""}
           footer={footer?.component_html ?? ""}
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
@@ -377,12 +302,12 @@ const Template = () => {
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpenComponent(true),
             }}
+            list={[header, footer]}
             component={ComponentCart}
             onDelete={removeComponentFromTemplate}
-            list={components}
             title={"Components"}
           />
-          <RenderList
+          {/* <RenderList
             action={{
               id: 1,
               name: "Create project",
@@ -408,13 +333,13 @@ const Template = () => {
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpen(true),
             }}
-          />
+          /> */}
         </div>
       </div>
 
-      <CreateForm
+      {/* <CreateForm
         isOpen={isModalOpenComponent}
-        isLoading={isLoadingTemplates}
+        isLoading={templateIsLoading}
         setIsOpen={setIsModalOpenComponent}
         fields={[
           {
@@ -468,7 +393,7 @@ const Template = () => {
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         onSubmit={onSubmit}
-      />
+      /> */}
     </PageContainer>
   );
 };

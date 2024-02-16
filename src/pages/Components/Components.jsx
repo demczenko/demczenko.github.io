@@ -2,23 +2,38 @@ import React, { useState } from "react";
 import PageContainer from "../PageContainer";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
-import { useComponents } from "@/hooks/useComponents";
-import { v4 as uuidv4 } from "uuid";
+import { useComponents } from "@/hooks/components/useComponents";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ComponentCart from "./ComponentCart";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
+import { v4 as uuidv4 } from "uuid";
+import { useComponentCreate } from "@/hooks/components/useComponentCreate";
+import { useQueryClient } from "react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const Components = () => {
-  const {
-    data: components,
-    isError,
-    isLoading,
-    set: setComponent,
-    remove: removeComponent,
-  } = useComponents();
   const { toast } = useToast();
+  const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { mutate: onCreate, isLoading: onCreateLoading } = useComponentCreate();
+
+  const {
+    isLoading: componentsIsLoading,
+    data: components,
+    error: componentsIsError,
+  } = useComponents();
+
+  if (componentsIsLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (componentsIsError) {
+    return (
+      <ErrorPage title={`Something went wrong while components loading...`} />
+    );
+  }
 
   const handleComponentCreate = (data) => {
     let html;
@@ -32,47 +47,33 @@ const Components = () => {
         component_html: html,
         component_name: data.component_name,
       };
-      const candidate = await setComponent(new_component);
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Component added successfully",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to create component",
-          description: "Something went wrong",
-        });
-      }
-      setIsModalOpen(false);
+      onCreate(new_component, {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed",
+            description: "Failed to create component",
+          });
+        },
+        onSettled: () => {
+          setIsModalOpen(false);
+          client.invalidateQueries("components");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Component successfully created",
+          });
+        },
+      });
     };
     reader.readAsText(data.component_html);
-  };
-
-  const handleComponentDelete = async (id) => {
-    const candidate = await removeComponent(id);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Component successfully deleted",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete component",
-        description: "Something went wrong",
-      });
-    }
   };
 
   return (
     <>
       <PageContainer
-        isError={isError}
-        isLoading={isLoading}
         title={"Components"}
         action={{
           id: 1,
@@ -80,14 +81,10 @@ const Components = () => {
           icon: <PlusCircle className="w-4 h-4 mr-2" />,
           onClick: () => setIsModalOpen(true),
         }}>
-        <RenderList
-          onDelete={handleComponentDelete}
-          list={components}
-          component={ComponentCart}
-        />
+        <RenderList list={components || []} component={ComponentCart} />
       </PageContainer>
       <CreateForm
-        isLoading={isLoading}
+        isLoading={onCreateLoading}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         fields={[
@@ -105,6 +102,7 @@ const Components = () => {
             content: (form) => (
               <Input
                 type="file"
+                accept=".html"
                 placeholder="html"
                 onChange={(e) => {
                   form.setValue("component_html", e.target.files[0]);

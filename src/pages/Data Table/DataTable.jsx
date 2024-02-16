@@ -1,90 +1,36 @@
-import React, { useState } from "react";
 import { PageContainer } from "..";
 import { useParams } from "react-router-dom";
-import { useDataTables } from "@/hooks/useDataTables";
-import RenderList from "@/components/RenderList";
-import { useProjects } from "@/hooks/useProjects";
-import { useToast } from "@/components/ui/use-toast";
+import { useProject } from "@/hooks/projects/useProject";
+import { SkeletonCard } from "@/components/SkeletonCard";
 import DataTableContentCart from "./DataTableContentCart";
-import { CreateForm } from "@/components/CreateForm";
+import RenderList from "@/components/RenderList";
+import ErrorPage from "@/ErrorPage";
 
 const DataTable = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectgedSlug, setSelectedSlug] = useState();
-  const { toast } = useToast();
   const { id } = useParams();
   const {
-    data: dataTable,
-    isError: IsDataTableError,
-    isLoading: IsDataTableLoading,
-    update: updateDataTable,
-  } = useDataTables();
-  const {
-    data: projects,
+    data: project,
     isError: IsProjectsError,
     isLoading: IsProjectsLoading,
-    update: updateProject,
-  } = useProjects();
+  } = useProject(id);
 
-  const project = projects.find((p) => p.id === id);
-  const dataTables = dataTable.filter((table) => table.project_id === id);
+  if (IsProjectsLoading) {
+    return <SkeletonCard />;
+  }
 
-  const handleUpdate = async (data) => {
-    const updated_slug = {
-      ...selectgedSlug,
-      data: data,
-    };
-    const candidate = await updateDataTable(updated_slug);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Data item successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update data item",
-        description: "Something went wrong",
-      });
-    }
-  };
+  if (IsProjectsError) {
+    return (
+      <ErrorPage title={`Something went wrong while projects loading...`} />
+    );
+  }
 
   return (
-    <PageContainer
-      title={`Data table for ${project?.project_name} project`}
-      isError={IsDataTableError}
-      isLoading={IsDataTableLoading}>
+    <PageContainer title={`Data table for ${project.project_name} project`}>
       <RenderList
-        handleUpdate={(item) => {
-          setSelectedSlug(item);
-          setIsModalOpen(true);
-        }}
-        list={dataTables}
+        service={"data_tables"}
+        query={`?project_id=${project.id}`}
         component={DataTableContentCart}
       />
-      {selectgedSlug && (
-        <CreateForm
-          isLoading={IsDataTableLoading}
-          isOpen={isModalOpen}
-          setIsOpen={() => {
-            setIsModalOpen(false);
-            setSelectedSlug();
-          }}
-          fields={Object.entries(selectgedSlug?.data).map(([key, value], i) => {
-            return {
-              id: i,
-              name: key,
-              label: key,
-              value: value,
-              placeholder: "enter " + key,
-            };
-          })}
-          onSubmit={(data) => handleUpdate(data)}
-          description={"Enter values, click done when you are ready."}
-          title={selectgedSlug.data.slug + " content"}
-        />
-      )}
     </PageContainer>
   );
 };

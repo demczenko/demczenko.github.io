@@ -10,6 +10,10 @@ export class ComponentsModel {
     return await this.#api.get(this.#path, id);
   }
 
+  async getAll(id) {
+    return await this.#api.getAll(this.#path, id)
+  }
+
   async set(data) {
     return await this.#api.set(this.#path, data);
   }

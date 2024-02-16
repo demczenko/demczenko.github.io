@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useComponents } from "@/hooks/useComponents";
+import { useComponents } from "@/hooks/components/useComponents";
 import { Label } from "@/components/ui/label";
 
 export function SelectComponent({ title, value, onSelect }) {

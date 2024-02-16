@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import Preview from "./Preview";
-import { useTables } from "@/hooks/useTables";
+import { useTables } from "@/hooks/tables/useTables";
 import { useToast } from "@/components/ui/use-toast";
 
 export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {

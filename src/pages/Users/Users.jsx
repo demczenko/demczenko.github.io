@@ -3,10 +3,20 @@ import { UsersList } from "./UsersList";
 import { useUsers } from "@/hooks/useUsers";
 import PageContainer from "../PageContainer";
 import { PlusCircle } from "lucide-react";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
 
 const Users = () => {
-  const { data, isError, isLoading, update } = useUsers();
+  const { data, isError, isLoading } = useUsers();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (isError) {
+    return <ErrorPage title={`Something went wrong while users loading...`} />;
+  }
 
   return (
     <PageContainer

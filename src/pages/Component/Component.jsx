@@ -1,4 +1,3 @@
-import { useComponents } from "@/hooks/useComponents";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { PageContainer } from "..";
@@ -8,58 +7,34 @@ import RenderList from "@/components/RenderList";
 import { PlusCircle } from "lucide-react";
 import { AddTable } from "../Template/AddTable";
 import TableCart from "../Tables/TableCart";
-import { useTables } from "@/hooks/useTables";
 import { v4 as uuidv4 } from "uuid";
-import { useColumns } from "@/hooks/useColumns";
 import { DrawerModal } from "@/components/Drawer";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
-import { useDataTables } from "@/hooks/useDataTables";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
+import { useComponent } from "@/hooks/components/useComponent";
+import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
+import { useQueryClient } from "react-query";
 
 const Component = () => {
   const { toast } = useToast();
   const { id } = useParams();
+  const client = useQueryClient();
   const [selectedTable, setSelectedTable] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenPopulate, setIsModalOpenPopulate] = useState(false);
 
   const {
-    data: components,
+    data: component,
+    error,
     isError,
     isLoading,
-    set: setComponent,
-    update: updateComponent,
-  } = useComponents("?id=" + id);
-
+  } = useComponent(id);
   const {
-    data: columns,
-    isError: IsColumnsError,
-    isLoading: isColumnsLoading,
-    update: updateColumn,
-    set: setColumn,
-    remove: removeColumn,
-  } = useColumns();
-
-  const {
-    data: dataTables,
-    isError: IsTablesError,
-    isLoading: isTablesLoading,
-    update: updateTables,
-    set: setTable,
-    remove: removeTable,
-  } = useTables();
-
-  const {
-    data: tablesData,
-    isError: IsDataTableError,
-    isLoading: IsDataTableLoading,
-    update: updateDataTable,
-    set: setDataTable,
-    remove,
-  } = useDataTables();
-  const component = components[0];
-  const tables = dataTables.filter(
-    (table) => table.component_id === component?.id
-  );
+    mutate,
+    isLoading: tableUpdateLoading,
+    isError: tableUpdateError,
+  } = useTableUpdate();
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -192,10 +167,41 @@ const Component = () => {
     }
   };
 
+  const handleTableUpdate = (data) => {
+    mutate(data, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed",
+          description: "Failed to update table",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpen(false);
+        client.invalidateQueries("components");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table successfully update",
+        });
+      },
+    });
+  };
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage title={`Something went wrong while component loading...`} />
+    );
+  }
+
   return (
-    <PageContainer
-      isError={isError}
-      title={"Component " + component?.component_name}>
+    <PageContainer title={"Component " + component.component_name}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           isLoading={isLoading}
@@ -204,7 +210,8 @@ const Component = () => {
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <RenderList
-            list={tables}
+            service={"tables"}
+            query={`?component_id=${component.id}`}
             title={"Tables"}
             component={TableCart}
             onTableSelect={(table) => {
@@ -237,13 +244,11 @@ const Component = () => {
         }}
         content={
           <TableFulfill
-            onUpdate={updateDataTable}
+            isLoading={tableUpdateLoading}
+            onUpdate={handleTableUpdate}
             onSubmit={handleImport}
             setIsModalOpen={setIsModalOpenPopulate}
             table_id={selectedTable.id}
-            columns={columns.filter(
-              (column) => column.table_id === selectedTable.id
-            )}
           />
         }
       />

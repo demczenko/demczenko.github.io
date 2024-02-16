@@ -9,6 +9,10 @@ export class ColumnModel {
   get() {
     return this.#api.get(this.#path )
   }
+  
+  getAll(id) {
+    return this.#api.getAll(this.#path, id)
+  }
 
   set(data) {
     return this.#api.set(this.#path , data);

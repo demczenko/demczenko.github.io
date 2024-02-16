@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useTemplates } from "@/hooks/useTemplates";
+import { useTemplates } from "@/hooks/templates/useTemplates";
 
 export function SelectTemplate({ value, onSelect }) {
   const { data: templates } = useTemplates();
