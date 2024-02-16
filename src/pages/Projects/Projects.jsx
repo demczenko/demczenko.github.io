@@ -11,8 +11,10 @@ import ProjectCart from "./ProjectCart";
 import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
+import { useQueryClient } from "react-query";
 
 const Projects = () => {
+  const client = useQueryClient();
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: projects, isError, isLoading } = useProjects(`?isarchived=0`);
@@ -75,7 +77,7 @@ const Projects = () => {
         <RenderList list={projects || []} component={ProjectCart} />
       </PageContainer>
       <CreateForm
-        isLoading={isLoading}
+        isLoading={projectUpdateIsLoading}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         fields={[

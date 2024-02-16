@@ -276,6 +276,20 @@
       "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
       "isarchived": false,
       "createdat": 1708080842100
+    },
+    {
+      "id": "00cad861-15b0-4c63-accb-d0e55daf4ff4",
+      "project_name": "My template",
+      "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+      "isarchived": true,
+      "createdat": 1708082017012
+    },
+    {
+      "id": "c73e901f-e32f-4e7d-8e9b-7d2ed4a5cce6",
+      "project_name": "Winter sale",
+      "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+      "isarchived": false,
+      "createdat": 1708082190579
     }
   ],
   "columns": [
