@@ -13,7 +13,6 @@ import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useComponent } from "@/hooks/components/useComponent";
-import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
 import { useQueryClient } from "react-query";
 
 const Component = () => {
@@ -24,17 +23,13 @@ const Component = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenPopulate, setIsModalOpenPopulate] = useState(false);
 
+  const { data: component, error, isError, isLoading } = useComponent(id);
+
   const {
-    data: component,
-    error,
-    isError,
-    isLoading,
-  } = useComponent(id);
-  const {
-    mutate,
-    isLoading: tableUpdateLoading,
-    isError: tableUpdateError,
-  } = useTableUpdate();
+    mutate: createDataTable,
+    isLoading: isDataTableLoading,
+    isError: isDataTableError,
+  } = useDataTable();
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -148,32 +143,16 @@ const Component = () => {
   };
 
   const handleImport = async (data) => {
-    const candidate = await setDataTable({
+    const new_data_table = {
       ...data,
       component_id: component.id,
-    });
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Created",
-        description: "Table data has been successfully created",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create data table",
-        description: "Something went wrong",
-      });
-    }
-  };
-
-  const handleTableUpdate = (data) => {
-    mutate(data, {
+    };
+    createDataTable(new_data_table, {
       onError: () => {
         toast({
           variant: "destructive",
-          title: "Failed",
-          description: "Failed to update table",
+          title: "Failed to create data table",
+          description: "Something went wrong",
         });
       },
       onSettled: () => {
@@ -183,8 +162,8 @@ const Component = () => {
       onSuccess: () => {
         toast({
           variant: "success",
-          title: "Success",
-          description: "Table successfully update",
+          title: "Created",
+          description: "Table data has been successfully created",
         });
       },
     });
@@ -244,8 +223,7 @@ const Component = () => {
         }}
         content={
           <TableFulfill
-            isLoading={tableUpdateLoading}
-            onUpdate={handleTableUpdate}
+            isLoading={isDataTableLoading}
             onSubmit={handleImport}
             setIsModalOpen={setIsModalOpenPopulate}
             table_id={selectedTable.id}

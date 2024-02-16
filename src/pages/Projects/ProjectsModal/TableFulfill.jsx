@@ -20,6 +20,8 @@ import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { List } from "@/components";
 import { Loader } from "lucide-react";
 import { useColumns } from "@/hooks/columns/useColumns";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
 
 const TableFulfill = ({
   isLoading,
@@ -28,7 +30,11 @@ const TableFulfill = ({
   onSubmit,
   table_id,
 }) => {
-  const { data: columns } = useColumns();
+  const {
+    data: columns,
+    isLoading: isColumnsLoading,
+    isError: isColumnsError,
+  } = useColumns(`?table_id=${table_id}`);
 
   const [error, setError] = useState("");
   const [columnsData, setData] = useState([]);
@@ -273,6 +279,16 @@ const TableFulfill = ({
     }
     return columns;
   };
+
+  if (isColumnsLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (isColumnsError) {
+    return (
+      <ErrorPage title={`Something went wrong while projects loading...`} />
+    );
+  }
 
   return (
     <>

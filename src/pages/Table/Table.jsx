@@ -19,7 +19,7 @@ import { useQueryClient } from "react-query";
 
 const Table = () => {
   const { id } = useParams();
-  
+
   const ref = useRef();
   const { toast } = useToast();
   const client = useQueryClient();
@@ -57,6 +57,8 @@ const Table = () => {
       },
       onSettled: () => {
         setIsModalOpen(false);
+        client.invalidateQueries("tables");
+        client.invalidateQueries(`table-${id}`);
         client.invalidateQueries("columns");
       },
       onSuccess: () => {
@@ -116,7 +118,7 @@ const Table = () => {
       type: "text",
       createdat: Date.now(),
     };
-    if (isSlugExists) {
+    if (isSlugExists.length > 0) {
       createColumn(new_column);
     } else {
       // create SLUG column

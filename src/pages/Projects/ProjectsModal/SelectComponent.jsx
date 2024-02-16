@@ -16,10 +16,21 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useComponents } from "@/hooks/components/useComponents";
 import { Label } from "@/components/ui/label";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import ErrorPage from "@/ErrorPage";
 
 export function SelectComponent({ title, value, onSelect }) {
-  const { data: components } = useComponents();
+  const { data: components, isLoading, isError } = useComponents();
   const [open, setOpen] = useState(false);
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage title={`Something went wrong while projects loading...`} />
+    );
+  }
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

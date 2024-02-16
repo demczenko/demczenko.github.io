@@ -7,26 +7,27 @@ import { useToast } from "@/components/ui/use-toast";
 import TemplatePreview from "../../components/TemplatePreview";
 import { v4 as uuidv4 } from "uuid";
 import { AddTable } from "./AddTable";
-import { useProjects } from "@/hooks/projects/useProjects";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "../Projects/ProjectCart";
 import TableCart from "../Tables/TableCart";
-import NotFound from "@/NotFound";
 import { CreateForm } from "@/components/CreateForm";
-import { useComponents } from "@/hooks/components/useComponents";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 import ComponentCart from "../Components/ComponentCart";
 import ErrorPage from "@/ErrorPage";
 import { useTemplate } from "@/hooks/templates/useTemplate";
-import { useTable } from "@/hooks/tables/useTable";
-import { ComponentsService } from "@/api/components/init";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useComponent } from "@/hooks/components/useComponent";
+import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
+import { useQueryClient } from "react-query";
+import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
+import { useTableCreate } from "@/hooks/tables/useTableCreate";
 
 const Template = () => {
   const ref = useRef();
   const { id } = useParams();
   const { toast } = useToast();
+
+  const client = useQueryClient();
 
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -52,41 +53,46 @@ const Template = () => {
     isError: isFooterError,
   } = useComponent(template?.footer_id, { enabled: !!template?.id });
 
-  // const {
-  //   data: columns,
-  //   isError: IsColumnsError,
-  //   isLoading: isColumnsLoading,
-  //   update: updateColumn,
-  //   set: setColumn,
-  //   remove: removeColumn,
-  // } = useColumns();
+  const {
+    mutate: updateTemplate,
+    isLoading: isTemplateUpdateLoading,
+    isError: isTemplateUpdateError,
+  } = useTemplateUpdate();
 
-  // const {
-  //   data: projects,
-  //   isError: isErrorProjects,
-  //   isLoading: isLoadingProjects,
-  //   get: getProjects,
-  //   set: setProject,
-  // } = useProjects(`?template_id=${id}&isarchived=0`);
+  const {
+    mutate: createProject,
+    isLoading: isProjectCreateLoading,
+    isError: isProjectCreateError,
+  } = useProjectCreate();
 
-  // const {
-  //   data: componentsData,
-  //   set: setComponent,
-  //   remove: removeComponent,
-  // } = useComponents();
+  const {
+    mutate: createTable,
+    isLoading: isTableCreateLoading,
+    isError: isTableCreateError,
+  } = useTableCreate();
 
-  // const projectsTamplate = projects.filter(
-  //   (project) => project.template_id === template?.id
-  // );
-  // const components = componentsData.filter((component) => {
-  //   if (
-  //     component.id === template?.header_id ||
-  //     component.id === template?.footer_id
-  //   ) {
-  //     return true;
-  //   }
-  //   return false;
-  // });
+  const mutateTemplate = (new_template) => {
+    updateTemplate(new_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update template",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+        client.invalidateQueries("components");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template name successfully updated",
+        });
+      },
+    });
+  };
 
   const onChangeTemplateSubmit = async ({ html }) => {
     if (html.length < 10) return;
@@ -94,23 +100,10 @@ const Template = () => {
       id: template.id,
       template_html: html,
     };
-    const candidate = await updateTemplate(new_template);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Template successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update template",
-        description: "Something went wrong",
-      });
-    }
+    mutateTemplate(new_template);
   };
 
-  const createProject = async (data) => {
+  const handleCreateProject = async (data) => {
     const new_project = {
       project_name: data.project_name,
       id: uuidv4(),
@@ -119,23 +112,29 @@ const Template = () => {
       createdat: Date.now(),
     };
 
-    const candidate = await setProject(new_project);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project added successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create project",
-        description: "Something went wrong",
-      });
-    }
+    createProject(new_project, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create project",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpenCreateProject(false);
+        client.invalidateQueries("projects");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project added successfully",
+        });
+      },
+    });
   };
 
-  const onSubmit = async (data) => {
+  const handleCreateTable = async (data) => {
     setIsModalOpen(false);
 
     const new_table = {
@@ -145,70 +144,62 @@ const Template = () => {
       createdat: Date.now(),
     };
 
-    const candidate = await setTable(new_table);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Table created successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create table",
-        description: "Something went wrong",
-      });
-    }
-    toast({
-      variant: "success",
-      title: "Success",
-      description: "Table created successfully",
+    createTable(new_table, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create table",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpen(false);
+        client.invalidateQueries("tables");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Table created successfully",
+        });
+      },
     });
   };
 
   const handleChangeTemplateName = async (template) => {
     if (name.trim().length > 0) {
-      const candidate = await updateTemplate({
+      const new_template = {
         id: template.id,
         template_name: name,
+      };
+      updateTemplate(new_template, {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update template",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries("templates");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Template name successfully updated",
+          });
+        },
       });
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Template name successfully updated",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to update template",
-          description: "Something went wrong",
-        });
-      }
-      setIsOpen(false);
-    } else {
-      setIsOpen(false);
     }
   };
 
   const handleSelectComponent = async (data) => {
-    const candidate = await updateTemplate({
+    const new_template = {
       id: template.id,
       ...data,
-    });
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Html template successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update template",
-        description: "Something went wrong",
-      });
-    }
+    };
+    mutateTemplate(new_template);
   };
 
   const removeComponentFromTemplate = async (id) => {
@@ -230,21 +221,11 @@ const Template = () => {
       };
     }
 
-    const candidate = await updateTemplate(new_template);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "HTML template name successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update template",
-        description: "Something went wrong",
-      });
-    }
+    mutateTemplate(new_template);
   };
+
+  let list = header ? [header] : [];
+  list = footer ? [...list, footer] : [...list];
 
   if (templateIsLoading || isFooterLoading || isHeaderLoading) {
     return <SkeletonCard />;
@@ -262,6 +243,7 @@ const Template = () => {
     <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
+          isLoading={isTemplateUpdateLoading}
           header={header?.component_html ?? ""}
           html={template.template_html ?? ""}
           footer={footer?.component_html ?? ""}
@@ -302,42 +284,42 @@ const Template = () => {
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpenComponent(true),
             }}
-            list={[header, footer]}
+            list={list || []}
             component={ComponentCart}
-            onDelete={removeComponentFromTemplate}
+            isLoadingDeleteFromTemplate={isTemplateUpdateLoading}
+            onDeleteFromTemplate={removeComponentFromTemplate}
             title={"Components"}
           />
-          {/* <RenderList
+          <RenderList
             action={{
               id: 1,
               name: "Create project",
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpenCreateProject(true),
             }}
-            list={projectsTamplate}
             title={"Projects"}
             view={"list"}
+            query={`?template_id=${template.id}&isarchived=0`}
+            service={"projects"}
             component={ProjectCart}
             isProjectPage={false}
           />
           <RenderList
-            list={tables}
             title={"Tables"}
+            query={`?template_id=${template.id}`}
+            service={"tables"}
             component={TableCart}
-            onDeleteTable={onDeleteTable}
-            onDuplicate={onDuplicate}
-            isProject={false}
             action={{
               id: 1,
               name: "Create table",
               icon: <PlusCircle className="h-4 w-4 mr-2" />,
               onClick: () => setIsModalOpen(true),
             }}
-          /> */}
+          />
         </div>
       </div>
 
-      {/* <CreateForm
+      <CreateForm
         isOpen={isModalOpenComponent}
         isLoading={templateIsLoading}
         setIsOpen={setIsModalOpenComponent}
@@ -348,7 +330,6 @@ const Template = () => {
             label: "Header",
             content: (form) => (
               <SelectComponent
-                title={"Header"}
                 onSelect={(template) => form.setValue("header_id", template)}
                 value={form.getValues("header_id")}
               />
@@ -360,7 +341,6 @@ const Template = () => {
             label: "Footer",
             content: (form) => (
               <SelectComponent
-                title={"Footer"}
                 onSelect={(template) => form.setValue("footer_id", template)}
                 value={form.getValues("footer_id")}
               />
@@ -373,7 +353,7 @@ const Template = () => {
       />
 
       <CreateForm
-        isLoading={isLoadingProjects}
+        isLoading={isProjectCreateLoading}
         isOpen={isModalOpenCreateProject}
         setIsOpen={setIsModalOpenCreateProject}
         fields={[
@@ -384,7 +364,7 @@ const Template = () => {
             placeholder: "project name",
           },
         ]}
-        onSubmit={createProject}
+        onSubmit={handleCreateProject}
         title={"Create project"}
         description={"Enter project name."}
       />
@@ -392,8 +372,8 @@ const Template = () => {
       <AddTable
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        onSubmit={onSubmit}
-      /> */}
+        onSubmit={handleCreateTable}
+      />
     </PageContainer>
   );
 };

@@ -7,12 +7,20 @@ import {
 } from "@/components/ui/card";
 import CardActions from "../../components/CardActions";
 import { Link } from "react-router-dom";
-import { Loader, TrashIcon } from "lucide-react";
+import {
+  Delete,
+  Loader,
+  TrashIcon,
+} from "lucide-react";
 import { useComponentDelete } from "@/hooks/components/useComponentDelete";
 import { useQueryClient } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 
-const ComponentCart = ({ item }) => {
+const ComponentCart = ({
+  item,
+  onDeleteFromTemplate,
+  isLoadingDeleteFromTemplate,
+}) => {
   const client = useQueryClient();
   const { toast } = useToast();
 
@@ -58,24 +66,59 @@ const ComponentCart = ({ item }) => {
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <CardActions
-          actions={[
-            {
-              id: 1,
-              onClick: () => handleComponentDelete(item.id),
-              icon: (
-                <>
-                  {onDeleteLoading ? (
-                    <Loader className="animate-spin" />
-                  ) : (
-                    <TrashIcon className="w-4 h-4 mr-2" />
-                  )}
-                </>
-              ),
-              name: "Delete",
-            },
-          ]}
-        />
+        {onDeleteFromTemplate ? (
+          <CardActions
+            actions={[
+              {
+                id: 1,
+                onClick: () => handleComponentDelete(item.id),
+                icon: (
+                  <>
+                    {onDeleteLoading ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      <TrashIcon className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                name: "Delete",
+              },
+              {
+                id: 2,
+                onClick: () => onDeleteFromTemplate(item.id),
+                icon: (
+                  <>
+                    {isLoadingDeleteFromTemplate ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      <Delete className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                name: "Remove",
+              },
+            ]}
+          />
+        ) : (
+          <CardActions
+            actions={[
+              {
+                id: 1,
+                onClick: () => handleComponentDelete(item.id),
+                icon: (
+                  <>
+                    {onDeleteLoading ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      <TrashIcon className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                name: "Delete",
+              },
+            ]}
+          />
+        )}
       </CardFooter>
     </Card>
   );

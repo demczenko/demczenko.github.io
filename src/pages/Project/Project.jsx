@@ -1,28 +1,18 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
-import { useTemplates } from "@/hooks/templates/useTemplates";
-import { useProjects } from "@/hooks/projects/useProjects";
-import { useTables } from "@/hooks/tables/useTables";
-import { useDataTables } from "@/hooks/dataTables/useDataTables";
-import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { useToast } from "@/components/ui/use-toast";
-import { DrawerModal } from "@/components/Drawer";
-import { useColumns } from "@/hooks/columns/useColumns";
 import { TableCartProject } from "../Tables/TableCartProject";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
-import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import ProjectStyleCart from "./ProjectStyleCart";
-import { useComponents } from "@/hooks/components/useComponents";
 import ComponentCart from "../Components/ComponentCart";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useProject } from "@/hooks/projects/useProject";
 import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
 import { useQueryClient } from "react-query";
-import { useTemplate } from "@/hooks/templates/useTemplate";
 import SlugList from "./SlugList";
 
 const Project = () => {
@@ -47,27 +37,6 @@ const Project = () => {
     isError: tableUpdateError,
   } = useTableUpdate();
 
-  // const availableSlugs = useMemo(() => {
-  //   const slugsData = {};
-  //   for (const Slug of slugs) {
-  //     if (Slug in slugsData) {
-  //       slugsData[Slug] += 1;
-  //     } else {
-  //       slugsData[Slug] = 1;
-  //     }
-  //   }
-
-  //   const slugsDataArr = [];
-  //   for (const key in slugsData) {
-  //     const slugCount = slugsData[key];
-  //     if (slugCount === tables.length) {
-  //       slugsDataArr.push(key);
-  //     }
-  //   }
-
-  //   return slugsDataArr;
-  // }, [slugs, tables]);
-
   if (IsProjectLoading) {
     return <SkeletonCard />;
   }
@@ -77,23 +46,6 @@ const Project = () => {
       <ErrorPage title={`Something went wrong while projects loading...`} />
     );
   }
-
-  const handleImport = async (data) => {
-    const candidate = await setDataTable({ ...data, project_id: project.id });
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Created",
-        description: "Table data has been successfully created",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create data table",
-        description: "Something went wrong",
-      });
-    }
-  };
 
   const handleProjectStyle = async (new_node) => {
     let isExist = false;
@@ -262,29 +214,13 @@ const Project = () => {
 
           <RenderList
             service={"tables"}
+            project_id={project.id}
             query={`?template_id=${project.template_id}`}
             component={TableCartProject}
             title={"Tables"}
           />
         </div>
       </div>
-      <DrawerModal
-        title={`Populate ${selectedTable.table_name} table`}
-        description={"Import CSV file or fulfill data manually"}
-        open={isModalOpen}
-        onOpenChange={() => {
-          setIsModalOpen(false);
-        }}
-        content={
-          <TableFulfill
-            isLoading={tableUpdateLoading}
-            onUpdate={handleTableUpdate}
-            onSubmit={handleImport}
-            setIsModalOpen={setIsModalOpen}
-            table_id={selectedTable.id}
-          />
-        }
-      />
     </PageContainer>
   );
 };

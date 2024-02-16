@@ -57,7 +57,14 @@ const RenderList = ({
   }
 };
 
-const FetchedList = ({ action, rest, title, list, restrictHeigh, component }) => {
+const FetchedList = ({
+  action,
+  rest,
+  title,
+  list,
+  restrictHeigh,
+  component,
+}) => {
   const Item = component;
 
   return (
@@ -114,9 +121,6 @@ const FetchList = ({
       {title && <Heading action={action} title={title} />}
       {isLoading ? (
         <div className="flex gap-2 flex-wrap">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
           <SkeletonCard />
         </div>
       ) : (

@@ -7,16 +7,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useTableDelete } from "@/hooks/tables/useTableDelete";
 import { useQueryClient } from "react-query";
 import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
+import { useColumns } from "@/hooks/columns/useColumns";
+
+
 
 const TableCart = ({ item }) => {
   const { toast } = useToast();
   const client = useQueryClient();
+
   const {
     mutate: deleteTable,
     isLoading: tableDeleteLoading,
@@ -32,6 +37,12 @@ const TableCart = ({ item }) => {
     isLoading: columnCreateLoading,
     isError: columnCreateError,
   } = useColumnCreate();
+
+  const {
+    data: columns,
+    isLoading: isColumnsLoading,
+    isError: isColumnsError,
+  } = useColumns(`?table_id=${item.id}`);
 
   const onDuplicate = async (table_id) => {
     const new_template_id = uuidv4();
@@ -142,7 +153,9 @@ const TableCart = ({ item }) => {
               name: "Duplicate",
               icon: (
                 <>
-                  {tableCreateLoading && columnCreateLoading ? (
+                  {tableCreateLoading &&
+                  columnCreateLoading &&
+                  isColumnsLoading ? (
                     <Loader className="h-4 w-4 animate-spin mr-2" />
                   ) : (
                     <Copy className="w-4 h-4 mr-2" />

@@ -101,7 +101,7 @@ const ProjectCart = ({ item, view = "cart" }) => {
           name: "Delete",
           icon: (
             <>
-              {isLoadingProjectUpdate ? (
+              {isLoadingProjectDelete ? (
                 <Loader className="h-4 w-4 animate-spin mr-2" />
               ) : (
                 <Trash2Icon className="h-4 w-4 mr-2" />

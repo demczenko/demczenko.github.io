@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { useDataTableUpdate } from "@/hooks/dataTables/useDataTablesUpdate";
+import { useDataTableUpdate } from "@/hooks/dataTables/useDataTableUpdate";
 import { Edit, Loader } from "lucide-react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
