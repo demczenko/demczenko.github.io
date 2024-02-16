@@ -6,15 +6,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useKeypress from "react-use-keypress";
 
-const TemplateForm = ({ form, handleAddTable }) => {
-  useKeypress("Enter", (e) => {
-    if (e.keyCode === 13 && e.ctrlKey) {
-      handleAddTable();
-    }
-  });
-
+const TemplateForm = ({ form }) => {
   return (
     <div className="space-y-2 grow">
       <FormField
@@ -46,19 +39,6 @@ const TemplateForm = ({ form, handleAddTable }) => {
                   form.clearErrors("template_html");
                 }}
               />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="table_name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Table Name</FormLabel>
-            <FormControl>
-              <Input onKey placeholder="table name" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

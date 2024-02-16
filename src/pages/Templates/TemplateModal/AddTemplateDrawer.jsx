@@ -5,26 +5,21 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import Preview from "./Preview";
-import { useTables } from "@/hooks/tables/useTables";
 import { useToast } from "@/components/ui/use-toast";
+import { useTemplateCreate } from "@/hooks/templates/useTemplateCreate";
+import { useQueryClient } from "react-query";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
-  const {
-    data: dataTables,
-    isError: IsTablesError,
-    isLoading: isTablesLoading,
-    update: updateTables,
-    set: setTable,
-  } = useTables();
-  const [template_id, setTemplateID] = useState(() => uuidv4())
-  const [tables, setTables] = useState([]);
+export const AddTemplateDrawer = ({ header, onSubmitForm }) => {
+  const client = useQueryClient();
+  const { mutate: createTemplate, isLoading, isError } = useTemplateCreate();
   const [html, setHTML] = useState("");
   const { toast } = useToast();
 
   const form = useForm({
     defaultValues: {
       template_name: "",
-      table_name: "",
     },
   });
 
@@ -49,13 +44,7 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
             type: "required",
             message: "Please, enter valid value",
           });
-        }
-      } else if (key === "table_name") {
-        if (tables.length === 0) {
-          form.setError("table_name", {
-            type: "required",
-            message: "Please, add at least 1 table",
-          });
+          return;
         }
       } else {
         const value = formData[key];
@@ -64,6 +53,7 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
             type: "required",
             message: "Please, enter valid value",
           });
+          return;
         }
       }
     }
@@ -74,53 +64,32 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
     const new_template = {
       template_name: data.template_name,
       template_html: html,
-      id: template_id,
+      id: uuidv4(),
       isarchived: false,
       createdat: Date.now(),
     };
 
-    const candidate = await setTemplate(new_template);
+    createTemplate(new_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create template",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template successfully created",
+        });
+      },
+    });
 
-    if (candidate) {
-      for (const table of tables) {
-        // TODO
-        setTable(table);
-      }
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project added successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create project",
-        description: "Something went wrong",
-      });
-    }
     onSubmitForm();
-  };
-
-  const handleAddTable = () => {
-    const new_table = {
-      id: uuidv4(),
-      table_name: form.watch("table_name"),
-      template_id: template_id,
-      createdat: Date.now(),
-    };
-
-    setTables((prev) => [...prev, new_table]);
-    form.resetField("table_name");
-  };
-
-  const handleRemoveTable = (id) => {
-    setTables((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const handleRenameTable = (table) => {
-    setTables((prev) =>
-      prev.map((item) => (item.id === table.id ? { ...item, ...table } : item))
-    );
   };
 
   return (
@@ -132,17 +101,22 @@ export const AddTemplateDrawer = ({ setTemplate, header, onSubmitForm }) => {
           )}
           className="space-y-8 h-full flex flex-col w-full">
           {header}
-          <TemplateForm form={form} handleAddTable={handleAddTable} />
+          <TemplateForm form={form} />
           <Button type="submit" size="sm" className="w-full">
-            Create
+            {isLoading ? (
+              <Loader2
+                className={cn(" h-4 w-4", {
+                  "animate-spin": isLoading,
+                })}
+              />
+            ) : (
+              "Create"
+            )}
           </Button>
         </form>
       </Form>
       <Preview
-        renameTable={handleRenameTable}
-        removeTable={handleRemoveTable}
         template_html={html}
-        tables={tables}
         template_name={form.watch("template_name")}
       />
     </div>

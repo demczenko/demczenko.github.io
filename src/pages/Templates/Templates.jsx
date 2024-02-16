@@ -10,18 +10,8 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 
 const Templates = () => {
-  const {
-    data: templates,
-    isError,
-    isLoading,
-    update,
-    remove,
-    set: setTemplate,
-  } = useTemplates(`?isarchived=0`);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenCreateProject, setIsModalOpenCreatepProject] =
-    useState(false);
+  const { data: templates, isError, isLoading } = useTemplates(`?isarchived=0`);
 
   if (isLoading) {
     return <SkeletonCard />;
@@ -42,16 +32,8 @@ const Templates = () => {
           icon: <PlusCircle className="h-4 w-4 mr-2" />,
           onClick: () => setIsModalOpen(true),
         }}
-        isError={isError}
-        isLoading={isLoading}
         title="Templates">
-        <RenderList
-          list={templates || []}
-          component={TemplateCart}
-          handleSelect={() => {
-            setIsModalOpenCreatepProject(true);
-          }}
-        />
+        <RenderList list={templates || []} component={TemplateCart} />
       </PageContainer>
       <DrawerModal
         title={"Create template"}
@@ -59,10 +41,7 @@ const Templates = () => {
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={
-          <AddTemplateDrawer
-            setTemplate={setTemplate}
-            onSubmitForm={() => setIsModalOpen(false)}
-          />
+          <AddTemplateDrawer onSubmitForm={() => setIsModalOpen(false)} />
         }
       />
     </>
