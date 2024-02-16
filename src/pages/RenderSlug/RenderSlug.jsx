@@ -11,14 +11,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, CopyIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useProjects } from "@/hooks/projects/useProjects";
-import { useTemplates } from "@/hooks/templates/useTemplates";
 import { useTables } from "@/hooks/tables/useTables";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { SkeletonCard } from "@/components/SkeletonCard";
-import { useComponents } from "@/hooks/components/useComponents";
 import ErrorPage from "@/ErrorPage";
+import { useTemplate } from "@/hooks/templates/useTemplate";
+import { useProject } from "@/hooks/projects/useProject";
+import { useComponent } from "@/hooks/components/useComponent";
 
 const RenderSlug = () => {
   const { toast } = useToast();
@@ -27,78 +27,92 @@ const RenderSlug = () => {
   const [hydratedTemplate, setHydratedTemplate] = useState("");
   const [selectedSlug, setSelectedSlug] = useState("");
 
-  const { data: projects, isError, isLoading, update } = useProjects();
+  const { data: project, isError, isLoading } = useProject(id);
   const {
-    data: templates,
+    data: template,
     isError: isTemplatesError,
     isLoading: isTemplatesLoading,
     update: updateTemplate,
-  } = useTemplates();
-  const {
-    data: dataTbs,
-    isError: IsTablesError,
-    isLoading: isTablesLoading,
-    update: updateTables,
-  } = useTables();
+  } = useTemplate(project?.template_id, { enabled: !!project?.template_id });
 
   const {
-    data: tableData,
+    data: header,
+    isLoading: isHeaderLoading,
+    isError: isHeaderError,
+  } = useComponent(template?.header_id, { enabled: !!template?.id });
+  const {
+    data: footer,
+    isLoading: isFooterLoading,
+    isError: isFooterError,
+  } = useComponent(template?.footer_id, { enabled: !!template?.id });
+
+  const {
+    data: headerTables,
+    isError: IsHeaderTablesError,
+    isLoading: isHeaderTablesLoading,
+  } = useTables(`?component_id=${header?.id}`);
+
+  const {
+    data: footerTables,
+    isError: IsFooterTablesError,
+    isLoading: isFooterTablesLoading,
+  } = useTables(`?component_id=${footer?.id}`);
+
+  const {
+    data: templateTables,
+    isError: IsTemplateTablesError,
+    isLoading: isTemplateTablesLoading,
+  } = useTables(`?template_id=${project?.template_id}`, {
+    enabled: !!project?.template_id,
+  });
+
+  const {
+    data: project_data_tables,
     isError: IsDataTableError,
     isLoading: IsDataTableLoading,
-    update: updateDataTable,
-    remove,
-  } = useDataTables();
+  } = useDataTables(`?project_id=${project?.id}`, { enabled: !!project?.id });
+
   const {
-    data: projectsStyles,
+    data: components_data_tables,
+    isError: Iscomponents_data_tablesError,
+    isLoading: Iscomponents_data_tablesLoading,
+  } = useDataTables(`?project_id=${project?.id}`, { enabled: !!project?.id });
+
+  const {
+    data: projectStyle,
     isError: IsProjectsStylesError,
     isLoading: IsProjectsStylesLoading,
-    update: updateProjectsStyles,
-    set: setProjectsStyles,
-    remove: removeProjectsStyles,
-  } = useProjectsStyles();
+  } = useProjectsStyles(`?project_id=${project?.id}`, {
+    enabled: !!project?.id,
+  });
+
   const {
-    data: componentsData,
-    set: setComponent,
-    remove: removeComponent,
-  } = useComponents();
+    data: tables_slugs,
+    isLoading: isSlugsLoading,
+    isError: isSlugsError,
+  } = useDataTables(`?project_id=${project?.id}`, { enabled: !!project?.id });
 
-  const project = projects.find((project) => project.id === id);
-  const template = templates.find((t) => t.id === project.template_id);
-  const header = componentsData.find((c) => c.id === template?.header_id);
-  const footer = componentsData.find((c) => c.id === template?.footer_id);
+  let tables = [].concat(templateTables, headerTables, footerTables);
 
-  let tables = dataTbs.filter((t) => {
-    if (t.component_id === footer?.id || t.component_id === header?.id)
-      return true;
+  let slugs = Array.from(new Set(tables_slugs?.map((item) => item.data.slug)));
 
-    return false;
-  });
+  // const components_tables = tableData.filter((table) => {
+  //   if (table.component_id === footer?.id || table.component_id === header?.id)
+  //     return true;
 
-  const projectStyle = projectsStyles.filter(
-    (table) => table.project_id === project.id
-  );
+  //   return false;
+  // });
 
-  const project_tables = tableData.filter(
-    (table) => table.project_id === project.id
-  );
-  const slugs = Array.from(
-    new Set(project_tables.map((item) => item.data.slug))
-  );
-  const components_tables = tableData.filter((table) => {
-    if (table.component_id === footer?.id || table.component_id === header?.id)
-      return true;
 
-    return false;
-  });
-
-  let tablesData = project_tables.filter(
+  let project_data_tables_by_selected_slug = project_data_tables?.filter(
     (data) => data.data.slug.toLowerCase() === slug.toLowerCase()
   );
-  tablesData.push(
-    ...components_tables.filter(
+
+  let components_data_tables_by_selected_slug =components_data_tables?.filter(
       (data) => data.data.slug.toLowerCase() === slug.toLowerCase()
     )
-  );
+
+  let tablesData = [].concat(project_data_tables_by_selected_slug, components_data_tables_by_selected_slug)
 
   // Get all tables
   // Get table by name
@@ -211,29 +225,28 @@ const RenderSlug = () => {
     setHydratedTemplate(document.documentElement.outerHTML);
   }
 
-  const availableSlugs = useMemo(() => {
-    const slugsData = {};
-    for (const Slug of slugs) {
-      if (Slug in slugsData) {
-        slugsData[Slug] += 1;
-      } else {
-        slugsData[Slug] = 1;
-      }
-    }
+  // const availableSlugs = useMemo(() => {
+  //   const slugsData = {};
+  //   for (const Slug of slugs) {
+  //     if (Slug in slugsData) {
+  //       slugsData[Slug] += 1;
+  //     } else {
+  //       slugsData[Slug] = 1;
+  //     }
+  //   }
 
-    const slugsDataArr = [];
-    for (const key in slugsData) {
-      const slugCount = slugsData[key];
-      if (slugCount === tables.length) {
-        slugsDataArr.push(key);
-      }
-    }
+  //   const slugsDataArr = [];
+  //   for (const key in slugsData) {
+  //     const slugCount = slugsData[key];
+  //     if (slugCount === tables.length) {
+  //       slugsDataArr.push(key);
+  //     }
+  //   }
 
-    return slugsDataArr;
-  }, [slugs, tables]);
+  //   return slugsDataArr;
+  // }, [slugs, tables]);
 
   // AFTER available slugs because tables.length will be different from heade rand footer component
-  tables.push(...dataTbs.filter((t) => t.template_id === project?.template_id));
 
   const handleCopy = () => {
     window.navigator.clipboard.writeText(hydratedTemplate);
@@ -270,7 +283,6 @@ const RenderSlug = () => {
     isError ||
     IsProjectsStylesError ||
     IsDataTableError ||
-    IsTablesError ||
     isTemplatesError
   ) {
     return (
