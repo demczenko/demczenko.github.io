@@ -22,3 +22,9 @@ concatenate templates
 
 
 add tableProjectcart to populate
+
+update hooks
+update API DB
+update data tables for project and component
+update isenabled for template page
+update template creation add header and footer id keys

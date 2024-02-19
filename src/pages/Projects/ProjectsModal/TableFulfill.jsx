@@ -22,41 +22,46 @@ import { Loader } from "lucide-react";
 import { useColumns } from "@/hooks/columns/useColumns";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
+import { useDataTableCreate } from "@/hooks/dataTables/useDataTableCreate";
+import { useDataTableUpdate } from "@/hooks/dataTables/useDataTableUpdate";
+import { useQueryClient } from "react-query";
 
-const TableFulfill = ({
-  isLoading,
-  setIsModalOpen,
-  onUpdate,
-  onSubmit,
-  table_id,
-}) => {
-  const {
-    data: columns,
-    isLoading: isColumnsLoading,
-    isError: isColumnsError,
-  } = useColumns(`?table_id=${table_id}`);
-
+const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
+  const client = useQueryClient();
   const [error, setError] = useState("");
   const [columnsData, setData] = useState([]);
   const [slugsAlreadyExist, setSlugsAlreadyExist] = useState([]);
   const { toast } = useToast();
 
   const {
-    data: tablesData,
+    data: columns,
+    isLoading: isColumnsLoading,
+    isError: isColumnsError,
+  } = useColumns(`?table_id=${table_id}`, {
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: tableData,
     isError: IsDataTableError,
     isLoading: IsDataTableLoading,
-    update: updateDataTable,
-  } = useDataTables();
+  } = useDataTables(`?table_id=${table_id}&${key_id}=${id}`);
 
-  const tableData = tablesData.filter((table) => table.table_id === table_id);
+  const {
+    mutate: createDataTable,
+    isLoading: isDataTableLoading,
+    isError: isDataTableError,
+  } = useDataTableCreate();
 
-  const onDrop = useCallback((htmlFile) => {
+  const { mutate: dataTableUpdate, isLoading: IsDataTableUpdateLoading } =
+    useDataTableUpdate();
+
+  const onDrop = (htmlFile) => {
     const html = htmlFile[0];
     handleImportCSV(html);
-  }, []);
+  };
 
   const handle_complete = ({ data }) => {
-    setError("");
     if (data.length < 0) {
       setError("Data is too short");
       return;
@@ -146,6 +151,32 @@ const TableFulfill = ({
     });
   };
 
+  const handleImport = async (data) => {
+    const new_data_table = {
+      ...data,
+      [key_id]: id,
+    };
+    createDataTable(new_data_table, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create data table",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries(`data-tables-?${key_id}=${id}`);
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Created",
+          description: "Table data has been successfully created",
+        });
+      },
+    });
+  };
+
   const handleDeleteRow = (id) => {
     setData((prev) => prev.filter((column) => column.id !== id));
   };
@@ -157,55 +188,62 @@ const TableFulfill = ({
   useEffect(() => {
     for (const { id, name, isSkip, isUpdate } of slugsAlreadyExist) {
       for (const data_item of columnsData) {
-        for (const key in data_item) {
-          data_item[key.toLowerCase()] = data_item[key];
+        for (const key in data_item.data) {
+          data_item.data[key.toLowerCase()] = data_item.data[key];
         }
-        if (data_item.slug.toLowerCase() === name.toLowerCase()) {
+        if (data_item.data.slug.toLowerCase() === name.toLowerCase()) {
           if (isSkip) {
             handleDeleteRow(data_item.id);
             handleDeleteConflict(name);
           }
 
           if (isUpdate) {
-            update();
-            async function update() {
-              const candidate = await updateDataTable({
+            dataTableUpdate(
+              {
                 ...data_item,
                 id: id,
-              });
-              if (candidate) {
-                toast({
-                  variant: "success",
-                  title: "Created",
-                  description: "Table data has been successfully created",
-                });
-              } else {
-                toast({
-                  variant: "destructive",
-                  title: "Failed to create data table",
-                  description: "Something went wrong",
-                });
+              },
+              {
+                onError: () => {
+                  toast({
+                    variant: "destructive",
+                    title: "Failed to create data table",
+                    description: "Something went wrong",
+                  });
+                },
+                onSettled: () => {
+                  handleDeleteConflict(name);
+                  handleDeleteRow(data_item.id);
+                  client.invalidateQueries("components");
+                },
+                onSuccess: () => {
+                  toast({
+                    variant: "success",
+                    title: "Created",
+                    description: "Table data has been successfully created",
+                  });
+                },
               }
-              handleDeleteConflict(name);
-              handleDeleteRow(data_item.id);
-            }
+            );
           }
         }
       }
     }
   }, [slugsAlreadyExist, columnsData]);
 
+  console.log(tableData);
   const handlePopulateTable = () => {
     const alreadyExistsSlugs = [];
     for (const table_data_item of tableData) {
       for (const new_table_data_item of columnsData) {
-        if (table_data_item.slug === new_table_data_item.slug) {
-          alreadyExistsSlugs.push({
-            name: table_data_item.slug,
+        if (table_data_item.data.slug === new_table_data_item.data.slug) {
+          const alreadyExists = {
+            name: table_data_item.data.slug,
             isSkip: false,
             isUpdate: false,
             id: table_data_item.id,
-          });
+          };
+          alreadyExistsSlugs.push(alreadyExists);
         }
       }
     }
@@ -214,7 +252,7 @@ const TableFulfill = ({
       setSlugsAlreadyExist(alreadyExistsSlugs);
     } else {
       for (const data_item of columnsData) {
-        onSubmit(data_item);
+        handleImport(data_item);
       }
       setIsModalOpen(false);
     }
@@ -242,12 +280,32 @@ const TableFulfill = ({
     }
 
     if (!isExist) {
-      onSubmit(new_item);
+      handleImport(new_item);
     } else {
-      await onUpdate({ ...new_item, id: itemId });
+      dataTableUpdate(
+        { ...new_item, id: itemId },
+        {
+          onError: () => {
+            toast({
+              variant: "destructive",
+              title: "Failed to create data table",
+              description: "Something went wrong",
+            });
+          },
+          onSettled: () => {
+            setIsModalOpen(false);
+            client.invalidateQueries("components");
+          },
+          onSuccess: () => {
+            toast({
+              variant: "success",
+              title: "Created",
+              description: "Table data has been successfully created",
+            });
+          },
+        }
+      );
     }
-
-    setIsModalOpen(false);
   };
 
   const createRows = () => {
@@ -280,11 +338,11 @@ const TableFulfill = ({
     return columns;
   };
 
-  if (isColumnsLoading) {
+  if (isColumnsLoading || IsDataTableLoading) {
     return <SkeletonCard />;
   }
 
-  if (isColumnsError) {
+  if (isColumnsError || IsDataTableError) {
     return (
       <ErrorPage title={`Something went wrong while projects loading...`} />
     );
@@ -339,10 +397,14 @@ const TableFulfill = ({
       )}
       {columnsData.length > 0 && (
         <Button
-          disabled={isLoading}
+          disabled={isDataTableLoading}
           onClick={handlePopulateTable}
           className="w-full mt-2">
-          {isLoading ? <Loader className="w-4 h-4 animate-spin" /> : "Save"}
+          {isDataTableLoading ? (
+            <Loader className="w-4 h-4 animate-spin" />
+          ) : (
+            "Save"
+          )}
         </Button>
       )}
 

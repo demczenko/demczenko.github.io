@@ -9,13 +9,13 @@ import { v4 as uuidv4 } from "uuid";
 import RenderList from "@/components/RenderList";
 import { PlusCircle } from "lucide-react";
 import ColumnCart from "./ColumnCart";
-import DataTableCart from "./DataTableCart";
 import { useTable } from "@/hooks/tables/useTable";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
-import ComponentCart from "../Components/ComponentCart";
 import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
 import { useQueryClient } from "react-query";
+import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
+import DataTableContent from "./DataTable";
 
 const Table = () => {
   const { id } = useParams();
@@ -33,7 +33,7 @@ const Table = () => {
     isLoading: isTablesLoading,
   } = useTable(id);
 
-  const { data: isSlugExists } = useColumns(
+  const { data: isSlugExists, isLoading: isSlugExistsLoading } = useColumns(
     `?table_id=${table?.id}&type=slug`,
     {
       enabled: !!table?.id,
@@ -46,6 +46,12 @@ const Table = () => {
     isError: isColumnUpdateError,
   } = useColumnCreate();
 
+  const {
+    mutate: updateTable,
+    isLoading: isTableUpdateLoading,
+    isError: isTableUpdateError,
+  } = useTableUpdate();
+
   const createColumn = (new_column) => {
     mutate(new_column, {
       onError: () => {
@@ -56,10 +62,8 @@ const Table = () => {
         });
       },
       onSettled: () => {
+        client.invalidateQueries(`columns`);
         setIsModalOpen(false);
-        client.invalidateQueries("tables");
-        client.invalidateQueries(`table-${id}`);
-        client.invalidateQueries("columns");
       },
       onSuccess: () => {
         toast({
@@ -82,33 +86,57 @@ const Table = () => {
   }
 
   if (IsTablesError) {
+    return <ErrorPage title={`Something went wrong while tables loading...`} />;
+  }
+
+  if (!table) {
     return (
-      <ErrorPage title={`Something went wrong while projects loading...`} />
+      <NotFound
+        title={"Table you are trying to access not found."}
+        action={{ to: "/tables", title: "Go to tables" }}
+      />
     );
   }
-  const handleChangeTableName = async (table) => {
-    if (name.trim().length > 0) {
-      const candidate = await updateTable({ id: table.id, table_name: name });
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table name successfully updated",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to update table",
-          description: "Something went wrong",
-        });
-      }
-
-      setIsOpen(false);
-    } else {
-      setIsOpen(false);
+  const handleChangeTableName = async () => {
+    if (name.trim().length < 3) {
+      toast({
+        variant: "destructive",
+        title: "Failed to update table",
+        description: "Table name should have at least 3 symbols",
+      });
     }
+    updateTable(
+      {
+        id: table.id,
+        table_name: name,
+      },
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update table",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          setIsOpen(false);
+          client.invalidateQueries(`table-${id}`);
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Table name successfully updated",
+          });
+        },
+      }
+    );
   };
 
+  // component_id
+  // TODO: add edit column (after column edit need to be done:
+  //  change column name for every imported slug
+  //  remind user to change variable in template or try to change it by yourself)
   const handleCreateColumn = async (column) => {
     const new_column = {
       id: uuidv4(),
@@ -134,10 +162,6 @@ const Table = () => {
     }
   };
 
-  // component_id
-  // TODO: add edit column (after column edit need to be done:
-  //  change column name for every imported slug
-  //  remind user to change variable in template or try to change it by yourself)
   return (
     <PageContainer>
       <Heading
@@ -146,7 +170,11 @@ const Table = () => {
             {isOpen ? (
               <input
                 ref={ref}
-                onBlur={() => handleChangeTableName(table)}
+                onBlur={() => {
+                  if (table.table_name.toLowerCase() === name.toLowerCase())
+                    return;
+                  handleChangeTableName(table);
+                }}
                 onChange={(ev) => setName(ev.target.value)}
                 value={name}
                 className="text-2xl border-none bg-transparent outline-none focus:border-none p-0"
@@ -156,8 +184,7 @@ const Table = () => {
                 onClick={() => {
                   setIsOpen(true);
                   setName(table.table_name);
-                }}
-                className="font-semibold">
+                }}>
                 {table?.table_name}
               </p>
             )}
@@ -174,28 +201,15 @@ const Table = () => {
           action={{
             id: 1,
             name: "Create Column",
-            icon: <PlusCircle className="h-4 w-4 mr-2" />,
-            onClick: () => setIsModalOpen(true),
+            icon: <PlusCircle className="h-4 w-4" />,
+            onClick: () => {
+              if (!isSlugExistsLoading) {
+                setIsModalOpen(true);
+              }
+            },
           }}
         />
-        {"template_id" in table ? (
-          <RenderList
-            restrictHeigh={true}
-            component={DataTableCart}
-            title={"Projects data"}
-            service={"projects"}
-            query={`?template_id=${table.template_id}`}
-            view={"list"}
-          />
-        ) : (
-          <RenderList
-            restrictHeigh={true}
-            component={ComponentCart}
-            title={"Compoents data"}
-            service={"components"}
-            query={`?component_id=${table.component_id}`}
-          />
-        )}
+        <DataTableContent table_id={table.id} />
       </div>
       <CreateForm
         isLoading={isColumnUpdateLoading}

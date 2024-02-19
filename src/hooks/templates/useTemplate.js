@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useTemplate = (id) => {
   return useQuery(`template-${id}`, async () => {
-    const response = await TemplatesService.get(`?id=${id}`);
-    return response[0];
+    const response = await TemplatesService.get(id);
+    return response;
   });
 };

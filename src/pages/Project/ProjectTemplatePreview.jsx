@@ -1,19 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
-import ConfigureNode from "./ConfigureNode";
 import { v4 as uuidv4 } from "uuid";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useTemplate } from "@/hooks/templates/useTemplate";
 import ErrorPage from "@/ErrorPage";
 import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
+import { useQueryClient } from "react-query";
+import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
+import { CreateForm } from "@/components/CreateForm";
+import { useProjectStyleCreate } from "@/hooks/projectStyle/useProjectStyleCreate";
+import { useProjectsStyleUpdate } from "@/hooks/projectStyle/useProjectStyleUpdate";
+import { useToast } from "@/components/ui/use-toast";
 
-const ProjectTemplatePreview = ({
-  setStyle,
-  project_id,
-  template_id,
-  footer,
-  header,
-  handleUpdateTemplate,
-}) => {
+const ProjectTemplatePreview = ({ project_id, template_id }) => {
+  const ref = useRef(null);
+  const { toast } = useToast();
+
+  const client = useQueryClient();
+
+  const [open, setIsOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState("");
+  const [hydratedTemplate, setHydratedTemplate] = useState("");
+
   const {
     data: template,
     isError: IsTemplateError,
@@ -26,10 +33,23 @@ const ProjectTemplatePreview = ({
     isError: isProjectStyleError,
   } = useProjectsStyles(`?project_id=${project_id}`);
 
-  const ref = useRef(null);
-  const [open, setIsOpen] = useState(false);
-  const [selectedNode, setSelectedNode] = useState("");
-  const [hydratedTemplate, setHydratedTemplate] = useState("");
+  const {
+    mutate: updateTemplate,
+    isLoading: isTemplateUpdateLoading,
+    isError: isTemplateUpdateError,
+  } = useTemplateUpdate();
+
+  const {
+    mutate: createProjectStyle,
+    isLoading: isProjectStyleCreateLoading,
+    isError: isProjectStyleCreateError,
+  } = useProjectStyleCreate();
+
+  const {
+    mutate: updateProjectStyle,
+    isLoading: isProjectStyleUpdateLoading,
+    isError: isProjectStyleUpdateError,
+  } = useProjectsStyleUpdate();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -73,6 +93,8 @@ const ProjectTemplatePreview = ({
     return () => {
       if (ref.current) {
         ref.current.removeEventListener("click", handleNodeSelect);
+        ref.current.removeEventListener("mouseover", handleNodeHighlight);
+        ref.current.removeEventListener("mouseout", handleNodeUnHighlight);
       }
     };
   }, [IsTemplateLoading]);
@@ -80,10 +102,9 @@ const ProjectTemplatePreview = ({
   useEffect(() => {
     if (!projectStyle) return;
     const document = new DOMParser().parseFromString(
-      header ?? "" + template?.template_html + footer ?? "",
+      template?.template_html,
       "text/html"
     );
-
     const nodes_to_update = document.querySelectorAll("[data-style-id]");
 
     if (nodes_to_update) {
@@ -97,7 +118,7 @@ const ProjectTemplatePreview = ({
     }
 
     setHydratedTemplate(document.documentElement.outerHTML);
-  }, [projectStyle, template?.template_html]);
+  }, [projectStyle, template]);
 
   const clear_body_from_style = (body, style) => {
     const nodes_to_clear = body.querySelectorAll("[data-style-id]");
@@ -126,13 +147,102 @@ const ProjectTemplatePreview = ({
       node_id: uuidv4(),
     };
 
-    setStyle(new_node);
+    handleProjectStyle(new_node);
     const updated_body = new DOMParser().parseFromString(
       ref.current.innerHTML,
       "text/html"
     ).body;
     const cleared_body = clear_body_from_style(updated_body, style);
     handleUpdateTemplate(cleared_body.innerHTML);
+  };
+
+  const handleUpdateTemplate = async (body_with_data_attribute) => {
+    const old_document = new DOMParser().parseFromString(
+      template.template_html,
+      "text/html"
+    );
+    old_document.body.innerHTML = body_with_data_attribute;
+    const updated_template = {
+      id: template.id,
+      template_html: old_document.documentElement.outerHTML,
+    };
+    // TODO: Why i need to clear template from style.
+    updateTemplate(updated_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update project style",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template style successfully updated",
+        });
+      },
+    });
+  };
+
+  const handleProjectStyle = async (new_node) => {
+    let isExist = false;
+    let itemId;
+
+    for (const item of projectStyle) {
+      if (item.id === new_node.id) {
+        isExist = true;
+        itemId = item.id;
+      }
+    }
+
+    if (isExist) {
+      updateProjectStyle(
+        { ...new_node, id: itemId },
+        {
+          onError: () => {
+            toast({
+              variant: "destructive",
+              title: "Failed to update project style",
+              description: "Something went wrong",
+            });
+          },
+          onSettled: () => {
+            client.invalidateQueries("templates");
+          },
+          onSuccess: () => {
+            toast({
+              variant: "success",
+              title: "Success",
+              description: "Project style successfully updated",
+            });
+          },
+        }
+      );
+    } else {
+      createProjectStyle(new_node, {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to create project style",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries("templates");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Project style successfully created",
+          });
+        },
+      });
+    }
   };
 
   if (IsTemplateLoading || isProjectStyleLoading) {
@@ -156,10 +266,31 @@ const ProjectTemplatePreview = ({
         }}
         className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
       />
-      <ConfigureNode
+      <CreateForm
+        fields={[
+          {
+            id: 1,
+            name: "backgroundColor",
+            label: "Background color",
+            placeholder: "color",
+          },
+          {
+            id: 2,
+            name: "color",
+            label: "Text color",
+            placeholder: "color",
+          },
+        ]}
+        title={"Create project style"}
+        description={"Enter style name background color and text color."}
         onSubmit={handleStyle}
-        open={open}
-        onOpenChange={setIsOpen}
+        isOpen={open}
+        setIsOpen={setIsOpen}
+        isLoading={
+          isTemplateUpdateLoading ||
+          isProjectStyleCreateLoading ||
+          isProjectStyleUpdateLoading
+        }
       />
     </>
   );

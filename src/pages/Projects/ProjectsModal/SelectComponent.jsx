@@ -57,7 +57,7 @@ export function SelectComponent({ title, value, onSelect }) {
           <CommandInput placeholder="Search template..." className="h-9" />
           <CommandEmpty>No component found.</CommandEmpty>
           <CommandGroup>
-            {components.map((component) => (
+            {components?.map((component) => (
               <CommandItem
                 value={component.component_name}
                 key={component.id}

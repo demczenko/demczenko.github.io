@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import PageContainer from "../PageContainer";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
-import { useComponents } from "@/hooks/components/useComponents";
 import { Input } from "@/components/ui/input";
 import RenderList from "@/components/RenderList";
 import ComponentCart from "./ComponentCart";
-import { SkeletonCard } from "@/components/SkeletonCard";
-import ErrorPage from "@/ErrorPage";
 import { v4 as uuidv4 } from "uuid";
 import { useComponentCreate } from "@/hooks/components/useComponentCreate";
 import { useQueryClient } from "react-query";
@@ -18,22 +15,6 @@ const Components = () => {
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: onCreate, isLoading: onCreateLoading } = useComponentCreate();
-
-  const {
-    isLoading: componentsIsLoading,
-    data: components,
-    error: componentsIsError,
-  } = useComponents();
-
-  if (componentsIsLoading) {
-    return <SkeletonCard />;
-  }
-
-  if (componentsIsError) {
-    return (
-      <ErrorPage title={`Something went wrong while components loading...`} />
-    );
-  }
 
   const handleComponentCreate = (data) => {
     let html;
@@ -78,10 +59,11 @@ const Components = () => {
         action={{
           id: 1,
           name: "Create component",
-          icon: <PlusCircle className="w-4 h-4 mr-2" />,
+          icon: <PlusCircle className="w-4 h-4" />,
           onClick: () => setIsModalOpen(true),
-        }}>
-        <RenderList list={components || []} component={ComponentCart} />
+        }}
+      >
+        <RenderList service={"components"} component={ComponentCart} />
       </PageContainer>
       <CreateForm
         isLoading={onCreateLoading}

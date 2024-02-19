@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PageContainer } from "..";
-import { useProjects } from "@/hooks/projects/useProjects";
 import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectTemplate } from "./ProjectsModal/SelectTemplate";
@@ -9,30 +8,17 @@ import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import ProjectCart from "./ProjectCart";
 import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
-import { SkeletonCard } from "@/components/SkeletonCard";
-import ErrorPage from "@/ErrorPage";
 import { useQueryClient } from "react-query";
 
 const Projects = () => {
   const client = useQueryClient();
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data: projects, isError, isLoading } = useProjects(`?isarchived=0`);
   const {
     mutate: onProjectCreate,
     isError: projectUpdateIsError,
     isLoading: projectUpdateIsLoading,
   } = useProjectCreate();
-
-  if (isLoading) {
-    return <SkeletonCard />;
-  }
-
-  if (isError) {
-    return (
-      <ErrorPage title={`Something went wrong while projects loading...`} />
-    );
-  }
 
   const handleCreateProject = async (project) => {
     const new_project = {
@@ -70,11 +56,16 @@ const Projects = () => {
         action={{
           id: 1,
           name: "Create Project",
-          icon: <PlusCircle className="h-4 w-4 mr-2" />,
+          icon: <PlusCircle className="h-4 w-4" />,
           onClick: () => setIsModalOpen(true),
         }}
-        title="Projects">
-        <RenderList list={projects || []} component={ProjectCart} />
+        title="Projects"
+      >
+        <RenderList
+          service={"projects"}
+          query={`?isarchived=0`}
+          component={ProjectCart}
+        />
       </PageContainer>
       <CreateForm
         isLoading={projectUpdateIsLoading}

@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useTable = (id) => {
   return useQuery(`table-${id}`, async () => {
-    const response = await TableService.get(`?id=${id}`);
-    return response[0]
+    const response = await TableService.get(id);
+    return response
   });
 };

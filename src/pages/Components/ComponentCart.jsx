@@ -49,7 +49,7 @@ const ComponentCart = ({
   };
 
   return (
-    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/components/${item.id}`}>
           <CardTitle className="text-white hover:underline">

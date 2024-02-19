@@ -5,57 +5,66 @@ import TemplatePreview from "../../components/TemplatePreview";
 import { useToast } from "@/components/ui/use-toast";
 import RenderList from "@/components/RenderList";
 import { PlusCircle } from "lucide-react";
-import { AddTable } from "../Template/AddTable";
-import TableCart from "../Tables/TableCart";
 import { v4 as uuidv4 } from "uuid";
-import { DrawerModal } from "@/components/Drawer";
-import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useComponent } from "@/hooks/components/useComponent";
 import { useQueryClient } from "react-query";
+import { useComponentUpdate } from "@/hooks/components/useComponentUpdate";
+import { useTableCreate } from "@/hooks/tables/useTableCreate";
+import { CreateForm } from "@/components/CreateForm";
+import { TableCartComponent } from "./TableCartComponent";
+import NotFound from "@/NotFound";
 
 const Component = () => {
   const { toast } = useToast();
   const { id } = useParams();
   const client = useQueryClient();
-  const [selectedTable, setSelectedTable] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenPopulate, setIsModalOpenPopulate] = useState(false);
 
   const { data: component, error, isError, isLoading } = useComponent(id);
 
   const {
-    mutate: createDataTable,
-    isLoading: isDataTableLoading,
-    isError: isDataTableError,
-  } = useDataTable();
+    mutate: createTable,
+    isLoading: isTableCreateLoading,
+    isError: isTableCreateError,
+  } = useTableCreate();
 
-  const onChangeTemplateSubmit = async ({ html }) => {
+  const {
+    mutate: updateComponent,
+    isLoading: isComponentUpdateLoading,
+    isError: isComponentUpdateError,
+  } = useComponentUpdate();
+
+  const onChangeTemplateSubmit = ({ html }) => {
     if (html.length < 10) return;
     const new_component = {
       id: component.id,
       component_html: html,
     };
-    const candidate = await updateComponent(new_component);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Component successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update component",
-        description: "Something went wrong",
-      });
-    }
+
+    updateComponent(new_component, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update component",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("columns");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Component successfully updated",
+        });
+      },
+    });
   };
 
-  const onSubmit = async (data) => {
-    setIsModalOpen(false);
-
+  const handleCreateTable = (data) => {
     const new_table = {
       id: uuidv4(),
       table_name: data.table_name,
@@ -63,107 +72,23 @@ const Component = () => {
       createdat: Date.now(),
     };
 
-    const candidate = await setTable(new_table);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Table created successfully",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to create table",
-        description: "Something went wrong",
-      });
-    }
-  };
-
-  const onDeleteTable = async (table_id) => {
-    const isColumns = columns.filter((column) => column.table_id === table_id);
-    if (isColumns.length > 0) {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete table",
-        description: "Firstly delete all columns",
-      });
-    } else {
-      const candidate = await removeTable(table_id);
-      if (candidate) {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table successfully deleted",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Failed to delete table",
-          description: "Something went wrong",
-        });
-      }
-    }
-  };
-
-  const onDuplicate = async (table_id) => {
-    const duplicateTable = tables.find((table) => table.id == table_id);
-    const new_template_id = uuidv4();
-    const new_table = {
-      ...duplicateTable,
-      id: new_template_id,
-      table_name: duplicateTable.table_name + " Copy",
-    };
-
-    // Get columns for selected id
-    const new_columns = columns.filter(
-      (column) => column.table_id === table_id
-    );
-    // Change columns id
-    const change_columns_id = new_columns.map((col) => ({
-      ...col,
-      id: uuidv4(),
-      table_id: new_template_id,
-    }));
-
-    const candidate = await setTable(new_table);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Table successfully duplicated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to duplicate table",
-        description: "Something went wrong",
-      });
-    }
-    change_columns_id.forEach((column) => setColumn(column));
-  };
-
-  const handleImport = async (data) => {
-    const new_data_table = {
-      ...data,
-      component_id: component.id,
-    };
-    createDataTable(new_data_table, {
+    createTable(new_table, {
       onError: () => {
         toast({
           variant: "destructive",
-          title: "Failed to create data table",
+          title: "Failed to create table",
           description: "Something went wrong",
         });
       },
       onSettled: () => {
         setIsModalOpen(false);
-        client.invalidateQueries("components");
+        client.invalidateQueries("tables");
       },
       onSuccess: () => {
         toast({
           variant: "success",
-          title: "Created",
-          description: "Table data has been successfully created",
+          title: "Success",
+          description: "Table created successfully",
         });
       },
     });
@@ -176,6 +101,15 @@ const Component = () => {
   if (isError) {
     return (
       <ErrorPage title={`Something went wrong while component loading...`} />
+    );
+  }
+
+  if (!component) {
+    return (
+      <NotFound
+        title={"Component you are trying to access not found."}
+        action={{ to: "/components", title: "Go to components" }}
+      />
     );
   }
 
@@ -192,14 +126,7 @@ const Component = () => {
             service={"tables"}
             query={`?component_id=${component.id}`}
             title={"Tables"}
-            component={TableCart}
-            onTableSelect={(table) => {
-              setSelectedTable(table);
-              setIsModalOpenPopulate(true);
-            }}
-            onDeleteTable={onDeleteTable}
-            onDuplicate={onDuplicate}
-            isProject={false}
+            component={TableCartComponent}
             action={{
               id: 1,
               name: "Create table",
@@ -209,26 +136,21 @@ const Component = () => {
           />
         </div>
       </div>
-      <AddTable
+      <CreateForm
+        isLoading={isTableCreateLoading}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        onSubmit={onSubmit}
-      />
-      <DrawerModal
-        title={`Populate ${selectedTable.table_name} table`}
-        description={"Import CSV file or fulfill data manually"}
-        open={isModalOpenPopulate}
-        onOpenChange={() => {
-          setIsModalOpenPopulate(false);
-        }}
-        content={
-          <TableFulfill
-            isLoading={isDataTableLoading}
-            onSubmit={handleImport}
-            setIsModalOpen={setIsModalOpenPopulate}
-            table_id={selectedTable.id}
-          />
-        }
+        onSubmit={handleCreateTable}
+        fields={[
+          {
+            id: 1,
+            name: "table_name",
+            label: "Table name",
+            placeholder: "name",
+          },
+        ]}
+        title={"Create table"}
+        description={"Enter table name. Click save when you're done."}
       />
     </PageContainer>
   );

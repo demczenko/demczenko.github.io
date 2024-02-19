@@ -51,7 +51,7 @@ export function SelectTemplate({ value, onSelect }) {
           <CommandInput placeholder="Search template..." className="h-9" />
           <CommandEmpty>No template found.</CommandEmpty>
           <CommandGroup>
-            {templates.map((template) => (
+            {templates?.map((template) => (
               <CommandItem
                 value={template.name}
                 key={template.id}

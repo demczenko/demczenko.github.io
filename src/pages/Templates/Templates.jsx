@@ -1,27 +1,42 @@
 import { useState } from "react";
 import { DrawerModal } from "@/components/Drawer";
 import { AddTemplateDrawer } from "./TemplateModal/AddTemplateDrawer";
-import { useTemplates } from "@/hooks/templates/useTemplates";
 import { PageContainer } from "..";
 import { PlusCircle } from "lucide-react";
 import TemplateCart from "./TemplateCart";
 import RenderList from "@/components/RenderList";
-import { SkeletonCard } from "@/components/SkeletonCard";
-import ErrorPage from "@/ErrorPage";
+import { useTemplateCreate } from "@/hooks/templates/useTemplateCreate";
+import { useQueryClient } from "react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const Templates = () => {
+  const { toast } = useToast();
+  const client = useQueryClient();
+  const { mutate: createTemplate, isLoading, isError } = useTemplateCreate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data: templates, isError, isLoading } = useTemplates(`?isarchived=0`);
 
-  if (isLoading) {
-    return <SkeletonCard />;
-  }
-
-  if (isError) {
-    return (
-      <ErrorPage title={`Something went wrong while templates loading...`} />
-    );
-  }
+  const handleCreateTemplate = (new_template) => {
+    createTemplate(new_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to create template",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        setIsModalOpen(false);
+        client.invalidateQueries("templates");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template successfully created",
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -29,11 +44,16 @@ const Templates = () => {
         action={{
           id: 1,
           name: "Create Template",
-          icon: <PlusCircle className="h-4 w-4 mr-2" />,
+          icon: <PlusCircle className="h-4 w-4" />,
           onClick: () => setIsModalOpen(true),
         }}
-        title="Templates">
-        <RenderList list={templates || []} component={TemplateCart} />
+        title="Templates"
+      >
+        <RenderList
+          query={`?isarchived=0`}
+          service={"templates"}
+          component={TemplateCart}
+        />
       </PageContainer>
       <DrawerModal
         title={"Create template"}
@@ -41,7 +61,10 @@ const Templates = () => {
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         content={
-          <AddTemplateDrawer onSubmitForm={() => setIsModalOpen(false)} />
+          <AddTemplateDrawer
+            isLoading={isLoading}
+            onSubmit={(template) => handleCreateTemplate(template)}
+          />
         }
       />
     </>

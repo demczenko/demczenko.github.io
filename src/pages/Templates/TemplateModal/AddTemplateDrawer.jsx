@@ -5,17 +5,11 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import Preview from "./Preview";
-import { useToast } from "@/components/ui/use-toast";
-import { useTemplateCreate } from "@/hooks/templates/useTemplateCreate";
-import { useQueryClient } from "react-query";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const AddTemplateDrawer = ({ header, onSubmitForm }) => {
-  const client = useQueryClient();
-  const { mutate: createTemplate, isLoading, isError } = useTemplateCreate();
+export const AddTemplateDrawer = ({ isLoading, onSubmit }) => {
   const [html, setHTML] = useState("");
-  const { toast } = useToast();
 
   const form = useForm({
     defaultValues: {
@@ -60,36 +54,18 @@ export const AddTemplateDrawer = ({ header, onSubmitForm }) => {
     cb(formData);
   };
 
-  const onSubmit = async (data) => {
+  const handleSubmit = async (data) => {
     const new_template = {
       template_name: data.template_name,
       template_html: html,
+      footer_id: null,
+      header_id: null,
       id: uuidv4(),
       isarchived: false,
       createdat: Date.now(),
     };
 
-    createTemplate(new_template, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to create template",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("templates");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Template successfully created",
-        });
-      },
-    });
-
-    onSubmitForm();
+    onSubmit(new_template);
   };
 
   return (
@@ -97,10 +73,10 @@ export const AddTemplateDrawer = ({ header, onSubmitForm }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) =>
-            validateFormInput(data, onSubmit)
+            validateFormInput(data, handleSubmit)
           )}
-          className="space-y-8 h-full flex flex-col w-full">
-          {header}
+          className="space-y-8 h-full flex flex-col w-full"
+        >
           <TemplateForm form={form} />
           <Button type="submit" size="sm" className="w-full">
             {isLoading ? (

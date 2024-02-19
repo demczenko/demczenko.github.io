@@ -16,22 +16,47 @@ import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 import { useTemplateDelete } from "@/hooks/templates/useTemplateDelete";
 import { useToast } from "@/components/ui/use-toast";
 import { useQueryClient } from "react-query";
+import { useTableCreate } from "@/hooks/tables/useTableCreate";
+import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
+import { useTemplateCreate } from "@/hooks/templates/useTemplateCreate";
+import { useTables } from "@/hooks/tables/useTables";
+import { useColumns } from "@/hooks/columns/useColumns";
 
 const TemplateCart = ({ item }) => {
   const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { mutate: createProject, isLoading: isProjectLoading } =
+    useProjectCreate();
   const {
-    mutate: createProject,
-    isLoading: isProjectLoading,
-    isError,
-  } = useProjectCreate();
-  const { mutate: updateTemplate, isLoading: isTemplateLoadingUpdate } =
-    useTemplateUpdate();
-  const { mutate: deleteTemplate, isLoading: isTemplateLoadingDelete } =
-    useTemplateDelete();
+    mutate: updateTemplate,
+    status: TemplateUpdateStatus,
+    isLoading: isTemplateLoadingUpdate,
+  } = useTemplateUpdate();
+  const {
+    mutate: deleteTemplate,
+    status: TemplateDeleteStatus,
+    isLoading: isTemplateLoadingDelete,
+  } = useTemplateDelete();
 
-  const handleArchive = async () => {
+  const { mutate: createTemplate, isLoading: isTemplateCreateLoading } =
+    useTemplateCreate();
+
+  const {
+    mutate: createTable,
+    isLoading: tableCreateLoading,
+    isError: tableCreateError,
+  } = useTableCreate();
+  const {
+    mutate: createColumn,
+    isLoading: columnCreateLoading,
+    isError: columnCreateError,
+  } = useColumnCreate();
+  
+  const { data: tables } = useTables(`?template_id=${item.id}`);
+  const { data: columns } = useColumns(`?table_id=${item.id}`);
+
+  const handleArchive = () => {
     updateTemplate(
       { id: item.id, isarchived: !item.isarchived },
       {
@@ -78,9 +103,11 @@ const TemplateCart = ({ item }) => {
     });
   };
 
-  const handleDuplicate = async (id) => {
-    const template = templates.find((template) => template.id === id);
-    const template_tables = tables.filter((table) => table.template_id === id);
+  const handleDuplicate = () => {
+    return alert("Under development")
+    const template_tables = tables.filter(
+      (table) => table.template_id === item.id
+    );
     let template_columns = [];
     template_tables.forEach((table) => {
       template_columns.push(
@@ -92,9 +119,9 @@ const TemplateCart = ({ item }) => {
 
     let new_columns = [];
     const new_template = {
-      ...template,
+      ...item,
       id: template_id,
-      template_name: template.template_name + " Copy",
+      template_name: item.template_name + " Copy",
       createdat: Date.now(),
     };
     const new_tables = template_tables.map((table) => {
@@ -120,30 +147,71 @@ const TemplateCart = ({ item }) => {
       };
     });
 
-    const candidate = await setTemplate(new_template);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Updated",
-        description: "Template successfully duplicated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to duplicate template",
-        description: "Something went wrong",
-      });
-    }
-
-    for (const table of new_tables) {
-      await setTable(table);
-    }
-    for (const column of new_columns) {
-      await setColumn(column);
-    }
+    createTemplate(new_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to duplicate template",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+        for (const table of new_tables) {
+          createTable(table, {
+            onError: () => {
+              toast({
+                variant: "destructive",
+                title: "Failed to duplicate table",
+                description: "Something went wrong",
+              });
+            },
+            onSettled: () => {
+              client.invalidateQueries("tables");
+              for (const column of new_columns) {
+                createColumn(column, {
+                  onError: () => {
+                    toast({
+                      variant: "destructive",
+                      title: "Failed to duplicate column",
+                      description: "Something went wrong",
+                    });
+                  },
+                  onSettled: () => {
+                    setIsModalOpen(false);
+                    client.invalidateQueries("columns");
+                  },
+                  onSuccess: () => {
+                    toast({
+                      variant: "success",
+                      title: "Success",
+                      description: "Column successfully duplicated",
+                    });
+                  },
+                });
+              }
+            },
+            onSuccess: () => {
+              toast({
+                variant: "success",
+                title: "Success",
+                description: "Table successfully duplicated",
+              });
+            },
+          });
+        }
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Updated",
+          description: "Template successfully duplicated",
+        });
+      },
+    });
   };
 
-  const onCreateProject = async (data) => {
+  const onCreateProject = (data) => {
     const new_project = {
       project_name: data.project_name,
       id: uuidv4(),
@@ -188,7 +256,7 @@ const TemplateCart = ({ item }) => {
               )}
             </>
           ),
-          onClick: () => handleArchive(),
+          onClick: handleArchive,
         },
         {
           id: 4,
@@ -202,7 +270,7 @@ const TemplateCart = ({ item }) => {
               )}
             </>
           ),
-          onClick: () => handleDelete(),
+          onClick: handleDelete,
         },
       ];
     } else {
@@ -210,8 +278,18 @@ const TemplateCart = ({ item }) => {
         {
           id: 1,
           name: "Duplicate",
-          icon: <Copy className="w-4 h-4 mr-2" />,
-          onClick: () => onDuplicate(item.id),
+          icon: (
+            <>
+              {isTemplateCreateLoading &&
+              tableCreateLoading &&
+              columnCreateLoading ? (
+                <Loader className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Copy className="w-4 h-4 mr-2" />
+              )}
+            </>
+          ),
+          onClick: handleDuplicate,
         },
         {
           id: 3,
@@ -231,7 +309,7 @@ const TemplateCart = ({ item }) => {
               )}
             </>
           ),
-          onClick: () => handleArchive(),
+          onClick: handleArchive,
         },
       ];
     }
@@ -239,7 +317,7 @@ const TemplateCart = ({ item }) => {
 
   return (
     <>
-      <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+      <Card className="max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
         <CardHeader>
           <Link to={`/templates/${item.id}`}>
             <CardTitle className="text-white hover:underline">
@@ -255,8 +333,14 @@ const TemplateCart = ({ item }) => {
             </span>
           </p>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-between items-center">
           <CardActions actions={actions()} />
+          {TemplateUpdateStatus === "loading" && (
+            <Loader className="animate-spin w-4 h-4 text-blue-400" />
+          )}
+          {TemplateDeleteStatus === "loading" && (
+            <Loader className="animate-spin w-4 h-4 text-blue-400" />
+          )}
         </CardFooter>
       </Card>
       <CreateForm

@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useComponent = (id, options) => {
   return useQuery(`component-${id}`, async () => {
-    const response = await ComponentsService.get(`?id=${id}`);
-    return response[0];
+    const response = await ComponentsService.get(id);
+    return response;
   }, options);
 };

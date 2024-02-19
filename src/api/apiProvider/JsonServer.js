@@ -4,8 +4,11 @@ export class ApiLocalJson {
     this.#baseUrl = baseURl;
   }
 
-  async get(key, params) {
-    const req = await fetch(this.#baseUrl + key + "/" + params);
+  async get(key, id) {
+    const req = await fetch(this.#baseUrl + key + "/" + id);
+    if (req.status === 404) {
+      throw new Error("Not found");
+    }
     if (!req.ok) {
       throw new Error("Error while fetching data");
     }
@@ -15,7 +18,10 @@ export class ApiLocalJson {
   }
 
   async getAll(key, params) {
-    const req = params ? await fetch(this.#baseUrl + key + "/" + params) : await fetch(this.#baseUrl + key);
+    const fetchUrl = Object.keys(params).length ? this.#baseUrl + key + "/" + params : this.#baseUrl + key
+    const req = await fetch(fetchUrl)
+
+
     if (!req.ok) {
       throw new Error("Error while fetching data");
     }

@@ -1,9 +1,6 @@
 import { ComponentsService } from "@/api/components/init";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 
-export const useComponentUpdate = (params) => {
-  return useQuery("component-update", async () => {
-    const response = await ComponentsService.update(params);
-    return response[0];
-  });
+export const useComponentUpdate = () => {
+  return useMutation((params) => ComponentsService.update(params));
 };

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Edit2Icon, TrashIcon } from "lucide-react";
 import React, { useState } from "react";
 import {
@@ -10,61 +9,76 @@ import {
 } from "@/components/ui/card";
 import { CreateForm } from "@/components/CreateForm";
 import CardActions from "@/components/CardActions";
+import { useProjectStyleDelete } from "@/hooks/projectStyle/useProjectStyleDelete";
+import { useProjectsStyleUpdate } from "@/hooks/projectStyle/useProjectStyleUpdate";
+import { useToast } from "@/components/ui/use-toast";
 
-const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
+const ProjectStyleCart = ({ item, project_id }) => {
+  const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
+
+  const { mutate: deleteProjectStyle, isLoading: isDeleteProjectStyleLoading } =
+    useProjectStyleDelete();
+  const { mutate: updateProjectStyle, isLoading: isUpdateProjectStyleLoading } =
+    useProjectsStyleUpdate();
 
   const style = item.style;
   const style_data = Object.entries(style);
 
-  const handleSubmit = (data) => {
+  const handleStyleDelete = async () => {
+    deleteProjectStyle(item.id, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete project style",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project style successfully deleted",
+        });
+      },
+    });
+  };
+
+  const handleStylEdit = async () => {
     const new_item = {
       id: item.id,
+      project_id: project_id,
       style: {
         ...item.style,
         ...data,
       },
     };
-    handleEdit(new_item);
-  };
-
-  const handleStyleDelete = async (id) => {
-    // TODO: Remove id from html template (i cant make it because other projects can have this id)
-    const candidate = await removeProjectsStyles(id);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project style successfully deleted",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete project style",
-        description: "Something went wrong",
-      });
-    }
-  };
-
-  const handleStylEdit = async (item) => {
-    const candidate = await updateProjectsStyles(item);
-    if (candidate) {
-      toast({
-        variant: "success",
-        title: "Success",
-        description: "Project style successfully updated",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Failed to update project style",
-        description: "Something went wrong",
-      });
-    }
+    updateProjectStyle(new_item, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update project style",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries("templates");
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Project style successfully updated",
+        });
+      },
+    });
   };
 
   return (
-    <Card className="min-w-[300px] bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <CardTitle className="text-white hover:underline">
           {style.name}
@@ -85,7 +99,8 @@ const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
                 <p className="flex gap-2 items-center">
                   <span
                     className="rounded-full w-4 h-4 inline-block"
-                    style={{ backgroundColor: value }}></span>
+                    style={{ backgroundColor: value }}
+                  ></span>
                   {value}
                 </p>
               </div>
@@ -99,8 +114,16 @@ const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
             {
               id: 1,
               name: "Delete",
-              icon: <TrashIcon className="h-4 w-4 mr-2" />,
-              onClick: () => handleDelete(item.id),
+              icon: (
+                <>
+                  {isDeleteProjectStyleLoading ? (
+                    <Loader className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <TrashIcon className="h-4 w-4 mr-2" />
+                  )}
+                </>
+              ),
+              onClick: handleStyleDelete,
             },
             {
               id: 2,
@@ -112,7 +135,7 @@ const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
         />
       </CardFooter>
       <CreateForm
-        isLoading={isLoading}
+        isLoading={isUpdateProjectStyleLoading}
         fields={style_data.map(([key, value], i) => {
           return {
             id: i,
@@ -134,7 +157,7 @@ const ProjectStyleCart = ({ item, isLoading, handleEdit, handleDelete }) => {
         description={"Manage project style. Click done when you are ready"}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        onSubmit={handleSubmit}
+        onSubmit={handleStylEdit}
       />
     </Card>
   );
