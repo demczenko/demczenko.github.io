@@ -37,7 +37,11 @@ const Project = () => {
   } = useProjectUpdate();
 
   if (IsProjectLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (IsProjectError) {

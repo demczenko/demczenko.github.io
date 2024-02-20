@@ -8,6 +8,7 @@ import { useTables } from "@/hooks/tables/useTables";
 import { useTemplate } from "@/hooks/templates/useTemplate";
 import { useHydrate } from "@/hooks/useHydrate";
 import { useEffect, useState } from "react";
+import { PageContainer } from "..";
 
 const HydratedTemplateView = ({ project, selectedSlug }) => {
   const { toast } = useToast();
@@ -25,12 +26,16 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     data: header,
     isLoading: isHeaderLoading,
     isError: isHeaderError,
-  } = useComponent(template?.header_id, { enabled: !!template?.id && !!template?.header });
+  } = useComponent(template?.header_id, {
+    enabled: !!template?.id && !!template?.header,
+  });
   const {
     data: footer,
     isLoading: isFooterLoading,
     isError: isFooterError,
-  } = useComponent(template?.footer_id, { enabled: !!template?.id && !!template?.footer_id });
+  } = useComponent(template?.footer_id, {
+    enabled: !!template?.id && !!template?.footer_id,
+  });
 
   //   GET FOOTER AND HEADER TABLES
   const {
@@ -81,15 +86,15 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
 
   //   COLLECT ALL TABLES INTO 1 ARRAY DATA
 
-  const tables = []
+  const tables = [];
   if (templateTables) {
-    tables.push(...templateTables)
+    tables.push(...templateTables);
   }
   if (headerTables) {
-    tables.push(...headerTables)
+    tables.push(...headerTables);
   }
   if (footerTables) {
-    tables.push(...footerTables)
+    tables.push(...footerTables);
   }
   const tablesData = [].concat(
     project_data_tables_by_selected_slug,
@@ -142,7 +147,11 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     isHeaderLoading ||
     IsProjectsStylesLoading
   ) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (isTemplateError) {
@@ -159,8 +168,7 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
         <div className="h-full">
           <iframe
             className="w-full h-full rounded-md"
-            srcDoc={hydratedTemplate}
-          ></iframe>
+            srcDoc={hydratedTemplate}></iframe>
         </div>
       )}
     </div>

@@ -25,6 +25,7 @@ import ErrorPage from "@/ErrorPage";
 import { useDataTableCreate } from "@/hooks/dataTables/useDataTableCreate";
 import { useDataTableUpdate } from "@/hooks/dataTables/useDataTableUpdate";
 import { useQueryClient } from "react-query";
+import { PageContainer } from "@/pages";
 
 const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
   const client = useQueryClient();
@@ -339,7 +340,11 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
   };
 
   if (isColumnsLoading || IsDataTableLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (isColumnsError || IsDataTableError) {

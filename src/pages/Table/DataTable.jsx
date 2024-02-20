@@ -4,6 +4,7 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import React from "react";
 import DataTableCart from "./DataTableCart";
+import { PageContainer } from "..";
 
 const DataTableContent = ({ table_id }) => {
   const {
@@ -13,7 +14,11 @@ const DataTableContent = ({ table_id }) => {
   } = useDataTables(`?table_id=${table_id}`);
 
   if (isDataTableLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (IsDataTableError) {

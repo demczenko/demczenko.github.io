@@ -10,6 +10,7 @@ import { CreateForm } from "@/components/CreateForm";
 import { useProjectStyleCreate } from "@/hooks/projectStyle/useProjectStyleCreate";
 import { useProjectsStyleUpdate } from "@/hooks/projectStyle/useProjectStyleUpdate";
 import { useToast } from "@/components/ui/use-toast";
+import { PageContainer } from "..";
 
 const ProjectTemplatePreview = ({ project_id, template_id }) => {
   const ref = useRef(null);

@@ -11,7 +11,11 @@ const Users = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (isLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (isError) {

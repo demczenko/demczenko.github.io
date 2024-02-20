@@ -6,10 +6,18 @@ import DataTableContentCart from "./DataTableContentCart";
 import RenderList from "@/components/RenderList";
 import ErrorPage from "@/ErrorPage";
 import { useComponent } from "@/hooks/components/useComponent";
+import { useTable } from "@/hooks/tables/useTable";
+import NotFound from "@/NotFound";
 
 const DataTable = () => {
   // table id, id of the project or component
   const { table_id, id } = useParams();
+
+  const {
+    data: table,
+    isLoading: isTableLoading,
+    isError: isTableError,
+  } = useTable(table_id);
   const {
     data: project,
     isError: IsProjectError,
@@ -22,14 +30,35 @@ const DataTable = () => {
     isLoading: IsComponentLoading,
   } = useComponent(id);
 
-  if (IsProjectLoading || IsComponentLoading) {
-    return <SkeletonCard />;
+  if (IsProjectLoading || IsComponentLoading || isTableLoading) {
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (IsProjectError || IsComponentError) {
     return (
       <ErrorPage
         title={`Something went wrong while project or component loading...`}
+      />
+    );
+  }
+  if (!table) {
+    return (
+      <NotFound
+        title={"Table you are trying to access not found."}
+        action={{ to: "/tables", title: "Go to tables" }}
+      />
+    );
+  }
+
+  if (!project && !component) {
+    return (
+      <NotFound
+        title={"Project or component you are trying to access not found."}
+        action={{ to: "/projects", title: "Go to projects" }}
       />
     );
   }

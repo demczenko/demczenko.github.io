@@ -95,7 +95,11 @@ const Component = () => {
   };
 
   if (isLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (isError) {

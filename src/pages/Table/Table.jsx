@@ -82,7 +82,11 @@ const Table = () => {
   }, [isOpen]);
 
   if (isTablesLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (IsTablesError) {

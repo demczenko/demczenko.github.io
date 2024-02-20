@@ -16,13 +16,18 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useTemplates } from "@/hooks/templates/useTemplates";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { PageContainer } from "@/pages";
 
 export function SelectTemplate({ value, onSelect }) {
   const { data: templates, isLoading, isError } = useTemplates();
   const [open, setOpen] = useState(false);
 
   if (isLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (isError) {

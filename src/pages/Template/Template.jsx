@@ -228,7 +228,11 @@ const Template = () => {
   list = footer ? [...list, footer] : [...list];
 
   if (templateIsLoading || isFooterLoading || isHeaderLoading) {
-    return <SkeletonCard />;
+    return (
+      <PageContainer>
+        <SkeletonCard />
+      </PageContainer>
+    );
   }
 
   if (templateError || isFooterError || isHeaderError) {
