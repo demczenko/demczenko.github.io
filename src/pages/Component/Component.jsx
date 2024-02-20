@@ -136,7 +136,7 @@ const Component = () => {
             action={{
               id: 1,
               name: "Create table",
-              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              icon: <PlusCircle className="h-4 w-4" />,
               onClick: () => setIsModalOpen(true),
             }}
           />
