@@ -13,8 +13,8 @@ import { useQueryClient } from "react-query";
 import { useComponentUpdate } from "@/hooks/components/useComponentUpdate";
 import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import { CreateForm } from "@/components/CreateForm";
-import { TableCartComponent } from "./TableCartComponent";
 import NotFound from "@/NotFound";
+import { TableCartFulFill } from "../Tables/TableCartFulFill";
 
 const Component = () => {
   const { toast } = useToast();
@@ -126,7 +126,9 @@ const Component = () => {
             service={"tables"}
             query={`?component_id=${component.id}`}
             title={"Tables"}
-            component={TableCartComponent}
+            id={component.id}
+            key_id={"component_id"}
+            component={TableCartFulFill}
             action={{
               id: 1,
               name: "Create table",

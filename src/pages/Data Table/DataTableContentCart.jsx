@@ -8,12 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
+import { useDataTableDelete } from "@/hooks/dataTables/useDataTableDelete";
 import { useDataTableUpdate } from "@/hooks/dataTables/useDataTableUpdate";
-import { Edit, Loader } from "lucide-react";
+import { Edit, Loader, TrashIcon } from "lucide-react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 
-const DataTableContentCart = ({ item }) => {
+const DataTableContentCart = ({ item, invalidateQuery }) => {
   const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +24,8 @@ const DataTableContentCart = ({ item }) => {
     isLoading: isDataTableUpdateLoading,
     isError: isDataTableUpdateError,
   } = useDataTableUpdate();
+
+  const { mutate: onDelete, isLoading: onDeleteLoading } = useDataTableDelete();
 
   const handleUpdate = async (data) => {
     const updated_slug = {
@@ -38,7 +41,7 @@ const DataTableContentCart = ({ item }) => {
         });
       },
       onSettled: () => {
-        setIsModalOpen(false)
+        setIsModalOpen(false);
         client.invalidateQueries("data-tables");
       },
       onSuccess: () => {
@@ -46,6 +49,28 @@ const DataTableContentCart = ({ item }) => {
           variant: "success",
           title: "Success",
           description: "Data item successfully updated",
+        });
+      },
+    });
+  };
+
+  const handleDataTableDelete = async (id) => {
+    onDelete(id, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed",
+          description: "Failed to delete component",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries(`data_tables-${invalidateQuery}`);
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Component successfully deleted",
         });
       },
     });
@@ -83,6 +108,20 @@ const DataTableContentCart = ({ item }) => {
                   </>
                 ),
                 onClick: () => setIsModalOpen(true),
+              },
+              {
+                id: 2,
+                onClick: () => handleDataTableDelete(item.id),
+                icon: (
+                  <>
+                    {onDeleteLoading ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      <TrashIcon className="w-4 h-4 mr-2" />
+                    )}
+                  </>
+                ),
+                name: "Delete",
               },
             ]}
           />

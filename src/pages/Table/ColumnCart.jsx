@@ -46,7 +46,7 @@ const ColumnCart = ({ item }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("columns");
+        client.invalidateQueries(`columns-?table_id=${item.table_id}`);
       },
       onSuccess: () => {
         toast({
@@ -89,7 +89,7 @@ const ColumnCart = ({ item }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("columns");
+        client.invalidateQueries(`columns-?table_id=${item.table_id}`);
       },
       onSuccess: () => {
         toast({
@@ -117,8 +117,9 @@ const ColumnCart = ({ item }) => {
         });
       },
       onSettled: () => {
-        setIsColumnModalOpen(false);
         client.invalidateQueries("columns");
+        client.invalidateQueries(`columns-?table_id=${item.table_id}`);
+        setIsColumnModalOpen(false);
       },
       onSuccess: () => {
         toast({

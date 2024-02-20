@@ -4,7 +4,6 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import React from "react";
 import DataTableCart from "./DataTableCart";
-import ComponentCart from "../Components/ComponentCart";
 
 const DataTableContent = ({ table_id }) => {
   const {
@@ -23,28 +22,44 @@ const DataTableContent = ({ table_id }) => {
     );
   }
 
-  console.log(dataTables);
+  const projects = Array.from(
+    new Set(dataTables.map((item) => item.project_id))
+  );
+
+  const components = Array.from(
+    new Set(dataTables.map((item) => item.component_id))
+  );
+
   return (
-    <div>
-      {/* {isComponentId && (
-        <RenderList
-          restrictHeigh={true}
-          component={ComponentCart}
-          title={"Components"}
-          service={"components"}
-          query={`?id=${component_id}`}
-        />
-      )}
-      {isProjectId && (
-        <RenderList
-          restrictHeigh={true}
-          component={DataTableCart}
-          title={"Projects data"}
-          service={"projects"}
-          query={`?id=${project_id}`}
-          view={"list"}
-        />
-      )} */}
+    <div className="space-y-6">
+      {projects?.map((id, i) => {
+        return (
+          <RenderList
+            key={i}
+            restrictHeigh={true}
+            id={id}
+            table_id={table_id}
+            component={DataTableCart}
+            title={"Projects data tables"}
+            service={"projects"}
+            query={`?id=${id}`}
+          />
+        );
+      })}
+      {components?.map((id, i) => {
+        return (
+          <RenderList
+            key={i}
+            restrictHeigh={true}
+            id={id}
+            table_id={table_id}
+            component={DataTableCart}
+            title={"Components data tables"}
+            service={"components"}
+            query={`?id=${id}`}
+          />
+        );
+      })}
     </div>
   );
 };

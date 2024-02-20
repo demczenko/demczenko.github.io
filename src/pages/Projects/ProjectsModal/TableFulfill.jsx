@@ -86,6 +86,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
       // check if accepted keys includes column name that user specified
       // and add to accepted_data_items.
       const accepted_data_items = {};
+      // Object with column (keys) names from CSV table
       for (const key in data_item) {
         let lowerKey = key.toLowerCase();
 
@@ -165,6 +166,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
         });
       },
       onSettled: () => {
+        setIsModalOpen(false);
         client.invalidateQueries(`data-tables-?${key_id}=${id}`);
       },
       onSuccess: () => {
@@ -231,7 +233,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
     }
   }, [slugsAlreadyExist, columnsData]);
 
-  console.log(tableData);
   const handlePopulateTable = () => {
     const alreadyExistsSlugs = [];
     for (const table_data_item of tableData) {
@@ -254,7 +255,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
       for (const data_item of columnsData) {
         handleImport(data_item);
       }
-      setIsModalOpen(false);
     }
   };
 
@@ -266,14 +266,14 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
     let isExist = false;
     let itemId;
     const new_item = {
-      ...data,
+      data: data,
       id: uuidv4(),
       createdat: Date.now(),
       table_id: table_id,
     };
 
     for (const data_item of tableData) {
-      if (new_item.slug === data_item.slug) {
+      if (new_item.data.slug === data_item.data.slug) {
         isExist = true;
         itemId = data_item.id;
       }

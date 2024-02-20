@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import { useState } from "react";
 
-export function TableCartComponent({ item, project_id }) {
+export function TableCartFulFill({ item, id, key_id }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -57,8 +57,8 @@ export function TableCartComponent({ item, project_id }) {
           <TableFulfill
             setIsModalOpen={setIsModalOpen}
             table_id={item.id}
-            id={project_id}
-            key_id={"component_id"}
+            id={id}
+            key_id={key_id}
           />
         }
       />

@@ -46,12 +46,16 @@ const Template = () => {
     data: header,
     isLoading: isHeaderLoading,
     isError: isHeaderError,
-  } = useComponent(template?.header_id, { enabled: !!template?.id && !!template?.header });
+  } = useComponent(template?.header_id, {
+    enabled: !!template?.id && !!template?.header,
+  });
   const {
     data: footer,
     isLoading: isFooterLoading,
     isError: isFooterError,
-  } = useComponent(template?.footer_id, { enabled: !!template?.id && !!template?.footer_id });
+  } = useComponent(template?.footer_id, {
+    enabled: !!template?.id && !!template?.footer_id,
+  });
 
   const {
     mutate: updateTemplate,
@@ -238,8 +242,8 @@ const Template = () => {
   if (!template) {
     return (
       <NotFound
-        title={"Project you are trying to access not found."}
-        action={{ to: "/projects", title: "Go to projects" }}
+        title={"Template you are trying to access not found."}
+        action={{ to: "/templates", title: "Go to templates" }}
       />
     );
   }
@@ -263,8 +267,10 @@ const Template = () => {
                     if (
                       template.template_name.toLowerCase() ===
                       name.toLowerCase()
-                    )
+                    ) {
+                      setIsOpen(false);
                       return;
+                    }
                     handleChangeTemplateName(template);
                   }}
                   onChange={(ev) => setName(ev.target.value)}
@@ -276,8 +282,7 @@ const Template = () => {
                   onClick={() => {
                     setIsOpen(true);
                     setName(template?.template_name);
-                  }}
-                >
+                  }}>
                   {template?.template_name}
                 </p>
               )

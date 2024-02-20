@@ -62,7 +62,7 @@ const Table = () => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries(`columns`);
+        client.invalidateQueries(`columns-?table_id=${table.id}`);
         setIsModalOpen(false);
       },
       onSuccess: () => {
@@ -171,8 +171,10 @@ const Table = () => {
               <input
                 ref={ref}
                 onBlur={() => {
-                  if (table.table_name.toLowerCase() === name.toLowerCase())
+                  if (table.table_name.toLowerCase() === name.toLowerCase()) {
+                    setIsOpen(false);
                     return;
+                  }
                   handleChangeTableName(table);
                 }}
                 onChange={(ev) => setName(ev.target.value)}

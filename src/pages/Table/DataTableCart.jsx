@@ -1,14 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
-const DataTableCart = ({ item }) => {
+const DataTableCart = ({ item, table_id, id }) => {
+  let name = "project_name" in item ? item.project_name : item.component_name;
   return (
     <Card className="max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
-        <Link to={`/data_tables/${item.id}`}>
-          <CardTitle className="text-white hover:underline">
-            {item.project_name}
-          </CardTitle>
+        <Link to={`/data_tables/${table_id}/${id}`}>
+          <CardTitle className="text-white hover:underline">{name}</CardTitle>
         </Link>
       </CardHeader>
       <CardContent>

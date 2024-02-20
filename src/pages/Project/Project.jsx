@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { useToast } from "@/components/ui/use-toast";
-import { TableCartProject } from "../Tables/TableCartProject";
+import { TableCartFulFill } from "../Tables/TableCartFulFill";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
 import ProjectStyleCart from "./ProjectStyleCart";
@@ -105,8 +105,10 @@ const Project = () => {
                   onBlur={() => {
                     if (
                       project.project_name.toLowerCase() === name.toLowerCase()
-                    )
+                    ) {
+                      setIsOpen(false);
                       return;
+                    }
                     handleChangeProjectName(project);
                   }}
                   onChange={(ev) => setName(ev.target.value)}
@@ -118,8 +120,7 @@ const Project = () => {
                   onClick={() => {
                     setIsOpen(true);
                     setName(project.project_name);
-                  }}
-                >
+                  }}>
                   {project?.project_name}
                 </p>
               )
@@ -137,9 +138,10 @@ const Project = () => {
 
           <RenderList
             service={"tables"}
-            project_id={project.id}
+            id={project.id}
+            key_id={"project_id"}
             query={`?template_id=${project.template_id}`}
-            component={TableCartProject}
+            component={TableCartFulFill}
             title={"Tables"}
           />
         </div>

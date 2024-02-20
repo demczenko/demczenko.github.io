@@ -107,7 +107,7 @@ const FetchList = ({
   const {
     isLoading,
     error: isError,
-  } = useQuery(service, async () => {
+  } = useQuery(service + "-" + query, async () => {
     const response = await serviceMap[service].getAll(query);
     setList(response);
   });
