@@ -301,7 +301,7 @@ const Template = () => {
             action={{
               id: 1,
               name: "Add component",
-              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              icon: <PlusCircle className="h-4 w-4" />,
               onClick: () => setIsModalOpenComponent(true),
             }}
             list={list || []}
@@ -314,7 +314,7 @@ const Template = () => {
             action={{
               id: 1,
               name: "Create project",
-              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              icon: <PlusCircle className="h-4 w-4" />,
               onClick: () => setIsModalOpenCreateProject(true),
             }}
             title={"Projects"}
@@ -332,7 +332,7 @@ const Template = () => {
             action={{
               id: 1,
               name: "Create table",
-              icon: <PlusCircle className="h-4 w-4 mr-2" />,
+              icon: <PlusCircle className="h-4 w-4" />,
               onClick: () => setIsModalOpen(true),
             }}
           />
