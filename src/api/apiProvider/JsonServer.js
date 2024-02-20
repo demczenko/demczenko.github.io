@@ -58,8 +58,8 @@ export class ApiLocalJson {
     return [response];
   }
 
-  async update(key, data) {
-    const req = await fetch(this.#baseUrl + key + "/" + data.id, {
+  async update(key, id, data) {
+    const req = await fetch(this.#baseUrl + key + "/" + id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -109,7 +109,7 @@ const FetchList = ({
     error: isError,
   } = useQuery(service + "-" + query, async () => {
     const response = await serviceMap[service].getAll(query);
-    setList(response);
+    setList(response ?? []);
   });
 
   const Item = component;

@@ -18,7 +18,7 @@ export class UserModel {
     return await this.#api.set(this.#path, data);
   }
 
-  async update(data) {
+  async update(id, data) {
     return await this.#api.update(this.#path, data);
   }
 

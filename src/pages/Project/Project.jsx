@@ -34,7 +34,7 @@ const Project = () => {
     mutate: updateProject,
     isLoading: isProjectUpdateLoading,
     isError: isProjectUpdateError,
-  } = useProjectUpdate();
+  } = useProjectUpdate(project?.id);
 
   if (IsProjectLoading) {
     return (
@@ -59,7 +59,7 @@ const Project = () => {
     );
   }
 
-  const handleChangeProjectName = async (project) => {
+  const handleChangeProjectName = async () => {
     if (name.trim().length < 3) {
       toast({
         variant: "destructive",
@@ -67,30 +67,30 @@ const Project = () => {
         description: "Project name should have at least 3 symbols",
       });
     }
-    const new_project = {
-      id: project.id,
-      project_name: name,
-    };
-
-    updateProject(new_project, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to update project",
-          description: "Something went wrong",
-        });
+    updateProject(
+      {
+        project_name: name,
       },
-      onSettled: () => {
-        client.invalidateQueries("projects");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Project name successfully updated",
-        });
-      },
-    });
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update project",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries("projects");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Project name successfully updated",
+          });
+        },
+      }
+    );
   };
 
   return (

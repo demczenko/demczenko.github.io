@@ -2,5 +2,5 @@ import { ColumnService } from "@/api/columns/init";
 import { useMutation } from "react-query";
 
 export const useColumnUpdate = () => {
-  return useMutation((params) => ColumnService.update(params));
+  return useMutation((id, params) => ColumnService.update(id, params));
 };

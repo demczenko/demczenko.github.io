@@ -20,7 +20,7 @@ const ProjectStyleCart = ({ item, project_id }) => {
   const { mutate: deleteProjectStyle, isLoading: isDeleteProjectStyleLoading } =
     useProjectStyleDelete();
   const { mutate: updateProjectStyle, isLoading: isUpdateProjectStyleLoading } =
-    useProjectsStyleUpdate();
+    useProjectsStyleUpdate(item);
 
   const style = item.style;
   const style_data = Object.entries(style);
@@ -49,8 +49,6 @@ const ProjectStyleCart = ({ item, project_id }) => {
 
   const handleStylEdit = async () => {
     const new_item = {
-      id: item.id,
-      project_id: project_id,
       style: {
         ...item.style,
         ...data,
@@ -99,8 +97,7 @@ const ProjectStyleCart = ({ item, project_id }) => {
                 <p className="flex gap-2 items-center">
                   <span
                     className="rounded-full w-4 h-4 inline-block"
-                    style={{ backgroundColor: value }}
-                  ></span>
+                    style={{ backgroundColor: value }}></span>
                   {value}
                 </p>
               </div>

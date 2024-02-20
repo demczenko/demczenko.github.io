@@ -16,7 +16,7 @@ export class UserController {
     return await this.#model.set(data);
   }
 
-  async update(data) {
+  async update(id, data) {
     return await this.#model.update(data);
   }
 

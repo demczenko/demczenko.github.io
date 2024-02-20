@@ -32,7 +32,7 @@ const TemplateCart = ({ item }) => {
     mutate: updateTemplate,
     status: TemplateUpdateStatus,
     isLoading: isTemplateLoadingUpdate,
-  } = useTemplateUpdate();
+  } = useTemplateUpdate(item?.id);
   const {
     mutate: deleteTemplate,
     status: TemplateDeleteStatus,
@@ -52,13 +52,13 @@ const TemplateCart = ({ item }) => {
     isLoading: columnCreateLoading,
     isError: columnCreateError,
   } = useColumnCreate();
-  
+
   const { data: tables } = useTables(`?template_id=${item.id}`);
   const { data: columns } = useColumns(`?table_id=${item.id}`);
 
   const handleArchive = () => {
     updateTemplate(
-      { id: item.id, isarchived: !item.isarchived },
+      { isarchived: !item.isarchived },
       {
         onError: () => {
           toast({
@@ -68,7 +68,8 @@ const TemplateCart = ({ item }) => {
           });
         },
         onSettled: () => {
-          client.invalidateQueries("templates");
+          client.invalidateQueries("templates-?isarchived=0");
+          client.invalidateQueries("templates-?isarchived=1");
         },
         onSuccess: () => {
           toast({
@@ -91,7 +92,8 @@ const TemplateCart = ({ item }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("templates");
+        client.invalidateQueries("templates-?isarchived=0");
+        client.invalidateQueries("templates-?isarchived=1");
       },
       onSuccess: () => {
         toast({
@@ -104,7 +106,7 @@ const TemplateCart = ({ item }) => {
   };
 
   const handleDuplicate = () => {
-    return alert("Under development")
+    return alert("Under development");
     const template_tables = tables.filter(
       (table) => table.template_id === item.id
     );

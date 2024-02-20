@@ -34,7 +34,7 @@ const ColumnCart = ({ item }) => {
     mutate: updateColumn,
     isLoading: isColumnUpdateLoading,
     isError: isColumnUpdateError,
-  } = useColumnUpdate();
+  } = useColumnUpdate(item?.id);
 
   const handleDeleteColumn = async () => {
     deleteColumn(item.id, {
@@ -104,7 +104,6 @@ const ColumnCart = ({ item }) => {
   const handleRenameColumn = async ({ header }) => {
     if (header.length < 3) return;
     const new_column = {
-      id: item.id,
       header: header,
     };
 

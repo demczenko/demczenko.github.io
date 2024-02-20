@@ -50,7 +50,7 @@ const Table = () => {
     mutate: updateTable,
     isLoading: isTableUpdateLoading,
     isError: isTableUpdateError,
-  } = useTableUpdate();
+  } = useTableUpdate(table?.id);
 
   const createColumn = (new_column) => {
     mutate(new_column, {
@@ -111,7 +111,6 @@ const Table = () => {
     }
     updateTable(
       {
-        id: table.id,
         table_name: name,
       },
       {

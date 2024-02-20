@@ -61,7 +61,7 @@ const Template = () => {
     mutate: updateTemplate,
     isLoading: isTemplateUpdateLoading,
     isError: isTemplateUpdateError,
-  } = useTemplateUpdate();
+  } = useTemplateUpdate(template?.id);
 
   const {
     mutate: createProject,
@@ -76,7 +76,7 @@ const Template = () => {
   } = useTableCreate();
 
   const mutateTemplate = (new_template) => {
-    updateTemplate(new_template, {
+    updateTemplate(template.id, new_template, {
       onError: () => {
         toast({
           variant: "destructive",
@@ -169,37 +169,15 @@ const Template = () => {
         description: "Template name should have at least 3 symbols",
       });
     }
-    const new_template = {
-      id: template.id,
+    mutateTemplate({
       template_name: name,
-    };
-    updateTemplate(new_template, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to update template",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("templates");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Template name successfully updated",
-        });
-      },
     });
   };
 
   const handleSelectComponent = async (data) => {
-    const new_template = {
-      id: template.id,
+    mutateTemplate({
       ...data,
-    };
-    mutateTemplate(new_template);
+    });
   };
 
   const removeComponentFromTemplate = async (id) => {
@@ -209,14 +187,12 @@ const Template = () => {
     let new_template;
     if (isHeader) {
       new_template = {
-        id: template.id,
         header_id: null,
       };
     }
 
     if (isFooter) {
       new_template = {
-        id: template.id,
         footer_id: null,
       };
     }

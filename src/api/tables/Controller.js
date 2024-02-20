@@ -20,7 +20,7 @@ export class TableController {
     return await this.#model.delete(data);
   }
 
-  async update(data) {
-    return await this.#model.update(data);
+  async update(id, data) {
+    return await this.#model.update(id, data);
   }
 }

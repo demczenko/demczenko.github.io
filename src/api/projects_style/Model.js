@@ -18,8 +18,8 @@ export class ProjectStyleModel {
     return await this.#api.set(this.#path, data);
   }
 
-  async update(data) {
-    return await this.#api.update(this.#path, data);
+  async update(id, data) {
+    return await this.#api.update(this.#path, id, data);
   }
 
   async delete(data) {

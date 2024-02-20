@@ -20,7 +20,7 @@ const ChangeTemplate = ({ placeholder, template_id }) => {
     mutate: updateTemplate,
     isLoading: isTemplateUpdateLoading,
     isError: isTemplateUpdateError,
-  } = useTemplateUpdate();
+  } = useTemplateUpdate(template_id);
 
   const onChangeTemplateSubmit = async () => {
     if (html.trim().length < 10) {
@@ -30,29 +30,30 @@ const ChangeTemplate = ({ placeholder, template_id }) => {
         description: "Template too small",
       });
     }
-    const new_template = {
-      id: template_id,
-      template_html: html,
-    };
-    updateTemplate(new_template, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to update template",
-          description: "Something went wrong",
-        });
+    updateTemplate(
+      {
+        template_html: html,
       },
-      onSettled: () => {
-        client.invalidateQueries(`template-${template_id}`);
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Template name successfully updated",
-        });
-      },
-    });
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update template",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries(`template-${template_id}`);
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Template name successfully updated",
+          });
+        },
+      }
+    );
   };
 
   return (

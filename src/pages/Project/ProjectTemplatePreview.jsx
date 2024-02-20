@@ -21,6 +21,8 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
   const [open, setIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState("");
   const [hydratedTemplate, setHydratedTemplate] = useState("");
+  let isExist = false;
+  let itemId;
 
   const {
     data: template,
@@ -38,7 +40,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     mutate: updateTemplate,
     isLoading: isTemplateUpdateLoading,
     isError: isTemplateUpdateError,
-  } = useTemplateUpdate();
+  } = useTemplateUpdate(template_id);
 
   const {
     mutate: createProjectStyle,
@@ -50,7 +52,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     mutate: updateProjectStyle,
     isLoading: isProjectStyleUpdateLoading,
     isError: isProjectStyleUpdateError,
-  } = useProjectsStyleUpdate();
+  } = useProjectsStyleUpdate(itemId);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -138,10 +140,11 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     return body;
   };
 
+  let new_node = {};
   const handleStyle = (style) => {
     Object.assign(selectedNode.node.style, style);
 
-    let new_node = {
+    new_node = {
       id: selectedNode.id,
       project_id: project_id,
       style: style,
@@ -164,7 +167,6 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     );
     old_document.body.innerHTML = body_with_data_attribute;
     const updated_template = {
-      id: template.id,
       template_html: old_document.documentElement.outerHTML,
     };
     // TODO: Why i need to clear template from style.
@@ -189,20 +191,20 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     });
   };
 
-  const handleProjectStyle = async (new_node) => {
-    let isExist = false;
-    let itemId;
-
-    for (const item of projectStyle) {
+  if (Object.keys(new_node).lenght) {
+    for (const item of projectStyle ?? []) {
       if (item.id === new_node.id) {
         isExist = true;
         itemId = item.id;
       }
     }
+  }
 
+  const handleProjectStyle = async (new_node) => {
     if (isExist) {
       updateProjectStyle(
-        { ...new_node, id: itemId },
+        itemId,
+        { ...new_node },
         {
           onError: () => {
             toast({

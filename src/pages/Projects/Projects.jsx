@@ -24,8 +24,6 @@ const Projects = () => {
     const new_project = {
       ...project,
       id: uuidv4(),
-      isarchived: false,
-      createdat: Date.now(),
     };
 
     onProjectCreate(new_project, {
@@ -38,7 +36,7 @@ const Projects = () => {
       },
       onSettled: () => {
         setIsModalOpen(false);
-        client.invalidateQueries("projects");
+        client.invalidateQueries("projects-?isarchived=0");
       },
       onSuccess: () => {
         toast({
@@ -59,8 +57,7 @@ const Projects = () => {
           icon: <PlusCircle className="h-4 w-4" />,
           onClick: () => setIsModalOpen(true),
         }}
-        title="Projects"
-      >
+        title="Projects">
         <RenderList
           service={"projects"}
           query={`?isarchived=0`}

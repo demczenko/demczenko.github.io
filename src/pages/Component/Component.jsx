@@ -34,12 +34,11 @@ const Component = () => {
     mutate: updateComponent,
     isLoading: isComponentUpdateLoading,
     isError: isComponentUpdateError,
-  } = useComponentUpdate();
+  } = useComponentUpdate(component?.id);
 
   const onChangeTemplateSubmit = ({ html }) => {
     if (html.length < 10) return;
     const new_component = {
-      id: component.id,
       component_html: html,
     };
 

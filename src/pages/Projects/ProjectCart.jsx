@@ -22,7 +22,7 @@ const ProjectCart = ({ item, view = "cart" }) => {
     mutate: updateProject,
     isError: isErrorgProjectUpdate,
     isLoading: isLoadingProjectUpdate,
-  } = useProjectUpdate();
+  } = useProjectUpdate(item?.id);
   const {
     mutate: deleteProject,
     isError: isErrorProjectDelete,
@@ -32,7 +32,6 @@ const ProjectCart = ({ item, view = "cart" }) => {
   const handleArchive = async () => {
     updateProject(
       {
-        id: item.id,
         isarchived: item.isarchived ? false : true,
       },
       {
@@ -44,7 +43,8 @@ const ProjectCart = ({ item, view = "cart" }) => {
           });
         },
         onSettled: () => {
-          client.invalidateQueries("projects");
+          client.invalidateQueries("projects-?isarchived=0");
+        client.invalidateQueries("projects-?isarchived=1");
         },
         onSuccess: () => {
           toast({
@@ -67,7 +67,8 @@ const ProjectCart = ({ item, view = "cart" }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("projects");
+        client.invalidateQueries("projects-?isarchived=0");
+        client.invalidateQueries("projects-?isarchived=1");
       },
       onSuccess: () => {
         toast({

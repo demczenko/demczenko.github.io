@@ -18,7 +18,6 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     data: template,
     isError: isTemplateError,
     isLoading: isTemplateLoading,
-    update: updateTemplate,
   } = useTemplate(project.template_id);
 
   //   GET FOOTER AND HEADER COMPONENTS

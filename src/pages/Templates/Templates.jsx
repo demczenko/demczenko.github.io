@@ -26,7 +26,7 @@ const Templates = () => {
       },
       onSettled: () => {
         setIsModalOpen(false);
-        client.invalidateQueries("templates");
+        client.invalidateQueries("templates-?isarchived=0");
       },
       onSuccess: () => {
         toast({

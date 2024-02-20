@@ -58,11 +58,7 @@ export const AddTemplateDrawer = ({ isLoading, onSubmit }) => {
     const new_template = {
       template_name: data.template_name,
       template_html: html,
-      footer_id: null,
-      header_id: null,
       id: uuidv4(),
-      isarchived: false,
-      createdat: Date.now(),
     };
 
     onSubmit(new_template);
@@ -75,8 +71,7 @@ export const AddTemplateDrawer = ({ isLoading, onSubmit }) => {
           onSubmit={form.handleSubmit((data) =>
             validateFormInput(data, handleSubmit)
           )}
-          className="space-y-8 h-full flex flex-col w-full"
-        >
+          className="space-y-8 h-full flex flex-col w-full">
           <TemplateForm form={form} />
           <Button type="submit" size="sm" className="w-full">
             {isLoading ? (

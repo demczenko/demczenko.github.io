@@ -23,13 +23,12 @@ const DataTableContentCart = ({ item, invalidateQuery }) => {
     mutate: updateDataTable,
     isLoading: isDataTableUpdateLoading,
     isError: isDataTableUpdateError,
-  } = useDataTableUpdate();
+  } = useDataTableUpdate(item?.id);
 
   const { mutate: onDelete, isLoading: onDeleteLoading } = useDataTableDelete();
 
   const handleUpdate = async (data) => {
     const updated_slug = {
-      ...item,
       data: data,
     };
     updateDataTable(updated_slug, {

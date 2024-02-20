@@ -16,8 +16,8 @@ export class ComponentsController {
     return await this.#model.set(data);
   }
 
-  async update(data) {
-    return await this.#model.update(data);
+  async update(id, data) {
+    return await this.#model.update(id, data);
   }
 
   async delete(data) {
