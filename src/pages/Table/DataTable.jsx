@@ -29,6 +29,9 @@ const DataTableContent = ({ table_id }) => {
     new Set(dataTables?.map((item) => item.component_id))
   );
 
+  console.log(projects);
+  console.log(components);
+
   return (
     <div className="space-y-6">
       {projects?.map((id, i) => {

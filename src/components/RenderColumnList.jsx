@@ -34,7 +34,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       header: column.header.toLowerCase(),
       type: "text",
     };
-    if (isSlugExists.length === 0) {
+    if (isSlugExists === null) {
       // create SLUG column
       createColumn({
         id: uuidv4(),
