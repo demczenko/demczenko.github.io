@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -25,7 +25,6 @@ import ErrorPage from "@/ErrorPage";
 import { useDataTableCreate } from "@/hooks/dataTables/useDataTableCreate";
 import { useDataTableUpdate } from "@/hooks/dataTables/useDataTableUpdate";
 import { useQueryClient } from "react-query";
-import { PageContainer } from "@/pages";
 
 const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
   const client = useQueryClient();
@@ -234,7 +233,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
 
   const handlePopulateTable = () => {
     const alreadyExistsSlugs = [];
-    for (const table_data_item of tableData) {
+    for (const table_data_item of tableData ?? []) {
       for (const new_table_data_item of columnsData) {
         if (table_data_item.data.slug === new_table_data_item.data.slug) {
           const alreadyExists = {
@@ -337,9 +336,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
   };
 
   if (isColumnsLoading || IsDataTableLoading) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (isColumnsError || IsDataTableError) {
