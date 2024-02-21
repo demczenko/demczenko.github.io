@@ -37,9 +37,7 @@ const Project = () => {
   } = useProjectUpdate(project?.id);
 
   if (IsProjectLoading) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (IsProjectError) {

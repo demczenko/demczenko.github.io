@@ -177,7 +177,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("templates");
+        client.invalidateQueries(`project-styles?project_id=${project_id}`);
       },
       onSuccess: () => {
         toast({
@@ -201,7 +201,6 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
   const handleProjectStyle = async (new_node) => {
     if (isExist) {
       updateProjectStyle(
-        itemId,
         { ...new_node },
         {
           onError: () => {
@@ -212,7 +211,8 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
             });
           },
           onSettled: () => {
-            client.invalidateQueries("templates");
+            client.invalidateQueries(`project-styles?project_id=${project_id}`);
+            setIsOpen(true);
           },
           onSuccess: () => {
             toast({

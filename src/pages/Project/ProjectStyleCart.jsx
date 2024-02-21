@@ -12,8 +12,10 @@ import CardActions from "@/components/CardActions";
 import { useProjectStyleDelete } from "@/hooks/projectStyle/useProjectStyleDelete";
 import { useProjectsStyleUpdate } from "@/hooks/projectStyle/useProjectStyleUpdate";
 import { useToast } from "@/components/ui/use-toast";
+import { useQueryClient } from "react-query";
 
 const ProjectStyleCart = ({ item, project_id }) => {
+  const client = useQueryClient();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +37,7 @@ const ProjectStyleCart = ({ item, project_id }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("templates");
+        client.invalidateQueries(`?project_id=${project_id}`);
       },
       onSuccess: () => {
         toast({
@@ -63,7 +65,7 @@ const ProjectStyleCart = ({ item, project_id }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("templates");
+        client.invalidateQueries(`?project_id=${project_id}`);
       },
       onSuccess: () => {
         toast({
