@@ -2,6 +2,7 @@ import ErrorPage from "@/ErrorPage";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import RenderProjectList from "@/components/RenderProjectList";
+import RenderComponentList from "@/components/RenderComponentList";
 
 const DataTableContent = ({ table_id }) => {
   const {

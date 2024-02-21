@@ -23,7 +23,6 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
     `?table_id=${table_id}&type=slug`
   );
 
-  console.log(isSlugExists);
   // component_id
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
@@ -35,7 +34,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       header: column.header.toLowerCase(),
       type: "text",
     };
-    if (isSlugExists === null) {
+    if (isSlugExists.length === 0) {
       // create SLUG column
       createColumn({
         id: uuidv4(),
