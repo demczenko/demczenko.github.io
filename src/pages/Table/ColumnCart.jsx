@@ -77,7 +77,6 @@ const ColumnCart = ({ item }) => {
       id: uuidv4(),
       table_id: item.table_id,
       type: "text",
-      createdat: Date.now(),
     };
 
     createColumn(new_column, {

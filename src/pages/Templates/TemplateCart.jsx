@@ -124,7 +124,6 @@ const TemplateCart = ({ item }) => {
       ...item,
       id: template_id,
       template_name: item.template_name + " Copy",
-      createdat: Date.now(),
     };
     const new_tables = template_tables.map((table) => {
       const table_id = uuidv4();
@@ -137,7 +136,6 @@ const TemplateCart = ({ item }) => {
           ...col,
           id: uuidv4(),
           table_id: table_id,
-          createdat: Date.now(),
         });
       });
 
@@ -145,7 +143,6 @@ const TemplateCart = ({ item }) => {
         ...table,
         id: table_id,
         template_id: template_id,
-        createdat: Date.now(),
       };
     });
 
@@ -219,7 +216,6 @@ const TemplateCart = ({ item }) => {
       id: uuidv4(),
       template_id: item.id,
       isarchived: false,
-      createdat: Date.now(),
     };
 
     createProject(new_project, {

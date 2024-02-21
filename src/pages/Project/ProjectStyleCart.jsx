@@ -1,4 +1,4 @@
-import { Edit2Icon, TrashIcon } from "lucide-react";
+import { Edit2Icon, Loader, TrashIcon } from "lucide-react";
 import React, { useState } from "react";
 import {
   Card,

@@ -36,7 +36,10 @@ export class ApiLocalJson {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        createdat: Date.now()
+      }),
     });
     if (!req.ok) {
       throw new Error("Error while setting data");

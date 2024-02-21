@@ -52,7 +52,6 @@ const TableColumns = ({ table_id, columns, setColumns }) => {
       type: "text",
       header: columnName,
       accessorKey: columnName,
-      createdat: Date.now(),
       table_id,
     };
     setColumns((prev) => [...prev, new_column]);

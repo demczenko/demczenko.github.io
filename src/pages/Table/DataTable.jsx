@@ -5,6 +5,7 @@ import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import React from "react";
 import DataTableCart from "./DataTableCart";
 import { PageContainer } from "..";
+import RenderProjectList from "@/components/RenderProjectList";
 
 const DataTableContent = ({ table_id }) => {
   const {
@@ -39,14 +40,12 @@ const DataTableContent = ({ table_id }) => {
     <div className="space-y-6">
       {projects?.map((id, i) => {
         return (
-          <RenderList
+          <RenderProjectList
             key={i}
-            restrictHeigh={true}
             id={id}
+            restrictHeigh={true}
             table_id={table_id}
-            component={DataTableCart}
-            title={"Projects data tables"}
-            service={"projects"}
+            isDataCart={true}
             query={`?id=${id}`}
           />
         );

@@ -55,10 +55,5 @@ export const navigation = [
       },
     ],
   },
-  {
-    id: 5,
-    path: "/users",
-    name: "Users",
-    icon: User2,
-  },
+
 ];

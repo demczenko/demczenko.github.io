@@ -115,7 +115,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
       //       ...sorted,
       //       [accepted_column_name]: accepted_data_items[accepted_column_name],
       //       table_id: table_id,
-      //       createdat: Date.now(),
       //       id: uuidv4(),
       //     };
       //   }
@@ -133,7 +132,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
             [accepted_column_name]: accepted_data_items[accepted_column_name],
           },
           table_id: table_id,
-          createdat: Date.now(),
           id: uuidv4(),
         };
       }
@@ -269,7 +267,6 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
     const new_item = {
       data: data,
       id: uuidv4(),
-      createdat: Date.now(),
       table_id: table_id,
     };
 

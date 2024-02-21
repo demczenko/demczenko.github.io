@@ -1,14 +1,13 @@
 import { PageContainer } from "..";
-import RenderList from "@/components/RenderList";
-import ProjectCart from "../Projects/ProjectCart";
+import RenderProjectList from "@/components/RenderProjectList";
 
 const ProjectsArchive = () => {
   return (
-    <PageContainer title={"Arhived projects"}>
-      <RenderList
+    <PageContainer>
+      <RenderProjectList
+        title={"Arhived projects"}
         service={"projects"}
         query={`?isarchived=1`}
-        component={ProjectCart}
       />
     </PageContainer>
   );

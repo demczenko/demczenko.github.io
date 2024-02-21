@@ -5,10 +5,7 @@ import { PageContainer } from "..";
 import { PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import TemplatePreview from "../../components/TemplatePreview";
-import { v4 as uuidv4 } from "uuid";
 import RenderList from "@/components/RenderList";
-import ProjectCart from "../Projects/ProjectCart";
-import TableCart from "../Tables/TableCart";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 import ComponentCart from "../Components/ComponentCart";
@@ -18,9 +15,9 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import { useComponent } from "@/hooks/components/useComponent";
 import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 import { useQueryClient } from "react-query";
-import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
-import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import NotFound from "@/NotFound";
+import RenderTableList from "@/components/RenderTableList";
+import RenderProjectList from "@/components/RenderProjectList";
 
 const Template = () => {
   const ref = useRef();
@@ -31,7 +28,6 @@ const Template = () => {
 
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenComponent, setIsModalOpenComponent] = useState(false);
   const [isModalOpenCreateProject, setIsModalOpenCreateProject] =
     useState(false);
@@ -63,20 +59,8 @@ const Template = () => {
     isError: isTemplateUpdateError,
   } = useTemplateUpdate(template?.id);
 
-  const {
-    mutate: createProject,
-    isLoading: isProjectCreateLoading,
-    isError: isProjectCreateError,
-  } = useProjectCreate();
-
-  const {
-    mutate: createTable,
-    isLoading: isTableCreateLoading,
-    isError: isTableCreateError,
-  } = useTableCreate();
-
   const mutateTemplate = (new_template) => {
-    updateTemplate(template.id, new_template, {
+    updateTemplate(new_template, {
       onError: () => {
         toast({
           variant: "destructive",
@@ -94,68 +78,7 @@ const Template = () => {
         toast({
           variant: "success",
           title: "Success",
-          description: "Template name successfully updated",
-        });
-      },
-    });
-  };
-
-  const handleCreateProject = async (data) => {
-    const new_project = {
-      project_name: data.project_name,
-      id: uuidv4(),
-      template_id: template.id,
-      isarchived: false,
-      createdat: Date.now(),
-    };
-
-    createProject(new_project, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to create project",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        setIsModalOpenCreateProject(false);
-        client.invalidateQueries("projects");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Project added successfully",
-        });
-      },
-    });
-  };
-
-  const handleCreateTable = async (data) => {
-    const new_table = {
-      id: uuidv4(),
-      table_name: data.table_name,
-      template_id: template.id,
-      createdat: Date.now(),
-    };
-
-    createTable(new_table, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to create table",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        setIsModalOpen(false);
-        client.invalidateQueries("tables");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table created successfully",
+          description: "Template successfully updated",
         });
       },
     });
@@ -286,31 +209,15 @@ const Template = () => {
             onDeleteFromTemplate={removeComponentFromTemplate}
             title={"Components"}
           />
-          <RenderList
-            action={{
-              id: 1,
-              name: "Create project",
-              icon: <PlusCircle className="h-4 w-4" />,
-              onClick: () => setIsModalOpenCreateProject(true),
-            }}
-            title={"Projects"}
+          <RenderProjectList
+            template_id={template.id}
             view={"list"}
             query={`?template_id=${template.id}&isarchived=0`}
-            service={"projects"}
-            component={ProjectCart}
-            isProjectPage={false}
           />
-          <RenderList
-            title={"Tables"}
+          <RenderTableList
+            id={template.id}
+            key_id={"template_id"}
             query={`?template_id=${template.id}`}
-            service={"tables"}
-            component={TableCart}
-            action={{
-              id: 1,
-              name: "Create table",
-              icon: <PlusCircle className="h-4 w-4" />,
-              onClick: () => setIsModalOpen(true),
-            }}
           />
         </div>
       </div>
@@ -346,40 +253,6 @@ const Template = () => {
         onSubmit={(component) => handleSelectComponent(component)}
         title={"Select components"}
         description={"Select header and footer html templates."}
-      />
-
-      <CreateForm
-        isLoading={isProjectCreateLoading}
-        isOpen={isModalOpenCreateProject}
-        setIsOpen={setIsModalOpenCreateProject}
-        fields={[
-          {
-            id: 1,
-            name: "project_name",
-            label: "Project Name",
-            placeholder: "name",
-          },
-        ]}
-        onSubmit={handleCreateProject}
-        title={"Create project"}
-        description={"Enter project name."}
-      />
-
-      <CreateForm
-        isLoading={isTableCreateLoading}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        onSubmit={handleCreateTable}
-        fields={[
-          {
-            id: 1,
-            name: "table_name",
-            label: "Table name",
-            placeholder: "name",
-          },
-        ]}
-        title={"Create table"}
-        description={"Enter table name. Click save when you're done."}
       />
     </PageContainer>
   );

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Heading } from "@/components";
 import { PageContainer } from "..";
 import { useToast } from "@/components/ui/use-toast";
-import { TableCartFulFill } from "../Tables/TableCartFulFill";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
 import ProjectStyleCart from "./ProjectStyleCart";
@@ -14,6 +13,7 @@ import SlugList from "./SlugList";
 import NotFound from "@/NotFound";
 import { useProjectUpdate } from "@/hooks/projects/useProjectUpdate";
 import { useQueryClient } from "react-query";
+import RenderTableList from "@/components/RenderTableList";
 
 const Project = () => {
   const { id } = useParams();
@@ -139,14 +139,13 @@ const Project = () => {
             project_id={project.id}
             component={ProjectStyleCart}
           />
-
-          <RenderList
-            service={"tables"}
+          <RenderTableList
             id={project.id}
+            table_key_id={"template_id"}
+            table_id={project.template_id}
             key_id={"project_id"}
+            isFulFill={true}
             query={`?template_id=${project.template_id}`}
-            component={TableCartFulFill}
-            title={"Tables"}
           />
         </div>
       </div>

@@ -24,7 +24,6 @@ const Components = () => {
       html = reader.result;
       const new_component = {
         id: uuidv4(),
-        createdat: Date.now(),
         component_html: html,
         component_name: data.component_name,
       };

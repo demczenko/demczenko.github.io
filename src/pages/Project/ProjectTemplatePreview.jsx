@@ -10,7 +10,6 @@ import { CreateForm } from "@/components/CreateForm";
 import { useProjectStyleCreate } from "@/hooks/projectStyle/useProjectStyleCreate";
 import { useProjectsStyleUpdate } from "@/hooks/projectStyle/useProjectStyleUpdate";
 import { useToast } from "@/components/ui/use-toast";
-import { PageContainer } from "..";
 
 const ProjectTemplatePreview = ({ project_id, template_id }) => {
   const ref = useRef(null);
@@ -103,7 +102,6 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
   }, [IsTemplateLoading]);
 
   useEffect(() => {
-    if (!projectStyle) return;
     const document = new DOMParser().parseFromString(
       template?.template_html,
       "text/html"
@@ -112,7 +110,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
 
     if (nodes_to_update) {
       for (const node of nodes_to_update) {
-        for (const item of projectStyle) {
+        for (const item of projectStyle ?? []) {
           if (item.id === node.getAttribute("data-style-id")) {
             Object.assign(node.style, item.style);
           }

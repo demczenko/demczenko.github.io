@@ -147,7 +147,6 @@ const Table = () => {
       accessorKey: column.header.toLowerCase(),
       header: column.header.toLowerCase(),
       type: "text",
-      createdat: Date.now(),
     };
     if (isSlugExists.length > 0) {
       createColumn(new_column);
@@ -159,7 +158,6 @@ const Table = () => {
         accessorKey: "Slug",
         header: "Slug",
         type: "slug",
-        createdat: Date.now(),
       });
       createColumn(new_column);
     }

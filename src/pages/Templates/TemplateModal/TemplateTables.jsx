@@ -60,7 +60,6 @@ const TemplateTables = ({
       id: new_table_id,
       table_name: tableName,
       template_id: templateId,
-      createdat: Date.now(),
     };
     setTables((prev) => [...prev, new_table]);
     setTabValue(new_table_id);
@@ -72,7 +71,6 @@ const TemplateTables = ({
         accessorKey: "Slug",
         header: "Slug",
         type: "slug",
-        createdat: Date.now(),
       },
     ]);
   };

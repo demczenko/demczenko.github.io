@@ -1,34 +1,21 @@
-import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { PageContainer } from "..";
 import TemplatePreview from "../../components/TemplatePreview";
 import { useToast } from "@/components/ui/use-toast";
-import RenderList from "@/components/RenderList";
-import { PlusCircle } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useComponent } from "@/hooks/components/useComponent";
 import { useQueryClient } from "react-query";
 import { useComponentUpdate } from "@/hooks/components/useComponentUpdate";
-import { useTableCreate } from "@/hooks/tables/useTableCreate";
-import { CreateForm } from "@/components/CreateForm";
 import NotFound from "@/NotFound";
-import { TableCartFulFill } from "../Tables/TableCartFulFill";
+import RenderTableList from "@/components/RenderTableList";
 
 const Component = () => {
   const { toast } = useToast();
   const { id } = useParams();
   const client = useQueryClient();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: component, error, isError, isLoading } = useComponent(id);
-
-  const {
-    mutate: createTable,
-    isLoading: isTableCreateLoading,
-    isError: isTableCreateError,
-  } = useTableCreate();
 
   const {
     mutate: updateComponent,
@@ -58,36 +45,6 @@ const Component = () => {
           variant: "success",
           title: "Success",
           description: "Component successfully updated",
-        });
-      },
-    });
-  };
-
-  const handleCreateTable = (data) => {
-    const new_table = {
-      id: uuidv4(),
-      table_name: data.table_name,
-      component_id: component.id,
-      createdat: Date.now(),
-    };
-
-    createTable(new_table, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to create table",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        setIsModalOpen(false);
-        client.invalidateQueries("tables");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table created successfully",
         });
       },
     });
@@ -125,38 +82,16 @@ const Component = () => {
           onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
         <div className="flex gap-4 flex-col w-full items-start">
-          <RenderList
-            service={"tables"}
-            query={`?component_id=${component.id}`}
-            title={"Tables"}
+          <RenderTableList
+            table_key_id={"component_id"}
+            table_id={component.id}
             id={component.id}
             key_id={"component_id"}
-            component={TableCartFulFill}
-            action={{
-              id: 1,
-              name: "Create table",
-              icon: <PlusCircle className="h-4 w-4" />,
-              onClick: () => setIsModalOpen(true),
-            }}
+            isFulFill={true}
+            query={`?component_id=${component.id}`}
           />
         </div>
       </div>
-      <CreateForm
-        isLoading={isTableCreateLoading}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        onSubmit={handleCreateTable}
-        fields={[
-          {
-            id: 1,
-            name: "table_name",
-            label: "Table name",
-            placeholder: "name",
-          },
-        ]}
-        title={"Create table"}
-        description={"Enter table name. Click save when you're done."}
-      />
     </PageContainer>
   );
 };

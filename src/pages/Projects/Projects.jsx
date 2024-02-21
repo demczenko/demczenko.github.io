@@ -5,10 +5,9 @@ import { PlusCircle } from "lucide-react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectTemplate } from "./ProjectsModal/SelectTemplate";
 import { useToast } from "@/components/ui/use-toast";
-import RenderList from "@/components/RenderList";
-import ProjectCart from "./ProjectCart";
 import { useProjectCreate } from "@/hooks/projects/useProjectCreate";
 import { useQueryClient } from "react-query";
+import RenderProjectList from "@/components/RenderProjectList";
 
 const Projects = () => {
   const client = useQueryClient();
@@ -50,18 +49,15 @@ const Projects = () => {
 
   return (
     <>
-      <PageContainer
-        action={{
-          id: 1,
-          name: "Create Project",
-          icon: <PlusCircle className="h-4 w-4" />,
-          onClick: () => setIsModalOpen(true),
-        }}
-        title="Projects">
-        <RenderList
-          service={"projects"}
+      <PageContainer>
+        <RenderProjectList
+          action={{
+            id: 1,
+            name: "Create Project",
+            icon: <PlusCircle className="h-4 w-4" />,
+            onClick: () => setIsModalOpen(true),
+          }}
           query={`?isarchived=0`}
-          component={ProjectCart}
         />
       </PageContainer>
       <CreateForm
