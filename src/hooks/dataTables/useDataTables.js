@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useDataTables = (params, options) => {
   return useQuery(
-    `data-tables-${params ?? ""}`,
+    params ? "data-tables-" + params : "data-tables",
     async () => {
       const response = await DataTableService.getAll(params);
       return response;

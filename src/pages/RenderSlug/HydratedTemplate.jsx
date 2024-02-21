@@ -8,7 +8,6 @@ import { useTables } from "@/hooks/tables/useTables";
 import { useTemplate } from "@/hooks/templates/useTemplate";
 import { useHydrate } from "@/hooks/useHydrate";
 import { useEffect, useState } from "react";
-import { PageContainer } from "..";
 
 const HydratedTemplateView = ({ project, selectedSlug }) => {
   const { toast } = useToast();
@@ -102,7 +101,7 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
 
   //   RENDER TEMPLATE
   useEffect(() => {
-    if (template && tablesData && projectStyle && tables) {
+    if (template && tablesData && tables) {
       const hydrated = useHydrate(
         tablesData,
         (header?.component_html ?? "") +
@@ -146,9 +145,7 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     isHeaderLoading ||
     IsProjectsStylesLoading
   ) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (isTemplateError) {

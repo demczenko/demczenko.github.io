@@ -20,12 +20,10 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
   } = useColumnCreate();
 
   const { data: isSlugExists, isLoading: isSlugExistsLoading } = useColumns(
-    `?table_id=${table_id}&type=slug`,
-    {
-      enabled: !!table_id,
-    }
+    `?table_id=${table_id}&type=slug`
   );
 
+  console.log(isSlugExists);
   // component_id
   // TODO: add edit column (after column edit need to be done:
   //  change column name for every imported slug
@@ -37,9 +35,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       header: column.header.toLowerCase(),
       type: "text",
     };
-    if (isSlugExists.length > 0) {
-      createColumn(new_column);
-    } else {
+    if (isSlugExists === null) {
       // create SLUG column
       createColumn({
         id: uuidv4(),
@@ -47,6 +43,8 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
         header: "Slug",
         type: "slug",
       });
+      createColumn(new_column);
+    } else {
       createColumn(new_column);
     }
   };
@@ -62,6 +60,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       },
       onSettled: () => {
         client.invalidateQueries(query ? "columns-" + query : "columns");
+        client.invalidateQueries(`columns-?table_id=${table_id}&type=slug`);
         setIsModalOpen(false);
       },
       onSuccess: () => {

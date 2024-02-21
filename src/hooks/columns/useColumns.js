@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useColumns = (params, options) => {
   return useQuery(
-    "columns",
+    params ? "columns-" + params : "columns",
     async () => {
       const response = await ColumnService.getAll(params);
       return response;

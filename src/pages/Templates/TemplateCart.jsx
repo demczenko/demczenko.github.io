@@ -19,8 +19,6 @@ import { useQueryClient } from "react-query";
 import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
 import { useTemplateCreate } from "@/hooks/templates/useTemplateCreate";
-import { useTables } from "@/hooks/tables/useTables";
-import { useColumns } from "@/hooks/columns/useColumns";
 
 const TemplateCart = ({ item }) => {
   const { toast } = useToast();
@@ -52,9 +50,6 @@ const TemplateCart = ({ item }) => {
     isLoading: columnCreateLoading,
     isError: columnCreateError,
   } = useColumnCreate();
-
-  const { data: tables } = useTables(`?template_id=${item.id}`);
-  const { data: columns } = useColumns(`?table_id=${item.id}`);
 
   const handleArchive = () => {
     updateTemplate(
@@ -107,107 +102,6 @@ const TemplateCart = ({ item }) => {
 
   const handleDuplicate = () => {
     return alert("Under development");
-    const template_tables = tables.filter(
-      (table) => table.template_id === item.id
-    );
-    let template_columns = [];
-    template_tables.forEach((table) => {
-      template_columns.push(
-        ...columns.filter((col) => col.table_id === table.id)
-      );
-    });
-
-    const template_id = uuidv4();
-
-    let new_columns = [];
-    const new_template = {
-      ...item,
-      id: template_id,
-      template_name: item.template_name + " Copy",
-    };
-    const new_tables = template_tables.map((table) => {
-      const table_id = uuidv4();
-
-      const table_columns = template_columns.filter(
-        (col) => col.table_id === table.id
-      );
-      table_columns.forEach((col) => {
-        new_columns.push({
-          ...col,
-          id: uuidv4(),
-          table_id: table_id,
-        });
-      });
-
-      return {
-        ...table,
-        id: table_id,
-        template_id: template_id,
-      };
-    });
-
-    createTemplate(new_template, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to duplicate template",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("templates");
-        for (const table of new_tables) {
-          createTable(table, {
-            onError: () => {
-              toast({
-                variant: "destructive",
-                title: "Failed to duplicate table",
-                description: "Something went wrong",
-              });
-            },
-            onSettled: () => {
-              client.invalidateQueries("tables");
-              for (const column of new_columns) {
-                createColumn(column, {
-                  onError: () => {
-                    toast({
-                      variant: "destructive",
-                      title: "Failed to duplicate column",
-                      description: "Something went wrong",
-                    });
-                  },
-                  onSettled: () => {
-                    setIsModalOpen(false);
-                    client.invalidateQueries("columns");
-                  },
-                  onSuccess: () => {
-                    toast({
-                      variant: "success",
-                      title: "Success",
-                      description: "Column successfully duplicated",
-                    });
-                  },
-                });
-              }
-            },
-            onSuccess: () => {
-              toast({
-                variant: "success",
-                title: "Success",
-                description: "Table successfully duplicated",
-              });
-            },
-          });
-        }
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Updated",
-          description: "Template successfully duplicated",
-        });
-      },
-    });
   };
 
   const onCreateProject = (data) => {

@@ -88,7 +88,7 @@ export function useHydrate(dataSlug, htmlTemplate, tables, projectStyle ) {
 
   if (nodes_to_update) {
     for (const node of nodes_to_update) {
-      for (const item of projectStyle) {
+      for (const item of projectStyle ?? []) {
         if (item.id === node.getAttribute("data-style-id")) {
           Object.assign(node.style, item.style);
         }

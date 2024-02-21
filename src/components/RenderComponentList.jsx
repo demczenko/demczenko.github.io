@@ -40,6 +40,7 @@ const RenderComponentList = ({
       const new_component = {
         id: uuidv4(),
         ...data,
+        component_html: html,
       };
       onCreate(new_component, {
         onError: () => {

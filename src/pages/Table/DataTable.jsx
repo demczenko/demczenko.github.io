@@ -11,7 +11,7 @@ const DataTableContent = ({ table_id }) => {
   } = useDataTables(`?table_id=${table_id}`);
 
   if (isDataTableLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <SkeletonCard />;
   }
 
   if (IsDataTableError) {

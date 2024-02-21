@@ -104,22 +104,20 @@ const FetchList = ({
     throw new Error("Service " + service + " not found in servicemap.");
   }
 
-  const {
-    isLoading,
-    error: isError,
-  } = useQuery(query ? service + "-" + query : service, async () => {
-    const response = await serviceMap[service].getAll(query);
-    setList(response ?? []);
-  });
+  const { isLoading, error: isError } = useQuery(
+    query ? service + "-" + query : service,
+    async () => {
+      const response = await serviceMap[service].getAll(query);
+      setList(response ?? []);
+    }
+  );
 
   const Item = component;
   return (
     <div className="w-full">
       {title && <Heading action={action} title={title} />}
       {isLoading ? (
-        <div className="flex gap-2 flex-wrap">
-          <SkeletonCard />
-        </div>
+        <SkeletonCard />
       ) : (
         <>
           {restrictHeigh ? (
