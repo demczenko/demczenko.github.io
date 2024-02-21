@@ -25,7 +25,7 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     isLoading: isHeaderLoading,
     isError: isHeaderError,
   } = useComponent(template?.header_id, {
-    enabled: !!template?.id && !!template?.header,
+    enabled: !!template?.id && !!template?.header_id,
   });
   const {
     data: footer,

@@ -5,7 +5,7 @@ const Components = () => {
   return (
     <>
       <PageContainer>
-        <RenderComponentList />
+        <RenderComponentList isCreate={true} />
       </PageContainer>
     </>
   );

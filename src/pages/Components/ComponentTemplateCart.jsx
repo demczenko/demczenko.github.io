@@ -13,7 +13,7 @@ import { useQueryClient } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 
-const ComponentTemplateCart = ({ item, template_id }) => {
+const ComponentTemplateCart = ({ item, template_id, header_id, footer_id }) => {
   const client = useQueryClient();
   const { toast } = useToast();
 
@@ -34,7 +34,7 @@ const ComponentTemplateCart = ({ item, template_id }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries("components");
+        client.invalidateQueries(`template-${template_id}`);
       },
       onSuccess: () => {
         toast({
@@ -47,17 +47,14 @@ const ComponentTemplateCart = ({ item, template_id }) => {
   };
 
   const removeComponentFromTemplate = async (id) => {
-    const isHeader = template.header_id === id;
-    const isFooter = template.footer_id === id;
-
     let new_template;
-    if (isHeader) {
+    if (header_id === id) {
       new_template = {
         header_id: null,
       };
     }
 
-    if (isFooter) {
+    if (footer_id === id) {
       new_template = {
         footer_id: null,
       };
@@ -73,9 +70,6 @@ const ComponentTemplateCart = ({ item, template_id }) => {
       },
       onSettled: () => {
         client.invalidateQueries(`template-${template_id}`);
-        client.invalidateQueries(`component-${header?.id}`);
-        client.invalidateQueries(`component-${footer?.id}`);
-        setIsModalOpen(false);
       },
       onSuccess: () => {
         toast({
@@ -126,7 +120,7 @@ const ComponentTemplateCart = ({ item, template_id }) => {
               onClick: () => removeComponentFromTemplate(item.id),
               icon: (
                 <>
-                  {isLoadingDeleteFromTemplate ? (
+                  {isTemplateUpdateLoading ? (
                     <Loader className="animate-spin" />
                   ) : (
                     <Delete className="w-4 h-4 mr-2" />

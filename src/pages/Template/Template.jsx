@@ -13,6 +13,7 @@ import { useQueryClient } from "react-query";
 import NotFound from "@/NotFound";
 import RenderTableList from "@/components/RenderTableList";
 import RenderProjectList from "@/components/RenderProjectList";
+import RenderComponentList from "@/components/RenderComponentList";
 
 const Template = () => {
   const ref = useRef();
@@ -153,6 +154,21 @@ const Template = () => {
                 <>created at: {new Date(template.createdat).toDateString()}</>
               )
             }
+          />
+          <RenderComponentList
+            header_id={template.header_id}
+            footer_id={template.footer_id}
+            isCreate={true}
+            template_id={template.id}
+            isTemplateCart={true}
+            query={`?id=${template.header_id}`}
+          />
+          <RenderComponentList
+            header_id={template.header_id}
+            footer_id={template.footer_id}
+            template_id={template.id}
+            isTemplateCart={true}
+            query={`?id=${template.footer_id}`}
           />
           <RenderProjectList
             template_id={template.id}

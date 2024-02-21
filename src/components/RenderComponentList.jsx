@@ -18,6 +18,7 @@ const RenderComponentList = ({
   isTemplateCart,
   query,
   template_id,
+  title,
   ...props
 }) => {
   const { toast } = useToast();
@@ -79,8 +80,6 @@ const RenderComponentList = ({
       },
       onSettled: () => {
         client.invalidateQueries(`template-${template_id}`);
-        client.invalidateQueries(`component-${data?.id}`);
-        client.invalidateQueries(`component-${footer?.id}`);
         setIsModalOpen(false);
       },
       onSuccess: () => {
@@ -97,6 +96,7 @@ const RenderComponentList = ({
     <>
       <RenderList
         {...props}
+        template_id={template_id}
         action={{
           id: 1,
           name: "Add component",
