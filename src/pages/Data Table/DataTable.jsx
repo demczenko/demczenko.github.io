@@ -31,11 +31,7 @@ const DataTable = () => {
   } = useComponent(id);
 
   if (IsProjectLoading || IsComponentLoading || isTableLoading) {
-    return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (IsProjectError || IsComponentError) {

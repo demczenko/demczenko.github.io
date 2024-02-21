@@ -7,6 +7,7 @@ import { CreateForm } from "./CreateForm";
 import RenderList from "./RenderList";
 import { v4 as uuidv4 } from "uuid";
 import DataTableCart from "@/pages/Table/DataTableCart";
+import { useToast } from "./ui/use-toast";
 
 const RenderProjectList = ({
   action,
@@ -17,6 +18,7 @@ const RenderProjectList = ({
   title,
   ...props
 }) => {
+  const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: createProject, isLoading, isError } = useProjectCreate();

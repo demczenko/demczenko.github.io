@@ -24,9 +24,7 @@ export function SelectTemplate({ value, onSelect }) {
 
   if (isLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

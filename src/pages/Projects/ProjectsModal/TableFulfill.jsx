@@ -338,9 +338,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
 
   if (isColumnsLoading || IsDataTableLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

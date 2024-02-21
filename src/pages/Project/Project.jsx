@@ -38,9 +38,7 @@ const Project = () => {
 
   if (IsProjectLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

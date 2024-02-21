@@ -1,9 +1,6 @@
 import ErrorPage from "@/ErrorPage";
-import RenderList from "@/components/RenderList";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
-import React from "react";
-import DataTableCart from "./DataTableCart";
 import { PageContainer } from "..";
 import RenderProjectList from "@/components/RenderProjectList";
 
@@ -16,9 +13,7 @@ const DataTableContent = ({ table_id }) => {
 
   if (isDataTableLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 
@@ -52,14 +47,13 @@ const DataTableContent = ({ table_id }) => {
       })}
       {components?.map((id, i) => {
         return (
-          <RenderList
+          <RenderComponentList
+            isDataTableCart={true}
             key={i}
             restrictHeigh={true}
             id={id}
             table_id={table_id}
-            component={DataTableCart}
             title={"Components data tables"}
-            service={"components"}
             query={`?id=${id}`}
           />
         );

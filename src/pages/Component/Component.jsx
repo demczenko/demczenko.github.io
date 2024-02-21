@@ -52,9 +52,7 @@ const Component = () => {
 
   if (isLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

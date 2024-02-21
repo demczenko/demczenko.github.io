@@ -7,16 +7,22 @@ import {
 } from "@/components/ui/card";
 import CardActions from "../../components/CardActions";
 import { Link } from "react-router-dom";
-import { Loader, TrashIcon } from "lucide-react";
+import { Delete, Loader, TrashIcon } from "lucide-react";
 import { useComponentDelete } from "@/hooks/components/useComponentDelete";
 import { useQueryClient } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
+import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 
-const ComponentCart = ({ item }) => {
+const ComponentTemplateCart = ({ item, template_id }) => {
   const client = useQueryClient();
   const { toast } = useToast();
 
   const { mutate: onDelete, isLoading: onDeleteLoading } = useComponentDelete();
+  const {
+    mutate: updateTemplate,
+    isLoading: isTemplateUpdateLoading,
+    isError: isTemplateUpdateError,
+  } = useTemplateUpdate(template_id);
 
   const handleComponentDelete = async (id) => {
     onDelete(id, {
@@ -35,6 +41,47 @@ const ComponentCart = ({ item }) => {
           variant: "success",
           title: "Success",
           description: "Component successfully deleted",
+        });
+      },
+    });
+  };
+
+  const removeComponentFromTemplate = async (id) => {
+    const isHeader = template.header_id === id;
+    const isFooter = template.footer_id === id;
+
+    let new_template;
+    if (isHeader) {
+      new_template = {
+        header_id: null,
+      };
+    }
+
+    if (isFooter) {
+      new_template = {
+        footer_id: null,
+      };
+    }
+
+    updateTemplate(new_template, {
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Failed to update template",
+          description: "Something went wrong",
+        });
+      },
+      onSettled: () => {
+        client.invalidateQueries(`template-${template_id}`);
+        client.invalidateQueries(`component-${header?.id}`);
+        client.invalidateQueries(`component-${footer?.id}`);
+        setIsModalOpen(false);
+      },
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Template successfully updated",
         });
       },
     });
@@ -74,6 +121,20 @@ const ComponentCart = ({ item }) => {
               ),
               name: "Delete",
             },
+            {
+              id: 2,
+              onClick: () => removeComponentFromTemplate(item.id),
+              icon: (
+                <>
+                  {isLoadingDeleteFromTemplate ? (
+                    <Loader className="animate-spin" />
+                  ) : (
+                    <Delete className="w-4 h-4 mr-2" />
+                  )}
+                </>
+              ),
+              name: "Remove",
+            },
           ]}
         />
       </CardFooter>
@@ -81,4 +142,4 @@ const ComponentCart = ({ item }) => {
   );
 };
 
-export default ComponentCart;
+export default ComponentTemplateCart;

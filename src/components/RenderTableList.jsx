@@ -7,8 +7,10 @@ import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import { TableCartFulFill } from "@/pages/Tables/TableCartFulFill";
 import { v4 as uuidv4 } from "uuid";
 import { useQueryClient } from "react-query";
+import { useToast } from "./ui/use-toast";
 
 const RenderTableList = ({ query, isFulFill, ...props }) => {
+  const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {

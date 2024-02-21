@@ -25,9 +25,7 @@ export function SelectComponent({ title, value, onSelect }) {
   const [open, setOpen] = useState(false);
   if (isLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

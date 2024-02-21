@@ -12,9 +12,7 @@ const Users = () => {
 
   if (isLoading) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 

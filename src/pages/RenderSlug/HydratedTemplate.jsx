@@ -147,9 +147,7 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     IsProjectsStylesLoading
   ) {
     return (
-      <PageContainer>
-        <SkeletonCard />
-      </PageContainer>
+<SkeletonCard  isContainer={true}/>
     );
   }
 
