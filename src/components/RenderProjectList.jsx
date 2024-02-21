@@ -40,7 +40,7 @@ const RenderProjectList = ({
       },
       onSettled: () => {
         setIsModalOpen(false);
-        client.invalidateQueries("projects");
+        client.invalidateQueries(query ? "projects-" + query : "projects");
       },
       onSuccess: () => {
         toast({

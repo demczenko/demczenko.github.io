@@ -51,9 +51,7 @@ const Component = () => {
   };
 
   if (isLoading) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (isError) {
@@ -81,6 +79,7 @@ const Component = () => {
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <RenderTableList
+            isCreate={true}
             table_key_id={"component_id"}
             table_id={component.id}
             id={component.id}

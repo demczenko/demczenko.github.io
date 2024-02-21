@@ -160,8 +160,9 @@ const Template = () => {
             query={`?template_id=${template.id}&isarchived=0`}
           />
           <RenderTableList
-            id={template.id}
-            key_id={"template_id"}
+            isCreate={true}
+            table_key_id={"template_id"}
+            table_id={template.id}
             query={`?template_id=${template.id}`}
           />
         </div>

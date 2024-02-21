@@ -1,7 +1,6 @@
 import ErrorPage from "@/ErrorPage";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
-import { PageContainer } from "..";
 import RenderProjectList from "@/components/RenderProjectList";
 
 const DataTableContent = ({ table_id }) => {
@@ -12,9 +11,7 @@ const DataTableContent = ({ table_id }) => {
   } = useDataTables(`?table_id=${table_id}`);
 
   if (isDataTableLoading) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (IsDataTableError) {
@@ -24,11 +21,11 @@ const DataTableContent = ({ table_id }) => {
   }
 
   const projects = Array.from(
-    new Set(dataTables.map((item) => item.project_id))
+    new Set(dataTables?.map((item) => item.project_id))
   );
 
   const components = Array.from(
-    new Set(dataTables.map((item) => item.component_id))
+    new Set(dataTables?.map((item) => item.component_id))
   );
 
   return (

@@ -9,15 +9,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useQueryClient } from "react-query";
 import { useToast } from "./ui/use-toast";
 
-const RenderTableList = ({ query, isFulFill, ...props }) => {
+const RenderTableList = ({ query, isCreate, isFulFill, ...props }) => {
   const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {
-    mutate: createTable,
-    isLoading,
-    isError,
-  } = useTableCreate();
+  const { mutate: createTable, isLoading, isError } = useTableCreate();
 
   const handleCreateTable = async (data) => {
     const new_table = {
@@ -36,7 +32,7 @@ const RenderTableList = ({ query, isFulFill, ...props }) => {
       },
       onSettled: () => {
         setIsModalOpen(false);
-        client.invalidateQueries("tables");
+        client.invalidateQueries(query ? "tables-" + query : "tables");
       },
       onSuccess: () => {
         toast({
@@ -56,12 +52,14 @@ const RenderTableList = ({ query, isFulFill, ...props }) => {
         service={"tables"}
         component={isFulFill ? TableCartFulFill : TableCart}
         {...props}
-        action={{
-          id: 1,
-          name: "Create table",
-          icon: <PlusCircle className="h-4 w-4" />,
-          onClick: () => setIsModalOpen(true),
-        }}
+        action={
+          isCreate && {
+            id: 1,
+            name: "Create table",
+            icon: <PlusCircle className="h-4 w-4" />,
+            onClick: () => setIsModalOpen(true),
+          }
+        }
       />
       <CreateForm
         isLoading={isLoading}

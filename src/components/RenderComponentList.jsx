@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useComponentCreate } from "@/hooks/components/useComponentCreate";
 import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 import DataTableCart from "@/pages/Table/DataTableCart";
+import { Input } from "./ui/input";
 
 const RenderComponentList = ({
   isDataTableCart,
@@ -50,7 +51,9 @@ const RenderComponentList = ({
         },
         onSettled: () => {
           setIsModalOpen(false);
-          client.invalidateQueries("components");
+          client.invalidateQueries(
+            query ? "components-" + query : "components"
+          );
         },
         onSuccess: () => {
           toast({

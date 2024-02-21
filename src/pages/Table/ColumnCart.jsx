@@ -73,7 +73,6 @@ const ColumnCart = ({ item }) => {
     const new_column = {
       ...item,
       header: new_name ?? name + " Copy",
-      accessorKey: new_name ?? name + " Copy",
       id: uuidv4(),
       table_id: item.table_id,
       type: "text",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useProject } from "@/hooks/projects/useProject";
@@ -8,7 +8,6 @@ import NotFound from "@/NotFound";
 import HydratedTemplateView from "./HydratedTemplate";
 
 const RenderSlug = () => {
-  const navigator = useNavigate();
   const { id, slug } = useParams();
   const [selectedSlug, setSelectedSlug] = useState(slug);
   const { data: project, isError, isLoading } = useProject(id);

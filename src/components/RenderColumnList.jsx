@@ -33,8 +33,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
   const handleCreateColumn = async (column) => {
     const new_column = {
       id: uuidv4(),
-      table_id: table.id,
-      accessorKey: column.header.toLowerCase(),
+      table_id: table_id,
       header: column.header.toLowerCase(),
       type: "text",
     };
@@ -44,8 +43,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       // create SLUG column
       createColumn({
         id: uuidv4(),
-        table_id: table.id,
-        accessorKey: "Slug",
+        table_id: table_id,
         header: "Slug",
         type: "slug",
       });
@@ -63,7 +61,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
         });
       },
       onSettled: () => {
-        client.invalidateQueries(`columns-?table_id=${table.id}`);
+        client.invalidateQueries(query ? "columns-" + query : "columns");
         setIsModalOpen(false);
       },
       onSuccess: () => {

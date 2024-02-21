@@ -11,9 +11,18 @@ import { Import } from "lucide-react";
 import { Link } from "react-router-dom";
 import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
 import { useState } from "react";
+import { useColumns } from "@/hooks/columns/useColumns";
+import { useToast } from "@/components/ui/use-toast";
 
 export function TableCartFulFill({ item, id, key_id }) {
+  const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {
+    data: columns,
+    isLoading,
+    isError,
+  } = useColumns(`?table_id=${item.id}`);
 
   return (
     <>
@@ -40,7 +49,17 @@ export function TableCartFulFill({ item, id, key_id }) {
                 id: 1,
                 name: "Populate",
                 icon: <Import className="w-4 h-4 mr-2" />,
-                onClick: () => setIsModalOpen(true),
+                onClick: () => {
+                  if (columns?.length) {
+                    setIsModalOpen(true);
+                  } else {
+                    toast({
+                      variant: "destructive",
+                      title: "Failed to populate table",
+                      description: "Please add columns to the table",
+                    });
+                  }
+                },
               },
             ]}
           />
