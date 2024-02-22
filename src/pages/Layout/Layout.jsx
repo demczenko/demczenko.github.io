@@ -42,7 +42,7 @@ const Layout = () => {
       ...section,
       type: "component",
       createdat: Date.now(),
-      render_on: [],
+      render_on: null,
     };
 
     updateLayout(

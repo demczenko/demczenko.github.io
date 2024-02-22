@@ -13,7 +13,7 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     isError: isComponentError,
   } = useComponent(item.component_id);
 
-  const isAllowedToRender = item.render_on.find(
+  const isAllowedToRender = item.render_on === null ? true : item.render_on.find(
     (item) => item.slug === selectedSlug
   ).render;
 
