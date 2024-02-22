@@ -23,7 +23,6 @@ const Layouts = () => {
       template_id: data.template_id,
       type: "template",
       createdat: Date.now(),
-      render_on: [],
     };
 
     const new_layout = {

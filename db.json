@@ -12,15 +12,19 @@
           "component_id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
           "type": "component",
           "createdat": 1708628709172,
-          "render_on": []
+          "render_on": [
+            {
+              "slug": "pl",
+              "render": true
+            }
+          ]
         },
         {
           "id": "5c928fab-6e8e-4b97-96c2-c3f928d1d0a1",
           "section_name": "Body",
           "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
           "type": "template",
-          "createdat": 1708628621241,
-          "render_on": []
+          "createdat": 1708628621241
         }
       ],
       "createdat": 1708628621259

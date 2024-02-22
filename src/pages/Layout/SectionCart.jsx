@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import CardActions from "@/components/CardActions";
 import { useLayoutUpdate } from "@/hooks/layouts/useLayoutUpdate";
-import { Edit, Loader, Trash2Icon } from "lucide-react";
+import { Edit, GripVertical, HandIcon, Loader, Trash2Icon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQueryClient } from "react-query";
 import { useState } from "react";
@@ -36,7 +36,8 @@ const SectionCart = ({ item, layout, isDisabled }) => {
     isLoading,
   } = useLayoutUpdate(layout.id);
 
-  const handleDeleteSection = () => {
+  const handleDeleteSection = (ev) => {
+    ev.stopPropagation();
     const new_layout = layout.layout.filter(
       (component) => component.id !== item.id
     );
@@ -67,6 +68,8 @@ const SectionCart = ({ item, layout, isDisabled }) => {
   };
 
   const handleEditSection = (data) => {
+    ev.stopPropagation();
+
     const new_layout = layout.layout.map((section) => {
       if (section.id === item.id) {
         return {
@@ -109,85 +112,87 @@ const SectionCart = ({ item, layout, isDisabled }) => {
   };
 
   return (
-    <Card
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-      style={style}
-      className={cn(
-        "max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none",
-        {
-          "opacity-30": isDisabled,
-        }
-      )}
-    >
-      <CardHeader>
-        <Link to={`/section/${item.id}`}>
-          <CardTitle className="text-white hover:underline">
-            {item.section_name}
-          </CardTitle>
-        </Link>
-      </CardHeader>
-      <CardContent>
-        <p className="text-xs">
-          <span className="text-neutral-300">created at: </span>
-          <span className="text-white font-semibold">
-            {new Date(item.createdat).toDateString()}
-          </span>
-        </p>
-      </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <CardActions
-          actions={[
+    <div className="relative">
+      <div className="absolute top-1/2 -translate-y-1/2 -left-6" ref={setNodeRef} {...attributes} {...listeners}>
+        <GripVertical className="text-[#111111]" />
+      </div>
+      <Card
+        style={style}
+        className={cn(
+          "max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none",
+          {
+            "opacity-30": isDisabled,
+          }
+        )}
+      >
+        <CardHeader>
+          <Link to={`/section/${item.id}`}>
+            <CardTitle className="text-white hover:underline">
+              {item.section_name}
+            </CardTitle>
+          </Link>
+        </CardHeader>
+        <CardContent>
+          <p className="text-xs">
+            <span className="text-neutral-300">created at: </span>
+            <span className="text-white font-semibold">
+              {new Date(item.createdat).toDateString()}
+            </span>
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-between items-center">
+          <CardActions
+            actions={[
+              {
+                id: 1,
+                name: "Delete",
+                icon: (
+                  <>
+                    {isLoading ? (
+                      <Loader className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Trash2Icon className="h-4 w-4 mr-2" />
+                    )}
+                  </>
+                ),
+                onClick: handleDeleteSection,
+              },
+              {
+                id: 2,
+                name: "Edit",
+                icon: (
+                  <>
+                    {isLoading ? (
+                      <Loader className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Edit className="h-4 w-4 mr-2" />
+                    )}
+                  </>
+                ),
+                onClick: () => setIsModalOpen(true),
+              },
+            ]}
+          />
+        </CardFooter>
+        <CreateForm
+          isLoading={isLoading}
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          fields={[
             {
               id: 1,
-              name: "Delete",
-              icon: (
-                <>
-                  {isLoading ? (
-                    <Loader className="h-4 w-4 animate-spin mr-2" />
-                  ) : (
-                    <Trash2Icon className="h-4 w-4 mr-2" />
-                  )}
-                </>
-              ),
-              onClick: handleDeleteSection,
-            },
-            {
-              id: 2,
-              name: "Edit",
-              icon: (
-                <>
-                  {isLoading ? (
-                    <Loader className="h-4 w-4 animate-spin mr-2" />
-                  ) : (
-                    <Edit className="h-4 w-4 mr-2" />
-                  )}
-                </>
-              ),
-              onClick: () => setIsModalOpen(true),
+              name: "section_name",
+              label: "Section name",
+              value: item.section_name,
+              placeholder: "name",
             },
           ]}
+          onSubmit={handleEditSection}
+          title={"Manage section"}
+          description={"Change section name"}
         />
-      </CardFooter>
-      <CreateForm
-        isLoading={isLoading}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        fields={[
-          {
-            id: 1,
-            name: "section_name",
-            label: "Section name",
-            value: item.section_name,
-            placeholder: "name",
-          },
-        ]}
-        onSubmit={handleEditSection}
-        title={"Manage section"}
-        description={"Change section name"}
-      />
-    </Card>
+      </Card>
+    </div>
   );
 };
 
