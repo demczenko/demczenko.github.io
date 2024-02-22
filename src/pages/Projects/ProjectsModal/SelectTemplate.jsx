@@ -27,7 +27,7 @@ export function SelectTemplate({ value, onSelect }) {
 
   if (isError) {
     return (
-      <ErrorPage title={`Something went wrong while projects loading...`} />
+      <ErrorPage title={`Something went wrong while templates loading...`} />
     );
   }
   return (
@@ -53,7 +53,7 @@ export function SelectTemplate({ value, onSelect }) {
           <CommandGroup>
             {templates?.map((template) => (
               <CommandItem
-                value={template.name}
+                value={template.id}
                 key={template.id}
                 onSelect={() => {
                   onSelect(template.id);

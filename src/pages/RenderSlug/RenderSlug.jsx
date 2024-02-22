@@ -62,7 +62,7 @@ const RenderSlug = () => {
 
   return (
     <div style={{ backgroundColor: "#ececec" }} className="relative h-full">
-      <div className="absolute top-4 left-4 z-10 right-8">
+      <div className="absolute top-4 left-4 z-10 md:opacity-100 hover:opacity-100 opacity-30">
         <HeaderBreadCrumbs
           selectedSlug={selectedSlug}
           setSelectedSlug={setSelectedSlug}

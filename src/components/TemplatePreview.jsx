@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code2, View } from "lucide-react";
 import ChangeTemplate from "../pages/Templates/TemplateModal/ChangeTemplate";
 
-const TemplatePreview = ({ template_id, header, footer, html }) => {
+const TemplatePreview = ({ template_id, html }) => {
   return (
     <Tabs defaultValue="view" className="w-full relative">
       <TabsList className="absolute top-4 left-2 bg-[#111111]">
@@ -16,7 +16,7 @@ const TemplatePreview = ({ template_id, header, footer, html }) => {
       <TabsContent value="view" className="h-full">
         <iframe
           className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block"
-          srcDoc={(header ?? "") + html + (footer ?? "")}
+          srcDoc={html}
         ></iframe>
       </TabsContent>
       <TabsContent value="code" className="h-full">

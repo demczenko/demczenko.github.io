@@ -37,21 +37,6 @@ const Template = () => {
     isError: isTemplateUpdateError,
   } = useTemplateUpdate(template?.id);
 
-  const {
-    data: header,
-    isLoading: isHeaderLoading,
-    isError: isHeaderError,
-  } = useComponent(template?.header_id, {
-    enabled: !!template?.id && !!template?.header,
-  });
-  const {
-    data: footer,
-    isLoading: isFooterLoading,
-    isError: isFooterError,
-  } = useComponent(template?.footer_id, {
-    enabled: !!template?.id && !!template?.footer_id,
-  });
-
   const mutateTemplate = (new_template) => {
     updateTemplate(new_template, {
       onError: () => {
@@ -63,8 +48,6 @@ const Template = () => {
       },
       onSettled: () => {
         client.invalidateQueries(`template-${template.id}`);
-        client.invalidateQueries(`component-${header?.id}`);
-        client.invalidateQueries(`component-${footer?.id}`);
       },
       onSuccess: () => {
         toast({
@@ -115,9 +98,7 @@ const Template = () => {
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           template_id={template.id}
-          header={header?.component_html ?? ""}
           html={template.template_html ?? ""}
-          footer={footer?.component_html ?? ""}
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <Heading
@@ -144,7 +125,8 @@ const Template = () => {
                   onClick={() => {
                     setIsOpen(true);
                     setName(template?.template_name);
-                  }}>
+                  }}
+                >
                   {template?.template_name}
                 </p>
               )
@@ -154,21 +136,6 @@ const Template = () => {
                 <>created at: {new Date(template.createdat).toDateString()}</>
               )
             }
-          />
-          <RenderComponentList
-            header_id={template.header_id}
-            footer_id={template.footer_id}
-            isCreate={true}
-            template_id={template.id}
-            isTemplateCart={true}
-            query={`?id=${template.header_id}`}
-          />
-          <RenderComponentList
-            header_id={template.header_id}
-            footer_id={template.footer_id}
-            template_id={template.id}
-            isTemplateCart={true}
-            query={`?id=${template.footer_id}`}
           />
           <RenderProjectList
             template_id={template.id}

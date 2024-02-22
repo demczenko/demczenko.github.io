@@ -2,10 +2,28 @@
   "users": [],
   "layouts": [
     {
-      "id": "9a76036c-5c53-48f8-8ed8-4de1b0265a7f",
+      "id": "31ee59ab-dc30-4bb4-9247-2b73b77d6e21",
       "layout_name": "Monday layout",
-      "layout": [],
-      "createdat": 1708623045060
+      "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+      "layout": [
+        {
+          "id": "9725b31d-bd0d-46b7-b7cb-6d48efcad4ff",
+          "section_name": "Header",
+          "component_id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
+          "type": "component",
+          "createdat": 1708628709172,
+          "render_on": []
+        },
+        {
+          "id": "5c928fab-6e8e-4b97-96c2-c3f928d1d0a1",
+          "section_name": "Body",
+          "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+          "type": "template",
+          "createdat": 1708628621241,
+          "render_on": []
+        }
+      ],
+      "createdat": 1708628621259
     }
   ],
   "components": [
@@ -14,436 +32,27 @@
       "createdat": 1707746350021,
       "component_html": "<style>\n  .title-advantages {\n    text-align: center;\n    font-size: 11px;\n    color: #8c8278;\n    padding-bottom: 10px;\n    padding-top: 10px;\n    margin: 0;\n  }\n\n  .title-advantages-item {\n    margin-left: 4px;\n  }\n\n  .newsletterRecommendationHeader {\n      text-align: center;\n      font-size: 11px;\n      color: #8c8278;\n      margin-bottom: 10px;\n      margin-top: 10px;\n    }\n</style>\n<!-- HEADER -->\n<!--[if gte mso 9]>\n      <v:background xmlns:v=\"urn:schemas-microsoft-com:vml\" fill=\"t\">\n          <v:fill type=\"tile\" color=\"#ececec\">\n      </v:background>\n      <![endif]-->\n<p class=\"title-advantages\">\n  <span class=\"title-advantages-item\">✔️ Bezplatné doručenie a vrátenie</span>\n  <span class=\"title-advantages-item\">✔️ Najlepší výber</span>\n</p>\n<p class=\"newsletterRecommendationHeader\">\n  Máte problémy s čítaním e-mailu? Pozrite si <a class=\"newsletterRecommendationHeaderLink\" style=\"color: #000;\"\n    href=\"[[newsshowurl]]\">online verziu.</a>\n  Pridajte Beliani medzi <a class=\"newsletterRecommendationHeaderLink\" style=\"color: #000;\"\n    href=\"https://www.beliani.sk/content/whitelist-emails-sk/\">povolené e-mailové adresy</a>\n</p>\n<!-- top -->\n<table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"\n  style=\"margin: 0 auto; background-color:#ffffff; padding-top: 0em; padding-bottom: 0em; \">\n  <tbody>\n    <tr>\n      <th><a href=\"https://www.beliani.sk/?utm_source=newsletter&utm_medium=email&utm_campaign=${id}\"\n          data-table=\"Header\" data-href=\"Top image href\">\n          <img style=\"display: block;\" data-table=\"Header\" data-src=\"Top image src\" src=\"https://placehold.co/650x200\"\n            alt=\"Beliani\" width=\"100%\" border=\"0\" />\n        </a>\n      </th>\n    </tr>\n  </tbody>\n</table>\n<table style=\"margin: 0 auto; background-color: #ffffff; padding-top: 0em; padding-bottom: 0em;\" border=\"0\"\n  cellspacing=\"0\" cellpadding=\"0\" align=\"center\">\n  <tbody>\n    <tr>\n      <th><a href=\"\" data-table=\"Header\" data-href=\"Header Category 1 href\"><img style=\"display: block;\"\n            data-table=\"Header\" data-src=\"Header Category 1 src\" src=\"https://placehold.co/221x40\" alt=\"Nábytok\" width=\"100%\"\n            border=\"0\" /></a></th>\n      <th><a href=\"\" data-table=\"Header\" data-href=\"Header Category 2 href\"><img style=\"display: block;\"\n            data-table=\"Header\" data-src=\"Header Category 2 src\" src=\"https://placehold.co/231x40\" alt=\"Doplnky\" width=\"100%\"\n            border=\"0\" /></a></th>\n      <th><a href=\"\" data-table=\"Header\" data-href=\"Header Category 3 href\"><img style=\"display: block;\"\n            data-table=\"Header\" data-src=\"Header Category 3 src\" src=\"https://placehold.co/198x40\" alt=\"Záhrada\" width=\"100%\"\n            border=\"0\" /></a></th>\n    </tr>\n  </tbody>\n</table>",
       "component_name": "Header"
-    },
-    {
-      "id": "3a80263d-5bf5-4516-bc04-aa18900c56e8",
-      "createdat": 1708179904502,
-      "component_html": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\r\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\r\n    <link\r\n      href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap\"\r\n      rel=\"stylesheet\"\r\n    />\r\n    <title>Document</title>\r\n    <style>\r\n      .about_description_avatar {\r\n        display: none;\r\n      }\r\n      @media screen and (max-width: 620px) {\r\n        .project_image {\r\n          display: block;\r\n          width: auto;\r\n        }\r\n\r\n        .project_description {\r\n          display: block;\r\n          width: auto;\r\n        }\r\n\r\n        .projects_desktop {\r\n          display: none !important;\r\n        }\r\n\r\n        .projects_mobile {\r\n          display: block !important;\r\n        }\r\n\r\n        .about_image {\r\n          display: none;\r\n        }\r\n\r\n        .about_description_avatar {\r\n          display: inline;\r\n        }\r\n        .about_description {\r\n          display: block;\r\n        }\r\n      }\r\n    </style>\r\n  </head>\r\n\r\n  <body>\r\n    <center>\r\n      <!-- Top image -->\r\n      <table\r\n        cellspacing=\"0\"\r\n        cellpadding=\"0\"\r\n        style=\"\r\n          max-width: 600px;\r\n          width: 100%;\r\n          padding-bottom: 24px;\r\n          font-family: 'Poppins', sans-serif;\r\n        \"\r\n      >\r\n        <tbody>\r\n          <tr>\r\n            <td>\r\n              <a href=\"\" target=\"_blank\">\r\n                <img\r\n                  src=\"topimage.jpg\"\r\n                  style=\"display: block; width: 100%; border-radius: 12px\"\r\n                  alt=\"\"\r\n                />\r\n              </a>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <!-- Top image -->\r\n\r\n      <!-- Greeting section -->\r\n      <table\r\n        cellspacing=\"0\"\r\n        cellpadding=\"0\"\r\n        style=\"max-width: 600px; width: 100%\"\r\n      >\r\n        <tbody>\r\n          <tr>\r\n            <td>\r\n              <p\r\n                style=\"\r\n                  font-weight: 600;\r\n                  font-size: 30px;\r\n                  margin: 0;\r\n                  font-family: 'Poppins', sans-serif;\r\n                \"\r\n              >\r\n                Hi!\r\n                <a\r\n                  href=\"https://www.ignition-interactive.com/#\"\r\n                  style=\"color: #1a1a1a\"\r\n                  >Ignition Interactive</a\r\n                >\r\n              </p>\r\n            </td>\r\n          </tr>\r\n          <tr>\r\n            <td>\r\n              <p\r\n                style=\"\r\n                  font-size: 16px;\r\n                  font-weight: 400;\r\n                  margin: 0;\r\n                  color: #777777;\r\n                  font-family: 'Poppins', sans-serif;\r\n                  padding-bottom: 24px;\r\n                \"\r\n              >\r\n                I would like apply to position\r\n                <a\r\n                  href=\"https://www.olx.pl/oferta/praca/frontend-react-developer-CID4-IDYjxvv.html\"\r\n                  style=\"color: #1a1a1a\"\r\n                  >Front-end developer.</a\r\n                >\r\n              </p>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <!-- Greeting section -->\r\n\r\n      <!-- About me section -->\r\n      <table\r\n        cellspacing=\"0\"\r\n        cellpadding=\"0\"\r\n        style=\"\r\n          max-width: 600px;\r\n          width: 100%;\r\n          font-family: 'Poppins', sans-serif;\r\n        \"\r\n      >\r\n        <tbody>\r\n          <tr>\r\n            <td style=\"text-align: left\" class=\"about_description\">\r\n              <table cellspacing=\"0\" cellpadding=\"0\" style=\"width: 100%\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td>\r\n                      <table\r\n                        cellspacing=\"0\"\r\n                        cellpadding=\"0\"\r\n                        style=\"width: 100%\"\r\n                      >\r\n                        <tr>\r\n                          <td style=\"width: 70%\">\r\n                            <span\r\n                              style=\"\r\n                                font-size: 30px;\r\n                                font-weight: 500;\r\n                                margin: 0;\r\n                              \"\r\n                            >\r\n                              About me\r\n                            </span>\r\n                          </td>\r\n                          <td align=\"right\" style=\"width: 30%\">\r\n                            <a\r\n                              class=\"about_description_avatar\"\r\n                              href=\"https://github.com/DemaPy\"\r\n                              target=\"_blank\"\r\n                            >\r\n                              <img\r\n                                src=\"https://private-user-images.githubusercontent.com/80632445/300127583-33cc8471-f364-4434-b421-5656816b78e0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDYzMDg2MjcsIm5iZiI6MTcwNjMwODMyNywicGF0aCI6Ii84MDYzMjQ0NS8zMDAxMjc1ODMtMzNjYzg0NzEtZjM2NC00NDM0LWI0MjEtNTY1NjgxNmI3OGUwLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTI2VDIyMzIwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0MzY3YzAyYTRiMDA3YTk4NzY4MzM3ZTYyYzBiNTE5NWVlZDNlY2E2NGIzMmFhMDU1YjYzODUyZThlZjBiMTMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.xyPRZ9HGMLVYdP-sQBsFAIfWkRqKUCuBAvsg30CUWTE\"\r\n                                style=\"\r\n                                  width: 48px;\r\n                                  border-radius: 50%;\r\n                                  vertical-align: baseline;\r\n                                \"\r\n                              />\r\n                            </a>\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 16px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #777777;\r\n                          padding-bottom: 24px;\r\n                        \"\r\n                      >\r\n                        I have 2 years of experience as a React Developer.\r\n                        <br />\r\n                        At work, I am responsible for: <br />\r\n                        -training other team members<br />\r\n                        -build API routes<br />\r\n                        -developing CMS, Admin Page, Complex Forms using React,\r\n                        Typescript, NextJs, NodeJs, React Hook Form, Zustand and\r\n                        some UI libraries.\r\n                      </p>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n            <td class=\"about_image\">\r\n              <a href=\"https://github.com/DemaPy\" target=\"_blank\">\r\n                <img\r\n                  src=\"https://private-user-images.githubusercontent.com/80632445/300127583-33cc8471-f364-4434-b421-5656816b78e0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDYzMDg2MjcsIm5iZiI6MTcwNjMwODMyNywicGF0aCI6Ii84MDYzMjQ0NS8zMDAxMjc1ODMtMzNjYzg0NzEtZjM2NC00NDM0LWI0MjEtNTY1NjgxNmI3OGUwLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTI2VDIyMzIwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0MzY3YzAyYTRiMDA3YTk4NzY4MzM3ZTYyYzBiNTE5NWVlZDNlY2E2NGIzMmFhMDU1YjYzODUyZThlZjBiMTMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.xyPRZ9HGMLVYdP-sQBsFAIfWkRqKUCuBAvsg30CUWTE\"\r\n                  style=\"width: 200px; border-radius: 50%; display: block\"\r\n                />\r\n              </a>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <!-- About me section -->\r\n\r\n      <!-- Explore latest work -->\r\n      <table\r\n        cellspacing=\"0\"\r\n        cellpadding=\"0\"\r\n        style=\"\r\n          max-width: 600px;\r\n          width: 100%;\r\n          font-family: 'Poppins', sans-serif;\r\n        \"\r\n      >\r\n        <tbody>\r\n          <tr>\r\n            <td style=\"padding-bottom: 24px; text-align: left\">\r\n              <table cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td>\r\n                      <h3 style=\"font-size: 30px; font-weight: 500; margin: 0\">\r\n                        Explore my latest work\r\n                      </h3>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 16px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #777777;\r\n                        \"\r\n                      >\r\n                        Check out my recent projects I am passionate about!\r\n                      </p>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n        <tbody class=\"projects_desktop\" style=\"display: block\">\r\n          <tr>\r\n            <td style=\"padding-bottom: 12px\">\r\n              <table cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td class=\"project_image\" width=\"50%\">\r\n                      <a target=\"_blank\" href=\"https://noteit-tan.vercel.app/\">\r\n                        <img\r\n                          src=\"https://private-user-images.githubusercontent.com/80632445/300127579-52417be8-e639-42e8-9c64-28dc74d049ab.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDYzMDg2MjcsIm5iZiI6MTcwNjMwODMyNywicGF0aCI6Ii84MDYzMjQ0NS8zMDAxMjc1NzktNTI0MTdiZTgtZTYzOS00MmU4LTljNjQtMjhkYzc0ZDA0OWFiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTI2VDIyMzIwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTg5ZDVlN2YzYjJjYzBjMjFiZDVkNDk3M2Q1NGJmMWI3MGM0NjhkZWMzNjQ2YWU4OGZhY2QyZWM5ODIzOWFmOGYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.gUsqqdm1IXOB9cArCMmWb6BL4ZeSdmhaDelmcRPWOuc\"\r\n                          style=\"display: block; width: 300px; height: auto\"\r\n                          alt=\"\"\r\n                        />\r\n                      </a>\r\n                    </td>\r\n                    <td\r\n                      class=\"project_description\"\r\n                      width=\"50%\"\r\n                      style=\"padding: 12px; vertical-align: top\"\r\n                    >\r\n                      <p\r\n                        style=\"\r\n                          font-size: 20px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                          margin-bottom: 8px;\r\n                        \"\r\n                      >\r\n                        <a\r\n                          href=\"https://github.com/DemaPy/Notion-Clone\"\r\n                          target=\"_blank\"\r\n                          style=\"color: #1a1a1a\"\r\n                          >Jotion</a\r\n                        >\r\n                      </p>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 16px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                        \"\r\n                      >\r\n                        Your ideas documents & plans. Unified. Organize your\r\n                        life with Jotion\r\n                      </p>\r\n                      <br />\r\n                      <table cellspacing=\"0\" cellpadding=\"0\">\r\n                        <tr>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a href=\"https://nextjs.org/\" target=\"_blank\">\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m23.749 30.005c-.119.063-.109.083.005.025.037-.015.068-.036.095-.061 0-.021 0-.021-.1.036zm.24-.13c-.057.047-.057.047.011.016.036-.021.068-.041.068-.047 0-.027-.016-.021-.079.031zm.156-.094c-.057.047-.057.047.011.016.037-.021.068-.043.068-.048 0-.025-.016-.02-.079.032zm.158-.093c-.057.047-.057.047.009.015.037-.02.068-.041.068-.047 0-.025-.016-.02-.077.032zm.213-.141c-.109.073-.147.12-.047.068.067-.041.181-.131.161-.131-.043.016-.079.043-.115.063zm-9.563-29.536c-.073.005-.292.025-.484.041-4.548.412-8.803 2.86-11.5 6.631-1.491 2.067-2.459 4.468-2.824 6.989-.129.88-.145 1.14-.145 2.333 0 1.192.016 1.448.145 2.328.871 6.011 5.147 11.057 10.943 12.927 1.043.333 2.136.563 3.381.704.484.052 2.577.052 3.061 0 2.152-.24 3.969-.771 5.767-1.688.276-.14.328-.177.291-.208-.88-1.161-1.744-2.323-2.609-3.495l-2.557-3.453-3.203-4.745c-1.068-1.588-2.14-3.172-3.229-4.744-.011 0-.025 2.109-.031 4.681-.011 4.505-.011 4.688-.068 4.792-.057.125-.151.229-.276.287-.099.047-.188.057-.661.057h-.541l-.141-.088c-.088-.057-.161-.136-.208-.229l-.068-.141.005-6.271.011-6.271.099-.125c.063-.077.141-.14.229-.187.131-.063.183-.073.724-.073.635 0 .74.025.907.208 1.296 1.932 2.588 3.869 3.859 5.812 2.079 3.152 4.917 7.453 6.312 9.563l2.537 3.839.125-.083c1.219-.813 2.328-1.781 3.285-2.885 2.016-2.308 3.324-5.147 3.767-8.177.129-.88.145-1.141.145-2.333 0-1.193-.016-1.448-.145-2.328-.871-6.011-5.147-11.057-10.943-12.928-1.084-.343-2.199-.577-3.328-.697-.303-.031-2.371-.068-2.631-.041zm6.547 9.677c.151.072.265.208.317.364.027.084.032 1.823.027 5.74l-.011 5.624-.989-1.52-.995-1.521v-4.083c0-2.647.011-4.131.025-4.204.047-.167.161-.307.313-.395.124-.063.172-.068.667-.068.463 0 .541.005.645.063z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a\r\n                              href=\"https://www.typescriptlang.org/\"\r\n                              target=\"_blank\"\r\n                            >\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m0 16v16h32v-32h-32zm25.786-1.276c.813.203 1.432.568 2.005 1.156.292.312.729.885.766 1.026.01.042-1.38.974-2.224 1.495-.031.021-.156-.109-.292-.313-.411-.599-.844-.859-1.505-.906-.969-.063-1.594.443-1.589 1.292-.005.208.042.417.135.599.214.443.615.708 1.854 1.245 2.292.984 3.271 1.635 3.88 2.557.682 1.031.833 2.677.375 3.906-.51 1.328-1.771 2.234-3.542 2.531-.547.099-1.849.083-2.438-.026-1.286-.229-2.505-.865-3.255-1.698-.297-.323-.87-1.172-.833-1.229.016-.021.146-.104.292-.188s.682-.396 1.188-.688l.922-.536.193.286c.271.411.859.974 1.214 1.161 1.021.542 2.422.464 3.115-.156.281-.234.438-.594.417-.958 0-.37-.047-.536-.24-.813-.25-.354-.755-.656-2.198-1.281-1.651-.714-2.365-1.151-3.01-1.854-.406-.464-.708-1.01-.88-1.599-.12-.453-.151-1.589-.057-2.042.339-1.599 1.547-2.708 3.281-3.036.563-.109 1.875-.068 2.427.068zm-7.51 1.339.01 1.307h-4.167v11.839h-2.948v-11.839h-4.161v-1.281c0-.714.016-1.307.036-1.323.016-.021 2.547-.031 5.62-.026l5.594.016z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td>\r\n                            <a href=\"https://tailwindcss.com/\" target=\"_blank\">\r\n                              <svg\r\n                                version=\"1.1\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                                viewBox=\"0 0 512 512\"\r\n                                width=\"24\"\r\n                                height=\"24\"\r\n                              >\r\n                                <path\r\n                                  d=\"M128,204.6666718C145.0624084,136.2265015,187.7375946,102,256,102c102.3999939,0,115.2000122,77,166.3999939,89.8333282c34.1376038,8.5598297,64-4.2734985,89.6000061-38.5C494.9375916,221.7734985,452.2623901,256,384,256c-102.3999939,0-115.2000122-77-166.3999939-89.8333282C183.4624023,157.606842,153.6000061,170.4401703,128,204.6666718z M0,358.6666565C17.0623989,290.2265015,59.7375984,256,128,256c102.3999939,0,115.1999969,77,166.3999939,89.8333435c34.1376038,8.5598145,64-4.2734985,89.6000061-38.5C366.9375916,375.7734985,324.2623901,410,256,410c-102.3999939,0-115.1999969-77-166.3999939-89.8333435C55.4624023,311.606842,25.6000004,324.440155,0,358.6666565z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n          </tr>\r\n          <tr>\r\n            <td>\r\n              <table cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td\r\n                      class=\"project_description\"\r\n                      width=\"50%\"\r\n                      style=\"padding: 12px; vertical-align: top\"\r\n                    >\r\n                      <p\r\n                        style=\"\r\n                          font-size: 20px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                          margin-bottom: 8px;\r\n                        \"\r\n                      >\r\n                        <a\r\n                          href=\"https://github.com/DemaPy/DeMarketplace\"\r\n                          target=\"_blank\"\r\n                          style=\"color: #1a1a1a\"\r\n                          >Demarketplace</a\r\n                        >\r\n                      </p>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 16px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                        \"\r\n                      >\r\n                        Welcome to DeMaplace. Every asset is verified by our\r\n                        team of specialists to ensure in quality.\r\n                      </p>\r\n                      <br />\r\n                      <table cellspacing=\"0\" cellpadding=\"0\">\r\n                        <tr>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a href=\"https://nextjs.org/\" target=\"_blank\">\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m23.749 30.005c-.119.063-.109.083.005.025.037-.015.068-.036.095-.061 0-.021 0-.021-.1.036zm.24-.13c-.057.047-.057.047.011.016.036-.021.068-.041.068-.047 0-.027-.016-.021-.079.031zm.156-.094c-.057.047-.057.047.011.016.037-.021.068-.043.068-.048 0-.025-.016-.02-.079.032zm.158-.093c-.057.047-.057.047.009.015.037-.02.068-.041.068-.047 0-.025-.016-.02-.077.032zm.213-.141c-.109.073-.147.12-.047.068.067-.041.181-.131.161-.131-.043.016-.079.043-.115.063zm-9.563-29.536c-.073.005-.292.025-.484.041-4.548.412-8.803 2.86-11.5 6.631-1.491 2.067-2.459 4.468-2.824 6.989-.129.88-.145 1.14-.145 2.333 0 1.192.016 1.448.145 2.328.871 6.011 5.147 11.057 10.943 12.927 1.043.333 2.136.563 3.381.704.484.052 2.577.052 3.061 0 2.152-.24 3.969-.771 5.767-1.688.276-.14.328-.177.291-.208-.88-1.161-1.744-2.323-2.609-3.495l-2.557-3.453-3.203-4.745c-1.068-1.588-2.14-3.172-3.229-4.744-.011 0-.025 2.109-.031 4.681-.011 4.505-.011 4.688-.068 4.792-.057.125-.151.229-.276.287-.099.047-.188.057-.661.057h-.541l-.141-.088c-.088-.057-.161-.136-.208-.229l-.068-.141.005-6.271.011-6.271.099-.125c.063-.077.141-.14.229-.187.131-.063.183-.073.724-.073.635 0 .74.025.907.208 1.296 1.932 2.588 3.869 3.859 5.812 2.079 3.152 4.917 7.453 6.312 9.563l2.537 3.839.125-.083c1.219-.813 2.328-1.781 3.285-2.885 2.016-2.308 3.324-5.147 3.767-8.177.129-.88.145-1.141.145-2.333 0-1.193-.016-1.448-.145-2.328-.871-6.011-5.147-11.057-10.943-12.928-1.084-.343-2.199-.577-3.328-.697-.303-.031-2.371-.068-2.631-.041zm6.547 9.677c.151.072.265.208.317.364.027.084.032 1.823.027 5.74l-.011 5.624-.989-1.52-.995-1.521v-4.083c0-2.647.011-4.131.025-4.204.047-.167.161-.307.313-.395.124-.063.172-.068.667-.068.463 0 .541.005.645.063z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a\r\n                              href=\"https://www.typescriptlang.org/\"\r\n                              target=\"_blank\"\r\n                            >\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m0 16v16h32v-32h-32zm25.786-1.276c.813.203 1.432.568 2.005 1.156.292.312.729.885.766 1.026.01.042-1.38.974-2.224 1.495-.031.021-.156-.109-.292-.313-.411-.599-.844-.859-1.505-.906-.969-.063-1.594.443-1.589 1.292-.005.208.042.417.135.599.214.443.615.708 1.854 1.245 2.292.984 3.271 1.635 3.88 2.557.682 1.031.833 2.677.375 3.906-.51 1.328-1.771 2.234-3.542 2.531-.547.099-1.849.083-2.438-.026-1.286-.229-2.505-.865-3.255-1.698-.297-.323-.87-1.172-.833-1.229.016-.021.146-.104.292-.188s.682-.396 1.188-.688l.922-.536.193.286c.271.411.859.974 1.214 1.161 1.021.542 2.422.464 3.115-.156.281-.234.438-.594.417-.958 0-.37-.047-.536-.24-.813-.25-.354-.755-.656-2.198-1.281-1.651-.714-2.365-1.151-3.01-1.854-.406-.464-.708-1.01-.88-1.599-.12-.453-.151-1.589-.057-2.042.339-1.599 1.547-2.708 3.281-3.036.563-.109 1.875-.068 2.427.068zm-7.51 1.339.01 1.307h-4.167v11.839h-2.948v-11.839h-4.161v-1.281c0-.714.016-1.307.036-1.323.016-.021 2.547-.031 5.62-.026l5.594.016z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td>\r\n                            <a href=\"https://tailwindcss.com/\" target=\"_blank\">\r\n                              <svg\r\n                                version=\"1.1\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                                viewBox=\"0 0 512 512\"\r\n                                width=\"24\"\r\n                                height=\"24\"\r\n                              >\r\n                                <path\r\n                                  d=\"M128,204.6666718C145.0624084,136.2265015,187.7375946,102,256,102c102.3999939,0,115.2000122,77,166.3999939,89.8333282c34.1376038,8.5598297,64-4.2734985,89.6000061-38.5C494.9375916,221.7734985,452.2623901,256,384,256c-102.3999939,0-115.2000122-77-166.3999939-89.8333282C183.4624023,157.606842,153.6000061,170.4401703,128,204.6666718z M0,358.6666565C17.0623989,290.2265015,59.7375984,256,128,256c102.3999939,0,115.1999969,77,166.3999939,89.8333435c34.1376038,8.5598145,64-4.2734985,89.6000061-38.5C366.9375916,375.7734985,324.2623901,410,256,410c-102.3999939,0-115.1999969-77-166.3999939-89.8333435C55.4624023,311.606842,25.6000004,324.440155,0,358.6666565z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                    </td>\r\n                    <td class=\"project_image\" width=\"50%\">\r\n                      <a\r\n                        target=\"_blank\"\r\n                        href=\"https://demarketplace-production.up.railway.app/\"\r\n                      >\r\n                        <img\r\n                          src=\"https://private-user-images.githubusercontent.com/80632445/300127590-ba6388ec-5ca3-489f-a4c7-84ca6c212286.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDYzMDg2MjcsIm5iZiI6MTcwNjMwODMyNywicGF0aCI6Ii84MDYzMjQ0NS8zMDAxMjc1OTAtYmE2Mzg4ZWMtNWNhMy00ODlmLWE0YzctODRjYTZjMjEyMjg2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTI2VDIyMzIwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1ZGJkYzY0YzFlNTQ4M2QyNzYzYmQ2YzFkZWM3MmJhYTk3NTZkYmFlODY1ZmRmYWU0Nzk3NmRkZDM2OTExZDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.Mr7gHsyK49LMeAQYspIvx7K8qeVwxWsOBdszNRT0TOY\"\r\n                          style=\"display: block; width: 300px; height: auto\"\r\n                          alt=\"\"\r\n                        />\r\n                      </a>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n        <tbody class=\"projects_mobile\" style=\"display: none\">\r\n          <tr>\r\n            <td>\r\n              <table cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td class=\"project_image\" width=\"50%\">\r\n                      <a target=\"_blank\" href=\"https://noteit-tan.vercel.app/\">\r\n                        <img\r\n                          src=\"Jotion.png\"\r\n                          style=\"display: block; max-width: 100%\"\r\n                          alt=\"\"\r\n                        />\r\n                      </a>\r\n                    </td>\r\n                    <td\r\n                      class=\"project_description\"\r\n                      width=\"50%\"\r\n                      style=\"padding: 12px; vertical-align: top\"\r\n                    >\r\n                      <p\r\n                        style=\"\r\n                          font-size: 20px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                          margin-bottom: 8px;\r\n                        \"\r\n                      >\r\n                        <a\r\n                          href=\"https://github.com/DemaPy/Notion-Clone\"\r\n                          target=\"_blank\"\r\n                          style=\"color: #1a1a1a\"\r\n                          >Jotion</a\r\n                        >\r\n                      </p>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 18px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                        \"\r\n                      >\r\n                        Your ideas documents & plans. Unified. Organize your\r\n                        life with Jotion\r\n                      </p>\r\n                      <br />\r\n                      <table cellspacing=\"0\" cellpadding=\"0\">\r\n                        <tr>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a href=\"https://nextjs.org/\" target=\"_blank\">\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m23.749 30.005c-.119.063-.109.083.005.025.037-.015.068-.036.095-.061 0-.021 0-.021-.1.036zm.24-.13c-.057.047-.057.047.011.016.036-.021.068-.041.068-.047 0-.027-.016-.021-.079.031zm.156-.094c-.057.047-.057.047.011.016.037-.021.068-.043.068-.048 0-.025-.016-.02-.079.032zm.158-.093c-.057.047-.057.047.009.015.037-.02.068-.041.068-.047 0-.025-.016-.02-.077.032zm.213-.141c-.109.073-.147.12-.047.068.067-.041.181-.131.161-.131-.043.016-.079.043-.115.063zm-9.563-29.536c-.073.005-.292.025-.484.041-4.548.412-8.803 2.86-11.5 6.631-1.491 2.067-2.459 4.468-2.824 6.989-.129.88-.145 1.14-.145 2.333 0 1.192.016 1.448.145 2.328.871 6.011 5.147 11.057 10.943 12.927 1.043.333 2.136.563 3.381.704.484.052 2.577.052 3.061 0 2.152-.24 3.969-.771 5.767-1.688.276-.14.328-.177.291-.208-.88-1.161-1.744-2.323-2.609-3.495l-2.557-3.453-3.203-4.745c-1.068-1.588-2.14-3.172-3.229-4.744-.011 0-.025 2.109-.031 4.681-.011 4.505-.011 4.688-.068 4.792-.057.125-.151.229-.276.287-.099.047-.188.057-.661.057h-.541l-.141-.088c-.088-.057-.161-.136-.208-.229l-.068-.141.005-6.271.011-6.271.099-.125c.063-.077.141-.14.229-.187.131-.063.183-.073.724-.073.635 0 .74.025.907.208 1.296 1.932 2.588 3.869 3.859 5.812 2.079 3.152 4.917 7.453 6.312 9.563l2.537 3.839.125-.083c1.219-.813 2.328-1.781 3.285-2.885 2.016-2.308 3.324-5.147 3.767-8.177.129-.88.145-1.141.145-2.333 0-1.193-.016-1.448-.145-2.328-.871-6.011-5.147-11.057-10.943-12.928-1.084-.343-2.199-.577-3.328-.697-.303-.031-2.371-.068-2.631-.041zm6.547 9.677c.151.072.265.208.317.364.027.084.032 1.823.027 5.74l-.011 5.624-.989-1.52-.995-1.521v-4.083c0-2.647.011-4.131.025-4.204.047-.167.161-.307.313-.395.124-.063.172-.068.667-.068.463 0 .541.005.645.063z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a\r\n                              href=\"https://www.typescriptlang.org/\"\r\n                              target=\"_blank\"\r\n                            >\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m0 16v16h32v-32h-32zm25.786-1.276c.813.203 1.432.568 2.005 1.156.292.312.729.885.766 1.026.01.042-1.38.974-2.224 1.495-.031.021-.156-.109-.292-.313-.411-.599-.844-.859-1.505-.906-.969-.063-1.594.443-1.589 1.292-.005.208.042.417.135.599.214.443.615.708 1.854 1.245 2.292.984 3.271 1.635 3.88 2.557.682 1.031.833 2.677.375 3.906-.51 1.328-1.771 2.234-3.542 2.531-.547.099-1.849.083-2.438-.026-1.286-.229-2.505-.865-3.255-1.698-.297-.323-.87-1.172-.833-1.229.016-.021.146-.104.292-.188s.682-.396 1.188-.688l.922-.536.193.286c.271.411.859.974 1.214 1.161 1.021.542 2.422.464 3.115-.156.281-.234.438-.594.417-.958 0-.37-.047-.536-.24-.813-.25-.354-.755-.656-2.198-1.281-1.651-.714-2.365-1.151-3.01-1.854-.406-.464-.708-1.01-.88-1.599-.12-.453-.151-1.589-.057-2.042.339-1.599 1.547-2.708 3.281-3.036.563-.109 1.875-.068 2.427.068zm-7.51 1.339.01 1.307h-4.167v11.839h-2.948v-11.839h-4.161v-1.281c0-.714.016-1.307.036-1.323.016-.021 2.547-.031 5.62-.026l5.594.016z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td>\r\n                            <a href=\"https://tailwindcss.com/\" target=\"_blank\">\r\n                              <svg\r\n                                version=\"1.1\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                                viewBox=\"0 0 512 512\"\r\n                                width=\"24\"\r\n                                height=\"24\"\r\n                              >\r\n                                <path\r\n                                  d=\"M128,204.6666718C145.0624084,136.2265015,187.7375946,102,256,102c102.3999939,0,115.2000122,77,166.3999939,89.8333282c34.1376038,8.5598297,64-4.2734985,89.6000061-38.5C494.9375916,221.7734985,452.2623901,256,384,256c-102.3999939,0-115.2000122-77-166.3999939-89.8333282C183.4624023,157.606842,153.6000061,170.4401703,128,204.6666718z M0,358.6666565C17.0623989,290.2265015,59.7375984,256,128,256c102.3999939,0,115.1999969,77,166.3999939,89.8333435c34.1376038,8.5598145,64-4.2734985,89.6000061-38.5C366.9375916,375.7734985,324.2623901,410,256,410c-102.3999939,0-115.1999969-77-166.3999939-89.8333435C55.4624023,311.606842,25.6000004,324.440155,0,358.6666565z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n          </tr>\r\n          <tr>\r\n            <td>\r\n              <table cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody>\r\n                  <tr>\r\n                    <td class=\"project_image\" width=\"50%\">\r\n                      <a\r\n                        target=\"_blank\"\r\n                        href=\"https://demarketplace-production.up.railway.app/\"\r\n                      >\r\n                        <img\r\n                          src=\"https://private-user-images.githubusercontent.com/80632445/300127590-ba6388ec-5ca3-489f-a4c7-84ca6c212286.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDYzMDg2MjcsIm5iZiI6MTcwNjMwODMyNywicGF0aCI6Ii84MDYzMjQ0NS8zMDAxMjc1OTAtYmE2Mzg4ZWMtNWNhMy00ODlmLWE0YzctODRjYTZjMjEyMjg2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTI2VDIyMzIwN1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1ZGJkYzY0YzFlNTQ4M2QyNzYzYmQ2YzFkZWM3MmJhYTk3NTZkYmFlODY1ZmRmYWU0Nzk3NmRkZDM2OTExZDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.Mr7gHsyK49LMeAQYspIvx7K8qeVwxWsOBdszNRT0TOY\"\r\n                          style=\"display: block; width: 100%\"\r\n                          alt=\"Project image\"\r\n                        />\r\n                      </a>\r\n                    </td>\r\n                    <td\r\n                      class=\"project_description\"\r\n                      width=\"50%\"\r\n                      style=\"padding: 12px; vertical-align: top\"\r\n                    >\r\n                      <p\r\n                        style=\"\r\n                          font-size: 20px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                          margin-bottom: 8px;\r\n                        \"\r\n                      >\r\n                        <a\r\n                          href=\"https://github.com/DemaPy/DeMarketplace\"\r\n                          target=\"_blank\"\r\n                          style=\"color: #1a1a1a\"\r\n                          >Demarketplace</a\r\n                        >\r\n                      </p>\r\n                      <p\r\n                        style=\"\r\n                          font-size: 18px;\r\n                          font-weight: 400;\r\n                          margin: 0;\r\n                          color: #1a1a1a;\r\n                        \"\r\n                      >\r\n                        Welcome to DeMaplace. Every asset is verified by our\r\n                        team of specialists to ensure in quality.\r\n                      </p>\r\n                      <br />\r\n                      <table cellspacing=\"0\" cellpadding=\"0\">\r\n                        <tr>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a href=\"https://nextjs.org/\" target=\"_blank\">\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m23.749 30.005c-.119.063-.109.083.005.025.037-.015.068-.036.095-.061 0-.021 0-.021-.1.036zm.24-.13c-.057.047-.057.047.011.016.036-.021.068-.041.068-.047 0-.027-.016-.021-.079.031zm.156-.094c-.057.047-.057.047.011.016.037-.021.068-.043.068-.048 0-.025-.016-.02-.079.032zm.158-.093c-.057.047-.057.047.009.015.037-.02.068-.041.068-.047 0-.025-.016-.02-.077.032zm.213-.141c-.109.073-.147.12-.047.068.067-.041.181-.131.161-.131-.043.016-.079.043-.115.063zm-9.563-29.536c-.073.005-.292.025-.484.041-4.548.412-8.803 2.86-11.5 6.631-1.491 2.067-2.459 4.468-2.824 6.989-.129.88-.145 1.14-.145 2.333 0 1.192.016 1.448.145 2.328.871 6.011 5.147 11.057 10.943 12.927 1.043.333 2.136.563 3.381.704.484.052 2.577.052 3.061 0 2.152-.24 3.969-.771 5.767-1.688.276-.14.328-.177.291-.208-.88-1.161-1.744-2.323-2.609-3.495l-2.557-3.453-3.203-4.745c-1.068-1.588-2.14-3.172-3.229-4.744-.011 0-.025 2.109-.031 4.681-.011 4.505-.011 4.688-.068 4.792-.057.125-.151.229-.276.287-.099.047-.188.057-.661.057h-.541l-.141-.088c-.088-.057-.161-.136-.208-.229l-.068-.141.005-6.271.011-6.271.099-.125c.063-.077.141-.14.229-.187.131-.063.183-.073.724-.073.635 0 .74.025.907.208 1.296 1.932 2.588 3.869 3.859 5.812 2.079 3.152 4.917 7.453 6.312 9.563l2.537 3.839.125-.083c1.219-.813 2.328-1.781 3.285-2.885 2.016-2.308 3.324-5.147 3.767-8.177.129-.88.145-1.141.145-2.333 0-1.193-.016-1.448-.145-2.328-.871-6.011-5.147-11.057-10.943-12.928-1.084-.343-2.199-.577-3.328-.697-.303-.031-2.371-.068-2.631-.041zm6.547 9.677c.151.072.265.208.317.364.027.084.032 1.823.027 5.74l-.011 5.624-.989-1.52-.995-1.521v-4.083c0-2.647.011-4.131.025-4.204.047-.167.161-.307.313-.395.124-.063.172-.068.667-.068.463 0 .541.005.645.063z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td style=\"padding-right: 12px\">\r\n                            <a\r\n                              href=\"https://www.typescriptlang.org/\"\r\n                              target=\"_blank\"\r\n                            >\r\n                              <svg\r\n                                height=\"24\"\r\n                                viewBox=\"0 0 32 32\"\r\n                                width=\"24\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                              >\r\n                                <path\r\n                                  d=\"m0 16v16h32v-32h-32zm25.786-1.276c.813.203 1.432.568 2.005 1.156.292.312.729.885.766 1.026.01.042-1.38.974-2.224 1.495-.031.021-.156-.109-.292-.313-.411-.599-.844-.859-1.505-.906-.969-.063-1.594.443-1.589 1.292-.005.208.042.417.135.599.214.443.615.708 1.854 1.245 2.292.984 3.271 1.635 3.88 2.557.682 1.031.833 2.677.375 3.906-.51 1.328-1.771 2.234-3.542 2.531-.547.099-1.849.083-2.438-.026-1.286-.229-2.505-.865-3.255-1.698-.297-.323-.87-1.172-.833-1.229.016-.021.146-.104.292-.188s.682-.396 1.188-.688l.922-.536.193.286c.271.411.859.974 1.214 1.161 1.021.542 2.422.464 3.115-.156.281-.234.438-.594.417-.958 0-.37-.047-.536-.24-.813-.25-.354-.755-.656-2.198-1.281-1.651-.714-2.365-1.151-3.01-1.854-.406-.464-.708-1.01-.88-1.599-.12-.453-.151-1.589-.057-2.042.339-1.599 1.547-2.708 3.281-3.036.563-.109 1.875-.068 2.427.068zm-7.51 1.339.01 1.307h-4.167v11.839h-2.948v-11.839h-4.161v-1.281c0-.714.016-1.307.036-1.323.016-.021 2.547-.031 5.62-.026l5.594.016z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                          <td>\r\n                            <a href=\"https://tailwindcss.com/\" target=\"_blank\">\r\n                              <svg\r\n                                version=\"1.1\"\r\n                                xmlns=\"http://www.w3.org/2000/svg\"\r\n                                viewBox=\"0 0 512 512\"\r\n                                width=\"24\"\r\n                                height=\"24\"\r\n                              >\r\n                                <path\r\n                                  d=\"M128,204.6666718C145.0624084,136.2265015,187.7375946,102,256,102c102.3999939,0,115.2000122,77,166.3999939,89.8333282c34.1376038,8.5598297,64-4.2734985,89.6000061-38.5C494.9375916,221.7734985,452.2623901,256,384,256c-102.3999939,0-115.2000122-77-166.3999939-89.8333282C183.4624023,157.606842,153.6000061,170.4401703,128,204.6666718z M0,358.6666565C17.0623989,290.2265015,59.7375984,256,128,256c102.3999939,0,115.1999969,77,166.3999939,89.8333435c34.1376038,8.5598145,64-4.2734985,89.6000061-38.5C366.9375916,375.7734985,324.2623901,410,256,410c-102.3999939,0-115.1999969-77-166.3999939-89.8333435C55.4624023,311.606842,25.6000004,324.440155,0,358.6666565z\"\r\n                                />\r\n                              </svg>\r\n                            </a>\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <!-- Explore latest work -->\r\n    </center>\r\n  </body>\r\n</html>\r\n",
-      "component_name": "Test"
     }
   ],
   "tables": [
     {
-      "id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "table_name": "Header",
-      "component_id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
-      "createdat": 1707747025709
-    },
-    {
-      "id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "table_name": "Top image title",
+      "id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
       "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
-      "createdat": 1707749396871
-    },
-    {
-      "id": "73e12ac9-fed8-49e7-8d9f-0df5e13e3786",
-      "table_name": "Footer",
-      "component_id": "7eac87a5-c5d2-4509-a1b3-559c20670578",
-      "createdat": 1707813434851
-    },
-    {
-      "id": "c15767be-8d77-4086-99ae-6d24c2b866ed",
-      "table_name": "Company details",
-      "component_id": "7eac87a5-c5d2-4509-a1b3-559c20670578",
-      "createdat": 1707817144085
+      "table_name": "Top image title",
+      "createdat": 1708635941241
     }
   ],
   "data_tables": [
     {
-      "id": "ac3ff4c9-b95f-4bad-9800-eab38ac41db4",
+      "id": "f93db011-67c4-420c-a1a7-ab7696d34ba7",
       "data": {
-        "slug": "chfr",
-        "src": "https://beliani.info/newsletter/2022/chfr240212_01.jpg",
-        "href": "https://www.beliani.ch/content/lp24-02-12"
+        "src": "https://beliani.info/newsletter/2022/pl240226_01.jpg",
+        "href": "https://www.beliani.pl/content/lp24-02-26",
+        "slug": "pl"
       },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "c7a48535-de3d-4e4e-aa24-787c85237cd9",
-      "data": {
-        "slug": "pt",
-        "src": "https://beliani.info/newsletter/2022/pt240212_01.jpg",
-        "href": "https://www.beliani.pt/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "c6655ba2-1da0-4e49-8f66-8f3ba1ba4155",
-      "data": {
-        "slug": "fr",
-        "src": "https://beliani.info/newsletter/2022/fr240212_01.jpg",
-        "href": "https://www.beliani.fr/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "8a9fa579-5dd1-4e5a-ae92-00fd8bf54d59",
-      "data": {
-        "slug": "hu",
-        "src": "https://beliani.info/newsletter/2022/hu240212_01.jpg",
-        "href": "https://www.beliani.hu/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "03bc0acf-2e64-477e-a870-bca3ab16542a",
-      "data": {
-        "slug": "cz",
-        "src": "https://beliani.info/newsletter/2022/cz240212_01.jpg",
-        "href": "https://www.beliani.cz/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "f9fcca07-6542-4673-a2c1-572d3655a5d9",
-      "data": {
-        "slug": "sk",
-        "src": "https://beliani.info/newsletter/2022/sk240212_01.jpg",
-        "href": "https://www.beliani.sk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "ac2a7d1d-733c-46f3-8bdf-8bc1048ab0eb",
-      "data": {
-        "slug": "es",
-        "src": "https://beliani.info/newsletter/2022/es240212_01.jpg",
-        "href": "https://www.beliani.es/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "ba4aa984-e21f-4358-a3bd-a5105704ec1c",
-      "data": {
-        "slug": "it",
-        "src": "https://beliani.info/newsletter/2022/it240212_01.jpg",
-        "href": "https://www.beliani.it/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "daf82c69-a73a-447d-8ecc-37ed7d6d8748",
-      "data": {
-        "slug": "se",
-        "src": "https://beliani.info/newsletter/2022/se240212_01.jpg",
-        "href": "https://www.beliani.se/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "d5e10d76-9805-4bcf-a8ad-087c93c4c009",
-      "data": {
-        "slug": "uk",
-        "src": "https://beliani.info/newsletter/2022/uk240212_01.jpg",
-        "href": "https://www.beliani.co.uk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "d0ee1eb3-35db-4bdc-a36d-cb449a5600e6",
-      "data": {
-        "slug": "nl",
-        "src": "https://beliani.info/newsletter/2022/nl240212_01.jpg",
-        "href": "https://www.beliani.nl/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "2e2f7837-ddd0-4da8-922c-8c2ce3423669",
-      "data": {
-        "slug": "no",
-        "src": "https://beliani.info/newsletter/2022/no240212_01.jpg",
-        "href": "https://www.beliani.no/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "53079c9b-e8c9-4034-9f5b-f481d2aa89e0",
-      "data": {
-        "slug": "dk",
-        "src": "https://beliani.info/newsletter/2022/dk240212_01.jpg",
-        "href": "https://www.beliani.dk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "932e03e1-c111-44a7-bb60-a5ce99f7963e",
-      "data": {
-        "slug": "de",
-        "src": "https://beliani.info/newsletter/2022/de240212_01.jpg",
-        "href": "https://www.beliani.de/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "a0c66f78-025d-4844-b9e5-6a2afcab9b43",
-      "data": {
-        "slug": "chde",
-        "src": "https://beliani.info/newsletter/2022/chde240212_01.jpg",
-        "href": "https://www.beliani.ch/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "f75f4ea0-9ba9-4550-9edd-c8d0e6d27683",
-      "data": {
-        "slug": "fi",
-        "src": "https://beliani.info/newsletter/2022/fi240212_01.jpg",
-        "href": "https://www.beliani.fi/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "7c3a5eb5-ef0a-4780-8eb3-3fac1c0c34e7",
-      "data": {
-        "slug": "pl",
-        "src": "https://beliani.info/newsletter/2022/pl240212_01.jpg",
-        "href": "https://www.beliani.pl/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016892,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "763d5fc0-efad-4326-b4be-a178b91e2603",
-      "data": {
-        "slug": "at",
-        "src": "https://beliani.info/newsletter/2022/at240212_01.jpg",
-        "href": "https://www.beliani.at/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1707901016891,
-      "project_id": "9888aa91-2329-4884-b84e-bc9a63711f76"
-    },
-    {
-      "id": "cb157ff9-4510-477f-9a9d-e5df85342e16",
-      "data": {
-        "slug": "pt",
-        "src": "https://beliani.info/newsletter/2022/pt240212_01.jpg",
-        "href": "https://www.beliani.pt/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "defb2b23-f4b6-4d29-9c61-729b8bff6e67",
-      "data": {
-        "slug": "es",
-        "src": "https://beliani.info/newsletter/2022/es240212_01.jpg",
-        "href": "https://www.beliani.es/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "0f00d74c-6bc8-4ce9-8021-051f359cb9e8",
-      "data": {
-        "slug": "de",
-        "src": "https://beliani.info/newsletter/2022/de240212_01.jpg",
-        "href": "https://www.beliani.de/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "5a6d7239-a3ce-4cc8-84e5-f8c31b2704b7",
-      "data": {
-        "slug": "nl",
-        "src": "https://beliani.info/newsletter/2022/nl240212_01.jpg",
-        "href": "https://www.beliani.nl/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "b31d4d1e-5556-4cae-a29a-84cf61e1d1a9",
-      "data": {
-        "slug": "chde",
-        "src": "https://beliani.info/newsletter/2022/chde240212_01.jpg",
-        "href": "https://www.beliani.ch/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "8924f173-27fd-4193-8f57-9a6ba3b15f2e",
-      "data": {
-        "slug": "chfr",
-        "src": "https://beliani.info/newsletter/2022/chfr240212_01.jpg",
-        "href": "https://www.beliani.ch/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "de4f02b4-073e-47ba-bdb3-ee023c3b70b0",
-      "data": {
-        "slug": "fr",
-        "src": "https://beliani.info/newsletter/2022/fr240212_01.jpg",
-        "href": "https://www.beliani.fr/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "0b270912-e2fe-4feb-a3db-c29a35f17e35",
-      "data": {
-        "slug": "at",
-        "src": "https://beliani.info/newsletter/2022/at240212_01.jpg",
-        "href": "https://www.beliani.at/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "d6788034-63f0-4cff-8783-845602bab4ea",
-      "data": {
-        "slug": "hu",
-        "src": "https://beliani.info/newsletter/2022/hu240212_01.jpg",
-        "href": "https://www.beliani.hu/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "3048b2b2-904e-4959-aa5d-e074f3ae13c0",
-      "data": {
-        "slug": "cz",
-        "src": "https://beliani.info/newsletter/2022/cz240212_01.jpg",
-        "href": "https://www.beliani.cz/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "a4ace13f-0151-4dc3-90e0-23fe5b63927a",
-      "data": {
-        "slug": "sk",
-        "src": "https://beliani.info/newsletter/2022/sk240212_01.jpg",
-        "href": "https://www.beliani.sk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "03dfb116-03ad-43b3-b0f2-d4998e016640",
-      "data": {
-        "slug": "it",
-        "src": "https://beliani.info/newsletter/2022/it240212_01.jpg",
-        "href": "https://www.beliani.it/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "528ae995-03ca-49af-bf21-a485f62536ee",
-      "data": {
-        "slug": "se",
-        "src": "https://beliani.info/newsletter/2022/se240212_01.jpg",
-        "href": "https://www.beliani.se/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "d5d9e9ee-ce11-4e16-ac83-e6c03448aa73",
-      "data": {
-        "slug": "uk",
-        "src": "https://beliani.info/newsletter/2022/uk240212_01.jpg",
-        "href": "https://www.beliani.co.uk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "da84bd1e-082a-4a1b-b0c8-2bcacdd1be3c",
-      "data": {
-        "slug": "no",
-        "src": "https://beliani.info/newsletter/2022/no240212_01.jpg",
-        "href": "https://www.beliani.no/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "fb82ea9e-176d-4a70-b059-93d41fbd87b7",
-      "data": {
-        "slug": "dk",
-        "src": "https://beliani.info/newsletter/2022/dk240212_01.jpg",
-        "href": "https://www.beliani.dk/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "daf18a65-b5d1-4f6e-8cbd-052d30dfa454",
-      "data": {
-        "slug": "fi",
-        "src": "https://beliani.info/newsletter/2022/fi240212_01.jpg",
-        "href": "https://www.beliani.fi/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
-    },
-    {
-      "id": "6fb002a4-4c8c-44da-86d8-9843b8623cc0",
-      "data": {
-        "slug": "pl",
-        "src": "https://beliani.info/newsletter/2022/pl240212_01.jpg",
-        "href": "https://www.beliani.pl/content/lp24-02-12"
-      },
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "createdat": 1708097458428,
-      "project_id": "16c42d9c-5adb-4fa0-aef7-9bd6c551b921"
+      "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
+      "project_id": "892f3a0f-cd7e-4910-855c-29b151308b23",
+      "createdat": 1708635976244
     }
   ],
   "templates": [
@@ -468,100 +77,25 @@
   ],
   "columns": [
     {
-      "id": "048439cb-edf9-43a0-9035-e5350da73a1e",
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "accessorKey": "Slug",
-      "header": "Slug",
-      "type": "slug",
-      "createdat": 1707899430020
-    },
-    {
-      "id": "cd923d65-4517-4be9-8ede-76b479efa21a",
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "accessorKey": "src",
+      "id": "217f8cc6-b096-41d1-a012-920b057e5aa7",
+      "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
       "header": "src",
       "type": "text",
-      "createdat": 1707899430020
+      "createdat": 1708635945232
     },
     {
-      "id": "c1d31e1d-8882-4a93-9713-08af8895d01e",
-      "table_id": "221cc432-33f9-4741-972f-1246c4e999a3",
-      "accessorKey": "href",
+      "id": "22c9ad28-fa14-40da-a7ca-ed4c50314885",
+      "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
       "header": "href",
       "type": "text",
-      "createdat": 1707899433063
+      "createdat": 1708635948320
     },
     {
-      "id": "e0acd2dc-12a9-4075-b7af-ea9d2598829d",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "top image src",
-      "header": "top image src",
+      "id": "4a5f0cb3-a9a8-417f-8e9b-f17536318408",
+      "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
+      "header": "slug",
       "type": "text",
-      "createdat": 1708096201778
-    },
-    {
-      "id": "0109655e-9cab-44b1-bbfd-4085900e9225",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "top image href",
-      "header": "top image href",
-      "type": "text",
-      "createdat": 1708096291520
-    },
-    {
-      "id": "c13dc64b-1be5-45bc-b47c-a161bfef2790",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "Slug",
-      "header": "Slug",
-      "type": "slug",
-      "createdat": 1708096416922
-    },
-    {
-      "id": "bc91b6b3-9892-48e2-a1f2-8661300866b4",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category 1 src",
-      "header": "header category 1 src",
-      "type": "text",
-      "createdat": 1708096416922
-    },
-    {
-      "id": "8f8e838f-dfda-410f-9a6c-da952c9c4ea6",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category src 2",
-      "header": "header category src 2",
-      "type": "text",
-      "createdat": 1708096443882
-    },
-    {
-      "id": "b3d20da7-01f4-455c-9a9c-0398c2f57b97",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category src 3",
-      "header": "header category src 3",
-      "type": "text",
-      "createdat": 1708096471836
-    },
-    {
-      "id": "83952dff-15e6-4620-a8cd-e08ddfa96d28",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category 1 href",
-      "header": "header category 1 href",
-      "type": "text",
-      "createdat": 1708096502739
-    },
-    {
-      "id": "2b17b92e-8f30-46d9-9914-93699a91d275",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category href 2",
-      "header": "header category href 2",
-      "type": "text",
-      "createdat": 1708096545614
-    },
-    {
-      "id": "f3a03426-70ca-48b0-802e-66667a8e7713",
-      "table_id": "af78ce15-3468-4e08-8aba-097ea5091230",
-      "accessorKey": "header category href 3",
-      "header": "header category href 3",
-      "type": "text",
-      "createdat": 1708096554203
+      "createdat": 1708635953451
     }
   ],
   "projects_style": [
@@ -569,10 +103,11 @@
       "id": "427bc92f-e6aa-4a82-bb81-fd4dbaca871b",
       "project_id": "892f3a0f-cd7e-4910-855c-29b151308b23",
       "style": {
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#00FF00",
         "color": "#ff0000"
       },
-      "node_id": "b2935be9-30d6-4902-ab27-f07dae150db9"
+      "node_id": "ba3c5562-01f0-4f86-8ef3-58b33b859069",
+      "createdat": 1708636461795
     }
   ]
 }

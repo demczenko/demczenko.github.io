@@ -58,14 +58,14 @@ const FetchedList = ({
         <div className="max-h-[600px] overflow-auto">
           <List>
             {list.map((item, i) => (
-              <Item key={i} item={item} {...rest} />
+              <Item key={i} item={item} index={i} {...rest} />
             ))}
           </List>
         </div>
       ) : (
         <List>
           {list.map((item, i) => (
-            <Item key={i} item={item} {...rest} />
+            <Item key={i} item={item} index={i} {...rest} />
           ))}
         </List>
       )}

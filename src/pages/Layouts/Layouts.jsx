@@ -8,6 +8,7 @@ import { CreateForm } from "@/components/CreateForm";
 import { useQueryClient } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import { useToast } from "@/components/ui/use-toast";
+import { SelectTemplate } from "../Projects/ProjectsModal/SelectTemplate";
 
 const Layouts = () => {
   const { toast } = useToast();
@@ -16,11 +17,21 @@ const Layouts = () => {
   const client = useQueryClient();
 
   const handleCreateLayout = (data) => {
+    const new_section = {
+      id: uuidv4(),
+      section_name: "Body",
+      template_id: data.template_id,
+      type: "template",
+      createdat: Date.now(),
+      render_on: [],
+    };
+
     const new_layout = {
       ...data,
       id: uuidv4(),
-      layout: []
+      layout: [new_section],
     };
+
     createLayout(new_layout, {
       onError: () => {
         toast({
@@ -64,6 +75,17 @@ const Layouts = () => {
             name: "layout_name",
             label: "Layout Name",
             placeholder: "layout name",
+          },
+          {
+            id: 2,
+            name: "template_id",
+            label: "Template",
+            content: (form) => (
+              <SelectTemplate
+                onSelect={(template) => form.setValue("template_id", template)}
+                value={form.getValues("template_id")}
+              />
+            ),
           },
         ]}
         onSubmit={(layout) => handleCreateLayout(layout)}
