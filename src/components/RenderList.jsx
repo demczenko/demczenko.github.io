@@ -1,25 +1,9 @@
 import { Heading, List } from "@/components";
 import { SkeletonCard } from "./SkeletonCard";
-import { TableService } from "@/api/tables/init";
-import { TemplatesService } from "@/api/templates/init";
-import { ProjectService } from "@/api/projects/init";
-import { ColumnService } from "@/api/columns/init";
-import { ComponentsService } from "@/api/components/init";
-import { DataTableService } from "@/api/tables data/init";
-import { ProjectStyleService } from "@/api/projects_style/init";
+import { serviceMap } from "@/api";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import ErrorPage from "@/ErrorPage";
-
-const serviceMap = {
-  components: ComponentsService,
-  templates: TemplatesService,
-  tables: TableService,
-  projects: ProjectService,
-  data_tables: DataTableService,
-  project_styles: ProjectStyleService,
-  columns: ColumnService,
-};
 
 const RenderList = ({
   list,

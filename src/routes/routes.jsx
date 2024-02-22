@@ -2,6 +2,8 @@ import App from "@/App";
 import ErrorPage from "@/ErrorPage";
 import {
   DataTable,
+  Layouts,
+  Layout,
   Login,
   Project,
   Projects,
@@ -13,9 +15,9 @@ import {
   Templates,
   TemplatesArchive,
   Users,
+  Component,
+  Components,
 } from "@/pages";
-import Component from "@/pages/Component/Component";
-import Components from "@/pages/Components/Components";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routes = createBrowserRouter([
@@ -82,6 +84,16 @@ export const routes = createBrowserRouter([
       {
         path: "components/:id",
         element: <Component />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "layouts",
+        element: <Layouts />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "layouts/:id",
+        element: <Layout />,
         errorElement: <ErrorPage />,
       },
       {

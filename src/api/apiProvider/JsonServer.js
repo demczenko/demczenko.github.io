@@ -18,7 +18,7 @@ export class ApiLocalJson {
   }
 
   async getAll(key, params) {
-    const fetchUrl = Object.keys(params).length ? this.#baseUrl + key + "/" + params : this.#baseUrl + key
+    const fetchUrl = Object.keys(params ?? {}).length ? this.#baseUrl + key + "/" + params : this.#baseUrl + key
     const req = await fetch(fetchUrl)
 
 

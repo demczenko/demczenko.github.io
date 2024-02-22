@@ -4,11 +4,17 @@ import {
   Columns3,
   ComponentIcon,
   FolderOpen,
+  Layout,
   Table,
-  User2,
 } from "lucide-react";
 
 export const navigation = [
+  {
+    id: 8,
+    path: "/layouts",
+    name: "Layouts",
+    icon: Layout,
+  },
   {
     id: 7,
     path: "/components",
@@ -55,5 +61,4 @@ export const navigation = [
       },
     ],
   },
-
 ];

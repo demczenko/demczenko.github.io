@@ -1,5 +1,13 @@
 {
   "users": [],
+  "layouts": [
+    {
+      "id": "9a76036c-5c53-48f8-8ed8-4de1b0265a7f",
+      "layout_name": "Monday layout",
+      "layout": [],
+      "createdat": 1708623045060
+    }
+  ],
   "components": [
     {
       "id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
