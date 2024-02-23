@@ -143,7 +143,7 @@ const ProjectCart = ({ item, view = "cart" }) => {
 
 function CartView({ project, options }) {
   return (
-    <Card className="md:max-w-[320px] w-full w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/projects/${project.id}`}>
           <CardTitle className="text-white hover:underline">
