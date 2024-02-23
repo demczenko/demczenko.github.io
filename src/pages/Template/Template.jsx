@@ -97,6 +97,8 @@ const Template = () => {
     <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
+          isLoading={isTemplateUpdateLoading}
+          onUpdate={({ html }) => mutateTemplate({ template_html: html })}
           template_id={template.id}
           html={template.template_html ?? ""}
         />
@@ -125,8 +127,7 @@ const Template = () => {
                   onClick={() => {
                     setIsOpen(true);
                     setName(template?.template_name);
-                  }}
-                >
+                  }}>
                   {template?.template_name}
                 </p>
               )

@@ -34,11 +34,13 @@ const DataTableContent = ({ table_id }) => {
       {projects?.map((id, i) => {
         return (
           <RenderProjectList
+            isCreate={false}
             key={i}
             id={id}
             restrictHeigh={true}
             table_id={table_id}
             isDataCart={true}
+            title={"Projects data tables"}
             query={`?id=${id}`}
           />
         );
@@ -46,6 +48,7 @@ const DataTableContent = ({ table_id }) => {
       {components?.map((id, i) => {
         return (
           <RenderComponentList
+          isCreate={false}
             isDataTableCart={true}
             key={i}
             restrictHeigh={true}

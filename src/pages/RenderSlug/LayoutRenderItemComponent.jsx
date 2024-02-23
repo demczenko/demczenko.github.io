@@ -34,7 +34,7 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     data: component_data,
     isError: Iscomponents_data_tablesError,
     isLoading: Iscomponents_data_tablesLoading,
-  } = useDataTables(`?component_id=${item.component_id}$slug=${selectedSlug}`);
+  } = useDataTables(`?component_id=${item.component_id}`);
 
   // const hydratedComponent = isAllowedToRender
   //   ? hydrateTemplate({

@@ -15,6 +15,7 @@ const RenderProjectList = ({
   query,
   view,
   template_id,
+  isCreate,
   title,
   ...props
 }) => {
@@ -54,24 +55,36 @@ const RenderProjectList = ({
 
   return (
     <>
-      <RenderList
-        action={
-          action
-            ? action
-            : {
-                id: 1,
-                name: "Create project",
-                icon: <PlusCircle className="h-4 w-4" />,
-                onClick: () => setIsModalOpen(true),
-              }
-        }
-        title={title ? title : "Projects"}
-        {...props}
-        view={view}
-        query={query}
-        service={"projects"}
-        component={isDataCart ? DataTableCart : ProjectCart}
-      />
+      {isCreate ? (
+        <RenderList
+          action={
+            action
+              ? action
+              : {
+                  id: 1,
+                  name: "Create project",
+                  icon: <PlusCircle className="h-4 w-4" />,
+                  onClick: () => setIsModalOpen(true),
+                }
+          }
+          title={title ? title : "Projects"}
+          {...props}
+          view={view}
+          query={query}
+          service={"projects"}
+          component={isDataCart ? DataTableCart : ProjectCart}
+        />
+      ) : (
+        <RenderList
+          action={false}
+          title={title ? title : "Projects"}
+          {...props}
+          view={view}
+          query={query}
+          service={"projects"}
+          component={isDataCart ? DataTableCart : ProjectCart}
+        />
+      )}
       <CreateForm
         isLoading={isLoading}
         isOpen={isModalOpen}

@@ -15,6 +15,7 @@ import { Input } from "./ui/input";
 
 const RenderComponentList = ({
   isDataTableCart,
+  isCreate,
   isTemplateCart,
   query,
   template_id,
@@ -94,26 +95,44 @@ const RenderComponentList = ({
 
   return (
     <>
-      <RenderList
-        {...props}
-        template_id={template_id}
-        action={{
-          id: 1,
-          name: "Add component",
-          icon: <PlusCircle className="h-4 w-4" />,
-          onClick: () => setIsModalOpen(true),
-        }}
-        query={query}
-        component={
-          isTemplateCart
-            ? ComponentTemplateCart
-            : isDataTableCart
-            ? DataTableCart
-            : ComponentCart
-        }
-        title={"Components"}
-        service={"components"}
-      />
+      {isCreate ? (
+        <RenderList
+          {...props}
+          template_id={template_id}
+          action={{
+            id: 1,
+            name: "Add component",
+            icon: <PlusCircle className="h-4 w-4" />,
+            onClick: () => setIsModalOpen(true),
+          }}
+          query={query}
+          component={
+            isTemplateCart
+              ? ComponentTemplateCart
+              : isDataTableCart
+              ? DataTableCart
+              : ComponentCart
+          }
+          title={title ? title : "Components"}
+          service={"components"}
+        />
+      ) : (
+        <RenderList
+          {...props}
+          template_id={template_id}
+          action={false}
+          query={query}
+          component={
+            isTemplateCart
+              ? ComponentTemplateCart
+              : isDataTableCart
+              ? DataTableCart
+              : ComponentCart
+          }
+          title={title ? title : "Components"}
+          service={"components"}
+        />
+      )}
       {isTemplateCart ? (
         <CreateForm
           isOpen={isModalOpen}

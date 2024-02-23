@@ -24,30 +24,28 @@ const Component = () => {
   } = useComponentUpdate(component?.id);
 
   const onChangeTemplateSubmit = ({ html }) => {
-    if (html.length < 10) return;
-    const new_component = {
-      component_html: html,
-    };
-
-    updateComponent(new_component, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to update component",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("columns");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Component successfully updated",
-        });
-      },
-    });
+    updateComponent(
+      { component_html: html },
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to update component",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          client.invalidateQueries("columns");
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Component successfully updated",
+          });
+        },
+      }
+    );
   };
 
   if (isLoading) {
@@ -73,9 +71,10 @@ const Component = () => {
     <PageContainer title={"Component " + component.component_name}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
-          isLoading={isLoading}
+          isLoading={isComponentUpdateLoading}
+          onUpdate={onChangeTemplateSubmit}
+          template_id={component.id}
           html={component?.component_html}
-          onChangeTemplateSubmit={onChangeTemplateSubmit}
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <RenderTableList
