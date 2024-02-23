@@ -18,15 +18,12 @@ import { useComponents } from "@/hooks/components/useComponents";
 import { Label } from "@/components/ui/label";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
-import { PageContainer } from "@/pages";
 
 export function SelectComponent({ title, value, onSelect }) {
   const { data: components, isLoading, isError } = useComponents();
   const [open, setOpen] = useState(false);
   if (isLoading) {
-    return (
-<SkeletonCard  isContainer={true}/>
-    );
+    return <SkeletonCard isContainer={true} />;
   }
 
   if (isError) {

@@ -11,7 +11,7 @@ import { useLayoutUpdate } from "@/hooks/layouts/useLayoutUpdate";
 import RenderList from "@/components/RenderList";
 import SectionCart from "./SectionCart";
 import PreviewLayout from "./PreviewLayout";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectComponent } from "../Projects/ProjectsModal/SelectComponent";
 import { DndContext } from "@dnd-kit/core";
@@ -21,9 +21,13 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Loader, PlusCircle } from "lucide-react";
+import { Heading } from "@/components";
 
 const Layout = () => {
+  const ref = useRef();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [name, setName] = useState("");
   const { toast } = useToast();
   const { id } = useParams();
   const client = useQueryClient();
@@ -39,12 +43,10 @@ const Layout = () => {
   const handleCreateSection = async (section) => {
     const new_section = {
       id: uuidv4(),
-      ...section,
       type: "component",
       createdat: Date.now(),
-      render_on: null,
+      ...section,
     };
-
     updateLayout(
       {
         layout: [...layout.layout, new_section],
@@ -111,6 +113,41 @@ const Layout = () => {
     }
   }
 
+  const handleChangeTemplateName = async (layout) => {
+    if (name.trim().length < 3) {
+      toast({
+        variant: "destructive",
+        title: "Failed to update layout",
+        description: "Layout name should have at least 3 symbols",
+      });
+    }
+    updateLayout(
+      {
+        layout_name: name,
+      },
+      {
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Failed to create section",
+            description: "Something went wrong",
+          });
+        },
+        onSettled: () => {
+          setIsModalOpen(false);
+          client.invalidateQueries(`layout-${layout.id}`);
+        },
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            title: "Success",
+            description: "Project added successfully",
+          });
+        },
+      }
+    );
+  };
+
   if (isLoading) {
     return <SkeletonCard isContainer={true} />;
   }
@@ -129,10 +166,42 @@ const Layout = () => {
   }
 
   return (
-    <PageContainer title={"Layout " + layout.layout_name}>
+    <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <PreviewLayout layout={layout.layout} />
         <div className="flex gap-4 flex-col w-full items-start">
+          <Heading
+            title={
+              isOpen ? (
+                <input
+                  ref={ref}
+                  onBlur={() => {
+                    if (
+                      layout.layout_name.toLowerCase() === name.toLowerCase()
+                    ) {
+                      setIsOpen(false);
+                      return;
+                    }
+                    handleChangeTemplateName(layout);
+                  }}
+                  onChange={(ev) => setName(ev.target.value)}
+                  value={name}
+                  className="text-4xl border-none w-full bg-transparent outline-none focus:border-none p-0"
+                />
+              ) : (
+                <p
+                  onClick={() => {
+                    setIsOpen(true);
+                    setName(layout?.layout_name);
+                  }}>
+                  {layout.layout_name}
+                </p>
+              )
+            }
+            paragraph={
+              <>created at: {new Date(layout.createdat).toDateString()}</>
+            }
+          />
           <RenderList
             action={{
               id: 1,
@@ -147,8 +216,7 @@ const Layout = () => {
           <DndContext onDragEnd={handleDragEnd}>
             <SortableContext
               items={layout.layout}
-              strategy={verticalListSortingStrategy}
-            >
+              strategy={verticalListSortingStrategy}>
               {layout.layout?.map((item, i) => {
                 return (
                   <SectionCart

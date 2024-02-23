@@ -14,6 +14,8 @@ import NotFound from "@/NotFound";
 import { useProjectUpdate } from "@/hooks/projects/useProjectUpdate";
 import { useQueryClient } from "react-query";
 import RenderTableList from "@/components/RenderTableList";
+import { useLayouts } from "@/hooks/layouts/useLayouts";
+import LayoutProjectCart from "./LayoutProjectCart";
 
 const Project = () => {
   const { id } = useParams();
@@ -126,7 +128,13 @@ const Project = () => {
               )
             }
           />
-          <SlugList project_id={project.id} />
+          <RenderList
+            title={"Layouts"}
+            service={"layouts"}
+            component={LayoutProjectCart}
+            project_id={project.id}
+            query={`?template_id=${project.template_id}`}
+          />
 
           <RenderList
             query={`?project_id=${project.id}`}

@@ -52,7 +52,7 @@ export const routes = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "projects/:id/:slug",
+        path: "projects/:project_id/:layout_id/:slug",
         element: <RenderSlug />,
         errorElement: <ErrorPage />,
       },

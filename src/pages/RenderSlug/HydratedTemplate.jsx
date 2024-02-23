@@ -4,13 +4,14 @@ import { useLayout } from "@/hooks/layouts/useLayout";
 import { useEffect } from "react";
 import LayoutRenderItemComponent from "./LayoutRenderItemComponent";
 import LayoutRenderItemBody from "./LayoutRenderItemBody";
+import NotFound from "@/NotFound";
 
-const HydratedTemplateView = ({ project, selectedSlug }) => {
+const HydratedTemplateView = ({ layout_id, project, selectedSlug }) => {
   const {
     data: layout,
     isError: isLayoutError,
     isLoading: isLayoutLoading,
-  } = useLayout(`?template_id=${project.template_id}`);
+  } = useLayout(layout_id);
 
   useEffect(() => {
     const handleCopy = (e) => {
@@ -30,30 +31,38 @@ const HydratedTemplateView = ({ project, selectedSlug }) => {
     return <ErrorPage title={`Something went wrong while layout loading.`} />;
   }
 
+  if (!layout) {
+    return (
+      <NotFound
+        title={"Layout you are trying to access not found."}
+        action={{ to: "/layouts", title: "Go to layouts" }}
+      />
+    );
+  }
+
   return (
     <div className="absolute inset-0 z-100 w-full overflow-y-auto rounded-md block">
-      {layout?.length > 0 &&
-        layout[0]?.layout?.map((item) => {
-          if (item.type === "template") {
-            return (
-              <LayoutRenderItemBody
-                selectedSlug={selectedSlug}
-                project_id={project.id}
-                key={item.id}
-                item={item}
-              />
-            );
-          } else {
-            return (
-              <LayoutRenderItemComponent
-                selectedSlug={selectedSlug}
-                project_id={project.id}
-                key={item.id}
-                item={item}
-              />
-            );
-          }
-        })}
+      {layout.layout.map((item) => {
+        if (item.type === "template") {
+          return (
+            <LayoutRenderItemBody
+              selectedSlug={selectedSlug}
+              project_id={project.id}
+              key={item.id}
+              item={item}
+            />
+          );
+        } else {
+          return (
+            <LayoutRenderItemComponent
+              selectedSlug={selectedSlug}
+              project_id={project.id}
+              key={item.id}
+              item={item}
+            />
+          );
+        }
+      })}
     </div>
   );
 };

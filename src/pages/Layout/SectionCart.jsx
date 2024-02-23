@@ -5,10 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import CardActions from "@/components/CardActions";
 import { useLayoutUpdate } from "@/hooks/layouts/useLayoutUpdate";
-import { Edit, GripVertical, HandIcon, Loader, Trash2Icon } from "lucide-react";
+import { Edit, GripVertical, Loader, Trash2Icon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQueryClient } from "react-query";
 import { useState } from "react";
@@ -113,7 +112,11 @@ const SectionCart = ({ item, layout, isDisabled }) => {
 
   return (
     <div className="relative">
-      <div className="absolute top-1/2 -translate-y-1/2 -left-6" ref={setNodeRef} {...attributes} {...listeners}>
+      <div
+        className="absolute top-1/2 -translate-y-1/2 -left-6"
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}>
         <GripVertical className="text-[#111111]" />
       </div>
       <Card
@@ -123,14 +126,11 @@ const SectionCart = ({ item, layout, isDisabled }) => {
           {
             "opacity-30": isDisabled,
           }
-        )}
-      >
+        )}>
         <CardHeader>
-          <Link to={`/section/${item.id}`}>
-            <CardTitle className="text-white hover:underline">
-              {item.section_name}
-            </CardTitle>
-          </Link>
+          <CardTitle className="text-white">
+            {item.section_name}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-xs">

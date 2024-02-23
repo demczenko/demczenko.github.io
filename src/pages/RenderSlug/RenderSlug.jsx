@@ -8,36 +8,9 @@ import NotFound from "@/NotFound";
 import HydratedTemplateView from "./HydratedTemplate";
 
 const RenderSlug = () => {
-  const { id, slug } = useParams();
+  const { project_id, layout_id, slug } = useParams();
   const [selectedSlug, setSelectedSlug] = useState(slug);
-  const { data: project, isError, isLoading } = useProject(id);
-
-  // const availableSlugs = useMemo(() => {
-  //   const slugsData = {};
-  //   for (const Slug of slugs) {
-  //     if (Slug in slugsData) {
-  //       slugsData[Slug] += 1;
-  //     } else {
-  //       slugsData[Slug] = 1;
-  //     }
-  //   }
-
-  //   const slugsDataArr = [];
-  //   for (const key in slugsData) {
-  //     const slugCount = slugsData[key];
-  //     if (slugCount === tables.length) {
-  //       slugsDataArr.push(key);
-  //     }
-  //   }
-
-  //   return slugsDataArr;
-  // }, [slugs, tables]);
-
-  // useEffect(() => {
-  //   if (selectedSlug) {
-  //     navigator(`/projects/${project?.id}/${selectedSlug}`);
-  //   }
-  // }, [project, selectedSlug]);
+  const { data: project, isError, isLoading } = useProject(project_id);
 
   if (isLoading) {
     return <SkeletonCard style="w-full xl:h-[1000px] md:h-[600px] h-[400px]" />;
@@ -69,7 +42,11 @@ const RenderSlug = () => {
           project={project}
         />
       </div>
-      <HydratedTemplateView selectedSlug={selectedSlug} project={project} />
+      <HydratedTemplateView
+        selectedSlug={selectedSlug}
+        layout_id={layout_id}
+        project={project}
+      />
     </div>
   );
 };

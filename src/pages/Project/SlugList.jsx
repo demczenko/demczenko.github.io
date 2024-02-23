@@ -5,7 +5,7 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 
-const SlugList = ({ project_id }) => {
+const SlugList = ({ layout_id, project_id }) => {
   const {
     data: tables,
     isLoading: isSlugsLoading,
@@ -29,6 +29,7 @@ const SlugList = ({ project_id }) => {
       component={SlugCart}
       list={slugs}
       title={"Slugs"}
+      layout_id={layout_id}
       project_id={project_id}
     />
   );
