@@ -5,6 +5,7 @@
       "id": "31ee59ab-dc30-4bb4-9247-2b73b77d6e21",
       "layout_name": "Monday layout",
       "template_id": "d3ba4de7-0ebd-4d87-879c-41b12db59912",
+      "createdat": 1708628621259,
       "layout": [
         {
           "id": "9725b31d-bd0d-46b7-b7cb-6d48efcad4ff",
@@ -12,12 +13,6 @@
           "component_id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
           "type": "component",
           "createdat": 1708628709172,
-          "render_on": [
-            {
-              "slug": "pl",
-              "render": true
-            }
-          ]
         },
         {
           "id": "5c928fab-6e8e-4b97-96c2-c3f928d1d0a1",
@@ -26,8 +21,7 @@
           "type": "template",
           "createdat": 1708628621241
         }
-      ],
-      "createdat": 1708628621259
+      ]
     }
   ],
   "components": [
