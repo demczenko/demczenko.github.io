@@ -5,7 +5,6 @@ import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { useTables } from "@/hooks/tables/useTables";
 import { useTemplate } from "@/hooks/templates/useTemplate";
 import { hydrateTemplate } from "@/hooks/useHydrateNew";
-import React, { useEffect } from "react";
 
 const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
   const {
@@ -24,7 +23,7 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     data: template_data,
     isError: IsDataTableError,
     isLoading: IsDataTableLoading,
-  } = useDataTables(`?project_id=${project_id}`);
+  } = useDataTables(`?project_id=${project_id}&slug=${selectedSlug}`);
 
   const {
     data: projectStyle,
@@ -34,7 +33,7 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
 
   const hydratedTemplate = hydrateTemplate({
     template: template?.template_html,
-    data_slug: template_data?.filter((item) => item.data.slug === selectedSlug),
+    data_slug: template_data,
     tables: template_tables,
     projectStyle: projectStyle,
   });

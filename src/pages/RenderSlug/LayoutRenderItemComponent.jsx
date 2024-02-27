@@ -4,7 +4,6 @@ import { useComponent } from "@/hooks/components/useComponent";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { useTables } from "@/hooks/tables/useTables";
 import { hydrateTemplate } from "@/hooks/useHydrateNew";
-import React from "react";
 
 const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
   const {
@@ -23,7 +22,7 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     data: component_data,
     isError: Iscomponents_data_tablesError,
     isLoading: Iscomponents_data_tablesLoading,
-  } = useDataTables(`?component_id=${item.component_id}`);
+  } = useDataTables(`?component_id=${item.component_id}&slug=${selectedSlug}`);
 
   if (isComponentLoading) {
     return <SkeletonCard />;
@@ -37,9 +36,7 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
 
   const hydratedComponent = hydrateTemplate({
     template: component?.component_html,
-    data_slug: component_data?.filter(
-      (item) => item.data.slug === selectedSlug
-    ),
+    data_slug: component_data,
     tables: component_tables,
   });
   return <div dangerouslySetInnerHTML={{ __html: hydratedComponent }}></div>;
