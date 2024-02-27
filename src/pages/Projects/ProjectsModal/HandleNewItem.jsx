@@ -39,7 +39,7 @@ const HandleNewItem = ({ onSubmit, fields }) => {
   return (
     <Form {...form}>
       <form
-        className="grid gap-4"
+        className="flex flex-col gap-4 grow"
         onSubmit={form.handleSubmit((formData) =>
           validateFormInput(formData, onSubmit)
         )}>
@@ -61,7 +61,7 @@ const HandleNewItem = ({ onSubmit, fields }) => {
             />
           );
         })}
-        <Button type="submit" size="sm" className="w-full">
+        <Button type="submit" size="sm" className="w-full mt-auto">
           Create
         </Button>
       </form>

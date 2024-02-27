@@ -19,10 +19,10 @@ const HandleImportCSV = ({onDrop}) => {
         <p>Drop the files here ...</p>
       ) : (
         <div className="mt-4">
-          <p className="group h-[400px] flex items-center justify-center font-semibold w-full bg-blue-100 border-2 border-blue-600 rounded-md border-dashed">
-            <span className="text-xl text-center text-slate-50 flex gap-2 group-hover:text-blue-400 transition-colors group-hover:bg-slate-50 rounded-lg p-4 items-center cursor-pointer">
+          <p className="px-2 group h-[400px] flex items-center justify-center font-semibold w-full bg-blue-100 border-2 border-blue-600 rounded-md border-dashed">
+            <span className="text-xl text-center text-slate-50 flex md:flex-row flex-col gap-2 group-hover:text-blue-400 transition-colors group-hover:bg-slate-50 rounded-lg p-4 items-center cursor-pointer">
               Drag and drop only CSV file here, or click to select CSV file
-              <ImportIcon />
+              <ImportIcon className="w-8 h-8" />
             </span>
           </p>
         </div>

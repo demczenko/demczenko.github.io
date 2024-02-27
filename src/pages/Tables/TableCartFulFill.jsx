@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Import } from "lucide-react";
 import { Link } from "react-router-dom";
-import TableFulfill from "../Projects/ProjectsModal/TableFulfill";
+import TableFulfill from "../../components/TableFulfill";
 import { useState } from "react";
 import { useColumns } from "@/hooks/columns/useColumns";
 import { useToast } from "@/components/ui/use-toast";
