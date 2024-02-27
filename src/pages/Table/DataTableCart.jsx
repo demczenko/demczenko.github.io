@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const DataTableCart = ({ item, table_id, id }) => {
   let name = "project_name" in item ? item.project_name : item.component_name;
   return (
-    <Card className="md:max-w-[320px] w-full w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+    <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/data_tables/${table_id}/${id}`}>
           <CardTitle className="text-white hover:underline">{name}</CardTitle>

@@ -8,13 +8,7 @@ export function hydrateTemplate({ template, data_slug, tables, projectStyle }) {
 
   for (const { table_id, data } of data_slug) {
     swapHref(hrefs, data, table_id, tables);
-  }
-
-  for (const { table_id, data } of data_slug) {
     swapSrc(srcs, data, table_id, tables);
-  }
-
-  for (const { table_id, data } of data_slug) {
     swapText(text, data, table_id, tables);
   }
 

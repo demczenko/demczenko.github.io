@@ -13,17 +13,6 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     isError: isComponentError,
   } = useComponent(item.component_id);
 
-  // const isSlugInRenderOn = item.render_on.find(
-  //   (item) => item.slug === selectedSlug
-  // );
-
-  // const isAllowedToRender =
-  //   item.render_on === null
-  //     ? true
-  //     : isSlugInRenderOn
-  //     ? isSlugInRenderOn.render
-  //     : true;
-
   const {
     data: component_tables,
     isError: IsTemplateTablesError,
@@ -35,16 +24,6 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     isError: Iscomponents_data_tablesError,
     isLoading: Iscomponents_data_tablesLoading,
   } = useDataTables(`?component_id=${item.component_id}`);
-
-  // const hydratedComponent = isAllowedToRender
-  //   ? hydrateTemplate({
-  //       template: component?.component_html,
-  //       data_slug: component_data?.filter(
-  //         (item) => item.data.slug === selectedSlug
-  //       ),
-  //       tables: component_tables,
-  //     })
-  //   : "";
 
   if (isComponentLoading) {
     return <SkeletonCard />;

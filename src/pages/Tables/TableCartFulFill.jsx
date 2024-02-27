@@ -26,7 +26,7 @@ export function TableCartFulFill({ item, id, key_id }) {
 
   return (
     <>
-      <Card className="md:max-w-[320px] w-full w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+      <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
         <CardHeader>
           <Link to={`/tables/${item.id}`}>
             <CardTitle className="text-white hover:underline">

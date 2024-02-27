@@ -130,7 +130,7 @@ const ColumnCart = ({ item }) => {
 
   return (
     <>
-      <Card className="md:max-w-[320px] w-full w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
+      <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
         <CardHeader>
           <CardTitle className="text-white capitalize">{item.header}</CardTitle>
         </CardHeader>

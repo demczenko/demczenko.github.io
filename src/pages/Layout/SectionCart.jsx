@@ -122,7 +122,7 @@ const SectionCart = ({ item, layout, isDisabled }) => {
       <Card
         style={style}
         className={cn(
-          "md:max-w-[320px] w-full w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none",
+          "md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none",
           {
             "opacity-30": isDisabled,
           }
