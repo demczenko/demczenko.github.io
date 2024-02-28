@@ -15,10 +15,10 @@ import { useQueryClient } from "react-query";
 import { useTableCreate } from "@/hooks/tables/useTableCreate";
 import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
 import { useColumns } from "@/hooks/columns/useColumns";
+import { CreateForm } from "@/components/CreateForm";
+import { SelectColumn } from "../Projects/ProjectsModal/SelectColumn";
 
-
-
-const TableCart = ({ item }) => {
+const TableCart = ({ item, setIsModalOpen, isModalOpen, onUpdate }) => {
   const { toast } = useToast();
   const client = useQueryClient();
 
@@ -181,6 +181,27 @@ const TableCart = ({ item }) => {
           ]}
         />
       </CardFooter>
+      <CreateForm
+        isLoading={false}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        fields={[
+          {
+            id: 1,
+            name: "column_id",
+            label: "Column",
+            content: (form) => (
+              <SelectColumn
+                onSelect={(template) => form.setValue("column_id", template)}
+                value={form.getValues("column_id")}
+              />
+            ),
+          },
+        ]}
+        onSubmit={onUpdate}
+        title={"Manage section"}
+        description={"Change section name"}
+      />
     </Card>
   );
 };

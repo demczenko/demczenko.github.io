@@ -12,7 +12,7 @@
           "section_name": "Header",
           "component_id": "5649e6ce-7ce9-44cd-8dc2-16aee7a63a47",
           "type": "component",
-          "createdat": 1708628709172,
+          "createdat": 1708628709172
         },
         {
           "id": "5c928fab-6e8e-4b97-96c2-c3f928d1d0a1",
@@ -78,14 +78,14 @@
       "id": "217f8cc6-b096-41d1-a012-920b057e5aa7",
       "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
       "header": "src",
-      "type": "text",
+      "type": "src",
       "createdat": 1708635945232
     },
     {
       "id": "22c9ad28-fa14-40da-a7ca-ed4c50314885",
       "table_id": "637bbe1f-8fb6-48a4-9812-6b4618de86d2",
       "header": "href",
-      "type": "text",
+      "type": "href",
       "createdat": 1708635948320
     },
     {

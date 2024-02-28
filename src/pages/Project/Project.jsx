@@ -9,12 +9,10 @@ import ProjectStyleCart from "./ProjectStyleCart";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useProject } from "@/hooks/projects/useProject";
-import SlugList from "./SlugList";
 import NotFound from "@/NotFound";
 import { useProjectUpdate } from "@/hooks/projects/useProjectUpdate";
 import { useQueryClient } from "react-query";
 import RenderTableList from "@/components/RenderTableList";
-import { useLayouts } from "@/hooks/layouts/useLayouts";
 import LayoutProjectCart from "./LayoutProjectCart";
 
 const Project = () => {

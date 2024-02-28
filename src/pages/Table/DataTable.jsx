@@ -22,11 +22,11 @@ const DataTableContent = ({ table_id }) => {
   }
 
   const projects = Array.from(
-    new Set(dataTables?.map((item) => item.project_id))
+    new Set(dataTables?.map((item) => item.project_id).filter(Boolean))
   );
 
   const components = Array.from(
-    new Set(dataTables?.map((item) => item.component_id))
+    new Set(dataTables?.map((item) => item.component_id).filter(Boolean))
   );
 
   return (

@@ -4,12 +4,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
 
 const ChangeTemplate = ({ onUpdate, isLoading, placeholder, template_id }) => {
   const [html, setHTML] = useState("");
   const { toast } = useToast();
-  const client = useQueryClient();
 
   useEffect(() => {
     setHTML(placeholder);
@@ -35,10 +33,15 @@ const ChangeTemplate = ({ onUpdate, isLoading, placeholder, template_id }) => {
           onChange={(ev) => setHTML(ev.target.value)}
           placeholder="template name"
           value={html}
-          className="w-full h-full"
+          className={cn("w-full h-full transition-opacity", {
+            "opacity-25 pointer-events-none": isLoading,
+          })}
         />
       </div>
-      <Button className="mt-6 w-full" onClick={() => onChangeTemplateSubmit()}>
+      <Button
+        disabled={isLoading}
+        className="mt-6 w-full"
+        onClick={() => onChangeTemplateSubmit()}>
         {isLoading ? (
           <Loader2
             className={cn(" h-4 w-4", {

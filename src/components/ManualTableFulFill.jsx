@@ -5,6 +5,8 @@ import { TabsContent } from "./ui/tabs";
 
 const ManualTableFulFill = ({
   error,
+  key_id,
+  id,
   columns,
   table_id,
   tableData,
@@ -17,8 +19,10 @@ const ManualTableFulFill = ({
     let itemId;
     const new_item = {
       data: data,
+      slug: data.slug,
       id: uuidv4(),
       table_id: table_id,
+      [key_id]: id,
     };
 
     for (const data_item of tableData ?? []) {

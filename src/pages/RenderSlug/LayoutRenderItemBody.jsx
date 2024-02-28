@@ -2,22 +2,15 @@ import ErrorPage from "@/ErrorPage";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
-import { useTables } from "@/hooks/tables/useTables";
 import { useTemplate } from "@/hooks/templates/useTemplate";
-import { hydrateTemplate } from "@/hooks/useHydrateNew";
+import useHydrate from "@/hooks/useHydrate";
 
 const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
   const {
     data: template,
-    isLoading: isComponentLoading,
-    isError: isComponentError,
+    isLoading: isTemplateLoading,
+    isError: isTemplateError,
   } = useTemplate(item.template_id);
-
-  const {
-    data: template_tables,
-    isError: IsTemplateTablesError,
-    isLoading: isTemplateTablesLoading,
-  } = useTables(`?template_id=${item.template_id}`);
 
   const {
     data: template_data,
@@ -31,22 +24,34 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     isLoading: IsProjectsStylesLoading,
   } = useProjectsStyles(`?project_id=${project_id}`);
 
-  const hydratedTemplate = hydrateTemplate({
+  const { parsed_template, style } = useHydrate({
     template: template?.template_html,
     data_slug: template_data,
-    tables: template_tables,
-    projectStyle: projectStyle,
   });
 
-  if (isComponentLoading) {
+  if (isTemplateLoading) {
     return <SkeletonCard />;
   }
 
-  if (isComponentError) {
+  if (isTemplateError) {
     return <ErrorPage title={`Something went wrong while template loading.`} />;
   }
 
-  return <div dangerouslySetInnerHTML={{ __html: hydratedTemplate }}></div>;
+  const renderItems = (items) => {
+    return items?.map(({ Component, props }, i) => {
+      if (props.children.length > 0) {
+        return (
+          <Component key={i} {...props}>
+            {renderItems(props.children)}
+          </Component>
+        );
+      } else {
+        return <Component key={i} {...props} />;
+      }
+    });
+  };
+
+  return <>{renderItems(parsed_template)}</>;
 };
 
 export default LayoutRenderItemBody;

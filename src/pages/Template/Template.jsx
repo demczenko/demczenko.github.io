@@ -7,18 +7,20 @@ import TemplatePreview from "../../components/TemplatePreview";
 import ErrorPage from "@/ErrorPage";
 import { useTemplate } from "@/hooks/templates/useTemplate";
 import { SkeletonCard } from "@/components/SkeletonCard";
-import { useComponent } from "@/hooks/components/useComponent";
 import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 import { useQueryClient } from "react-query";
 import NotFound from "@/NotFound";
 import RenderTableList from "@/components/RenderTableList";
 import RenderProjectList from "@/components/RenderProjectList";
-import RenderComponentList from "@/components/RenderComponentList";
 
 const Template = () => {
   const ref = useRef();
+  const refHTML = useRef(null);
   const { id } = useParams();
   const { toast } = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState("");
+  const [html, setHtml] = useState("");
 
   const client = useQueryClient();
 
@@ -97,6 +99,10 @@ const Template = () => {
     <PageContainer>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
+          refHTML={refHTML}
+          setHtml={setHtml}
+          setSelectedNode={setSelectedNode}
+          setIsModalOpen={setIsModalOpen}
           isLoading={isTemplateUpdateLoading}
           onUpdate={({ html }) => mutateTemplate({ template_html: html })}
           template_id={template.id}
@@ -146,7 +152,14 @@ const Template = () => {
           <RenderTableList
             isCreate={true}
             table_key_id={"template_id"}
+            onUpdate={({ column_id }) => {
+              selectedNode.setAttribute("data-column-id", column_id);
+              mutateTemplate({ template_html: refHTML.current.innerHTML });
+              setIsModalOpen(false);
+            }}
             table_id={template.id}
+            setIsModalOpen={setIsModalOpen}
+            isModalOpen={isModalOpen}
             query={`?template_id=${template.id}`}
           />
         </div>

@@ -109,7 +109,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
         toast({
           variant: "success",
           title: "Created",
-          description: "Table data has been successfully created",
+          description: "Table data has been successfully updated",
         });
       },
     });
@@ -222,6 +222,8 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
           </TabsList>
         )}
         <ManualTableFulFill
+          key_id={key_id}
+          id={id}
           tableData={tableData}
           columns={columns}
           error={error}
