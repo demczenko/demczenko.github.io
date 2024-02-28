@@ -5,7 +5,7 @@ import ErrorPage from "@/ErrorPage";
 import { useProject } from "@/hooks/projects/useProject";
 import HeaderBreadCrumbs from "./HeaderBreadCrumbs";
 import NotFound from "@/NotFound";
-import HydratedTemplateView from "./HydratedTemplate";
+import HydratedTemplateView from "./HydratedTemplateView";
 
 const RenderSlug = () => {
   const { project_id, layout_id, slug } = useParams();

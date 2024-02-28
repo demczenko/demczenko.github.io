@@ -122,9 +122,11 @@ const Table = () => {
       />
       <div className="space-y-6 mt-6">
         <RenderColumnList
-          key_name={"component_id" in table ? "component_id" : "template_id"}
+          key_name={
+            table.component_id === null ? "template_id" : "component_id"
+          }
           key_value={
-            "component_id" in table ? table.component_id : table.template_id
+            table.component_id === null ? table.template_id : table.component_id
           }
           table_id={table.id}
           query={`?table_id=${table.id}`}

@@ -6,6 +6,7 @@ import { TabsContent } from "./ui/tabs";
 const ManualTableFulFill = ({
   error,
   key_id,
+  isLoading,
   id,
   columns,
   table_id,
@@ -43,7 +44,7 @@ const ManualTableFulFill = ({
     <TabsContent className="data-[state=active]:flex flex-col grow" value={"manually"}>
       {columnsData.length === 0 && (
         <>
-          <HandleNewItem fields={columns} onSubmit={handleNewItemAdd} />
+          <HandleNewItem isLoading={isLoading} fields={columns} onSubmit={handleNewItemAdd} />
           {error && (
             <p className="text-sm font-semibold text-red-300 mt-4">{error}</p>
           )}

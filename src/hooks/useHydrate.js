@@ -36,7 +36,7 @@ const useHydrate = ({ template, data_slug }) => {
 
   return {
     parsed_template: [iterate(document.body)],
-    style: document.head.style
+    style: document.head.querySelector("style").innerHTML
   };
 };
 

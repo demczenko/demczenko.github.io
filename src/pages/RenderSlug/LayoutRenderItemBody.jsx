@@ -51,7 +51,12 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     });
   };
 
-  return <>{renderItems(parsed_template)}</>;
+  return (
+    <>
+      <style>{style}</style>
+      {(renderItems(parsed_template) ?? [""])[0]?.props?.children}
+    </>
+  );
 };
 
 export default LayoutRenderItemBody;

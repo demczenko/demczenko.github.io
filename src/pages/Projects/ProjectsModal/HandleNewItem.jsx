@@ -8,9 +8,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-const HandleNewItem = ({ onSubmit, fields }) => {
+const HandleNewItem = ({ onSubmit, fields, isLoading }) => {
   const defaultValues = fields.reduce((acc, item) => {
     acc[item.header.toLowerCase()] = "";
     return acc;
@@ -61,8 +63,20 @@ const HandleNewItem = ({ onSubmit, fields }) => {
             />
           );
         })}
-        <Button type="submit" size="sm" className="w-full mt-auto">
-          Create
+        <Button
+          disabled={isLoading}
+          type="submit"
+          size="sm"
+          className="w-full mt-auto">
+          {isLoading ? (
+            <Loader2
+              className={cn(" h-4 w-4", {
+                "animate-spin": isLoading,
+              })}
+            />
+          ) : (
+            "Create"
+          )}
         </Button>
       </form>
     </Form>

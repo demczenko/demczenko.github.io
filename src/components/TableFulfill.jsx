@@ -222,6 +222,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
           </TabsList>
         )}
         <ManualTableFulFill
+          isLoading={isDataTableLoading || IsDataTableUpdateLoading}
           key_id={key_id}
           id={id}
           tableData={tableData}

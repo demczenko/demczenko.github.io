@@ -73,7 +73,7 @@ export const AddTemplateDrawer = ({ isLoading, onSubmit }) => {
           )}
           className="space-y-8 h-full flex flex-col w-full">
           <TemplateForm form={form} />
-          <Button type="submit" size="sm" className="w-full">
+          <Button disabled={isLoading} type="submit" size="sm" className="w-full">
             {isLoading ? (
               <Loader2
                 className={cn(" h-4 w-4", {
