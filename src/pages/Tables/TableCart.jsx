@@ -18,7 +18,13 @@ import { useColumns } from "@/hooks/columns/useColumns";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectColumn } from "../Projects/ProjectsModal/SelectColumn";
 
-const TableCart = ({ item, setIsModalOpen, isModalOpen, onUpdate }) => {
+const TableCart = ({
+  item,
+  setIsModalOpen,
+  onUpdate,
+  isModalOpen,
+  table_id,
+}) => {
   const { toast } = useToast();
   const client = useQueryClient();
 
@@ -127,7 +133,7 @@ const TableCart = ({ item, setIsModalOpen, isModalOpen, onUpdate }) => {
       },
     });
   };
-
+  
   return (
     <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
@@ -192,7 +198,8 @@ const TableCart = ({ item, setIsModalOpen, isModalOpen, onUpdate }) => {
             label: "Column",
             content: (form) => (
               <SelectColumn
-                onSelect={(template) => form.setValue("column_id", template)}
+                query={`?template_id=${table_id}`}
+                onSelect={(column) => form.setValue("column_id", column)}
                 value={form.getValues("column_id")}
               />
             ),

@@ -13,8 +13,18 @@ import TableFulfill from "../../components/TableFulfill";
 import { useState } from "react";
 import { useColumns } from "@/hooks/columns/useColumns";
 import { useToast } from "@/components/ui/use-toast";
+import { CreateForm } from "@/components/CreateForm";
+import { SelectColumn } from "../Projects/ProjectsModal/SelectColumn";
 
-export function TableCartFulFill({ item, id, key_id }) {
+export function TableCartFulFill({
+  item,
+  id,
+  key_id,
+  table_id,
+  onUpdate,
+  setIsAttachModalOpen,
+  isAttachModalOpen,
+}) {
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -80,6 +90,28 @@ export function TableCartFulFill({ item, id, key_id }) {
             key_id={key_id}
           />
         }
+      />
+      <CreateForm
+        isLoading={false}
+        isOpen={isAttachModalOpen}
+        setIsOpen={setIsAttachModalOpen}
+        fields={[
+          {
+            id: 1,
+            name: "column_id",
+            label: "Column",
+            content: (form) => (
+              <SelectColumn
+                query={`?component_id=${table_id}`}
+                onSelect={(column) => form.setValue("column_id", column)}
+                value={form.getValues("column_id")}
+              />
+            ),
+          },
+        ]}
+        onSubmit={onUpdate}
+        title={"Manage section"}
+        description={"Change section name"}
       />
     </>
   );

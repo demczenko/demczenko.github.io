@@ -1,8 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code2, View } from "lucide-react";
 import ChangeTemplate from "../pages/Templates/TemplateModal/ChangeTemplate";
-import { useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from "react";
 
 const TemplatePreview = ({
   isLoading,
@@ -21,21 +20,6 @@ const TemplatePreview = ({
     function handleNodeSelect(ev) {
       ev.preventDefault();
       setIsModalOpen(true);
-
-      // const isId = ev.target.getAttribute("data-column-id");
-      // if (isId) {
-      //   setSelectedNode({
-      //     node: ev.target,
-      //     id: isId,
-      //   });
-      // } else {
-      //   let id = uuidv4();
-      //   setSelectedNode({
-      //     node: ev.target,
-      //     id: id,
-      //   });
-      // }
-
       setSelectedNode(ev.target);
     }
 

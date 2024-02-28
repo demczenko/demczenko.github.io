@@ -17,8 +17,8 @@ import { useState } from "react";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useColumns } from "@/hooks/columns/useColumns";
 
-export function SelectColumn({ value, onSelect }) {
-  const { data: templates, isLoading, isError } = useColumns();
+export function SelectColumn({ value, onSelect, query }) {
+  const { data: templates, isLoading, isError } = useColumns(query);
   const [open, setOpen] = useState(false);
 
   if (isLoading) {
@@ -27,7 +27,7 @@ export function SelectColumn({ value, onSelect }) {
 
   if (isError) {
     return (
-      <ErrorPage title={`Something went wrong while templates loading...`} />
+      <ErrorPage title={`Something went wrong while columns loading...`} />
     );
   }
   return (
@@ -37,7 +37,7 @@ export function SelectColumn({ value, onSelect }) {
           variant="outline"
           role="combobox"
           className={cn(
-            "w-full justify-between",
+            "w-full justify-between capitalize",
             !value && "text-muted-foreground"
           )}>
           {value
@@ -51,24 +51,28 @@ export function SelectColumn({ value, onSelect }) {
           <CommandInput placeholder="Search column..." className="h-9" />
           <CommandEmpty>No column found.</CommandEmpty>
           <CommandGroup>
-            {templates?.map((template) => (
-              <CommandItem
-              className="capitalize"
-                value={template.id}
-                key={template.id}
-                onSelect={() => {
-                  onSelect(template.id);
-                  setOpen(false);
-                }}>
-                {template.header}
-                <CheckIcon
-                  className={cn(
-                    "ml-auto h-4 w-4",
-                    template.id === value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-              </CommandItem>
-            ))}
+            {templates?.map((column) => {
+              if (column.type === "slug") return;
+
+              return (
+                <CommandItem
+                  className="capitalize"
+                  value={column.id}
+                  key={column.id}
+                  onSelect={() => {
+                    onSelect(column.id);
+                    setOpen(false);
+                  }}>
+                  {column.header}
+                  <CheckIcon
+                    className={cn(
+                      "ml-auto h-4 w-4",
+                      column.id === value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                </CommandItem>
+              );
+            })}
           </CommandGroup>
         </Command>
       </PopoverContent>

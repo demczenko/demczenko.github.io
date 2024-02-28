@@ -9,12 +9,15 @@ import { useQueryClient } from "react-query";
 import { useComponentUpdate } from "@/hooks/components/useComponentUpdate";
 import NotFound from "@/NotFound";
 import RenderTableList from "@/components/RenderTableList";
+import { useRef, useState } from "react";
 
 const Component = () => {
+  const ref = useRef();
   const { toast } = useToast();
   const { id } = useParams();
   const client = useQueryClient();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState("");
   const { data: component, error, isError, isLoading } = useComponent(id);
 
   const {
@@ -71,13 +74,23 @@ const Component = () => {
     <PageContainer title={"Component " + component.component_name}>
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
-          isLoading={isComponentUpdateLoading}
+          refHTML={ref}
+          setIsModalOpen={setIsModalOpen}
+          setSelectedNode={setSelectedNode}
+          isLoading={isLoading || isComponentUpdateLoading}
           onUpdate={onChangeTemplateSubmit}
           template_id={component.id}
-          html={component?.component_html}
+          html={component?.component_html ?? ""}
         />
         <div className="flex gap-4 flex-col w-full items-start">
           <RenderTableList
+            onUpdate={({ column_id }) => {
+              selectedNode.setAttribute("data-column-id", column_id);
+              onChangeTemplateSubmit({ html: ref.current.innerHTML });
+              setIsModalOpen(false);
+            }}
+            setIsAttachModalOpen={setIsModalOpen}
+            isAttachModalOpen={isModalOpen}
             isCreate={true}
             table_key_id={"component_id"}
             table_id={component.id}

@@ -111,9 +111,9 @@ const SectionCart = ({ item, layout, isDisabled }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full pl-4">
       <div
-        className="absolute top-1/2 -translate-y-1/2 -left-6"
+        className="absolute top-1/2 -translate-y-1/2 -left-3"
         ref={setNodeRef}
         {...attributes}
         {...listeners}>

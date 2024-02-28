@@ -10,7 +10,7 @@ import { PlusCircle } from "lucide-react";
 import { useColumns } from "@/hooks/columns/useColumns";
 import { SelectType } from "@/pages/Projects/ProjectsModal/SelectType";
 
-const RenderColumnList = ({ query, table_id, ...props }) => {
+const RenderColumnList = ({ query, key_name, key_value, table_id, ...props }) => {
   const { toast } = useToast();
   const client = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +32,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
     const new_column = {
       id: uuidv4(),
       table_id: table_id,
+      [key_name]: key_value,
       header: column.header.toLowerCase(),
       type: column.type,
     };

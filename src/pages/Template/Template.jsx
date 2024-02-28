@@ -20,7 +20,6 @@ const Template = () => {
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState("");
-  const [html, setHtml] = useState("");
 
   const client = useQueryClient();
 
@@ -100,7 +99,6 @@ const Template = () => {
       <div className="flex lg:gap-12 gap-4 xl:flex-row flex-col">
         <TemplatePreview
           refHTML={refHTML}
-          setHtml={setHtml}
           setSelectedNode={setSelectedNode}
           setIsModalOpen={setIsModalOpen}
           isLoading={isTemplateUpdateLoading}
