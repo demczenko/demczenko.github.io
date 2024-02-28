@@ -8,6 +8,7 @@ import ColumnCart from "@/pages/Table/ColumnCart";
 import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
 import { PlusCircle } from "lucide-react";
 import { useColumns } from "@/hooks/columns/useColumns";
+import { SelectType } from "@/pages/Projects/ProjectsModal/SelectType";
 
 const RenderColumnList = ({ query, table_id, ...props }) => {
   const { toast } = useToast();
@@ -32,7 +33,7 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
       id: uuidv4(),
       table_id: table_id,
       header: column.header.toLowerCase(),
-      type: "text",
+      type: column.type,
     };
     if (isSlugExists === null) {
       // create SLUG column
@@ -104,6 +105,17 @@ const RenderColumnList = ({ query, table_id, ...props }) => {
             name: "header",
             label: "Column name",
             placeholder: "name",
+          },
+          {
+            id: 2,
+            name: "type",
+            label: "Type",
+            content: (form) => (
+              <SelectType
+                onSelect={(type) => form.setValue("type", type)}
+                value={form.getValues("type")}
+              />
+            ),
           },
         ]}
       />
