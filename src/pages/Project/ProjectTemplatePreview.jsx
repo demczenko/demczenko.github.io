@@ -77,7 +77,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     }
 
     function handleNodeHighlight(ev) {
-      if (ref.current === ev.target) return
+      if (ref.current === ev.target) return;
       ev.preventDefault();
       const node = ev.target;
       node.classList.add("hovered_node");
@@ -261,13 +261,15 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
 
   return (
     <>
-      <div
-        ref={ref}
-        dangerouslySetInnerHTML={{
-          __html: hydratedTemplate,
-        }}
-        className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
-      />
+      <div className="w-full xl:h-screen h-[600px] overflow-y-auto relative">
+        <div
+          ref={ref}
+          dangerouslySetInnerHTML={{
+            __html: hydratedTemplate,
+          }}
+          className="w-full rounded-md block p-8 bg-neutral-600"
+        />
+      </div>
       <CreateForm
         fields={[
           {

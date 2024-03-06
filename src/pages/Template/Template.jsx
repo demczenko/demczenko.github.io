@@ -80,7 +80,7 @@ const Template = () => {
   if (templateError) {
     return (
       <ErrorPage
-        title={`Something went wrong while template, header, footer loading...`}
+        title={`Something went wrong while template loading...`}
       />
     );
   }
@@ -155,6 +155,7 @@ const Template = () => {
               mutateTemplate({ template_html: refHTML.current.innerHTML });
               setIsModalOpen(false);
             }}
+            selectedNode={selectedNode}
             table_id={template.id}
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}

@@ -24,6 +24,7 @@ const TableCart = ({
   onUpdate,
   isModalOpen,
   table_id,
+  selectedNode
 }) => {
   const { toast } = useToast();
   const client = useQueryClient();
@@ -207,7 +208,7 @@ const TableCart = ({
         ]}
         onSubmit={onUpdate}
         title={"Manage variable"}
-        description={"Select column name"}
+        description={"Select column name for selected node " + selectedNode.tagName}
       />
     </Card>
   );

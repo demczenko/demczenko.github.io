@@ -63,7 +63,6 @@ const DataTable = () => {
     ? project.project_name + " project"
     : component.component_name + " component";
 
-    console.log(component);
   return (
     <PageContainer title={`Data table for ${name}`}>
       {project && (

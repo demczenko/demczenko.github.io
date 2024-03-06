@@ -18,14 +18,26 @@ const TemplatePreview = ({
     if (!refHTML.current) return;
 
     function handleNodeSelect(ev) {
-      ev.preventDefault();
       setIsModalOpen(true);
+
+      if (ev.ctrlKey) {
+        handleANodeSelect(ev);
+        return;
+      }
+      ev.preventDefault();
       setSelectedNode(ev.target);
     }
 
-    function handleNodeHighlight(ev) {
-      if (refHTML.current === ev.target) return
+    function handleANodeSelect(ev) {
       ev.preventDefault();
+      setSelectedNode(ev.target.parentElement);
+    }
+
+    const accptedTags = ["a", "span", "p", "img"];
+    function handleNodeHighlight(ev) {
+      ev.preventDefault();
+      if (refHTML.current === ev.target) return;
+      if (!accptedTags.includes(ev.target.tagName.toLowerCase())) return;
       const node = ev.target;
       node.classList.add("hovered_node");
     }
@@ -37,12 +49,14 @@ const TemplatePreview = ({
     }
 
     refHTML.current.addEventListener("click", handleNodeSelect);
+    refHTML.current.addEventListener("dblclick", handleANodeSelect);
     refHTML.current.addEventListener("mouseover", handleNodeHighlight);
     refHTML.current.addEventListener("mouseout", handleNodeUnHighlight);
 
     return () => {
       if (refHTML.current) {
         refHTML.current.removeEventListener("click", handleNodeSelect);
+        refHTML.current.removeEventListener("dblclick", handleANodeSelect);
         refHTML.current.removeEventListener("mouseover", handleNodeHighlight);
         refHTML.current.removeEventListener("mouseout", handleNodeUnHighlight);
       }
@@ -52,9 +66,9 @@ const TemplatePreview = ({
   return (
     <Tabs
       defaultValue="view"
-      className="w-full relative"
+      className="w-full xl:h-screen h-[600px] overflow-y-auto relative"
       onValueChange={(v) => setTab(v)}>
-      <TabsList className="absolute top-4 left-2 bg-[#111111]">
+      <TabsList className="sticky z-10 top-4 left-2 bg-[#111111] transition-opacity opacity-20 hover:opacity-100">
         <TabsTrigger value="view">
           <View className="w-4 h-4" />
         </TabsTrigger>
@@ -62,16 +76,16 @@ const TemplatePreview = ({
           <Code2 className="w-4 h-4" />
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="view" className="h-full">
+      <TabsContent value="view" className="absolute top-0 left-0 right-0">
         <div
           ref={refHTML}
           dangerouslySetInnerHTML={{
             __html: html,
           }}
-          className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block p-8 bg-neutral-600"
+          className="w-full rounded-md block p-4 bg-neutral-600"
         />
       </TabsContent>
-      <TabsContent value="code" className="h-full">
+      <TabsContent value="code" className="absolute top-0 left-0 right-0">
         <ChangeTemplate
           isLoading={isLoading}
           onUpdate={onUpdate}

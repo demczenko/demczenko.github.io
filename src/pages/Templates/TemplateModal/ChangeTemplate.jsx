@@ -26,18 +26,17 @@ const ChangeTemplate = ({ onUpdate, isLoading, placeholder, template_id }) => {
 
   return (
     <>
-      <div className="w-full xl:h-[1000px] md:h-[600px] h-[400px] overflow-y-auto rounded-md block">
-        <Textarea
-          type="text"
-          id="name"
-          onChange={(ev) => setHTML(ev.target.value)}
-          placeholder="template name"
-          value={html}
-          className={cn("w-full h-full transition-opacity", {
-            "opacity-25 pointer-events-none": isLoading,
-          })}
-        />
-      </div>
+      <Textarea
+        type="text"
+        id="name"
+        onChange={(ev) => setHTML(ev.target.value)}
+        placeholder="template name"
+        value={html}
+        resize="false"
+        className={cn("w-full h-[90vh] transition-opacity resize-none", {
+          "opacity-25 pointer-events-none": isLoading,
+        })}
+      />
       <Button
         disabled={isLoading}
         className="mt-6 w-full"
