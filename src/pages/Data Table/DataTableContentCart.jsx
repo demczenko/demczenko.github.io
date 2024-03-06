@@ -29,6 +29,7 @@ const DataTableContentCart = ({ item, invalidateQuery }) => {
 
   const handleUpdate = async (data) => {
     const updated_slug = {
+      slug : data.slug,
       data: data,
     };
     updateDataTable(updated_slug, {

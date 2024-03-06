@@ -80,7 +80,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
         for (const slug_data of sorted_data_items) {
           items_with_ids.push({
             data: slug_data,
-            slug: slug_data.slug,
+            slug: slug_data.slug.toLowerCase(),
             table_id: table_id,
             [key_id]: id,
             id: uuidv4(),

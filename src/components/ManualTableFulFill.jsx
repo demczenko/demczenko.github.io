@@ -20,7 +20,7 @@ const ManualTableFulFill = ({
     let itemId;
     const new_item = {
       data: data,
-      slug: data.slug,
+      slug: data.slug.toLowerCase(),
       id: uuidv4(),
       table_id: table_id,
       [key_id]: id,
