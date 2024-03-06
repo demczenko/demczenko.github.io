@@ -206,8 +206,8 @@ const TableCart = ({
           },
         ]}
         onSubmit={onUpdate}
-        title={"Manage section"}
-        description={"Change section name"}
+        title={"Manage variable"}
+        description={"Select column name"}
       />
     </Card>
   );

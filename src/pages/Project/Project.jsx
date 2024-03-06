@@ -6,7 +6,6 @@ import { useToast } from "@/components/ui/use-toast";
 import ProjectTemplatePreview from "./ProjectTemplatePreview";
 import RenderList from "@/components/RenderList";
 import ProjectStyleCart from "./ProjectStyleCart";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useProject } from "@/hooks/projects/useProject";
 import NotFound from "@/NotFound";
@@ -14,6 +13,7 @@ import { useProjectUpdate } from "@/hooks/projects/useProjectUpdate";
 import { useQueryClient } from "react-query";
 import RenderTableList from "@/components/RenderTableList";
 import LayoutProjectCart from "./LayoutProjectCart";
+import ProjectCardLoading from "./ProjectCardLoading";
 
 const Project = () => {
   const { id } = useParams();
@@ -37,7 +37,7 @@ const Project = () => {
   } = useProjectUpdate(project?.id);
 
   if (IsProjectLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <ProjectCardLoading />;
   }
 
   if (IsProjectError) {

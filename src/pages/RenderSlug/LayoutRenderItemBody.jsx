@@ -1,5 +1,4 @@
 import ErrorPage from "@/ErrorPage";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import { useProjectsStyles } from "@/hooks/projectStyle/useProjectsStyles";
 import { useTemplate } from "@/hooks/templates/useTemplate";
@@ -28,10 +27,6 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     template: template?.template_html,
     data_slug: template_data,
   });
-
-  if (isTemplateLoading) {
-    return <SkeletonCard />;
-  }
 
   if (isTemplateError) {
     return <ErrorPage title={`Something went wrong while template loading.`} />;

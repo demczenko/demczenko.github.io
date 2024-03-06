@@ -22,6 +22,7 @@ import {
 } from "@dnd-kit/sortable";
 import { Loader, PlusCircle } from "lucide-react";
 import { Heading } from "@/components";
+import LayoutCardLoading from "./LayoutCardLoading";
 
 const Layout = () => {
   const ref = useRef();
@@ -149,7 +150,7 @@ const Layout = () => {
   };
 
   if (isLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <LayoutCardLoading />;
   }
 
   if (isError) {

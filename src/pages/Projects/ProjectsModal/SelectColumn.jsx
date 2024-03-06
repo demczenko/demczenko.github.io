@@ -14,15 +14,15 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import { useColumns } from "@/hooks/columns/useColumns";
+import ColumnSelectSkeleton from "./ColumnSelectSkeleton";
 
 export function SelectColumn({ value, onSelect, query }) {
   const { data: templates, isLoading, isError } = useColumns(query);
   const [open, setOpen] = useState(false);
 
   if (isLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <ColumnSelectSkeleton />;
   }
 
   if (isError) {

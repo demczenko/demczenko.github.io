@@ -24,6 +24,7 @@ const TemplatePreview = ({
     }
 
     function handleNodeHighlight(ev) {
+      if (refHTML.current === ev.target) return
       ev.preventDefault();
       const node = ev.target;
       node.classList.add("hovered_node");

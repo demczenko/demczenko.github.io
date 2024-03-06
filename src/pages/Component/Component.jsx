@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { PageContainer } from "..";
 import TemplatePreview from "../../components/TemplatePreview";
 import { useToast } from "@/components/ui/use-toast";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useComponent } from "@/hooks/components/useComponent";
 import { useQueryClient } from "react-query";
@@ -10,6 +9,7 @@ import { useComponentUpdate } from "@/hooks/components/useComponentUpdate";
 import NotFound from "@/NotFound";
 import RenderTableList from "@/components/RenderTableList";
 import { useRef, useState } from "react";
+import ComponentCardLoading from "./ComponentCardLoading";
 
 const Component = () => {
   const ref = useRef();
@@ -52,7 +52,7 @@ const Component = () => {
   };
 
   if (isLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <ComponentCardLoading />;
   }
 
   if (isError) {

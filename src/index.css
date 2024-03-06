@@ -9,5 +9,6 @@ body,
 }
 
 .hovered_node {
+  padding: 12px;
   outline: 2px dashed rgb(146, 169, 204)
 }

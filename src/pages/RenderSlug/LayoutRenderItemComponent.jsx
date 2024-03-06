@@ -1,5 +1,4 @@
 import ErrorPage from "@/ErrorPage";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import { useComponent } from "@/hooks/components/useComponent";
 import { useDataTables } from "@/hooks/dataTables/useDataTables";
 import useHydrate from "@/hooks/useHydrate";
@@ -21,10 +20,6 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     template: component?.component_html,
     data_slug: component_data,
   });
-
-  if (isComponentLoading) {
-    return <SkeletonCard />;
-  }
 
   if (isComponentError) {
     return (

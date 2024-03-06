@@ -6,12 +6,12 @@ import { useToast } from "@/components/ui/use-toast";
 import TemplatePreview from "../../components/TemplatePreview";
 import ErrorPage from "@/ErrorPage";
 import { useTemplate } from "@/hooks/templates/useTemplate";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import { useTemplateUpdate } from "@/hooks/templates/useTemplateUpdate";
 import { useQueryClient } from "react-query";
 import NotFound from "@/NotFound";
 import RenderTableList from "@/components/RenderTableList";
 import RenderProjectList from "@/components/RenderProjectList";
+import TemplateCardLoading from "./TemplateCardLoading";
 
 const Template = () => {
   const ref = useRef();
@@ -74,7 +74,7 @@ const Template = () => {
   };
 
   if (templateIsLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <TemplateCardLoading />;
   }
 
   if (templateError) {

@@ -77,6 +77,7 @@ const ProjectTemplatePreview = ({ project_id, template_id }) => {
     }
 
     function handleNodeHighlight(ev) {
+      if (ref.current === ev.target) return
       ev.preventDefault();
       const node = ev.target;
       node.classList.add("hovered_node");

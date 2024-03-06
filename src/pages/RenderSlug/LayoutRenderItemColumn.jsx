@@ -1,8 +1,8 @@
 import ErrorPage from "@/ErrorPage";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import { useColumn } from "@/hooks/columns/useColumn";
 import { toCamelCase, toReactStyle } from "@/lib/utils";
 import React from "react";
+import ParagraphSkeleton from "./ParagraphSkeleton";
 
 const LayoutRenderItemColumn = ({ tag, data_slug, column_id, attributes, textContent }) => {
   const {
@@ -12,7 +12,7 @@ const LayoutRenderItemColumn = ({ tag, data_slug, column_id, attributes, textCon
   } = useColumn(column_id);
 
   if (IsColumnLoading) {
-    return <SkeletonCard />;
+    return <ParagraphSkeleton />;
   }
 
   if (IsColumnError) {
