@@ -146,7 +146,7 @@ function CartView({ project, options }) {
     <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/projects/${project.id}`}>
-          <CardTitle className="text-white hover:underline">
+          <CardTitle className="text-white hover:underline leading-snug">
             {project.project_name}
           </CardTitle>
         </Link>
@@ -172,7 +172,7 @@ function ListView({ project, options }) {
       to={`/projects/${project.id}`}
       className="hover:bg-neutral-700 p-4 py-3 rounded-md bg-neutral-900 transition-colors flex items-center justify-center gap-2">
       <LinkIcon className="h-4 w-4 text-white" />
-      <CardTitle className="text-white hover:underline">
+      <CardTitle className="text-white hover:underline leading-snug">
         {project.project_name}
       </CardTitle>
     </Link>

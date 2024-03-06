@@ -7,7 +7,7 @@ const DataTableCart = ({ item, table_id, id }) => {
     <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/data_tables/${table_id}/${id}`}>
-          <CardTitle className="text-white hover:underline">{name}</CardTitle>
+          <CardTitle className="text-white hover:underline leading-snug">{name}</CardTitle>
         </Link>
       </CardHeader>
       <CardContent>

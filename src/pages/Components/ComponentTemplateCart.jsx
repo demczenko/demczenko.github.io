@@ -85,7 +85,7 @@ const ComponentTemplateCart = ({ item, template_id, header_id, footer_id }) => {
     <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
         <Link to={`/components/${item.id}`}>
-          <CardTitle className="text-white hover:underline">
+          <CardTitle className="text-white hover:underline leading-snug">
             {item.component_name}
           </CardTitle>
         </Link>

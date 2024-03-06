@@ -212,7 +212,7 @@ const TemplateCart = ({ item }) => {
       <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
         <CardHeader>
           <Link to={`/templates/${item.id}`}>
-            <CardTitle className="text-white hover:underline">
+            <CardTitle className="text-white hover:underline leading-snug">
               {item.template_name}
             </CardTitle>
           </Link>
