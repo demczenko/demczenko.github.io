@@ -37,7 +37,7 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
       if (props.children.length > 0) {
         return (
           <Component key={i} {...props}>
-            {renderItems(props.children)}
+            {...renderItems(props.children)}
           </Component>
         );
       } else {
@@ -46,6 +46,7 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     });
   };
 
+  console.log(renderItems(parsed_template));
   return (
     <>
       <style>{style}</style>

@@ -9,7 +9,7 @@ const useHydrate = ({ template, data_slug }) => {
     const id = node.getAttribute("data-column-id");
     const children = Array.from(node.children);
     if (id) {
-      return {
+      const data = {
         Component: LayoutRenderItemColumn,
         props: {
           tag: node.tagName,
@@ -20,6 +20,7 @@ const useHydrate = ({ template, data_slug }) => {
           children: children.length > 0 ? children.map(iterate) : [],
         },
       };
+      return data;
     } else {
       return {
         Component: LayoutRenderItem,
@@ -36,7 +37,7 @@ const useHydrate = ({ template, data_slug }) => {
 
   return {
     parsed_template: [iterate(document.body)],
-    style: document.head.querySelector("style").innerHTML
+    style: document.head.querySelector("style").innerHTML,
   };
 };
 

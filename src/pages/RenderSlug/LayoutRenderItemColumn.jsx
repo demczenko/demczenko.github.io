@@ -4,7 +4,13 @@ import { toCamelCase, toReactStyle } from "@/lib/utils";
 import React from "react";
 import ParagraphSkeleton from "./ParagraphSkeleton";
 
-const LayoutRenderItemColumn = ({ tag, data_slug, column_id, attributes, textContent }) => {
+const LayoutRenderItemColumn = ({
+  tag,
+  data_slug,
+  column_id,
+  attributes,
+  textContent,
+}) => {
   const {
     data: column,
     isError: IsColumnError,

@@ -4,6 +4,7 @@ import { selfClosing, toCamelCase, toReactStyle } from "@/lib/utils";
 const LayoutRenderItem = ({ tag, src, attributes, textContent, children }) => {
   const Tag = `${tag.toLowerCase()}`;
 
+
   let attrs = {};
   for (const { value, name } of attributes ?? []) {
     if (name === "style") {
