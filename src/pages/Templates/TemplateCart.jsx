@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Archive, Copy, HandIcon, Loader, Trash } from "lucide-react";
+import { Archive, HandIcon, Loader, Trash } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -167,22 +167,6 @@ const TemplateCart = ({ item }) => {
       ];
     } else {
       return [
-        {
-          id: 1,
-          name: "Duplicate",
-          icon: (
-            <>
-              {isTemplateCreateLoading &&
-              tableCreateLoading &&
-              columnCreateLoading ? (
-                <Loader className="h-4 w-4 animate-spin mr-2" />
-              ) : (
-                <Copy className="w-4 h-4 mr-2" />
-              )}
-            </>
-          ),
-          onClick: handleDuplicate,
-        },
         {
           id: 3,
           name: "Select",
