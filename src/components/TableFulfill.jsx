@@ -163,6 +163,7 @@ const TableFulfill = ({ setIsModalOpen, table_id, id, key_id }) => {
               ...data_item,
               id: id,
             });
+            handleDeleteRow(data_item.id);
           }
         }
       }

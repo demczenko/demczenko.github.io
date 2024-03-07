@@ -46,7 +46,7 @@ const LayoutRenderItemColumn = ({
   }
 
   if (column.type === "src") {
-    return <Tag {...attrs} src={data ? data.data[key] : attributes.src} />;
+    return <Tag {...attrs} src={data ? data.data[key] : attributes.src.value} />;
   }
 
   if (column.type === "href") {
