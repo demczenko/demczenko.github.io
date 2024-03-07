@@ -32,25 +32,10 @@ const LayoutRenderItemBody = ({ item, project_id, selectedSlug }) => {
     return <ErrorPage title={`Something went wrong while template loading.`} />;
   }
 
-  const renderItems = (items) => {
-    return items?.map(({ Component, props }, i) => {
-      if (props.children.length > 0) {
-        return (
-          <Component key={i} {...props}>
-            {...renderItems(props.children)}
-          </Component>
-        );
-      } else {
-        return <Component key={i} {...props} />;
-      }
-    });
-  };
-
-  console.log(renderItems(parsed_template));
   return (
     <>
       <style>{style}</style>
-      {(renderItems(parsed_template) ?? [""])[0]?.props?.children}
+      {parsed_template && parsed_template[0].props.children}
     </>
   );
 };

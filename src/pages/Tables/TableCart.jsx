@@ -1,4 +1,3 @@
-import { Copy, Loader, Trash2Icon } from "lucide-react";
 import CardActions from "../../components/CardActions";
 import {
   Card,
@@ -10,13 +9,13 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { useTableDelete } from "@/hooks/tables/useTableDelete";
 import { useQueryClient } from "react-query";
-import { useTableCreate } from "@/hooks/tables/useTableCreate";
-import { useColumnCreate } from "@/hooks/columns/useColumnCreate";
 import { useColumns } from "@/hooks/columns/useColumns";
 import { CreateForm } from "@/components/CreateForm";
 import { SelectColumn } from "../Projects/ProjectsModal/SelectColumn";
+import { TableModel } from "../../hooks/tables/model";
+import { ColumnModel } from "../../hooks/columns/model";
+import { getActions } from "@/lib/actions";
 
 const TableCart = ({
   item,
@@ -24,26 +23,27 @@ const TableCart = ({
   onUpdate,
   isModalOpen,
   table_id,
-  selectedNode
+  selectedNode,
 }) => {
   const { toast } = useToast();
   const client = useQueryClient();
-
-  const {
-    mutate: deleteTable,
-    isLoading: tableDeleteLoading,
-    isError: tableDeleteError,
-  } = useTableDelete();
-  const {
-    mutate: createTable,
-    isLoading: tableCreateLoading,
-    isError: tableCreateError,
-  } = useTableCreate();
-  const {
-    mutate: createColumn,
-    isLoading: columnCreateLoading,
-    isError: columnCreateError,
-  } = useColumnCreate();
+  const { useColumnCreate } = ColumnModel;
+  const { useTableCreate, useTableDelete } = TableModel;
+  const { onCreateColumn, isCreateLoading, isCreateError } = useColumnCreate({
+    toast: toast,
+  });
+  const { onCreateTable, isCreateTableLoading, isCreateTableError } =
+    useTableCreate({
+      toast: toast,
+      invalidate: () =>
+        client.invalidateQueries(`tables-?template_id=${item.template_id}`),
+    });
+  const { onDeleteTable, isDeleteTableLoading, isDeleteTableError } =
+    useTableDelete({
+      toast: toast,
+      invalidate: () =>
+        client.invalidateQueries(`tables-?template_id=${item.template_id}`),
+    });
 
   const {
     data: columns,
@@ -70,71 +70,18 @@ const TableCart = ({
       table_id: new_template_id,
     }));
 
-    createTable(new_table, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to duplicate table",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("tables");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table successfully duplicated",
-        });
-      },
-    });
-
+    onCreateTable(new_table);
     for (const column of change_columns_id) {
-      createColumn(column, {
-        onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Failed to duplicate column",
-            description: "Something went wrong",
-          });
-        },
-        onSettled: () => {
-          client.invalidateQueries("columns");
-        },
-        onSuccess: () => {
-          toast({
-            variant: "success",
-            title: "Success",
-            description: "Column successfully duplicated",
-          });
-        },
-      });
+      onCreateColumn(column);
     }
   };
 
-  const onDeleteTable = async () => {
-    deleteTable(item.id, {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Failed to delete table",
-          description: "Something went wrong",
-        });
-      },
-      onSettled: () => {
-        client.invalidateQueries("tables");
-      },
-      onSuccess: () => {
-        toast({
-          variant: "success",
-          title: "Success",
-          description: "Table successfully deleted",
-        });
-      },
-    });
-  };
-  
+  const actions = getActions("table_cart", {
+    isLoading: isCreateTableLoading,
+    isDelete: isDeleteTableLoading,
+    onDuplicate,
+    onDeleteTable,
+  });
   return (
     <Card className="md:max-w-[320px] w-full bg-neutral-900 hover:shadow-lg hover:bg-neutral-700 transition-all border-none">
       <CardHeader>
@@ -153,40 +100,7 @@ const TableCart = ({
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <CardActions
-          actions={[
-            {
-              id: 1,
-              name: "Duplicate",
-              icon: (
-                <>
-                  {tableCreateLoading &&
-                  columnCreateLoading &&
-                  isColumnsLoading ? (
-                    <Loader className="h-4 w-4 animate-spin mr-2" />
-                  ) : (
-                    <Copy className="w-4 h-4 mr-2" />
-                  )}
-                </>
-              ),
-              onClick: () => onDuplicate(item.id),
-            },
-            {
-              id: 2,
-              name: "Delete",
-              icon: (
-                <>
-                  {tableDeleteLoading ? (
-                    <Loader className="h-4 w-4 animate-spin mr-2" />
-                  ) : (
-                    <Trash2Icon className="h-4 w-4 mr-2" />
-                  )}
-                </>
-              ),
-              onClick: () => onDeleteTable(),
-            },
-          ]}
-        />
+        <CardActions actions={actions} />
       </CardFooter>
       <CreateForm
         isLoading={false}
@@ -208,7 +122,9 @@ const TableCart = ({
         ]}
         onSubmit={onUpdate}
         title={"Manage variable"}
-        description={"Select column name for selected node " + selectedNode.tagName}
+        description={
+          "Select column name for selected node " + selectedNode.tagName
+        }
       />
     </Card>
   );

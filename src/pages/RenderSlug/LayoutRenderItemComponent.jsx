@@ -27,24 +27,10 @@ const LayoutRenderItemComponent = ({ item, project_id, selectedSlug }) => {
     );
   }
 
-  const renderItems = (items) => {
-    return items?.map(({ Component, props }, i) => {
-      if (props.children.length > 0) {
-        return (
-          <Component key={i} {...props}>
-            {renderItems(props.children)}
-          </Component>
-        );
-      } else {
-        return <Component key={i} {...props} />;
-      }
-    });
-  };
-
   return (
     <>
       <style>{style}</style>
-      {(renderItems(parsed_template) ?? [""])[0]?.props?.children}
+      {parsed_template && parsed_template[0].props.children}
     </>
   );
 };

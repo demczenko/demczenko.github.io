@@ -4,12 +4,12 @@ import { Heading } from "@/components";
 import { useParams } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useTable } from "@/hooks/tables/useTable";
-import { SkeletonCard } from "@/components/SkeletonCard";
 import ErrorPage from "@/ErrorPage";
 import { useQueryClient } from "react-query";
 import { useTableUpdate } from "@/hooks/tables/useTableUpdate";
 import DataTableContent from "./DataTable";
 import RenderColumnList from "@/components/RenderColumnList";
+import TableSkeleton from "./TableSkeleton";
 
 const Table = () => {
   const { id } = useParams();
@@ -39,7 +39,7 @@ const Table = () => {
   }, [isOpen]);
 
   if (isTablesLoading) {
-    return <SkeletonCard isContainer={true} />;
+    return <TableSkeleton />;
   }
 
   if (IsTablesError) {

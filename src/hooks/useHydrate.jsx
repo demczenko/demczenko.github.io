@@ -1,6 +1,6 @@
 import LayoutRenderItem from "@/pages/RenderSlug/LayoutRenderItem";
 import LayoutRenderItemColumn from "@/pages/RenderSlug/LayoutRenderItemColumn";
-
+import { v4 as uuidv4 } from "uuid";
 const useHydrate = ({ template, data_slug }) => {
   if (!template || !data_slug) return [];
   const document = new DOMParser().parseFromString(template, "text/html");
@@ -9,29 +9,26 @@ const useHydrate = ({ template, data_slug }) => {
     const id = node.getAttribute("data-column-id");
     const children = Array.from(node.children);
     if (id) {
-      const data = {
-        Component: LayoutRenderItemColumn,
-        props: {
-          tag: node.tagName,
-          data_slug: data_slug,
-          attributes: node.attributes,
-          column_id: id,
-          textContent: node.textContent,
-          children: children.length > 0 ? children.map(iterate) : [],
-        },
-      };
-      return data;
+      return (
+        <LayoutRenderItemColumn
+          key={uuidv4()}
+          column_id={id}
+          attributes={node.attributes}
+          tag={node.tagName}
+          data_slug={data_slug}>
+          {children.map(iterate)}
+        </LayoutRenderItemColumn>
+      );
     } else {
-      return {
-        Component: LayoutRenderItem,
-        props: {
-          tag: node.tagName,
-          attributes: node.attributes,
-          src: node.src,
-          textContent: node.textContent,
-          children: children.length > 0 ? children.map(iterate) : [],
-        },
+      const props = {
+        tag: node.tagName,
+        attributes: node.attributes,
+        src: node.src,
+        textContent: node.textContent,
+        children: children.length > 0 ? children.map(iterate) : [],
       };
+
+      return <LayoutRenderItem key={uuidv4()} {...props} />;
     }
   };
 

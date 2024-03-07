@@ -10,6 +10,7 @@ const LayoutRenderItemColumn = ({
   column_id,
   attributes,
   textContent,
+  children
 }) => {
   const {
     data: column,
@@ -50,7 +51,7 @@ const LayoutRenderItemColumn = ({
 
   if (column.type === "href") {
     return (
-      <Tag {...attrs} href={data ? data.data[key] : attributes.href}></Tag>
+      <Tag {...attrs} href={data ? data.data[key] : attributes.href}>{children}</Tag>
     );
   }
 };
