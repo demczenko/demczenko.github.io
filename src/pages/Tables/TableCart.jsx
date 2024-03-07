@@ -24,6 +24,7 @@ const TableCart = ({
   isModalOpen,
   table_id,
   selectedNode,
+  table_key_id,
 }) => {
   const { toast } = useToast();
   const client = useQueryClient();
@@ -113,7 +114,7 @@ const TableCart = ({
             label: "Column",
             content: (form) => (
               <SelectColumn
-                query={`?template_id=${table_id}`}
+                query={`?${table_key_id}=${table_id}`}
                 onSelect={(column) => form.setValue("column_id", column)}
                 value={form.getValues("column_id")}
               />
